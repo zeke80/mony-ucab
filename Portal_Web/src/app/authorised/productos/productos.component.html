@@ -1,0 +1,71 @@
+<div *ngIf = "s_producto.show">
+    <br>
+    <h1 class="display-4">Sus productos</h1>
+    <div class="row float-right">
+        <button type="button" class="btn btn-primary" (click) = "agregarTarjeta()">Agregar tarjeta</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="card w-100">
+        <div class="card-body">
+            <h4> Tarjetas</h4>
+            <hr>
+            <div class="container" *ngFor = "let tarjeta of tarjetas">
+                <div class="row"> 
+                <div class="col-4">
+                    <span><i class="fas fa-credit-card"></i></span>  
+                    <span style="font-weight: bold;"> Tipo: </span>
+                    <span>{{tipo}}</span>
+                </div>
+                <div class="col-6">
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Numero de tarjeta: </span>
+                    <span>{{tarjeta.numero}}</span>
+                </div>
+                <div class="col-2">
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> CVC: </span>
+                    <span>{{tarjeta.cvc}}</span>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <span style="font-weight: bold;"><i class="fas fa-landmark"></i> Banco: </span>
+                        <span>{{tarjeta.idbanco}}</span>
+                    </div>
+                    <div class="col-4">
+                        <span style="font-weight: bold;"><i class="far fa-calendar-alt"></i> Fecha de vencimiento: </span>
+                        <span>{{tarjeta.fecha_vencimiento.split('T',1)}}</span>
+                    </div>
+                </div>
+                <hr>
+            </div>      
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="row float-right">
+        <button type="button" class="btn btn-primary" (click) ="agregarCuenta()">Agregar cuenta</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="card w-100">
+        <div class="card-body">
+            <h4> Cuentas Bancarias</h4>
+            <hr>
+            <div class="container" *ngFor = "let cuenta of cuentas">
+                <div class="row">
+                <div class="col">
+                    <span style="font-weight: bold;"><i class="fas fa-credit-card"></i> Tipo: </span>
+                    <span>{{cuenta.idtipocuenta}}</span>
+                </div>
+                <div class="col">
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Numero de cuenta: </span>
+                    <span>{{cuenta.numero}}</span>
+                </div>
+                </div>   
+                <hr>
+        </div>
+    </div>
+</div>

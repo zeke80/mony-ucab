@@ -1,0 +1,15 @@
+<div *ngIf = "s_cuenta.show" >
+    <h1 class="display-4">Agregar Cuenta</h1>
+    <div class="container">
+        <div class="form-group col-md-12">
+            <label>Número de Cuenta</label>
+            <input type="text" class = "form-control" placeholder="Número de cuenta" [(ngModel)]="numero">
+            <label>Nombre</label>
+            <input type="text" class = "form-control" placeholder="Nombre" [(ngModel)]="nombre">
+            <label>Descripción</label>
+            <input type="text" class = "form-control" placeholder="Descripcion" [(ngModel)]="descripcion">
+            <br>
+            <button type="submit" class="btn btn-primary" (click) = "agregarCuenta()">Agregar</button>
+        </div>
+    </div>
+</div>

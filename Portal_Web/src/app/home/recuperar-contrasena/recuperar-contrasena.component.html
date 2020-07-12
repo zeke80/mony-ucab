@@ -1,0 +1,9 @@
+<body>
+    <form class="form-signin" [formGroup]="recuperarContrasenaFormulario">
+        <h1 class="h3 mb-3 font-weight-normal">Correo electrónico</h1>
+        <input type="text" class="form-control" formControlName="correo" #email required>
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" (click) = "recuperarContrasena(email.value)" [disabled] ="recuperarContrasenaFormulario.invalid">
+            Recuperar Contraseña</button>
+      </form>
+</body>

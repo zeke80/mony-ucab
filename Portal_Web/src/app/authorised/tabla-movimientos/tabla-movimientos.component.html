@@ -1,0 +1,97 @@
+<div *ngIf = "s_movimientos.show" >
+    <h1 class="display-4">Movimientos</h1>
+    <hr>
+
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-row">
+                <div class="col-4">
+                    <label for="mes1"><h6>Desde</h6></label>
+                    <input type="date" class="form-control" [(ngModel)]="fecha1">
+
+                </div>
+                <div class="col-4">
+                    <label for="mes2"><h6>Hasta</h6></label>
+                    <input type="date" class="form-control" [(ngModel)]="fecha2">
+                </div>
+                <div class="col-2">
+                    <br>
+                    <button type="button" class="btn btn-primary float-right" type="submit" (click) = "filtrar()">Filtrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">
+        <input class="form-check-input" type="radio" value="todos" name="opcion" checked="checked" [(ngModel)]="opcion"> Todos
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">
+        <input class="form-check-input" type="radio" value="tarjeta" name="opcion" [(ngModel)]="opcion"> Solo tarjeta
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">
+        <input class="form-check-input" type="radio" value="monedero" name="opcion" [(ngModel)]="opcion"> Solo monedero
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <label class="form-check-label">
+        <input class="form-check-input" type="radio"  value="cuenta" name="opcion" [(ngModel)]="opcion"> Solo cuenta
+        </label>
+    </div>
+    <br>
+    <br>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>REF</th>
+                <th>Fecha</th>
+                <th>Hora (24h)</th>
+                <th>Monto (Bs.)</th>
+                <th>Tipo operación</th>
+                <th>Estatus</th>
+            </tr>
+            <tr *ngFor = "let movimiento of movimientosCuenta">
+                <td>{{movimiento.referencia}}</td>
+                <td>{{movimiento.fecha.split('T',1)}}</td>
+                <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
+                <td>{{movimiento.monto}}</td>
+                <td>Cuenta</td>
+                <td>Procesada</td>
+            </tr>
+
+            <tr *ngFor = "let movimiento of movimientosTarjeta">
+                <td>{{movimiento.referencia}}</td>
+                <td>{{movimiento.fecha.split('T',1)}}</td>
+                <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
+                <td>{{movimiento.monto}}</td>
+                <td>Tarjeta</td>
+                <td>Procesada</td>
+            </tr>
+
+            <tr *ngFor = "let movimiento of movimientosMonedero">
+                <td>{{movimiento.referencia}}</td>
+                <td>{{movimiento.fecha.split('T',1)}}</td>
+                <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
+                <td>{{movimiento.monto}}</td>
+                <td>Monedero</td>
+                <td>Procesada</td>
+            </tr>
+        </thead>
+    </table>
+
+    <div class="row float-right">
+        <div class="form-row">
+            <div class="col-12">
+                <label for="saldo"><h6>Saldo (Bs.)</h6></label>
+                <input type="text" class="form-control" id="saldo" [value] ="saldo" disabled >
+            </div>
+        </div>
+
+    </div>
+</div>
