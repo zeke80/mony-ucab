@@ -1,0 +1,732 @@
+{
+	"info": {
+		"_postman_id": "f4ec67b6-a9d1-46bd-877e-0797cb02ab7b",
+		"name": "MoneyUCAB Proyecto",
+		"description": "Se realizan las diferentes peticiones a la API para concretar su uso y comprobar su funcionamiento en pro de las aplicaciones existentes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticación",
+			"item": [
+				{
+					"name": "Registro de Usuario (No exitoso)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"UserName\": \"CodeCodigo\",\r\n    \"Email\": \"pjfariakiddo@gmail.com\",\r\n    \"Password\": \"weawística\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:49683/api/usuario/login",
+							"host": [
+								"localhost"
+							],
+							"port": "49683",
+							"path": [
+								"api",
+								"usuario",
+								"login"
+							]
+						},
+						"description": "Se realiza una petición post al url:\r\nlocalhost:49683/api/usuario/register\r\n\r\nComprobando que realice el registro del usuario de forma no exitosa."
+					},
+					"response": []
+				}
+			],
+			"description": "Solicitudes de autenticación",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Consultas GET sencillas",
+					"item": [
+						{
+							"name": "EstadosCiviles",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/EstadosCiviles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"EstadosCiviles"
+									]
+								},
+								"description": "Petición de estados civiles a la API"
+							},
+							"response": []
+						},
+						{
+							"name": "TiposTarjetas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/TiposTarjetas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"TiposTarjetas"
+									]
+								},
+								"description": "Consulta de los tipos de tarjeta como solicitud a la API"
+							},
+							"response": []
+						},
+						{
+							"name": "Bancos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/Bancos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"Bancos"
+									]
+								},
+								"description": "Consulta de los bancos dentro de la API"
+							},
+							"response": []
+						},
+						{
+							"name": "TiposCuentas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/TiposCuentas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"TiposCuentas"
+									]
+								},
+								"description": "Solicitud de los tipos de Cuenta dentro de la API"
+							},
+							"response": []
+						},
+						{
+							"name": "TiposParametros",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/TiposParametros",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"TiposParametros"
+									]
+								},
+								"description": "Solicitud de los tipos de parametros para la API"
+							},
+							"response": []
+						},
+						{
+							"name": "Frecuencias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/Frecuencias",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"Frecuencias"
+									]
+								},
+								"description": "Solicitud de las frecuencias tratadas por la API"
+							},
+							"response": []
+						},
+						{
+							"name": "Parametros",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/Parametros",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"Parametros"
+									]
+								},
+								"description": "Solicitud de parametros definidos por la API"
+							},
+							"response": []
+						},
+						{
+							"name": "TiposOperaciones",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/TiposOperaciones",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"TiposOperaciones"
+									]
+								},
+								"description": "Solicitud de los tipos de operaciones controlados por el sistema."
+							},
+							"response": []
+						},
+						{
+							"name": "TiposIdentificaciones",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/TiposIdentificaciones",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"TiposIdentificaciones"
+									]
+								},
+								"description": "Se realiza la solicitud de los tipos de identificaciones tomadas por la API"
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0adb9ef4-8ebb-4bb0-a1b8-af20b84f85bc",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "88978fef-c7e7-4d6a-b18a-4946c9e9d317",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Consultas GET Complejas",
+					"item": [
+						{
+							"name": "Tarjetas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/Tarjetas?UsuarioId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"Tarjetas"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de las tarjetas de un usuario, parametro pasado por Query"
+							},
+							"response": []
+						},
+						{
+							"name": "Cuentas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/Cuentas?UsuarioId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"Cuentas"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "ParametrosUsuario",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/ParametrosUsuario?UsuarioId=usuario",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"ParametrosUsuario"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "usuario"
+										}
+									]
+								},
+								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "HistorialOperacionesTarjeta",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"HistorialOperaciones",
+										"HistorialOperacionesTarjeta"
+									],
+									"query": [
+										{
+											"key": "TarjetaId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "HistorialOperacionesCuenta",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"HistorialOperaciones",
+										"HistorialOperacionesCuenta"
+									],
+									"query": [
+										{
+											"key": "CuentaId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "HistorialOperacionesMonedero",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"HistorialOperaciones",
+										"HistorialOperacionesMonedero"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "ReintegrosActivos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/ReintegrosActivos?UsuarioId=1&solicitante=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"ReintegrosActivos"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "CobrosActivos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/CobrosActivos?UsuarioId=1&solicitante=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"CobrosActivos"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "CobrosExitosos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/CobrosExitosos?UsuarioId=1&solicitante=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"CobrosExitosos"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "CobrosCancelados",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/CobrosCancelados?UsuarioId=1&solicitante=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"CobrosCancelados"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "ReintegrosExitosos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/ReintegrosExitosos?UsuarioId=1&solicitante=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"ReintegrosExitosos"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "ReintegrosCancelados",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/ReintegrosCancelados?UsuarioId=1&solicitante=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"ReintegrosCancelados"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "Cuentas Copy",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								},
+								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "InformacionPersona",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/dashboard/InformacionPersona?UsuarioId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"dashboard",
+										"InformacionPersona"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de información sobre un usuario con su nombre de usuario respectivamente"
+							},
+							"response": []
+						},
+						{
+							"name": "Saldo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:49683/api/monedero/Consultar?UsuarioId=1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "49683",
+									"path": [
+										"api",
+										"monedero",
+										"Consultar"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Se tomó esta carpeta como consultas GET Complejas al ser consultas que implican el uso de parámetros.",
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Obtener Dashboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Se obtienen todos los elementos que componen al dashboard. Resulta últil en la ocasión que se aplique el uso de opciones de menú."
+					},
+					"response": []
+				}
+			],
+			"description": "Solicitudes para realización de consultas\r\n\r\nEs necesario como precondición ejecutar un ingreso del usuario.",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
