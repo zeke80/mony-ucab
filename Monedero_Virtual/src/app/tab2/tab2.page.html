@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="logout()" color="warning" fill="solid">Cerrar sesión</ion-button>
+        </ion-buttons>
+        <ion-title>
+            <h4 class="ion-text-center"><strong>Cuenta</strong></h4>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="contaier-monto">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <h1 class="ion-text-center">Saldo disponible:</h1>
+                        <h2 class="ion-text-center">$ {{saldo}}</h2>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+
+        </ion-card>
+
+        <ion-button (click)="solicitudPago()" color="warning" fill="solid" expand="full">
+            Realizar pago
+        </ion-button>
+
+        <ion-button (click)="recarga()" color="warning" fill="solid" expand="full">
+            Recarga
+        </ion-button>
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Pagos solicitados al usuario</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let pago of pagos" [routerLink]="['/tabs/cuenta/solicitudPago', pago.idpago]">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{pago.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{pago.fecha_solicitus}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Cuentas registradas del usuario</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cuenta of cuentas">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            <strong>{{cuenta.numero}}</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                <h2>Tarjetas registradas del usuario</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let tarjeta of tarjetas">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            <strong>{{tarjeta.numero}}</strong>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+</ion-content>

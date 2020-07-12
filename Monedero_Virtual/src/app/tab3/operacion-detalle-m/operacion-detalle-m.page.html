@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Operacion</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="contaier-monto">
+
+        <ion-card>
+            <ion-card-header>
+                <h4 class="ion-text-center"><strong>Detalle de la operación</strong></h4>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-item>
+
+                    <br>
+                    <div *ngIf="operacion.idtipooperacion === 2">
+                        <ion-label position="floating"><strong>Monto:</strong></ion-label>
+                        <br>
+                        <h4>
+                            $ -{{operacion.monto}}
+                        </h4>
+
+
+                    </div>
+                    <div *ngIf="operacion.idtipooperacion === 1">
+                        <ion-label position="floating"><strong>Monto:</strong></ion-label>
+                        <br>
+                        <h4>
+                            $ +{{operacion.monto}}
+                        </h4>
+
+
+                    </div>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Fecha:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{fecha}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Hora:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.hora.hours}}:{{operacion.hora.minutes}}</h4>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="floating"><strong>Referencia:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.referencia}}</h4>
+                </ion-item>
+
+
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-button *ngIf="aux" (click)="SolicitarReintegro()" color="warning" fill="solid" expand="full">
+            Solicitar de reintegro
+        </ion-button>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+
+
+
+
+</ion-content>
