@@ -1,0 +1,75 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            <h4 class="ion-text-center"><strong>Perfil de la empresa</strong></h4>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <div class="contaier-perfil">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <h1>Editar perfil</h1>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-contend>
+                <form #f='ngForm' (ngSubmit)="modificarUsuario( f )">
+                    <ion-item>
+                        <ion-label position="floating"><strong>Fecha de registro:</strong></ion-label>
+                        <br>
+                        <h4 class="ion-text-center">{{usuario.fechaRegistro}}</h4>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Email:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.email" name="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Usuario: </strong></ion-label>
+                        <ion-input [ngModel]="usuario.usuario" name="user"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Nombre del representante:</strong></ion-label>
+                        <ion-input [ngModel]="comercio.nombre_representante" name="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Apellido del Representante:</strong></ion-label>
+                        <ion-input [ngModel]="comercio.apellido_representante" name="apellido"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Numero de identificación:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.nroIdentificacion" name="identificacion"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Dirección:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.direccion" name="direccion"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Telefono:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.telefono" name="telefono"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Razon social de la empresa:</strong></ion-label>
+                        <ion-input [ngModel]="comercio.razon_social" name="razon"></ion-input>
+                    </ion-item>
+
+                    <ion-button type="submit" fill="solid" expand="full">
+                        Guardar
+                    </ion-button>
+                </form>
+
+            </ion-card-contend>
+        </ion-card>
+
+    </div>
+
+
+
+
+
+</ion-content>

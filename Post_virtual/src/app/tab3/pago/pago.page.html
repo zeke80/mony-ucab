@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Realizar Solicitud de pago
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <div class="contaier-monto">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <h1>Especificaciones del pago</h1>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-contend>
+                <form #f='ngForm' (ngSubmit)="realizarSolicitud( f )">
+                    <ion-item>
+                        <ion-label position="floating"><strong>Usuario a solicitar: </strong></ion-label>
+                        <ion-input [ngModel]="user" name="user"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Monto: </strong></ion-label>
+                        <ion-input [ngModel]="monto" name="monto"></ion-input>
+                    </ion-item>
+                    <ion-button type="submit" fill="solid" expand="full">
+                        Realizar
+                    </ion-button>
+                </form>
+
+            </ion-card-contend>
+        </ion-card>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+
+
+
+
+</ion-content>

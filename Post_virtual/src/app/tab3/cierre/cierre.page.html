@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Operaciones del dia
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <div class="contaier-monto">
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Pagos del usuario </h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let pago of pagos">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            Pago: <strong>{{pago.idpago}}</strong>
+                            <h2>
+                                Monto:
+                                <strong>{{pago.monto}}</strong>
+                            </h2>
+                            <h2>
+                                Estatus: <strong>{{pago.estatus}}</strong>
+                            </h2>
+                            <h2>
+                                Referencia:
+                                <strong>{{pago.referencia}}</strong>
+                            </h2>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+</ion-content>

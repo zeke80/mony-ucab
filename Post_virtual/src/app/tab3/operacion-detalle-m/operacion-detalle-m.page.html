@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Operacion</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="contaier-monto">
+
+        <ion-card>
+            <ion-card-header>
+                <h4 class="ion-text-center"><strong>Detalle de la operación</strong></h4>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-item>
+                    <ion-label position="floating"><strong>Monto:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.monto}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Fecha:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{fecha}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Hora:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.hora.hours}}:{{operacion.hora.minutes}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Referencia:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.referencia}}</h4>
+                </ion-item>
+
+
+            </ion-card-contend>
+        </ion-card>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+
+
+
+
+</ion-content>
