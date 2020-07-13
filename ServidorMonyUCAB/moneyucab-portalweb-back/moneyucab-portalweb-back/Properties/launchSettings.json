@@ -21,7 +21,8 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/dashboard/elements",
-      "applicationUrl": "http://localhost:49683",
+      //"applicationUrl": "http://localhost:49683",
+      "applicationUrl": "http://monyucab.somee.com",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
