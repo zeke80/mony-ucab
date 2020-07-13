@@ -60,14 +60,17 @@ ingresar( f: NgForm ) {
 
     this._loginServices.ingresar(body)
         .subscribe((data: any) => {
-          console.log(data.result.username)
-          console.log(data.result.token)
           localStorage.setItem('token', data.result.token);
           this._usuarioServices.getUserInfo(data.result.username)
               .subscribe((data: any) => {
-                console.log(data);
-              })
-        })
+                this._loginServices.login();
+                let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
+                    data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
+                    data.result.direccion, data.result.estatus);
+                this._usuarioServices.guardarUsuario(usuario);
+                this.router.navigate(['/tabs/cuenta']);
+              });
+        });
 
 }
 

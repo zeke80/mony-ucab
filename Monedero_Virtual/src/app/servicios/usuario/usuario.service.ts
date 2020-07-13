@@ -82,8 +82,14 @@ export class UsuarioService {
     return this.http.post(url, data);
   }
 
+  // nuevo back
+
   getUserInfo(username){
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.get('http://monyucab.somee.com/api/dashboard/InformacionPersona?Usuario=' + username, {headers: tokenHeader});
+  }
+
+  guardarUsuario(usuarioLogi: Usuario) {
+    this.usuario[0] = usuarioLogi;
   }
 }

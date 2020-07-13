@@ -39,6 +39,7 @@ export class Tab2Page implements OnInit{
 
   ngOnInit(){
     this.usuario = this._usuarioService.getUsuario();
+    console.log(this.usuario);
 
     this.cuentas = this._cuentaServices.getVacio();
     this._cuentaServices.getCuentas(this.usuario.idUsuario)
