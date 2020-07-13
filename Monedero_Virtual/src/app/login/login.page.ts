@@ -15,6 +15,10 @@ import { AlertController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   aux = false;
+  formModel = {
+    Email : '',
+    Password : ''
+  }
 
   constructor(public router: Router,
               public _usuarioServices: UsuarioService,
@@ -27,26 +31,44 @@ ngOnInit() {
 
 ingresar( f: NgForm ) {
     let userM: string = f.value.user.toUpperCase();
-    this._loginServices.verificarUsuario(userM, f.value.password)
-      .subscribe((data: any) => {
+    var body = {
+      UserName: '',
+      Email: f.value.user,
+      Password: f.value.password,
+      comercio: this.aux
+    };
+    // this._loginServices.verificarUsuario(userM, f.value.password)
+    //   .subscribe((data: any) => {
 
-        this._loginServices.login();
+    //     this._loginServices.login();
 
-      let usuario = new Usuario(data.idusuario, data.idtipousuario, data.idtipoidentificacion, data.usuario, data.fecha_registro,
-        data.nro_identificacion, data.email, data.telefono, data.direccion, data.estatus);
-      this._usuarioServices.guardarStorage(usuario, usuario.idUsuario, usuario.idTipoUsuario, usuario.usuario, usuario.fechaRegistro,
-        usuario.nroIdentificacion, usuario.email, usuario.telefono, usuario.direccion);
-      this.router.navigate(['/tabs/cuenta']);
+    //   let usuario = new Usuario(data.idusuario, data.idtipousuario, data.idtipoidentificacion, data.usuario, data.fecha_registro,
+    //     data.nro_identificacion, data.email, data.telefono, data.direccion, data.estatus);
+    //   this._usuarioServices.guardarStorage(usuario, usuario.idUsuario, usuario.idTipoUsuario, usuario.usuario, usuario.fechaRegistro,
+    //     usuario.nroIdentificacion, usuario.email, usuario.telefono, usuario.direccion);
+    //   this.router.navigate(['/tabs/cuenta']);
 
-    },
-    (error: HttpErrorResponse) => {
-      if (error.status === 409) {
-        this.AlertServer();
-      }
-      else {
-        this.AlertaError();
-      }
-    });
+    // },
+    // (error: HttpErrorResponse) => {
+    //   if (error.status === 409) {
+    //     this.AlertServer();
+    //   }
+    //   else {
+    //     this.AlertaError();
+    //   }
+    // });
+
+    this._loginServices.ingresar(body)
+        .subscribe((data: any) => {
+          console.log(data.result.username)
+          console.log(data.result.token)
+          localStorage.setItem('token', data.result.token);
+          this._usuarioServices.getUserInfo(data.result.username)
+              .subscribe((data: any) => {
+                console.log(data);
+              })
+        })
+
 }
 
 async AlertaError() {

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
+
 
   public usuario: Usuario[] = [
     {
@@ -79,5 +80,10 @@ export class UsuarioService {
     };
 
     return this.http.post(url, data);
+  }
+
+  getUserInfo(username){
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.get('http://monyucab.somee.com/api/dashboard/InformacionPersona?Usuario=' + username, {headers: tokenHeader});
   }
 }
