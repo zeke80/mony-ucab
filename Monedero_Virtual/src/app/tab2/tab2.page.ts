@@ -39,33 +39,48 @@ export class Tab2Page implements OnInit{
 
   ngOnInit(){
     this.usuario = this._usuarioService.getUsuario();
-    console.log(this.usuario);
 
-    this.cuentas = this._cuentaServices.getVacio();
-    this._cuentaServices.getCuentas(this.usuario.idUsuario)
-         .subscribe((data: any) => {
-           this.cuentas = data;
-         });
-    this.tarjetas = this._tarjetaService.getVacio();
-    this._tarjetaService.getTarjetas(this.usuario.idUsuario)
-         .subscribe((data: any) => {
-           this.tarjetas = data;
-         });
-    this.pagos = this._pagoServices.getVacio();
-    this._pagoServices.getPagos(this.usuario.idUsuario)
+    this._usuarioService.getSaldo(this.usuario.idUsuario)
         .subscribe((data: any) => {
-          this.pagos = data;
-          this._pagoServices.guardarPago(this.pagos);
+          this.saldo = data;
         });
-    this._usuarioService.saldo(this.usuario.idUsuario)
-    .subscribe((data: any) => {
-      this.saldo = data;
-      this._pagoServices.guardarSaldo(data);
-    },
-      (error: HttpErrorResponse) => {
-          this.AlertServer();
-      });
-    
+
+    this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
+        .subscribe((data: any) => {
+          this.tarjetas = data;
+        });
+
+    this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+        .subscribe((data:any) => {
+          console.log(data[0]);
+          this.cuentas = data;
+          
+        })
+    // this.cuentas = this._cuentaServices.getVacio();
+    // this._cuentaServices.getCuentas(this.usuario.idUsuario)
+    //      .subscribe((data: any) => {
+    //        this.cuentas = data;
+    //      });
+    // this.tarjetas = this._tarjetaService.getVacio();
+    // this._tarjetaService.getTarjetas(this.usuario.idUsuario)
+    //      .subscribe((data: any) => {
+    //        this.tarjetas = data;
+    //      });
+    // this.pagos = this._pagoServices.getVacio();
+    // this._pagoServices.getPagos(this.usuario.idUsuario)
+    //     .subscribe((data: any) => {
+    //       this.pagos = data;
+    //       this._pagoServices.guardarPago(this.pagos);
+    //     });
+    // this._usuarioService.saldo(this.usuario.idUsuario)
+    // .subscribe((data: any) => {
+    //   this.saldo = data;
+    //   this._pagoServices.guardarSaldo(data);
+    // },
+    //   (error: HttpErrorResponse) => {
+    //       this.AlertServer();
+    //   });
+
   }
 
   solicitudPago() {

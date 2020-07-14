@@ -92,4 +92,9 @@ export class UsuarioService {
   guardarUsuario(usuarioLogi: Usuario) {
     this.usuario[0] = usuarioLogi;
   }
+
+  getSaldo(usuarioID) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.get('http://monyucab.somee.com/api/monedero/Consultar?UsuarioId=' + usuarioID, {headers: tokenHeader});
+  }
 }

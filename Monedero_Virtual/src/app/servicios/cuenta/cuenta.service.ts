@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Cuenta } from '../../models/cuenta.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,11 @@ export class CuentaService {
     };
 
     return this.http.post(url, data);
+  }
+
+  obtenerCuenta(usuarioID) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.get('http://monyucab.somee.com/api/dashboard/Cuentas?IdUsuario=' + usuarioID, {headers: tokenHeader});
   }
 
 }
