@@ -28,12 +28,22 @@ export class Tab1Page implements OnInit {
   ngOnInit(){
     this.usuario = this._usuarioServices.getUsuario();
     this.persona = this._personaServices.getVacio();
-    this._personaServices.getPersona(this.usuario.idUsuario)
+
+    this._usuarioServices.getUserInfo(this.usuario.usuario)
         .subscribe((data: any) => {
-          this.persona = data;
-          this.fecha = this.persona.fecha_nacimiento.split('T', 1 );
+          console.log(data);
+          this.persona.nombre = data.persona.nombre;
+          this.persona.apellido = data.persona.apellido;
+          this.persona.fecha_nacimiento = data.persona.fechaNacimiento;
+          this.persona.estadoCivil = data.estadoCivil.descripcion;
         });
-    this.fechaR = this.usuario.fechaRegistro.split('T', 1 );
+
+    // this._personaServices.getPersona(this.usuario.idUsuario)
+    //     .subscribe((data: any) => {
+    //       this.persona = data;
+    //       this.fecha = this.persona.fecha_nacimiento.split('T', 1 );
+    //     });
+    // this.fechaR = this.usuario.fechaRegistro.split('T', 1 );
   }
 
   modificarUsuario( f: NgForm){

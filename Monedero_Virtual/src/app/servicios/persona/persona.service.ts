@@ -8,12 +8,10 @@ export class PersonaService {
 
   public persona: Persona[] = [
     {
-      idPersona: 0,
-      idUsuario: 0,
-      idEstadoCivil: 0,
       nombre: '',
       apellido: '',
-      fecha_nacimiento: ''
+      fecha_nacimiento: '',
+      estadoCivil: ''
     }
   ];
 
