@@ -97,4 +97,9 @@ export class UsuarioService {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.get('http://monyucab.somee.com/api/monedero/Consultar?UsuarioId=' + usuarioID, {headers: tokenHeader});
   }
+
+  modificarUser(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/authentication/modification', body, {headers: tokenHeader});
+  }
 }

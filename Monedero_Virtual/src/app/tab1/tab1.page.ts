@@ -47,22 +47,37 @@ export class Tab1Page implements OnInit {
   }
 
   modificarUsuario( f: NgForm){
-    let ident: number = + f.value.identificacion;
-    let correo: string = f.value.email.toUpperCase();
-    let userMas: string = f.value.user.toUpperCase();
+    // let ident: number = + f.value.identificacion;
+    // let correo: string = f.value.email.toUpperCase();
+    // let userMas: string = f.value.user.toUpperCase();
 
-    this._personaServices.ajustarPersona(this.usuario.idUsuario, f.value.nombre, f.value.apellido)
-        .subscribe((data: any) => {
+    // this._personaServices.ajustarPersona(this.usuario.idUsuario, f.value.nombre, f.value.apellido)
+    //     .subscribe((data: any) => {
 
-        });
+    //     });
 
-    this._usuarioServices.ajustarUsurio(this.usuario.idUsuario, userMas, ident, correo, f.value.telefono,
-                                        f.value.direccion )
+    // this._usuarioServices.ajustarUsurio(this.usuario.idUsuario, userMas, ident, correo, f.value.telefono,
+    //                                     f.value.direccion )
+    //     .subscribe((data: any) => {
+    //       this.modificado();
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //         this.AlertaError();
+    //     });
+
+    var body = {
+      nombre: f.value.nombre,
+      apellido: f.value.apellido,
+      telefono: f.value.telefono,
+      direccion: f.value.direccion,
+      razonSocial: '',
+      idEstadoCivil: 1,
+      idUsuario: this.usuario.idUsuario
+    };
+
+    this._usuarioServices.modificarUser(body)
         .subscribe((data: any) => {
           this.modificado();
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertaError();
         });
 
   }
