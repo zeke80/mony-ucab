@@ -26,8 +26,9 @@ export class LoginService {
 
   }
 
-  login(){
-    this.loginState.next(true);
+
+  iniciarSesion(loginForm){
+    return this.http.post('http://66.42.95.58/api/Authentication/Login', loginForm)
   }
 
   estaLogueado() {

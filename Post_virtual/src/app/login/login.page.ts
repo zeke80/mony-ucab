@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoginService } from '../servicios/login/login.service';
-import { Usuario } from '../models/usuario.model';
 import { UsuarioService } from '../servicios/usuario/usuario.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
@@ -13,6 +12,12 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+  formModel = {
+    email : '',
+    password : '',
+    comercio: true
+  }
 
   aux = false;
 
@@ -27,27 +32,21 @@ export class LoginPage implements OnInit {
 
   ingresar( f: NgForm ) {
     let userM: string = f.value.user.toUpperCase();
-    this._loginServices.verificarUsuario(userM, f.value.password)
+    this._loginServices.iniciarSesion(f.value)
               .subscribe((data: any) => {
 
-               let fecha =  data.fecha_registro.split('T', 1);
+                console.log(data.result.token);
+                console.log(this.formModel.email);
+                localStorage.setItem('token', data.result.token);
+                localStorage.setItem('email', this.formModel.email);
 
-               this._loginServices.login();
-
-              let usuario = new Usuario(data.idusuario, data.idtipousuario, data.idtipoidentificacion, data.usuario, fecha,
-                data.nro_identificacion, data.email, data.telefono, data.direccion, data.estatus);
-              this._usuarioServices.guardarStorage(usuario, usuario.idUsuario, usuario.idTipoUsuario, usuario.usuario, usuario.fechaRegistro,
-                usuario.nroIdentificacion, usuario.email, usuario.telefono, usuario.direccion);
               this.router.navigate(['/tabs/cuenta']);
 
             },
-            (error: HttpErrorResponse) => {
-              if (error.status === 409) {
-                this.AlertServer();
-              }
-              else {
-                this.AlertaError();
-              }
+            (error: any) => {
+
+              this.AlertServer();
+              console.log(error);
             });
   }
 

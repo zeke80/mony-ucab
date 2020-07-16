@@ -35,12 +35,12 @@
                             <form #f='ngForm' (ngSubmit)="ingresar( f )">
                                 <ion-item>
                                     <ion-icon name="person" class="icon-login"></ion-icon>
-                                    <ion-input [ngModel]="user" name="user" type="text" required placeholder="Usuario"></ion-input>
+                                    <ion-input [(ngModel)]="formModel.email" name="email" type="text" required placeholder="Correo"></ion-input>
                                 </ion-item>
                                 <br />
                                 <ion-item>
                                     <ion-icon name="lock-open-outline"></ion-icon>
-                                    <ion-input [ngModel]="password" name="password" type="password" required placeholder="Contraseña"></ion-input>
+                                    <ion-input [(ngModel)]="formModel.password" name="password" type="password" required placeholder="Contraseña"></ion-input>
                                 </ion-item>
                                 <ion-row>
                                     <ion-col>
