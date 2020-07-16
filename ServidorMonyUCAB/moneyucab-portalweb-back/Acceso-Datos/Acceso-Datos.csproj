@@ -135,6 +135,7 @@
     <Compile Include="DAO\DAOBase.cs" />
     <Compile Include="DAO\FabricaDAO.cs" />
     <Compile Include="DAO\Interfaces\IDAO.cs" />
+    <Compile Include="DAO\Interfaces\IDAOLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

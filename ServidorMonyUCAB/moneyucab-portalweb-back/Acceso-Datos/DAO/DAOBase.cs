@@ -12,7 +12,7 @@ namespace DAO
     /// Class <c>DAOLogin</c>
     /// Establece la clase para el manejo de datos query a través de PostgreSQL.
     /// </summary>
-    public class DAOBase : DAOPsql, IDAO
+    public class DAOBase : DAOPsql, IDAOLogic
     {
 
         /// <summary>

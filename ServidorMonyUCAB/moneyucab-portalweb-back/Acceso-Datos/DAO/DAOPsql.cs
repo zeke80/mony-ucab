@@ -1,4 +1,5 @@
-﻿using Excepciones;
+﻿using DAO.Interfaces;
+using Excepciones;
 using Npgsql;
 using System;
 
@@ -9,7 +10,7 @@ namespace DAO
     /// Establece la estructura y el medio para poder actuar y conectarse con la base de datos para poder manejar información necesario para el sistema.
     /// Contiene todos los atributos necesarios para su buena operatividad.
     /// </summary>
-    public class DAOPsql
+    public abstract class DAOPsql: IDAO
     {
         /// <summary>
         /// Establece la conexión con la base de datos.
