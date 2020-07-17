@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f7e50466-fd26-4485-b796-4ff7ab8e87e7",
+		"_postman_id": "a88c268b-024b-45a7-b5a7-eefb4d4a999f",
 		"name": "MoneyUCAB Proyecto",
 		"description": "Se realizan las diferentes peticiones a la API para concretar su uso y comprobar su funcionamiento en pro de las aplicaciones existentes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,7 +15,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cdd3d19e-4a9d-4cbb-8186-11be0c7a126e",
+								"id": "2ea26a4f-2f97-48b6-bc68-7c3ccea083e2",
 								"exec": [
 									""
 								],
@@ -59,7 +59,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1b569d41-54b4-4af7-9d3e-877cdd924c46",
+								"id": "7610cbce-2149-44a0-808c-4ae973506dde",
 								"exec": [
 									""
 								],
@@ -110,7 +110,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "6367597b-d750-4eea-acb7-4cb738fc68c7",
+								"id": "20520f25-9eff-4e4c-8542-40768a7d5ede",
 								"exec": [
 									""
 								],
@@ -120,7 +120,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5c1fce96-33d6-4c3d-ba5e-77a4bd6c35c0",
+								"id": "bb9cdf46-b57a-4937-9c61-0f669cd7ea19",
 								"exec": [
 									"const response = pm.response.json();\r",
 									"pm.globals.set(\"token\", response.result.token);\r",
@@ -245,6 +245,31 @@
 					"response": []
 				},
 				{
+					"name": "Eliminar Billetera Cuenta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Billetera/EliminarCuenta?CuentaId=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Billetera",
+								"EliminarCuenta"
+							],
+							"query": [
+								{
+									"key": "CuentaId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Eliminar Billetera Tarjeta",
 					"request": {
 						"method": "DELETE",
@@ -307,6 +332,90 @@
 						"description": "Se modifican datos del usuario"
 					},
 					"response": []
+				},
+				{
+					"name": "Recuperar Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"ezequielmonteroz8@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/ForgotPasswordEmail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"ForgotPasswordEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restablecer Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : \"1\",\r\n    \"resetPasswordToken\" : \"pas12\",\r\n    \"newPassword\" : \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/ResetPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"ResetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cambiar Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : \"1\",\r\n    \"resetPasswordToken\" : \"pas12\",\r\n    \"newPassword\" : \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/ChangePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"ChangePassword"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Solicitudes de autenticación",
@@ -314,7 +423,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ce189211-5678-4ac3-97a1-472e9c52cbef",
+						"id": "b9b076c1-2606-40ea-88b3-3c238fa6d28a",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -324,7 +433,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ded7463f-8adc-4ce8-a496-516d849ec1ac",
+						"id": "f7d0d2cb-2fc0-440d-a520-2bd6a28f77e0",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -346,7 +455,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "17b2b66b-01f5-4058-a624-e5878723053a",
+										"id": "d9e9ba93-ea18-4d90-8f83-2d20192ff6d8",
 										"exec": [
 											""
 										],
@@ -544,7 +653,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "4d1575c7-6941-4ee5-8d38-0c08f199275a",
+								"id": "8eec7674-d3b2-464b-b00c-ed8652aad4aa",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -554,7 +663,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b05069cf-a6fd-49df-8689-a23965665119",
+								"id": "1eed2cf2-3eec-4ed9-be50-76fa531c1d16",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -621,6 +730,186 @@
 							"response": []
 						},
 						{
+							"name": "ReintegrosActivos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/ReintegrosActivos?IdUsuario=2&solicitante=0",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"ReintegrosActivos"
+									],
+									"query": [
+										{
+											"key": "IdUsuario",
+											"value": "2"
+										},
+										{
+											"key": "solicitante",
+											"value": "0"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "ReintegrosCancelados",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/ReintegrosCancelados?UsuarioId=1&solicitante=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"ReintegrosCancelados"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "ReintegrosExitosos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/ReintegrosExitosos?UsuarioId=1&solicitante=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"ReintegrosExitosos"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "CobrosActivos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/CobrosActivos?IdUsuario=2&solicitante=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"CobrosActivos"
+									],
+									"query": [
+										{
+											"key": "IdUsuario",
+											"value": "2"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "CobrosCancelados",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/CobrosCancelados?UsuarioId=1&solicitante=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"CobrosCancelados"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
+							"name": "CobrosExitosos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/CobrosExitosos?UsuarioId=1&solicitante=1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"CobrosExitosos"
+									],
+									"query": [
+										{
+											"key": "UsuarioId",
+											"value": "1"
+										},
+										{
+											"key": "solicitante",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
+							},
+							"response": []
+						},
+						{
 							"name": "ParametrosUsuario",
 							"request": {
 								"method": "GET",
@@ -643,6 +932,32 @@
 									]
 								},
 								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							},
+							"response": []
+						},
+						{
+							"name": "InformacionPersona",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=CodeCodigo7",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"dashboard",
+										"InformacionPersona"
+									],
+									"query": [
+										{
+											"key": "Usuario",
+											"value": "CodeCodigo7"
+										}
+									]
+								},
+								"description": "Solicitud de información sobre un usuario con su nombre de usuario respectivamente"
 							},
 							"response": []
 						},
@@ -725,208 +1040,28 @@
 							"response": []
 						},
 						{
-							"name": "ReintegrosActivos",
+							"name": "Ejecutar Cierre",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/dashboard/ReintegrosActivos?IdUsuario=2&solicitante=0",
+									"raw": "{{url}}/api/HistorialOperaciones/EjecutarCierre?IdUsuario=2",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"api",
-										"dashboard",
-										"ReintegrosActivos"
+										"HistorialOperaciones",
+										"EjecutarCierre"
 									],
 									"query": [
 										{
 											"key": "IdUsuario",
 											"value": "2"
-										},
-										{
-											"key": "solicitante",
-											"value": "0"
 										}
 									]
 								},
-								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
-							},
-							"response": []
-						},
-						{
-							"name": "CobrosActivos",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/dashboard/CobrosActivos?IdUsuario=2&solicitante=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"dashboard",
-										"CobrosActivos"
-									],
-									"query": [
-										{
-											"key": "IdUsuario",
-											"value": "2"
-										},
-										{
-											"key": "solicitante",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
-							},
-							"response": []
-						},
-						{
-							"name": "CobrosExitosos",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/dashboard/CobrosExitosos?UsuarioId=1&solicitante=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"dashboard",
-										"CobrosExitosos"
-									],
-									"query": [
-										{
-											"key": "UsuarioId",
-											"value": "1"
-										},
-										{
-											"key": "solicitante",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
-							},
-							"response": []
-						},
-						{
-							"name": "CobrosCancelados",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/dashboard/CobrosCancelados?UsuarioId=1&solicitante=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"dashboard",
-										"CobrosCancelados"
-									],
-									"query": [
-										{
-											"key": "UsuarioId",
-											"value": "1"
-										},
-										{
-											"key": "solicitante",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
-							},
-							"response": []
-						},
-						{
-							"name": "ReintegrosExitosos",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/dashboard/ReintegrosExitosos?UsuarioId=1&solicitante=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"dashboard",
-										"ReintegrosExitosos"
-									],
-									"query": [
-										{
-											"key": "UsuarioId",
-											"value": "1"
-										},
-										{
-											"key": "solicitante",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
-							},
-							"response": []
-						},
-						{
-							"name": "ReintegrosCancelados",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/dashboard/ReintegrosCancelados?UsuarioId=1&solicitante=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"dashboard",
-										"ReintegrosCancelados"
-									],
-									"query": [
-										{
-											"key": "UsuarioId",
-											"value": "1"
-										},
-										{
-											"key": "solicitante",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de Reintegros de estado especificado, el primer parámetro es el id del usuario y el otro identifica si es el solicitante del reintegro o no (1 si lo es)."
-							},
-							"response": []
-						},
-						{
-							"name": "InformacionPersona",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=CodeCodigo7",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"dashboard",
-										"InformacionPersona"
-									],
-									"query": [
-										{
-											"key": "Usuario",
-											"value": "CodeCodigo7"
-										}
-									]
-								},
-								"description": "Solicitud de información sobre un usuario con su nombre de usuario respectivamente"
+								"description": "Realiza la ejecución de cierre según la persona"
 							},
 							"response": []
 						},
@@ -954,32 +1089,6 @@
 								}
 							},
 							"response": []
-						},
-						{
-							"name": "Ejecutar Cierre",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/HistorialOperaciones/EjecutarCierre?IdUsuario=2",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"HistorialOperaciones",
-										"EjecutarCierre"
-									],
-									"query": [
-										{
-											"key": "IdUsuario",
-											"value": "2"
-										}
-									]
-								},
-								"description": "Realiza la ejecución de cierre según la persona"
-							},
-							"response": []
 						}
 					],
 					"description": "Se tomó esta carpeta como consultas GET Complejas al ser consultas que implican el uso de parámetros.",
@@ -992,7 +1101,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a44e907f-f3d9-49dd-8a9a-a120f361dc6b",
+						"id": "7767b270-29cf-4237-a485-8f16ae27c6d5",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1002,12 +1111,74 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a4d382b7-5312-4f97-8f38-4ce9f841044d",
+						"id": "348884c9-3f94-433f-89fd-576ce7a01a4d",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Operaciones",
+			"item": [
+				{
+					"name": "Recarga Monedero Tarjeta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/monedero/RecargaMonederoTarjeta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"monedero",
+								"RecargaMonederoTarjeta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recarga Monedero Cuenta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/monedero/RecargaMonederoCuenta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"monedero",
+								"RecargaMonederoCuenta"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1027,7 +1198,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "3bdb3aeb-8ca1-429f-a3b6-e458ae931786",
+				"id": "fc53fc73-b78b-4a15-aad0-c3b27691f94f",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1037,7 +1208,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "0396d694-b8ff-4880-8eb4-2745e1e0e4e4",
+				"id": "a8c0a28f-d765-418d-84de-e0bb4b0dc35b",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1047,9 +1218,9 @@
 	],
 	"variable": [
 		{
-			"id": "8c0677da-adbc-4767-8a95-246f96b8ad42",
+			"id": "a277128b-eaf9-45ff-880c-a81347fc13cc",
 			"key": "url",
-			"value": "http://monyucab.somee.com"
+			"value": ""
 		}
 	],
 	"protocolProfileBehavior": {}
