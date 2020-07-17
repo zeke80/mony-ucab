@@ -31,7 +31,7 @@ export class LoginPage implements OnInit {
   }
 
   ingresar( f: NgForm ) {
-    let userM: string = f.value.user.toUpperCase();
+    //let userM: string = f.value.user.toUpperCase();
     this._loginServices.iniciarSesion(f.value)
               .subscribe((data: any) => {
 
