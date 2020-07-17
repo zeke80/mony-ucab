@@ -150,5 +150,10 @@ export class PagoService {
     return this.http.post('http://monyucab.somee.com/api/monedero/RecargaMonederoTarjeta', body, {headers: tokenHeader});
   }
 
+  recargaCuenta(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/monedero/RecargaMonederoCuenta', body, {headers: tokenHeader});
+  }
+
 
 }

@@ -86,6 +86,27 @@ export class RecargaPage implements OnInit {
 
   }
 
+  pagarCuenta(montoIn: number) {
+    let id: number = + this.cuenta;
+    let cant: number = + montoIn;
+    var body = {
+      idUsuarioReceptor: this.usuario.idUsuario,
+      idMedioPaga: id,
+      monto: cant,
+      idOperacion: 2
+    };
+
+    console.log(body);
+
+
+
+    this._pagoSercives.recargaCuenta(body)
+        .subscribe((data: any) => {
+          this.router.navigate(['/tabs/cuenta']);
+        });
+
+  }
+
   async AlertServer() {
     const alertElement = await this.alert.create({
       header: 'Error inesperado',
