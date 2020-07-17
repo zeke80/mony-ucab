@@ -120,6 +120,7 @@ BEGIN
 		RETURN TRUE;
 END;
 $$;
+
 CREATE OR REPLACE FUNCTION Registro_Cuenta(INT, INT, INT, VARCHAR)
 												RETURNS BOOLEAN
 LANGUAGE plpgsql    
@@ -702,7 +703,9 @@ DECLARE
 	totalizacion_tarjeta double precision;
 	op_limit_cuenta int;
 	op_limit_tarjeta int;
+	comision double precision;
 BEGIN
+		SELECT Comercio.comision FROM Comercio into comision JOIN Usuario ON Usuario.idUsuario = Comercio.idUsuario WHERE Usuario.idUsuario = $1;
 		referenciaValid:= ($1 || '' || current_date || '' || current_time || '');
 		FOR Tarjeta IN Tarjetas LOOP
 			INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
@@ -722,7 +725,7 @@ BEGIN
 		SELECT SUM(COALESCE(OperacionCuenta.monto,0)) FROM OperacionCuenta INTO Totalizacion_Cuenta WHERE OperacionCuenta.idOperacionCuenta >COALESCE(op_limit_cuenta,0) AND OperacionCuenta.idUsuarioReceptor = $1;
 		SELECT SUM(COALESCE(OperacionTarjeta.monto,0)) FROM OperacionTarjeta INTO Totalizacion_Tarjeta WHERE OperacionTarjeta.idOperacionTarjeta > COALESCE(op_limit_tarjeta,0) AND OperacionTarjeta.idUsuarioReceptor = $1;
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
-			VALUES ($1, tipoOperacion, COALESCE(Totalizacion_Cuenta + Totalizacion_Tarjeta, 0), current_date, current_time, referenciaValid);
+			VALUES ($1, tipoOperacion, COALESCE((Totalizacion_Cuenta + Totalizacion_Tarjeta)*comision/100, 0), current_date, current_time, referenciaValid);
 		RETURN QUERY SELECT * FROM OperacionesMonedero JOIN TipoOperacion ON TipoOperacion.idTipoOperacion = OperacionesMonedero.idTipoOperacion
 													WHERE OperacionesMonedero.referencia = referenciaValid ORDER BY OperacionesMonedero.fecha DESC;
 END;
@@ -820,5 +823,178 @@ BEGIN
 		RETURN TRUE;
 	END IF;
 	RETURN FALSE;
+END;
+$$;
+
+--Gestión de usuario
+--Consulta de usuario
+CREATE OR REPLACE FUNCTION Consultar_Usuarios(VARCHAR)
+												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
+						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
+						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
+						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
+						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int)
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
+										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
+										JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
+										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
+END;
+$$;
+
+--Consulta de usuario familiar
+CREATE OR REPLACE FUNCTION Consultar_Usuario_Familiar(VARCHAR)
+												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
+						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
+						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
+						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
+						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int)
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	RETURN QUERY SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
+										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
+										JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
+										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuario = $1;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Eliminar_Usuario(int)
+												RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	UPDATE Usuario SET estatus = 4 WHERE idUsuario = $1;
+END;
+$$;
+
+--RegistroUsuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, @Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)
+CREATE OR REPLACE FUNCTION Registro_Usuario_F(INT, INT, VARCHAR, DATE, INT, VARCHAR, VARCHAR, VARCHAR, INT, CHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR,
+												INT, DATE, INT)
+												RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+usuario int;
+response boolean;
+entity_user_id text;
+tipo_cuenta int;
+numero_cuenta varchar:= $3 || 'MONEDERO';
+banco int;
+BEGIN
+		SELECT "Id" FROM "AspNetUsers" into entity_user_id WHERE "AspNetUsers"."UserName" = $3 or "AspNetUsers"."Email" = $6;
+		IF entity_user_id IS NULL THEN
+			RAISE EXCEPTION 'No existe el usuario registrado en Entity';
+		END IF;
+		INSERT INTO Usuario ("idEntity", idtipousuario,idtipoidentificacion,usuario,fecha_registro,nro_identificacion,email,telefono,direccion,estatus, idUsuarioF)
+		VALUES (entity_user_id, $1, $2, $3, current_date, $5, $6, $7, $8, $9, $17);
+		SELECT IdUsuario FROM Usuario into usuario WHERE Usuario.usuario = $3;
+		INSERT INTO CONTRASENA (idUsuario, contrasena, intentos_fallidos, estatus)
+		VALUES
+					(usuario, $13, 0, 1);
+		IF ($10 = 'C') THEN
+			SELECT Registro_Comercio($11,$12,$14,usuario) INTO RESPONSE;
+			IF NOT (RESPONSE) THEN
+				RAISE EXCEPTION 'Error al intentar registrar el Comercio';
+			END IF;
+		ELSE
+			SELECT Registro_Persona($11,$12,$15,$16,usuario) INTO RESPONSE;
+			IF NOT (RESPONSE) THEN
+				RAISE EXCEPTION 'Error al intentar registrar a la persona';
+			END IF;
+		END IF;
+		RETURN TRUE;
+END;
+$$;
+
+--Establecer límite al parámetro
+CREATE OR REPLACE FUNCTION Establecer_Límite_Parámetro(INT, VARCHAR)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	UPDATE Parametro SET límite = $2 WHERE idParametro = $1;
+END;
+$$;
+
+--Definir porcentaje de comisión
+CREATE OR REPLACE FUNCTION Establecer_Comisión(INT, DOUBLE PRECISION)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	UPDATE Comercio SET comision = $2 WHERE idComercio = $1;
+END;
+$$;
+
+--Retiro
+CREATE OR REPLACE FUNCTION Retiro(INT, INT, DOUBLE PRECISION)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+	referenciaValid varchar;
+	tipoOperacion int;
+BEGIN
+		referenciaValid:= ($1 || '' || current_date || '' || current_time || '' ||$2);
+		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
+		INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
+			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Retiro';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);	
+		RETURN TRUE;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Boton_Pago_Cuenta(INT, VARCHAR, DOUBLE PRECISION, INT)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+	usuario int;
+	cobro int;
+BEGIN
+	SELECT cobro($1,$2,$3);
+	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
+	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
+	SELECT Pago_Cuenta(usuario, $4, $3, cobro);
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Boton_Pago_Tarjeta(INT, VARCHAR, DOUBLE PRECISION, INT)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+	usuario int;
+	cobro int;
+BEGIN
+	SELECT cobro($1,$2,$3);
+	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
+	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
+	SELECT Pago_Tarjeta(usuario, $4, $3, cobro);
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Boton_Pago_Monedero(INT, VARCHAR, DOUBLE PRECISION)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+	usuario int;
+	cobro int;
+BEGIN
+	SELECT cobro($1,$2,$3);
+	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
+	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
+	SELECT Pago_Monedero(usuario, $1, $3, cobro);
 END;
 $$;
