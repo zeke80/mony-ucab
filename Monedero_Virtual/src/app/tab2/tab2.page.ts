@@ -47,12 +47,13 @@ export class Tab2Page implements OnInit{
 
     this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
         .subscribe((data: any) => {
+          
           this.tarjetas = data;
         });
 
     this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
         .subscribe((data:any) => {
-          console.log(data[0]);
+          console.log(data);
           this.cuentas = data;
           
         })

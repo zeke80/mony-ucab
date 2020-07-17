@@ -20,6 +20,15 @@ export class RecargaPage implements OnInit {
   pagos = [];
   aux: number;
 
+  auxT = false;
+  auxC = false;
+
+  metodoPagoC = [];
+  metodoPagoT = [];
+
+  tarjeta: any;
+  cuenta: any;
+
   constructor(
     public _pagoServices: PagoService,
     public _usuarioServices: UsuarioService,
@@ -32,26 +41,49 @@ export class RecargaPage implements OnInit {
 
   ngOnInit() {
     this.usuario = this._usuarioServices.getUsuario();
+    this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+        .subscribe((data: any) =>  {
+          this.metodoPagoC = data;
+        });
+    this._tarjetaServices.obtenerTarjetas(this.usuario.idUsuario)
+        .subscribe((data: any) => {
+          this.metodoPagoT = data;
+        });
   }
 
-  realizarSolicitud( f: NgForm) {
-    let cant: number = + f.value.monto;
-    this._pagoSercives.solicitudPago(this.usuario.idUsuario, this.usuario.usuario, cant )
-        .subscribe((data: any) => {
-          this.aux = data;
-          this._pagoSercives.getPagosSol(this.usuario.idUsuario)
-              .subscribe((data: any) => {
-                this.pagos = data;
-                this._pagoSercives.guardarPagoSol(this.pagos);
-                console.log(this.pagos);
-                this.router.navigate(['/tabs/cuenta/pagoRecarga', this.aux]);
+  boolTarjeta() {
+    this.auxT = true;
+    this.auxC = false;
+  }
 
-              },
-              (error: HttpErrorResponse) => {
-                  this.AlertServer();
-      
-              });
+  boolCuenta() {
+    this.auxC = true;
+    this.auxT = false;
+  }
+
+  obtenerIDtajeta() {
+  }
+
+  obtenerIDcuenta() {
+  }
+
+  pagarTarjeta(montoIn: number) {
+    let id: number = + this.tarjeta;
+    let cant: number = + montoIn;
+    var body = {
+      idUsuarioReceptor: this.usuario.idUsuario,
+      idMedioPaga: id,
+      monto: cant,
+      idOperacion: 2
+    };
+
+    console.log(body);
+
+    this._pagoSercives.recargaTarjeta(body)
+        .subscribe((data: any) => {
+          this.router.navigate(['/tabs/cuenta']);
         });
+
   }
 
   async AlertServer() {

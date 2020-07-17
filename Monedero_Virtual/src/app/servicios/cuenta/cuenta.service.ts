@@ -47,6 +47,8 @@ export class CuentaService {
     return this.http.post(url, data);
   }
 
+  // nuevo back
+
   obtenerCuenta(usuarioID) {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.get('http://monyucab.somee.com/api/dashboard/Cuentas?IdUsuario=' + usuarioID, {headers: tokenHeader});

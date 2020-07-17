@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Pago } from '../../models/pago.model';
 
 @Injectable({
@@ -142,4 +142,13 @@ export class PagoService {
 
     return this.http.post(url, data);
   }
+
+  // nuevo back
+
+  recargaTarjeta(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/monedero/RecargaMonederoTarjeta', body, {headers: tokenHeader});
+  }
+
+
 }
