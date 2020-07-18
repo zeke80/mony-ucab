@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a88c268b-024b-45a7-b5a7-eefb4d4a999f",
+		"_postman_id": "f8bd27f8-1189-4623-bb7f-9ab92479ce38",
 		"name": "MoneyUCAB Proyecto",
 		"description": "Se realizan las diferentes peticiones a la API para concretar su uso y comprobar su funcionamiento en pro de las aplicaciones existentes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,7 +15,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2ea26a4f-2f97-48b6-bc68-7c3ccea083e2",
+								"id": "bb677f2f-6852-4c9a-8b1d-1c0a275f1992",
 								"exec": [
 									""
 								],
@@ -59,7 +59,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7610cbce-2149-44a0-808c-4ae973506dde",
+								"id": "a01d97a6-44b4-496f-9afb-ef510b0397e1",
 								"exec": [
 									""
 								],
@@ -110,7 +110,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "20520f25-9eff-4e4c-8542-40768a7d5ede",
+								"id": "58fa3000-83f9-41ef-a657-812d96567e87",
 								"exec": [
 									""
 								],
@@ -120,7 +120,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "bb9cdf46-b57a-4937-9c61-0f669cd7ea19",
+								"id": "f26811c1-83f7-4716-9096-412861965651",
 								"exec": [
 									"const response = pm.response.json();\r",
 									"pm.globals.set(\"token\", response.result.token);\r",
@@ -135,7 +135,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"UserName\": \"CodeCodigo7\",\r\n    \"Email\": \"pjfariakiddo7@gmail.com\",\r\n    \"Password\": \"weawística\",\r\n    \"comercio\": false\r\n}",
+							"raw": "{\r\n    \"UserName\": \"CodeCodigo7\",\r\n    \"Email\": \"ezequielmonteroz8@gmail.com\",\r\n    \"Password\": \"weawística\",\r\n    \"comercio\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -423,7 +423,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "b9b076c1-2606-40ea-88b3-3c238fa6d28a",
+						"id": "53250019-1737-485f-9221-4a71c7cf45be",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -433,7 +433,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f7d0d2cb-2fc0-440d-a520-2bd6a28f77e0",
+						"id": "d055ae4c-30d1-457f-85ae-59bfebb6e17b",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -455,7 +455,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d9e9ba93-ea18-4d90-8f83-2d20192ff6d8",
+										"id": "7805d260-c92d-41ae-80b8-145a122a1b8a",
 										"exec": [
 											""
 										],
@@ -653,7 +653,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "8eec7674-d3b2-464b-b00c-ed8652aad4aa",
+								"id": "30a5d8f2-7bd1-45ca-8249-4bfd08f4590f",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -663,7 +663,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1eed2cf2-3eec-4ed9-be50-76fa531c1d16",
+								"id": "6cee369e-702e-41e0-ad8f-4fd3808eb0ec",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -709,7 +709,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/dashboard/Cuentas?IdUsuario=2",
+									"raw": "{{url}}/api/dashboard/Cuentas?IdUsuario=1",
 									"host": [
 										"{{url}}"
 									],
@@ -721,7 +721,7 @@
 									"query": [
 										{
 											"key": "IdUsuario",
-											"value": "2"
+											"value": "1"
 										}
 									]
 								},
@@ -1071,7 +1071,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/monedero/Consultar?UsuarioId=1",
+									"raw": "{{url}}/api/monedero/Consultar?idusuario=1",
 									"host": [
 										"{{url}}"
 									],
@@ -1082,7 +1082,7 @@
 									],
 									"query": [
 										{
-											"key": "UsuarioId",
+											"key": "idusuario",
 											"value": "1"
 										}
 									]
@@ -1101,7 +1101,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "7767b270-29cf-4237-a485-8f16ae27c6d5",
+						"id": "a8a0adbf-72c2-4eda-83a7-24970bb43412",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1111,7 +1111,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "348884c9-3f94-433f-89fd-576ce7a01a4d",
+						"id": "fd6a7e1a-c84e-4401-b60f-2e6ccd262b78",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1179,6 +1179,314 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Realizar Cobro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioSolicitante\" : 1,\r\n    \"emailPagador\" : \"\",\r\n    \"monto\" : 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarCobro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarCobro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Solicitar Reintegro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioSolicitante\" : 1,\r\n    \"emailPagador\" : \"ezequielmonteroc5@gmail.com\",\r\n    \"referencia\" : \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/SolicitarReintegro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"SolicitarReintegro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Cobro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdCobro\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/CancelarCobro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"CancelarCobro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar Reintegro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"IdReintegro\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/CancelarReintegro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"CancelarReintegro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar Pago Cuenta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarPagoCuenta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarPagoCuenta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realiza rPago Tarjeta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarPagoTarjeta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarPagoTarjeta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar Pago Monedero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarPagoMonedero",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarPagoMonedero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar Reintegro Cuenta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarReintegroCuenta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarReintegroCuenta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar Reintegro Tarjeta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarReintegroTarjeta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarReintegroTarjeta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Realizar Reintegro Monedero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/RealizarReintegroMonedero",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"RealizarReintegroMonedero"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Establecer Parametro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"idParametro\" : 1,\r\n    \"validacion\" : \"\",\r\n    \"estatus\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/EstablecerParametro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"EstablecerParametro"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -1198,7 +1506,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "fc53fc73-b78b-4a15-aad0-c3b27691f94f",
+				"id": "fde0e70e-ff6e-4c5e-87d4-2d96ccba4c26",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1208,7 +1516,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a8c0a28f-d765-418d-84de-e0bb4b0dc35b",
+				"id": "dff5d36c-1362-4a6d-bc42-9dae78917dc8",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1218,7 +1526,7 @@
 	],
 	"variable": [
 		{
-			"id": "a277128b-eaf9-45ff-880c-a81347fc13cc",
+			"id": "d5104755-ee00-4749-9318-39beb5c8ccc8",
 			"key": "url",
 			"value": ""
 		}
