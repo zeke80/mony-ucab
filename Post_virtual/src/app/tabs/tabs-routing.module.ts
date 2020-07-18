@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
 import { LoginPage } from '../login/login.page';
-import { LoginGuard } from '../guard/login.guard';
 
 const routes: Routes = [
   {
@@ -13,7 +12,6 @@ const routes: Routes = [
   {
     path: 'tabs',
     component: TabsPage,
-    canActivate: [LoginGuard],
     children: [
       {
         path: 'perfil',

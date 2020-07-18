@@ -25,12 +25,16 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit(){
-    this.usuario = this._usuarioService.getUsuario();
+    /*this.usuario = this._usuarioService.getUsuario();
     this.comercio = this._comercioService.getVacio();
     this._comercioService.getComercio(this.usuario.idUsuario)
                   .subscribe((data: any) => {
                     this.comercio = data;
-                  });
+                  });*/
+      
+    //aca debe ir el servicio para buscar los datos de usuario
+
+    
   }
 
   modificarUsuario( f: NgForm) {
