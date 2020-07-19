@@ -29,6 +29,10 @@ namespace Comunes.Comun
         /// Establece el estatus para su uso dentro de la aplicación.
         /// </summary>
         public int estatus { get; set; }
+        /// <summary>
+        /// Establece el limite según el parámetro establecido.
+        /// </summary>
+        public string limite { get; set; }
 
         public ComParametro()
         {
@@ -49,9 +53,10 @@ namespace Comunes.Comun
             this.idParametro = Data.GetInt32(0 + offset);
             this.nombre = Data.GetString(3 + offset);
             this.estatus = Data.GetInt32(4 + offset);
-            this.tipoParametro.offset = 5 + offset;
+            this.limite = Data.GetString(5 + offset);
+            this.tipoParametro.offset = 6 + offset;
             this.tipoParametro.LlenadoDataNpgsql(Data);
-            this.frecuencia.offset = 8 + offset;
+            this.frecuencia.offset = 9 + offset;
             this.frecuencia.LlenadoDataNpgsql(Data);
         }
     }

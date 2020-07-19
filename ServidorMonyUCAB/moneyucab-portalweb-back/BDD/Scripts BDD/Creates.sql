@@ -333,7 +333,6 @@ DROP TABLE IF EXISTS Public.Usuario ;
 CREATE TABLE IF NOT EXISTS Public.Usuario (
   idUsuario SERIAL,
   idTipoUsuario INT NOT NULL,
-  idUsuarioF INT,
   idTipoIdentificacion INT NOT NULL,
   "idEntity" text,
   usuario VARCHAR(20) NOT NULL,
@@ -343,6 +342,7 @@ CREATE TABLE IF NOT EXISTS Public.Usuario (
   telefono VARCHAR(12) NOT NULL,
   direccion VARCHAR(500) NOT NULL,
   estatus INT NOT NULL,
+  idUsuarioF INT,
   PRIMARY KEY (idUsuario),
   CONSTRAINT "FK_Usuario_TipoUsuario" FOREIGN KEY (idTipoUsuario)
         REFERENCES public.TipoUsuario (idTipoUsuario) MATCH SIMPLE
@@ -749,9 +749,9 @@ CREATE TABLE IF NOT EXISTS Public.Parametro (
   idParametro SERIAL,
   idTipoParametro INT NOT NULL,
   idFrecuencia INT NOT NULL,
-  limite varchar,
   nombre VARCHAR(45) NOT NULL,
   estatus INT NOT NULL,
+  limite varchar,
   PRIMARY KEY (idParametro),
 	CONSTRAINT "FK_Parametro_TipoParametro" FOREIGN KEY (idTipoParametro)
         REFERENCES public.TipoParametro (idTipoParametro) MATCH SIMPLE

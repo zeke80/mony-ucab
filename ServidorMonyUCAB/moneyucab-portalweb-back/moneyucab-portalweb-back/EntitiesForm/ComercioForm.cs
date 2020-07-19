@@ -13,10 +13,11 @@ namespace moneyucab_portalweb_back.EntitiesForm
 		public string razonSocial { get; set; }
 		public string nombre { get; set; }
 		public string apellido { get; set; }
+        public double comision { get; set; }
 
         public ComComercio Formatear_Formulario()
         {
-            return new ComComercio(razonSocial, nombre, apellido);
+            return new ComComercio(razonSocial, nombre, apellido, comision);
         }
     }
 }

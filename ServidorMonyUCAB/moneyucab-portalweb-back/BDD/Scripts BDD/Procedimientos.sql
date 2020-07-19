@@ -38,7 +38,7 @@
 --Registros de usuario sobre items fijos para uso del usuario.
 --//////Tarjeta, Cuenta, Usuario, Persona, Comercio, Parametro de usuario
 --[x]
-CREATE OR REPLACE FUNCTION Registro_Comercio(VARCHAR, VARCHAR, VARCHAR, INT)
+CREATE OR REPLACE FUNCTION Registro_Comercio(VARCHAR, VARCHAR, VARCHAR, INT, DOUBLE PRECISION)
 										RETURNS BOOLEAN
 LANGUAGE plpgsql    
 AS $$
@@ -48,8 +48,8 @@ entity_user_id text;
 opcionMenuCurs CURSOR FOR SELECT A.* FROM OpcionMenu A JOIN Aplicacion B ON A.idAplicacion = B.idAplicacion WHERE (B.nombre = 'PostVirtual'
 							OR B.nombre = 'PortalWeb') AND A.idOpcionMenu NOT IN (SELECT idOpcionMenu FROM Usuario_OpcionMenu WHERE idUsuario = $4);
 BEGIN
-		INSERT INTO Comercio (nombre_representante, apellido_representante, razon_social, idUsuario)
-				VALUES ($1,$2,$3,$4);
+		INSERT INTO Comercio (nombre_representante, apellido_representante, razon_social, idUsuario, comision)
+				VALUES ($1,$2,$3,$4,$5);
 		FOR opcion IN opcionMenuCurs LOOP
 			INSERT INTO Usuario_OpcionMenu (idUsuario, idOpcionMenu, estatus) VALUES ($4, opcion.idOpcionMenu, 1);
 		END LOOP;
@@ -78,7 +78,7 @@ $$;
 --[x]
 --RegistroUsuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, @Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)
 CREATE OR REPLACE FUNCTION Registro_Usuario(INT, INT, VARCHAR, DATE, INT, VARCHAR, VARCHAR, VARCHAR, INT, CHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR DEFAULT NULL,
-												INT DEFAULT NULL, DATE DEFAULT NULL)
+												INT DEFAULT NULL, DATE DEFAULT NULL, DOUBLE PRECISION DEFAULT NULL)
 												RETURNS BOOLEAN
 LANGUAGE plpgsql    
 AS $$
@@ -101,7 +101,7 @@ BEGIN
 		VALUES
 					(usuario, $13, 0, 1);
 		IF ($10 = 'C') THEN
-			SELECT Registro_Comercio($11,$12,$14,usuario) INTO RESPONSE;
+			SELECT Registro_Comercio($11,$12,$14,usuario, $17) INTO RESPONSE;
 			IF NOT (RESPONSE) THEN
 				RAISE EXCEPTION 'Error al intentar registrar el Comercio';
 			END IF;
@@ -213,7 +213,7 @@ END
 $BODY$
 LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION Parametros()
-			RETURNS TABLE(idparametro int,idtipoparametro int,idfrecuencia_parametro int, nombre varchar, estatus_parametro int,
+			RETURNS TABLE(idparametro int,idtipoparametro int,idfrecuencia_parametro int, nombre varchar, estatus_parametro int, limite varchar,
 						  	idtipoparametro_tipo_parametro int, descripcion_tipo_parametro varchar, estatus_tipo_parametro int,
 						  	idfrecuencia int, codigo_frecuencia char, descripcion_frecuencia varchar, estatus_frecuencia int) AS $BODY$
 DECLARE
@@ -418,9 +418,9 @@ LANGUAGE plpgsql;
 --Excepción de extracción de datos del usuario, se realiza por email.
 --[x]
 CREATE OR REPLACE FUNCTION Informacion_persona(VARCHAR)
-			RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
+			RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,idUsuarioF int,
 						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
-						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
+						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar, comision double precision,
 						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
 						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int) AS $BODY$
 DECLARE

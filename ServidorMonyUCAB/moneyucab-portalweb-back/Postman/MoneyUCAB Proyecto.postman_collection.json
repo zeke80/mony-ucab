@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f4ec67b6-a9d1-46bd-877e-0797cb02ab7b",
+		"_postman_id": "f7e50466-fd26-4485-b796-4ff7ab8e87e7",
 		"name": "MoneyUCAB Proyecto",
 		"description": "Se realizan las diferentes peticiones a la API para concretar su uso y comprobar su funcionamiento en pro de las aplicaciones existentes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,7 +15,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1a967f23-1e33-49bd-8404-90d59bb10870",
+								"id": "cdd3d19e-4a9d-4cbb-8186-11be0c7a126e",
 								"exec": [
 									""
 								],
@@ -39,11 +39,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/authentication/register",
+							"raw": "{{url}}/api/authentication/register",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"authentication",
@@ -60,7 +59,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "5a94facb-38a6-433b-862a-057f770e4f05",
+								"id": "1b569d41-54b4-4af7-9d3e-877cdd924c46",
 								"exec": [
 									""
 								],
@@ -70,13 +69,20 @@
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"idUsuario\" : 2,\r\n   \"resetPasswordToken\": \"weawística\",\r\n   \"newPassword\": \"weawística2\"\r\n}",
+							"raw": "{\r\n   \"idUsuario\" : 1,\r\n   \"resetPasswordToken\": \"weawística\",\r\n   \"newPassword\": \"weawística2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -84,11 +90,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/authentication/ChangePassword",
+							"raw": "{{url}}/api/authentication/ChangePassword",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"authentication",
@@ -105,7 +110,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "6324933a-b92d-4bdc-8ec2-9952e8aa4a05",
+								"id": "6367597b-d750-4eea-acb7-4cb738fc68c7",
 								"exec": [
 									""
 								],
@@ -115,24 +120,22 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f8c7d588-4eea-4651-94ce-a93474d0df60",
+								"id": "5c1fce96-33d6-4c3d-ba5e-77a4bd6c35c0",
 								"exec": [
 									"const response = pm.response.json();\r",
-									"pm.globals.set(\"token\", response.token);"
+									"pm.globals.set(\"token\", response.result.token);\r",
+									"console.log(pm.globals.get(\"token\"));"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "noauth"
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"UserName\": \"CodeCodigo7\",\r\n    \"Email\": \"pjfariakiddo7@gmail.com\",\r\n    \"Password\": \"weawística2\",\r\n    \"comercio\": false\r\n}",
+							"raw": "{\r\n    \"UserName\": \"CodeCodigo7\",\r\n    \"Email\": \"pjfariakiddo7@gmail.com\",\r\n    \"Password\": \"weawística\",\r\n    \"comercio\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -140,12 +143,9 @@
 							}
 						},
 						"url": {
-							"raw": "66.42.95.58/api/authentication/login",
+							"raw": "{{url}}/api/authentication/login",
 							"host": [
-								"66",
-								"42",
-								"95",
-								"58"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -164,7 +164,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\":\"CodeCodigo5\",\r\n    \"idUsuario\":1,\r\n    \"razonSocial\":\"carniceria\",\r\n    \"nombre\":\"Pedro\",\r\n    \"apellido\":\"Faria\"\r\n}",
+							"raw": "{\r\n    \"usuario\":\"CodeCodigo7\",\r\n    \"idUsuario\":1,\r\n    \"razonSocial\":\"carniceria\",\r\n    \"nombre\":\"Pedro\",\r\n    \"apellido\":\"Faria\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -172,11 +172,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/authentication/RegisterComercio",
+							"raw": "{{url}}/api/authentication/RegisterComercio",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"authentication",
@@ -202,11 +201,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/Billetera/Cuenta",
+							"raw": "{{url}}/api/Billetera/Cuenta",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"Billetera",
@@ -232,11 +230,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/Billetera/tarjeta",
+							"raw": "{{url}}/api/Billetera/tarjeta",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"Billetera",
@@ -262,11 +259,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/Billetera/EliminarTarjeta?TarjetaId=1",
+							"raw": "{{url}}/api/Billetera/EliminarTarjeta?TarjetaId=1",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"Billetera",
@@ -290,7 +286,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"jAVIER\",\r\n    \"apellido\":\"Faria\",\r\n    \"telefono\":\"04123746609\",\r\n    \"direccion\": \"candelaria PUTO\",\r\n    \"razonSocial\": \"Carniceria CA\",\r\n    \"idEstadoCivil\": 1,\r\n    \"idUsuario\": 2\r\n}",
+							"raw": "{\r\n    \"nombre\": \"jAVIER\",\r\n    \"apellido\":\"Faria\",\r\n    \"telefono\":\"04123746609\",\r\n    \"direccion\": \"candelaria PUTO\",\r\n    \"razonSocial\": \"Carniceria CA\",\r\n    \"idEstadoCivil\": 1,\r\n    \"idUsuario\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -298,11 +294,10 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:49683/api/authentication/modification",
+							"raw": "{{url}}/api/authentication/modification",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
-							"port": "49683",
 							"path": [
 								"api",
 								"authentication",
@@ -312,17 +307,6 @@
 						"description": "Se modifican datos del usuario"
 					},
 					"response": []
-				},
-				{
-					"name": "Reintegro Tarjeta",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": ""
-						}
-					},
-					"response": []
 				}
 			],
 			"description": "Solicitudes de autenticación",
@@ -330,7 +314,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ef131ed8-df36-4de4-8962-d4a803519712",
+						"id": "ce189211-5678-4ac3-97a1-472e9c52cbef",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -340,7 +324,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a355e7b7-4f30-4838-94dd-80953d3a4b55",
+						"id": "ded7463f-8adc-4ce8-a496-516d849ec1ac",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -362,7 +346,7 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "daa947fd-5007-4416-90a7-393c82b510df",
+										"id": "17b2b66b-01f5-4058-a624-e5878723053a",
 										"exec": [
 											""
 										],
@@ -381,12 +365,10 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/EstadosCiviles",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/EstadosCiviles",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -403,12 +385,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/TiposTarjetas",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/TiposTarjetas",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -425,12 +405,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/Bancos",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/Bancos",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -447,12 +425,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/TiposCuentas",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/TiposCuentas",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -469,12 +445,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/TiposParametros",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/TiposParametros",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -491,12 +465,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/Frecuencias",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/Frecuencias",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -513,12 +485,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/Parametros",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/Parametros",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -535,12 +505,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/TiposOperaciones",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/TiposOperaciones",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -557,12 +525,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/TiposIdentificaciones",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/TiposIdentificaciones",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -578,7 +544,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0adb9ef4-8ebb-4bb0-a1b8-af20b84f85bc",
+								"id": "4d1575c7-6941-4ee5-8d38-0c08f199275a",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -588,7 +554,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "88978fef-c7e7-4d6a-b18a-4946c9e9d317",
+								"id": "b05069cf-a6fd-49df-8689-a23965665119",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -608,12 +574,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/Tarjetas?IdUsuario=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/Tarjetas?IdUsuario=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -636,12 +600,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/Cuentas?IdUsuario=2",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/Cuentas?IdUsuario=2",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -664,12 +626,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/ParametrosUsuario?UsuarioId=usuario",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/ParametrosUsuario?UsuarioId=usuario",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -692,12 +652,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"HistorialOperaciones",
@@ -720,12 +678,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"HistorialOperaciones",
@@ -748,12 +704,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"HistorialOperaciones",
@@ -776,12 +730,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/ReintegrosActivos?IdUsuario=2&solicitante=0",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/ReintegrosActivos?IdUsuario=2&solicitante=0",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -808,12 +760,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/CobrosActivos?IdUsuario=2&solicitante=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/CobrosActivos?IdUsuario=2&solicitante=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -840,12 +790,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/CobrosExitosos?UsuarioId=1&solicitante=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/CobrosExitosos?UsuarioId=1&solicitante=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -872,12 +820,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/CobrosCancelados?UsuarioId=1&solicitante=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/CobrosCancelados?UsuarioId=1&solicitante=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -904,12 +850,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/ReintegrosExitosos?UsuarioId=1&solicitante=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/ReintegrosExitosos?UsuarioId=1&solicitante=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -936,12 +880,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/ReintegrosCancelados?UsuarioId=1&solicitante=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/ReintegrosCancelados?UsuarioId=1&solicitante=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -963,29 +905,15 @@
 							"response": []
 						},
 						{
-							"name": "Cuentas Copy",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": ""
-								},
-								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
-							},
-							"response": []
-						},
-						{
 							"name": "InformacionPersona",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/dashboard/InformacionPersona?Usuario=CodeCodigo7",
-									"protocol": "http",
+									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=CodeCodigo7",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"dashboard",
@@ -1008,12 +936,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/monedero/Consultar?UsuarioId=1",
-									"protocol": "http",
+									"raw": "{{url}}/api/monedero/Consultar?UsuarioId=1",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"monedero",
@@ -1035,12 +961,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:49683/api/HistorialOperaciones/EjecutarCierre?IdUsuario=2",
-									"protocol": "http",
+									"raw": "{{url}}/api/HistorialOperaciones/EjecutarCierre?IdUsuario=2",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
-									"port": "49683",
 									"path": [
 										"api",
 										"HistorialOperaciones",
@@ -1068,7 +992,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "cd255d7c-9d3d-4036-b751-b30bb2eb2639",
+						"id": "a44e907f-f3d9-49dd-8a9a-a120f361dc6b",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1078,7 +1002,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f9466b8f-5b94-4965-b87f-e3fdc670be81",
+						"id": "a4d382b7-5312-4f97-8f38-4ce9f841044d",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1094,7 +1018,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiI2MDU1YTZhZC00ZGQ2LTRiMGMtYWFiZC04MGM3Mjk4ZmRiNmQiLCJMb2dnZWRPbiI6IjI4LzA2LzIwMjAgMDc6MjY6MjMgcC5tLiIsIm5iZiI6MTU5MzM4Njc4MywiZXhwIjoxNTkzMzg5NDgzLCJpYXQiOjE1OTMzODY3ODN9.B3QkvdRZlxtZn5j9I5gm-iceKa2e7CuAgLIUd6zZ7nw",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]
@@ -1103,7 +1027,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "8e3d38eb-62d0-4d3c-ad08-40fbf416e174",
+				"id": "3bdb3aeb-8ca1-429f-a3b6-e458ae931786",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1113,12 +1037,19 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "e1ee5d79-d155-44ea-ae16-d6e27e9ca3f8",
+				"id": "0396d694-b8ff-4880-8eb4-2745e1e0e4e4",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "8c0677da-adbc-4767-8a95-246f96b8ad42",
+			"key": "url",
+			"value": "http://monyucab.somee.com"
 		}
 	],
 	"protocolProfileBehavior": {}
