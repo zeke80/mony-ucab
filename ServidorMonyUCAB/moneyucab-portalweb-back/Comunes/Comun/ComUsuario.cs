@@ -65,6 +65,10 @@ namespace Comunes.Comun
         /// Identificador único que establece el tipo de usuario que categoriza a dicho usuario.
         /// </summary>
         public int idTipoUsuario { get; set; }
+        /// <summary>
+        /// Identificador de la persona que está vinculado al usuario como familiar
+        /// </summary>
+        public int idUsuarioF { get; set; }
 
         public ComUsuario()
         {
@@ -88,7 +92,7 @@ namespace Comunes.Comun
         /// <param name="Estatus">Estatus de uso dentro de la aplicación por parte del usuario</param>
         /// <param name="Contrasena">Establece la contraseña (Hash) del usuario dentro de la aplicación</param>
         public ComUsuario(ComComercio Comercio, ComPersona Persona, ComTipoIdentificacion TipoIdentificacion, int IdUsuario, string IdEntity, string Usuario,
-                            NpgsqlDate FechaRegistro, int NroIdentificacion, string Email, string Telefono, string Direccion, int Estatus, string Contrasena)
+                            NpgsqlDate FechaRegistro, int NroIdentificacion, string Email, string Telefono, string Direccion, int estatus, string Contrasena, int idUsuarioF)
         {
             this.comercio = Comercio;
             this.persona = Persona;
@@ -100,10 +104,11 @@ namespace Comunes.Comun
             this.email = Email;
             this.telefono = Telefono;
             this.direccion = Direccion;
-            this.estatus = 1;
+            this.estatus = estatus;
             this.tipoIdentificacion = TipoIdentificacion;
             this.idTipoUsuario = 1;
             this.contrasena = Contrasena;
+            this.idUsuarioF = idUsuarioF;
         }
 
         public void LlenadoDataFormPersona(NpgsqlCommand ComandoSQL)
@@ -142,10 +147,6 @@ namespace Comunes.Comun
 
         public void LlenadoDataNpgsql(NpgsqlDataReader Data)
         {
-            this.comercio.offset = 17;
-            this.comercio.LlenadoDataNpgsql(Data);
-            this.persona.offset = 13;
-            this.persona.LlenadoDataNpgsql(Data);
             this.idUsuario = Data.GetInt32(0 + offset);
             this.idEntity = Data.GetString(3 + offset);
             this.usuario = Data.GetString(4 + offset);
@@ -155,8 +156,19 @@ namespace Comunes.Comun
             this.telefono = Data.GetString(8 + offset);
             this.direccion = Data.GetString(9 + offset);
             this.estatus = Data.GetInt32(10 + offset);
-            this.tipoIdentificacion.offset = 20;
+            try
+            {
+                this.idUsuarioF = Data.GetInt32(11 + offset);
+            }
+            catch (InvalidCastException ex){
+                this.idUsuarioF = 0;
+            }
+            this.tipoIdentificacion.offset = 22 + offset;
             this.tipoIdentificacion.LlenadoDataNpgsql(Data);
+            this.persona.offset = 14 + offset;
+            this.persona.LlenadoDataNpgsql(Data);
+            this.comercio.offset = 18 + offset;
+            this.comercio.LlenadoDataNpgsql(Data);
         }
     }
 }

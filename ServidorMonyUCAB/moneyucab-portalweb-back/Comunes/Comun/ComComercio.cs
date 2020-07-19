@@ -21,6 +21,10 @@ namespace Comunes.Comun
         /// Apellido del representante del comercio vinculado al usuario.
         /// </summary>
         public string apellidoRepresentante { get; set; }
+        /// <summary>
+        /// Apellido del representante del comercio vinculado al usuario.
+        /// </summary>
+        public double comision { get; set; }
 
         public ComComercio()
         {
@@ -33,11 +37,12 @@ namespace Comunes.Comun
         /// <param name="RazonSocial">Nombre del comercio al cual se está vinculando al usuario.</param>
         /// <param name="NombreRepresentante">Nombre del representante del comercio vinculado al usuario.</param>
         /// <param name="ApellidoRepresentante">Apellido del representante del comercio vinculado al usuario.</param>
-        public ComComercio(string RazonSocial, string NombreRepresentante, string ApellidoRepresentante)
+        public ComComercio(string RazonSocial, string NombreRepresentante, string ApellidoRepresentante, double comision)
         {
             this.razonSocial = RazonSocial;
             this.nombreRepresentante = NombreRepresentante;
             this.apellidoRepresentante = ApellidoRepresentante;
+            this.comision = comision;
         }
 
         public void LlenadoDataFormComercio(NpgsqlCommand ComandoSQL)
@@ -45,6 +50,7 @@ namespace Comunes.Comun
             ComandoSQL.Parameters.Add(new NpgsqlParameter("RazonSocial", this.razonSocial));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("Nombre", this.nombreRepresentante));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("Apellido", this.apellidoRepresentante));
+            ComandoSQL.Parameters.Add(new NpgsqlParameter("Comision", this.comision));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("FechaNacimiento", new NpgsqlTypes.NpgsqlDate(2020, 5, 30)));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("IdEstadoCivil", 1));
         }

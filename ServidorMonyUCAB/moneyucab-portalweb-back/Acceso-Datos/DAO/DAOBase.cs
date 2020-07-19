@@ -21,15 +21,15 @@ namespace DAO
         public DAOBase()
         {
             NpgsqlConnectionStringBuilder conn_string = new NpgsqlConnectionStringBuilder();
-            conn_string.Host = "ec2-52-203-160-194.compute-1.amazonaws.com";
+            conn_string.Host = "localhost";
             conn_string.Port = 5432;
-            conn_string.Username = "ppaslmipvfumce";
-            //conn_string.Password = "lolazo123";
-            conn_string.Password = "5daf33bd4e95b74bc2dc0ef64d9b21a2d8fe83b0d602e4db97cca72d5f7627c6";                
-            //conn_string.Database = "postgres";
-            conn_string.Database = "d1psqo5qceht6j";
-            conn_string.SslMode = SslMode.Require;
-            conn_string.TrustServerCertificate = true;
+            conn_string.Username = "postgres";
+            conn_string.Password = "lolazo123";
+            //conn_string.Password = "5daf33bd4e95b74bc2dc0ef64d9b21a2d8fe83b0d602e4db97cca72d5f7627c6";                
+            conn_string.Database = "postgres";
+            //conn_string.Database = "d1psqo5qceht6j";
+            //conn_string.SslMode = SslMode.Require;
+            //conn_string.TrustServerCertificate = true;
             //StringConexion = ConfigurationManager.AppSettings.Get("IdentityConnection");
             stringConexion = conn_string.ToString();
         }
@@ -1009,7 +1009,7 @@ namespace DAO
                 comandoSQL = conector.CreateCommand();
 
                 comandoSQL.CommandText = string.Format("SELECT Registro_Usuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, " +
-                    "@Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)");
+                    "@Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento, @Comision)");
                 Formulario.LlenadoDataFormPersona(comandoSQL);
                 lectorTablaSQL = comandoSQL.ExecuteReader();
                 if (lectorTablaSQL.Read())
@@ -1051,7 +1051,7 @@ namespace DAO
                 comandoSQL = conector.CreateCommand();
 
                 comandoSQL.CommandText = string.Format("SELECT Registro_Usuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, " +
-                    "@Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)");
+                    "@Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento, @Comision)");
                 Formulario.LlenadoDataFormComercio(comandoSQL);
                 lectorTablaSQL = comandoSQL.ExecuteReader();
                 if (lectorTablaSQL.Read())
@@ -1092,7 +1092,7 @@ namespace DAO
 
                 comandoSQL = conector.CreateCommand();
 
-                comandoSQL.CommandText = string.Format("SELECT Registro_Comercio(@Nombre, @Apellido, @RazonSocial, @IdUsuario)");
+                comandoSQL.CommandText = string.Format("SELECT Registro_Comercio(@Nombre, @Apellido, @RazonSocial, @IdUsuario, @Comision)");
                 Formulario.LlenadoDataFormComercioReg(comandoSQL);
                 comandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuario", IdUsuario));
                 lectorTablaSQL = comandoSQL.ExecuteReader();
