@@ -14,7 +14,7 @@ CREATE SCHEMA IF NOT EXISTS Public;
 -- -----------------------------------------------------
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO ppaslmipvfumce;
 GRANT ALL ON SCHEMA public TO public;
 
 --No se han agregado los check sobre los atributos de los posibles valores.
@@ -56,7 +56,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUsers"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: EmailIndex
 
@@ -94,7 +94,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetRoles"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: RoleNameIndex
 
@@ -127,7 +127,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserClaims"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: IX_AspNetUserClaims_UserId
 
@@ -160,7 +160,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserLogins"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: IX_AspNetUserLogins_UserId
 
@@ -195,7 +195,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserRoles"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: IX_AspNetUserRoles_RoleId
 
@@ -228,7 +228,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserTokens"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 	
 -- Table: public."AspNetRoleClaims"
 
@@ -252,7 +252,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetRoleClaims"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: IX_AspNetRoleClaims_RoleId
 
@@ -285,7 +285,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."PreviousPasswords"
-    OWNER to postgres;
+    OWNER to ppaslmipvfumce;
 
 -- Index: IX_AspNetRoleClaims_RoleId
 
