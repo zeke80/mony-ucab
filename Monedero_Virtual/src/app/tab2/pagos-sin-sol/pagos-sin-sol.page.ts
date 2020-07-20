@@ -8,6 +8,7 @@ import { CuentaService } from '../../servicios/cuenta/cuenta.service';
 import { TarjetaService } from '../../servicios/tarjeta/tarjeta.service';
 import { AlertController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-pagos-sin-sol',
@@ -20,10 +21,12 @@ export class PagosSinSolPage implements OnInit {
   usuario: Usuario;
   user: string;
   saldo: number;
+  monto: number;
   metodoPagoC = [];
   metodoPagoT = [];
   auxT = false;
   auxC = false;
+  auxM = false;
   tarjeta: any;
   cuenta: any;
 
@@ -39,29 +42,26 @@ export class PagosSinSolPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe(paramMap => {
-      const recipeID = paramMap.get('pagoID');
-      let id: number = +recipeID;
-      this.operacion = this._pagoServices.getpagoSol(id);
-    });
-    this._usuarioServices.inforUsurio(this.operacion.idusuario_receptor)
-        .subscribe((data: any) => {
-          this.user = data.usuario;
-        });
     this.usuario = this._usuarioServices.getUsuario();
-    this._cuentaServices.getCuentas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
+    this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+        .subscribe((data: any) =>  {
           this.metodoPagoC = data;
         });
-    this._tarjetaServices.getTarjetas(this.usuario.idUsuario)
+    this._tarjetaServices.obtenerTarjetas(this.usuario.idUsuario)
         .subscribe((data: any) => {
           this.metodoPagoT = data;
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertServer();
-
         });
-    this.saldo = this._pagoServices.getSaldo();
+    this._usuarioServices.getSaldo(this.usuario.idUsuario)
+        .subscribe((data:any) => {
+          this.saldo = data;
+        });
+  }
+
+  realizarSolicitud(f: NgForm) {
+    this.auxM = true;
+    this.user = f.value.user;
+    this.monto = f.value.monto;
+
   }
 
   boolTarjeta() {
@@ -78,70 +78,75 @@ export class PagosSinSolPage implements OnInit {
   }
 
   obtenerIDcuenta() {
-    console.log(this.cuenta);
   }
 
   pagarTarjeta() {
     let id: number = + this.tarjeta;
-    let ref: number = + this.operacion.referencia;
-    let cant: number = + this.operacion.monto;
 
-    this._pagoServices.pagoTarjeta(id, this.user, cant, ref)
+    this._usuarioServices.getUserInfo(this.user)
         .subscribe((data: any) => {
-          console.log(data);
-          this.router.navigate(['/tabs/cuenta']);
+          var body = {
+            idUsuarioReceptor: data.result.idUsuario,
+            idMedioPaga: id,
+            monto: this.monto,
+            idOperacion: 2
+          };
+
+          this._pagoServices.realizarPagoTarjeta(body)
+              .subscribe((data:any) => {
+                this.router.navigate(['/tabs/cuenta']);
+              });
+
         });
 
   }
 
   pagarCuenta() {
     let id: number = + this.cuenta;
-    let ref: number = + this.operacion.referencia;
-    let cant: number = + this.operacion.monto;
 
-
-    this._pagoServices.pagoCuenta(id, this.user, cant, ref)
+    this._usuarioServices.getUserInfo(this.user)
         .subscribe((data: any) => {
-          this.router.navigate(['/tabs/cuenta']);
+          var body = {
+            idUsuarioReceptor: data.result.idUsuario,
+            idMedioPaga: id,
+            monto: this.monto,
+            idOperacion: 2
+          };
+
+          this._pagoServices.realizarPagoCuenta(body)
+              .subscribe((data:any) => {
+                this.router.navigate(['/tabs/cuenta']);
+              });
+
         });
   }
 
   pagarMonedero() {
-    if (this.saldo >= this.operacion.monto) {
-      let ref: number = + this.operacion.referencia;
-      let cant: number = + this.operacion.monto;
+    if (this.monto > this.saldo) {
+      this.AlertSaldo();
+      return;
+    }
+    this._usuarioServices.getUserInfo(this.user)
+    .subscribe((data: any) => {
+      var body = {
+        idUsuarioReceptor: data.result.idUsuario,
+        idMedioPaga: this.usuario.idUsuario,
+        monto: this.monto,
+        idOperacion: 2
+      };
 
-      this._pagoServices.pagoMonedero(this.usuario.idUsuario, this.user, cant, ref)
-          .subscribe((data: any) => {
+      this._pagoServices.realizarPagoMonedero(body)
+          .subscribe((data:any) => {
             this.router.navigate(['/tabs/cuenta']);
           });
-    }
-    else {
-      this.AlertaError();
-    }
 
-  }
-
-  async AlertaError() {
-    const alertElement = await this.alert.create({
-      header: 'Error en pago',
-      message: 'El saldo no es suficiente',
-      buttons: [
-        {
-          text: 'Aceptar',
-          handler: () => {
-          }
-        },
-      ]
     });
-    await alertElement.present();
-
   }
 
-  async AlertServer() {
+  async AlertSaldo() {
     const alertElement = await this.alert.create({
-      header: 'Error inesperado',
-      message: 'intentelo mas tarde',
+      header: 'Saldo insuficiente',
+      message: '',
       buttons: [
         {
           text: 'Aceptar',

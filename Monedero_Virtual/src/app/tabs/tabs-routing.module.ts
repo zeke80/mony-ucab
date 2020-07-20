@@ -47,7 +47,7 @@ const routes: Routes = [
         loadChildren: () => import ('../tab2/solicitud-pago/solicitud-pago.module').then(m => m.SolicitudPagoPageModule)
       },
       {
-        path: 'cuenta/pagoSinSolicitud/:pagoID',
+        path: 'cuenta/pagoSinSolicitud',
         loadChildren: () => import ('../tab2/pagos-sin-sol/pagos-sin-sol.module').then(m => m.PagosSinSolPageModule)
       },
       {

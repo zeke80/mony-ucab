@@ -21,68 +21,63 @@
                 </ion-row>
             </ion-card-header>
             <ion-card-contend>
-                <ion-item>
-                    <ion-label position="floating"><strong>Usuario receptor:</strong></ion-label>
-                    <br>
-                    <h4 class="ion-text-center">{{user}}</h4>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating"><strong>Monto:</strong></ion-label>
-                    <br>
-                    <h4 class="ion-text-center">{{operacion.monto}}</h4>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating"><strong>Fecha:</strong></ion-label>
-                    <br>
-                    <h4 class="ion-text-center">{{operacion.fecha_solicitus}}</h4>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="floating"><strong>Estatus:</strong></ion-label>
-                    <br>
-                    <h4 class="ion-text-center">{{operacion.estatus}}</h4>
-                </ion-item>
-
-
-
-                <h2 class="ion-text-center">Metodo de pago</h2>
+                <form #f='ngForm' (ngSubmit)="realizarSolicitud( f )">
+                    <ion-item>
+                        <ion-label position="floating"><strong>Usuario Receptor: </strong></ion-label>
+                        <ion-input [ngModel]="user" name="user"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Monto: </strong></ion-label>
+                        <ion-input type="number" [ngModel]="monto" name="monto"></ion-input>
+                    </ion-item>
+                    <ion-button type="submit" fill="solid" expand="full">
+                        Escoger metodos de pago
+                    </ion-button>
+                </form>
             </ion-card-contend>
         </ion-card>
 
-        <ion-button (click)="boolTarjeta()" color="primary" fill="solid" expand="block">
-            Tarjeta
-        </ion-button>
+        <div *ngIf="auxM">
 
-        <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
-            Cuenta
-        </ion-button>
-        <ion-button (click)="pagarMonedero()" color="primary" fill="solid" expand="block">
-            Monedero
-        </ion-button>
-        <br>
-        <ion-item *ngIf="auxT">
-            <ion-label>Escoja una tarjeta</ion-label>
-            <ion-select [(ngModel)]="tarjeta" (ionChange)="obtenerIDtajeta()">
-                <ion-select-option value="{{metodo.idtarjeta}}" *ngFor="let metodo of metodoPagoT">{{metodo.numero}}</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <br>
-        <ion-button (click)="pagarTarjeta()" *ngIf="auxT" color="warning" fill="solid" expand="block">
-            Pagar con tarjeta
-        </ion-button>
+            <ion-button (click)="boolTarjeta()" color="primary" fill="solid" expand="block">
+                Tarjeta
+            </ion-button>
+
+            <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
+                Cuenta
+            </ion-button>
+            <ion-button (click)="pagarMonedero()" color="primary" fill="solid" expand="block">
+                Monedero
+            </ion-button>
+            <br>
+            <ion-item *ngIf="auxT">
+                <ion-label>Escoja una tarjeta</ion-label>
+                <ion-select [(ngModel)]="tarjeta" (ionChange)="obtenerIDtajeta()">
+                    <ion-select-option value="{{metodo.idTarjeta}}" *ngFor="let metodo of metodoPagoT">Nro tarjeta: {{metodo.numero}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <br>
+            <ion-button (click)="pagarTarjeta()" *ngIf="auxT" color="warning" fill="solid" expand="block">
+                Pagar con tarjeta
+            </ion-button>
 
 
 
-        <ion-item *ngIf="auxC">
-            <ion-label>Escoja una cuenta</ion-label>
-            <ion-select [(ngModel)]="cuenta" (ionChange)="obtenerIDcuenta()">
-                <ion-select-option value="{{metodo.idcuenta}}" *ngFor="let metodo of metodoPagoC">{{metodo.numero}}</ion-select-option>
-            </ion-select>
-        </ion-item>
-        <br>
+            <ion-item *ngIf="auxC">
+                <ion-label>Escoja una cuenta</ion-label>
+                <ion-select [(ngModel)]="cuenta" (ionChange)="obtenerIDcuenta()">
+                    <ion-select-option value="{{metodo._idCuenta}}" *ngFor="let metodo of metodoPagoC">{{metodo._numero}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <br>
 
-        <ion-button (click)="pagarCuenta()" *ngIf="auxC" color="warning" fill="solid" expand="block">
-            Pagar con cuenta
-        </ion-button>
+            <ion-button (click)="pagarCuenta()" *ngIf="auxC" color="warning" fill="solid" expand="block">
+                Pagar con cuenta
+            </ion-button>
+
+        </div>
+
+
 
         <br>
         <br>

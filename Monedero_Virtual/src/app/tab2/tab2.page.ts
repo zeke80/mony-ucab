@@ -85,7 +85,7 @@ export class Tab2Page implements OnInit{
   }
 
   solicitudPago() {
-    this.router.navigate(['tabs/cuenta/pago']);
+    this.router.navigate(['tabs/cuenta/pagoSinSolicitud']);
   }
 
   recarga() {

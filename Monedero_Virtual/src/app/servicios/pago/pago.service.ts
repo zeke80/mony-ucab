@@ -155,5 +155,20 @@ export class PagoService {
     return this.http.post('http://monyucab.somee.com/api/monedero/RecargaMonederoCuenta', body, {headers: tokenHeader});
   }
 
+  realizarPagoTarjeta(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarPagoTarjeta', body, {headers: tokenHeader});
+  }
+
+  realizarPagoCuenta(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarPagoCuenta', body, {headers: tokenHeader});
+  }
+
+  realizarPagoMonedero(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarPagoMonedero', body, {headers: tokenHeader});
+  }
+
 
 }
