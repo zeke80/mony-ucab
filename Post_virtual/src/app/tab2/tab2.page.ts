@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../servicios/login/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
+import {Tarjeta} from '../models/tarjeta.model';
 
 @Component({
   selector: 'app-tab2',
@@ -17,10 +18,10 @@ import { AlertController } from '@ionic/angular';
 export class Tab2Page implements OnInit {
 
   cuentas = [];
-  tarjetas = [];
   pagos = [];
   saldo = 0;
-  usuario: Usuario
+  usuario: Usuario;
+  tarjetas: Tarjeta[]= [];
 
   constructor(
     public _cuentaServices: CuentaService,
@@ -33,38 +34,55 @@ export class Tab2Page implements OnInit {
     public alert: AlertController
   ) {
     this._activatedRoute.paramMap.subscribe(params => {
-      this.ngOnInit();
+      //this.ngOnInit();
   });
   }
 
-  ngOnInit(){
-    this.usuario = this._usuarioService.getUsuario();
+  
 
-    this.cuentas = this._cuentaServices.getVacio();
-    this._cuentaServices.getCuentas(this.usuario.idUsuario)
-         .subscribe((data: any) => {
-           this.cuentas = data;
-         });
-    this.tarjetas = this._tarjetaService.getVacio();
-    this._tarjetaService.getTarjetas(this.usuario.idUsuario)
-         .subscribe((data: any) => {
-           this.tarjetas = data;
-         });
-    this.pagos = this._pagoServices.getVacio();
-    this._pagoServices.getPagos(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.pagos = data;
-          this._pagoServices.guardarPago(this.pagos);
-        });
-    this._usuarioService.saldo(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.saldo = data;
-          console.log(this.saldo);
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertServer();
-        });
+  ngOnInit(){
+    this._usuarioService.getDatosUsuario()
+    .subscribe(
+    (data: any) =>
+    {
+      
+      localStorage.setItem('idUsuario', data.result.idUsuario);
+      localStorage.setItem('usuario', data.result.usuario);
+      localStorage.setItem('nombreU', data.persona.nombre);
+      localStorage.setItem('apellido', data.persona.apellido);
+      console.log(localStorage.getItem('idUsuario'));
+      console.log(localStorage.getItem('usuario'));
+      console.log(localStorage.getItem('nombreU'));
+      console.log(localStorage.getItem('apellido'));
+      },
+      err => {
+        console.log(err.message);
+      }
+    )
+
+    this._usuarioService.saldoActual().subscribe(
+      (res: any)=>{
+        this.saldo = res;
+      },
+      (err:any)=>{
+
+      }
+    );
+
+  this._tarjetaService.obtenerTarjetas().subscribe(
+    (res: any)=>{
+      
+      this.tarjetas = res;
+      console.log(this.tarjetas); 
+    },
+    (err:any)=>{
+      
+    }
+    );
+
   }
+
+
 
   logout() {
     this._logiServices.logout();

@@ -37,7 +37,7 @@ export class Tab1Page implements OnInit {
     
   }
 
-  modificarUsuario( f: NgForm) {
+  /*modificarUsuario( f: NgForm) {
     let ident: number = + f.value.identificacion;
     let correo: string = f.value.email.toUpperCase();
     let userMas: string = f.value.user.toUpperCase();
@@ -54,7 +54,7 @@ export class Tab1Page implements OnInit {
         (error: HttpErrorResponse) => {
             this.AlertaError();
         });
-  }
+  }*/
 
   async AlertaError() {
     const alertElement = await this.alert.create({

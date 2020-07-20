@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tarjeta } from '../../models/tarjeta.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +37,16 @@ export class TarjetaService {
     };
 
     return this.http.post(url, data);
+
+    
+  
+  }
+
+  obtenerTarjetas(){
+
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('IdUsuario', localStorage.getItem('idUsuario'));
+
+    return this.http.get('http://localhost:49683/api/Dashboard/Tarjetas', {params: param, headers: header})
   }
 }
