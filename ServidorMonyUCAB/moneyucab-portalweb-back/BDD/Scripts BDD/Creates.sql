@@ -14,7 +14,7 @@ CREATE SCHEMA IF NOT EXISTS Public;
 -- -----------------------------------------------------
 DROP SCHEMA public CASCADE;
 CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO ppaslmipvfumce;
+GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO public;
 
 --No se han agregado los check sobre los atributos de los posibles valores.
@@ -56,7 +56,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUsers"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: EmailIndex
 
@@ -94,7 +94,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetRoles"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: RoleNameIndex
 
@@ -127,7 +127,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserClaims"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: IX_AspNetUserClaims_UserId
 
@@ -160,7 +160,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserLogins"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: IX_AspNetUserLogins_UserId
 
@@ -195,7 +195,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserRoles"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: IX_AspNetUserRoles_RoleId
 
@@ -228,7 +228,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetUserTokens"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 	
 -- Table: public."AspNetRoleClaims"
 
@@ -252,7 +252,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."AspNetRoleClaims"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: IX_AspNetRoleClaims_RoleId
 
@@ -285,7 +285,7 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public."PreviousPasswords"
-    OWNER to ppaslmipvfumce;
+    OWNER to postgres;
 
 -- Index: IX_AspNetRoleClaims_RoleId
 
@@ -333,7 +333,6 @@ DROP TABLE IF EXISTS Public.Usuario ;
 CREATE TABLE IF NOT EXISTS Public.Usuario (
   idUsuario SERIAL,
   idTipoUsuario INT NOT NULL,
-  idUsuarioF INT,
   idTipoIdentificacion INT NOT NULL,
   "idEntity" text,
   usuario VARCHAR(20) NOT NULL,
@@ -343,6 +342,7 @@ CREATE TABLE IF NOT EXISTS Public.Usuario (
   telefono VARCHAR(12) NOT NULL,
   direccion VARCHAR(500) NOT NULL,
   estatus INT NOT NULL,
+  idUsuarioF INT,
   PRIMARY KEY (idUsuario),
   CONSTRAINT "FK_Usuario_TipoUsuario" FOREIGN KEY (idTipoUsuario)
         REFERENCES public.TipoUsuario (idTipoUsuario) MATCH SIMPLE
@@ -749,9 +749,9 @@ CREATE TABLE IF NOT EXISTS Public.Parametro (
   idParametro SERIAL,
   idTipoParametro INT NOT NULL,
   idFrecuencia INT NOT NULL,
-  limite varchar,
   nombre VARCHAR(45) NOT NULL,
   estatus INT NOT NULL,
+  limite varchar,
   PRIMARY KEY (idParametro),
 	CONSTRAINT "FK_Parametro_TipoParametro" FOREIGN KEY (idTipoParametro)
         REFERENCES public.TipoParametro (idTipoParametro) MATCH SIMPLE

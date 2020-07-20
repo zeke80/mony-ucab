@@ -58,6 +58,8 @@ namespace Comunes.Comun
             ComandoSQL.Parameters.Add(new NpgsqlParameter("FechaNacimiento", this.fechaNacimiento));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("IdEstadoCivil", this.estadoCivil.idEstadoCivil));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("RazonSocial", ""));
+            double comision = 0;
+            ComandoSQL.Parameters.Add(new NpgsqlParameter("Comision", comision));
         }
 
         public void LlenadoDataNpgsql(NpgsqlDataReader Data)
@@ -65,7 +67,7 @@ namespace Comunes.Comun
             this.nombre = Data.GetString(0 + offset);
             this.apellido = Data.GetString(1 + offset);
             this.fechaNacimiento = Data.GetDate(2 + offset);
-            this.estadoCivil.offset = 24;
+            this.estadoCivil.offset = 26;
             this.estadoCivil.LlenadoDataNpgsql(Data);
         }
     }
