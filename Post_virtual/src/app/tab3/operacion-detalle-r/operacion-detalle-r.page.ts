@@ -26,7 +26,7 @@ export class OperacionDetalleRPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe(paramMap => {
+   /* this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getreintegro(id);
@@ -39,7 +39,7 @@ export class OperacionDetalleRPage implements OnInit {
     this._usuarioServices.inforUsurio(this.operacion.idusuario_receptor)
     .subscribe((data: any) => {
       this.userR = data.usuario;
-    });
+    });*/
   }
 
   async aceptarReintegro() {

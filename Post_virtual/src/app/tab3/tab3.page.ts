@@ -38,7 +38,7 @@ export class Tab3Page implements OnInit{
     this.tarjetas = this._operacionServices.getoperacionesTarjetaVacio();
     this.monederos = this._operacionServices.getoperacionesMonederoVacio();
     this.reintegros = this._operacionServices.getreintegrosVacio();
-    this.usuario = this._usuarioServices.getUsuario();
+   // this.usuario = this._usuarioServices.getUsuario();
     this._operacionServices.getoperacionesCuenta(this.usuario.idUsuario)
         .subscribe((data: any) => {
           this.cuentas = data;

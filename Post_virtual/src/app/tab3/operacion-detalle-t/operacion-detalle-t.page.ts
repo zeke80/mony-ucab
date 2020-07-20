@@ -30,7 +30,7 @@ export class OperacionDetalleTPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe(paramMap => {
+   /* this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getoperacionTarjeta(id);
@@ -52,7 +52,7 @@ export class OperacionDetalleTPage implements OnInit {
               });
         });
     this.fecha = this.operacion.fecha.split('T', 1 );
-    console.log(this.operacion);
+    console.log(this.operacion);*/
   }
 
 }

@@ -24,7 +24,7 @@ export class PagoPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usuario = this._usuarioServices.getUsuario();
+   /* this.usuario = this._usuarioServices.getUsuario();*/
   }
 
   realizarSolicitud( f: NgForm) {

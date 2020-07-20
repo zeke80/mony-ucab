@@ -24,7 +24,7 @@ export class OperacionDetalleMPage implements OnInit {
 
   ngOnInit() {
 
-    this._activatedRoute.paramMap.subscribe(paramMap => {
+    /*this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getoperacionMonedero(id);
@@ -33,7 +33,7 @@ export class OperacionDetalleMPage implements OnInit {
     .subscribe((data: any) => {
       this.user = data.usuario;
     });
-    this.fecha = this.operacion.fecha.split('T', 1 );
+    this.fecha = this.operacion.fecha.split('T', 1 );*/
   }
 
 }

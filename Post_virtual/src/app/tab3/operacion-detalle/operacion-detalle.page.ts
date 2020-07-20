@@ -32,13 +32,13 @@ export class OperacionDetallePage implements OnInit {
 
   ngOnInit() {
 
-    this._activatedRoute.paramMap.subscribe(paramMap => {
+  /*  this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getoperacionCuenta(id);
     });
-    this.usuario = this._usuarioServices.getUsuario();
-    this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
+  //  this.usuario = this._usuarioServices.getUsuario();
+ //   this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
         .subscribe((data: any) => {
           this.user = data.usuario;
           this.idreceptor = data.idusuario;
@@ -52,7 +52,7 @@ export class OperacionDetallePage implements OnInit {
                 this.userR = data.usuario;
               });
         });
-    this.fecha = this.operacion.fecha.split('T', 1 );
+    this.fecha = this.operacion.fecha.split('T', 1 );*/
   }
 
 }
