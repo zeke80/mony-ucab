@@ -9,6 +9,7 @@ import { LoginService } from '../servicios/login/login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import {Tarjeta} from '../models/tarjeta.model';
+import { Cuenta } from '../models/cuenta.model';
 
 @Component({
   selector: 'app-tab2',
@@ -17,11 +18,12 @@ import {Tarjeta} from '../models/tarjeta.model';
 })
 export class Tab2Page implements OnInit {
 
-  cuentas = [];
+  cuentas: Cuenta[] = [];
   pagos = [];
   saldo = 0;
   usuario: Usuario;
   tarjetas: Tarjeta[]= [];
+  banco: {} = {}; 
 
   constructor(
     public _cuentaServices: CuentaService,
@@ -80,7 +82,15 @@ export class Tab2Page implements OnInit {
     }
     );
 
-  }
+    this._cuentaServices.obtenerCuentas().subscribe(
+      (data: any) =>{
+        this.banco = data;
+        this.cuentas = data;
+        console.log(data);
+      }
+    );
+
+  } //final del ngoninit
 
 
 

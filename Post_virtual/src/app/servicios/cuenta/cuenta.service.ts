@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Cuenta } from '../../models/cuenta.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -9,34 +10,27 @@ export class CuentaService {
 
   cuentas: Cuenta[] = [];
 
-  constructor(
-    public http: HttpClient
-  ) { }
+  constructor(private http: HttpClient, private form: FormBuilder) { }
 
-  getVacio() {
 
-    return [...this.cuentas];
 
+  obtenerTipoCuenta(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    return this.http.get('http://localhost:49683/api/Dashboard/TiposCuentas', {headers: header});
   }
 
-  getCuentas(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/infoCuentas';
-
-    let data = {
-      "id" : idusuario
-    };
-
-    return this.http.post(url, data);
+  obtenerBanco(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    return this.http.get('http://localhost:49683/api/Dashboard/Bancos', {headers: header});
   }
 
-  infoCuenta(idcuenta: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/infoCuenta';
 
-    let data = {
-      "id" : idcuenta
-    };
+  obtenerCuentas(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'));
 
-    return this.http.post(url, data);
+    return this.http.get('http://localhost:49683/api/Dashboard/cuentas',{params: param, headers: header})
   }
+
 
 }
