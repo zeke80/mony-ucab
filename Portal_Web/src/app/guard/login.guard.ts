@@ -9,7 +9,7 @@ import { LoginService } from './../home/login-form/services/login.service';
 })
 export class LoginGuard implements CanActivate {
 
-  constructor(private router : Router, private s_login : LoginService){}
+  constructor(private router : Router, private s_login : LoginService) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.s_login.isLogged()){

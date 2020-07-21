@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { Globals } from 'src/app/common/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -9,32 +10,36 @@ export class LoginService {
 
   loginState = new BehaviorSubject(false);
 
+  readonly baseURI = Globals.API_URL;
+
   constructor(private http: HttpClient) { }
 
-  loginPersona(usuario:String, contrasena:String){
-    let url= "http://monyucab.somee.com/api/Usuario/loginPersona";
-  
-
-    return this.http.post(url, {"user": usuario, "contra": contrasena});
+  loginPersona(user: string, contrasena: string) {
+    let url = this.baseURI + "Authentication/Login";
+    return this.http.post(url, {usuario: user, email: '', password: contrasena, comercio: false});
   }
 
-  loginComercio(usuario:String, contrasena:String){
-    let url= "http://monyucab.somee.com/api/Usuario/loginComercio";
-
-
-    return this.http.post(url, {user: usuario, contra: contrasena});
+  loginComercio(user: string, contrasena: string){
+    let url = this.baseURI + "Authentication/Login";
+    return this.http.post(url, {usuario: user, email: '', password: contrasena, comercio: true});
   }
 
-  guardarUsuario(
-     idUsuario : number,
-     idTipoUsuario : number,
-     idTipoIdentificacion : number,
-     usuario : string){
+  getUserInfo(username){
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    return this.http.get(this.baseURI + 'Dashboard/InformacionPersona?Usuario='+username, {headers: tokenHeader});
+  }
 
+  guardarUsuario(data) {
+      /* 
         localStorage.setItem('idUsuario', idUsuario.toString());
         localStorage.setItem('idTipoUsuario', idTipoUsuario.toString());
         localStorage.setItem('idTipoIdentificacion', idTipoIdentificacion.toString());
         localStorage.setItem('usuario', usuario);
+      */
+        localStorage.setItem('token', data.result.token);
+        localStorage.setItem('userID', data.result.userID);
+        localStorage.setItem('username', data.result.username);
+        localStorage.setItem('email', data.result.email);
      
   }
 
