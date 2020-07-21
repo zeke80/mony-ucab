@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Globals } from 'src/app/common/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +9,11 @@ export class RecuperarContrasenaService {
 
   constructor(private http : HttpClient) { }
 
+  readonly baseURI = Globals.API_URL;
+
   recuperContrasena(email : string){
-
-    let url = "http://monyucab.somee.com/api/Usuario/enviarEmail";
-
-    return this.http.post(url, {'email' : email});
+    let url = this.baseURI + "Authentication/ResetPassword";
+    return this.http.post(url, {email : email});
   }
+
 }
