@@ -536,5 +536,70 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
         Boolean PersonaUsuario(string Usuario);
+
+        /// <summary>
+        /// Se realiza una consulta de usuarios con un query específico.
+        /// </summary>
+        /// <param name="Query">Especifica el where para el query de consulta de usuarios</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComUsuario> ConsultarUsuarios(string Query);
+
+        /// <summary>
+        /// Se realiza una consulta de usuarios relacionados de manera familiar al usuario indicado.
+        /// </summary>
+        /// <param name="IdUsuario">Especifica el id del usuario a consultar sus relaciones</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComUsuario> ConsultarUsuariosFamiliares(int IdUsuario);
+
+        /// <summary>
+        /// Se realiza la eliminación del usuario con la especificación del id del mismo.
+        /// </summary>
+        /// <param name="IdUsuario">Especifica el nombre de usuario a interrogar información</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        bool EliminarUsuario(int IdUsuario);
+
+        /// <summary>
+        /// Realiza el registro de un usuario como persona dentro del modelo de negocio como familiar.
+        /// </summary>
+        /// <param name="Formulario">Formulario de llenado para realizar el registro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void RegistroUsuarioPersonaF(ComUsuario Formulario);
+
+        /// <summary>
+        /// Realiza el registro de un usuario como comercio dentro del modelo de negocio como familiar.
+        /// </summary>
+        /// <param name="Formulario">Formulario de llenado para realizar el registro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void RegistroUsuarioComercioF(ComUsuario Formulario);
+
+        /// <summary>
+        /// Se establece el límite de parámetro para uso de los usuarios.
+        /// </summary>
+        /// <param name="IdParametro">Id que identifica el parámetro a establecer el límite.</param>
+        /// <param name="Limite">Establece el valor límite de uso para dicho parámetro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void EstablecerLimiteParametro(int IdParametro, string Limite);
+
+        /// <summary>
+        /// Se establece la comisión para el comercio para dichas ganancias.
+        /// </summary>
+        /// <param name="IdComercio">Id que identifica el comercio a establecer la comisión.</param>
+        /// <param name="Comision">Establece la comision de ganancia para el comercio.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void EstablecerComision(int IdComercio, double Comision);
     }
 }

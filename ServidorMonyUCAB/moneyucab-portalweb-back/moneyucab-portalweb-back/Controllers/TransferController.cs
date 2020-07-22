@@ -248,5 +248,47 @@ namespace moneyucab_portalweb_back.Controllers
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("EstablecerLimiteParametro")]
+        public async Task<Object> Establecer_Limite_Parametro([FromQuery] LimiteParametro Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Limite_Parametro(Formulario.idParametro, Formulario.limite).Ejecutar();
+                return Ok(new { key = "EstablecerParametro", message = "Parametro Establecido", result });
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("EstablecerComision")]
+        public async Task<Object> Establecer_Comision([FromQuery] EstComision Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Comision(Formulario.idComercio, Formulario.comision).Ejecutar();
+                return Ok(new { key = "EstablecerParametro", message = "Parametro Establecido", result });
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
     }
 }

@@ -76,7 +76,7 @@ BEGIN
 END;
 $$;
 --[x]
---RegistroUsuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, @Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)
+--RegistroUsuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, @Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento, @comision)
 CREATE OR REPLACE FUNCTION Registro_Usuario(INT, INT, VARCHAR, DATE, INT, VARCHAR, VARCHAR, VARCHAR, INT, CHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR DEFAULT NULL,
 												INT DEFAULT NULL, DATE DEFAULT NULL, DOUBLE PRECISION DEFAULT NULL)
 												RETURNS BOOLEAN
@@ -846,7 +846,7 @@ END;
 $$;
 
 --Consulta de usuario familiar
-CREATE OR REPLACE FUNCTION Consultar_Usuario_Familiar(VARCHAR)
+CREATE OR REPLACE FUNCTION Consultar_Usuario_Familiar(INT)
 												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
 						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
 						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
@@ -875,7 +875,7 @@ $$;
 
 --RegistroUsuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, @Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)
 CREATE OR REPLACE FUNCTION Registro_Usuario_F(INT, INT, VARCHAR, DATE, INT, VARCHAR, VARCHAR, VARCHAR, INT, CHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR,
-												INT, DATE, INT)
+												INT, DATE, DOUBLE PRECISION, INT)
 												RETURNS BOOLEAN
 LANGUAGE plpgsql    
 AS $$
@@ -892,13 +892,13 @@ BEGIN
 			RAISE EXCEPTION 'No existe el usuario registrado en Entity';
 		END IF;
 		INSERT INTO Usuario ("idEntity", idtipousuario,idtipoidentificacion,usuario,fecha_registro,nro_identificacion,email,telefono,direccion,estatus, idUsuarioF)
-		VALUES (entity_user_id, $1, $2, $3, current_date, $5, $6, $7, $8, $9, $17);
+		VALUES (entity_user_id, $1, $2, $3, current_date, $5, $6, $7, $8, $9, $18);
 		SELECT IdUsuario FROM Usuario into usuario WHERE Usuario.usuario = $3;
 		INSERT INTO CONTRASENA (idUsuario, contrasena, intentos_fallidos, estatus)
 		VALUES
 					(usuario, $13, 0, 1);
 		IF ($10 = 'C') THEN
-			SELECT Registro_Comercio($11,$12,$14,usuario) INTO RESPONSE;
+			SELECT Registro_Comercio($11,$12,$14,usuario,$17) INTO RESPONSE;
 			IF NOT (RESPONSE) THEN
 				RAISE EXCEPTION 'Error al intentar registrar el Comercio';
 			END IF;
@@ -966,6 +966,7 @@ BEGIN
 	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
 	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
 	SELECT Pago_Cuenta(usuario, $4, $3, cobro);
+	Return true;
 END;
 $$;
 
@@ -981,6 +982,7 @@ BEGIN
 	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
 	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
 	SELECT Pago_Tarjeta(usuario, $4, $3, cobro);
+	RETURN TRUE;
 END;
 $$;
 
@@ -996,5 +998,16 @@ BEGIN
 	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
 	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
 	SELECT Pago_Monedero(usuario, $1, $3, cobro);
+	RETURN TRUE;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Acciones_Permiso(INT)
+			RETURNS TABLE (idAplicacion int, nombre varchar, descripcion varchar, url varchar, posicion varchar, estatus int)
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	RETURN QUERY SELECT A.* FROM OpcionMenu A JOIN Usuario_OpcionMenu ON Usuario_OpcionMenu.idUsuario = $1;
 END;
 $$;

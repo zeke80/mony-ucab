@@ -160,6 +160,11 @@ DELETE FROM OpcionMenu CASCADE;
 ALTER SEQUENCE OpcionMenu_idOpcionMenu_seq RESTART WITH 1;
 --INSERT INTO OpcionMenu (idAplicacion, nombre, descripcion, url, posicion, estatus)
 
+DELETE FROM TipoUsuario CASCADE;
+ALTER SEQUENCE TipoUsuario_idTipoUsuario_seq RESTART WITH 1;
+INSERT INTO TipoUsuario (descripcion, estatus) VALUES ('Normal', 1),
+('Administrador', 1);
+
 DELETE FROM TipoIdentificacion CASCADE;
 ALTER SEQUENCE Tipoidentificacion_idTipoIdentificacion_seq RESTART WITH 1;
 INSERT INTO TipoIdentificacion (codigo, descripcion, estatus)

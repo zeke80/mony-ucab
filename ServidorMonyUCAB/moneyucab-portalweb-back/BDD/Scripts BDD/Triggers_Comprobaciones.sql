@@ -84,6 +84,30 @@ BEFORE INSERT
    ON Usuario
        FOR EACH ROW EXECUTE PROCEDURE validar_usuario();
 	   
+DROP TRIGGER IF EXISTS validar_Cambio_RegistroT ON Usuario CASCADE;
+CREATE OR REPLACE FUNCTION validar_Cambio_Registro()
+										RETURNS trigger
+LANGUAGE plpgsql
+AS $BODY$
+DECLARE
+	opcionMenuCurs CURSOR FOR SELECT A.* FROM OpcionMenu A JOIN Aplicacion B ON A.idAplicacion = B.idAplicacion WHERE (A.idTipoUsuario =< new.idTipoUsuario) AND A.idOpcionMenu NOT IN (SELECT idOpcionMenu FROM Usuario_OpcionMenu WHERE Usuario_OpcionMenu.idUsuario = new.idUsuario);
+	opcionMenuInv CURSOR FOR SELECT A.* FROM OpcionMenu A JOIN Aplicacion B ON A.idAplicacion = B.idAplicacion WHERE (A.idTipoUsuario > new.idTipoUsuario) AND A.idOpcionMenu NOT IN (SELECT idOpcionMenu FROM Usuario_OpcionMenu WHERE Usuario_OpcionMenu.idUsuario = new.idUsuario);
+BEGIN
+		FOR opcion IN opcionMenuCurs LOOP
+			INSERT INTO Usuario_OpcionMenu (idUsuario, idOpcionMenu, estatus) VALUES ($5, opcion.idOpcionMenu, 1);
+		END LOOP;
+		FOR opcion IN opcionMenuInv LOOP
+			DELETE FROM Usuario_OpcionMenu WHERE Usuario_OpcionMenu.idOpcionMenu = opcion.idOpcionMenu;
+		END LOOP;
+	RETURN NEW;
+END;
+$BODY$;
+
+CREATE TRIGGER validar_Cambio_RegistroT
+BEFORE INSERT OR UPDATE
+   ON Usuario
+       FOR EACH ROW EXECUTE PROCEDURE validar_Cambio_Registro();
+	   
 --Validación de registro de Tarjeta
 DROP TRIGGER IF EXISTS validar_tarjetaT ON tarjeta CASCADE;
 CREATE OR REPLACE FUNCTION validar_tarjeta()

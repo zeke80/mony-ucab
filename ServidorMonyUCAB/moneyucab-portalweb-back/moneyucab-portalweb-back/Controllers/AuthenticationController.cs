@@ -69,6 +69,32 @@ namespace moneyucab_portalweb_back.Controllers
         }
 
         [HttpPost]
+        [Route("RegisterFamiliar")]
+        //Post: /api/Authentication/Register
+        public async Task<Object> RegisterFamiliar(RegistrationModel UserModel)
+        {
+            try
+            {
+                // Chequeo que el username no este registrado
+                await FabricaComandos.Fabricar_Cmd_Verificar_Registro_Usuario(this._userManager, UserModel).Ejecutar();
+                //Se realiza el registro del usuario
+                var result = await FabricaComandos.Fabricar_Cmd_Registro_Usuario_Familiar(_userManager, UserModel, _appSettings, _emailSender).Ejecutar();
+
+                return Ok(new { key = "RegisterMessage", message = "Registro exitoso", result });
+            }
+            catch (MoneyUcabException ex)
+            {
+                //Debe controlarse un error dentro de la plataforma
+                //Se realiza bad request respondiendo con el objeto obtenido
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
         [Route("RegisterComercio")]
         //Post: /api/Authentication/Register
         public async Task<Object> RegisterComercio(ComercioForm comercio)
@@ -246,6 +272,28 @@ namespace moneyucab_portalweb_back.Controllers
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
 
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("EliminarUsuario")]
+        //GET: /api/Dashboard/InformacionPersona
+        public async Task<Object> EliminarUsuario([FromQuery] int IdUsuario)
+        {
+
+            try
+            {
+                return FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(IdUsuario).Ejecutar();
+            }
+            catch (MoneyUcabException ex)
+            {
+                //Se retorna el badRequest con los datos de la excepción
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
         }
 
 
