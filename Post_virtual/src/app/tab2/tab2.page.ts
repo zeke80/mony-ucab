@@ -11,6 +11,7 @@ import { AlertController } from '@ionic/angular';
 import {Tarjeta} from '../models/tarjeta.model';
 import { Cuenta } from '../models/cuenta.model';
 import { CobroActivo } from '../models/CobroActivo.model';
+import { Cobro } from '../models/cobro.model';
 
 @Component({
   selector: 'app-tab2',
@@ -25,6 +26,8 @@ export class Tab2Page implements OnInit {
   usuario: Usuario;
   tarjetas: Tarjeta[]= [];
   banco: {} = {}; 
+  cobrosCancelados: Cobro[]= [];
+  cobrosExitosos: Cobro[]= [];
 
   cobrosActivos: CobroActivo[] = [];
 
@@ -97,6 +100,20 @@ export class Tab2Page implements OnInit {
       (data: any) =>{
         this.cobrosActivos = data;
         console.log(data);
+      }
+    );
+
+    this._pagoServices.cobrosCancelados().subscribe(
+      (data: any) =>{
+         this.cobrosCancelados= data;
+         
+      }
+    );
+
+    this._pagoServices.cobrosExitosos().subscribe(
+      (data: any) =>{
+         this.cobrosExitosos= data;
+         
       }
     );
 
