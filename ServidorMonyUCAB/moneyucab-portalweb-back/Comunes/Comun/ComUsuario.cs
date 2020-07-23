@@ -145,42 +145,6 @@ namespace Comunes.Comun
             this.comercio.LlenadoDataFormComercio(ComandoSQL);
         }
 
-        public void LlenadoDataFormComercioF(NpgsqlCommand ComandoSQL)
-        {
-            //ComandoSQL.Parameters.Add(new NpgsqlParameter("EntityId", this._idEntity));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("TipoUsuarioId", this.idTipoUsuario));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("TipoIdentificacionId", this.tipoIdentificacion.idTipoIdentificacion));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Usuario", this.usuario));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("FechaRegistro", this.fechaRegistro));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("NroIdentificacion", this.nroIdentificacion));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Email", this.email));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Telefono", this.telefono));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Direccion", this.direccion));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Estatus", this.estatus));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("TipoSol", 'C'));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Contrasena", this.contrasena));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuarioF", this.idUsuarioF));
-            this.comercio.LlenadoDataFormComercio(ComandoSQL);
-        }
-
-        public void LlenadoDataFormPersonaF(NpgsqlCommand ComandoSQL)
-        {
-            //ComandoSQL.Parameters.Add(new NpgsqlParameter("EntityId", this._idEntity));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("TipoUsuarioId", this.idTipoUsuario));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("TipoIdentificacionId", this.tipoIdentificacion.idTipoIdentificacion));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Usuario", this.usuario));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("FechaRegistro", this.fechaRegistro));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("NroIdentificacion", this.nroIdentificacion));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Email", this.email));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Telefono", this.telefono));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Direccion", this.direccion));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("TipoSol", 'P'));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Contrasena", this.contrasena));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("Estatus", this.estatus));
-            ComandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuarioF", this.idUsuarioF));
-            this.persona.LlenadoDataFormPersona(ComandoSQL);
-        }
-
         public void LlenadoDataNpgsql(NpgsqlDataReader Data)
         {
             this.idUsuario = Data.GetInt32(0 + offset);

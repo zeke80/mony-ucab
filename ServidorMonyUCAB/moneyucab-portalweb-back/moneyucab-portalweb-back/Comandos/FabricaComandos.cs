@@ -312,40 +312,5 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Cambio_Contraseña(UserManager, Usuario, PasswordActual, PasswordCambio);
         }
-
-        public static Comando_Consultar_Usuarios Fabricar_Cmd_Consultar_Usuarios(string Query)
-        {
-            return new Comando_Consultar_Usuarios(Query);
-        }
-
-        public static Comando_Consultar_Usuarios_Familiares Fabricar_Cmd_Consultar_Usuarios_Familiares(int IdUsuario)
-        {
-            return new Comando_Consultar_Usuarios_Familiares(IdUsuario);
-        }
-
-        public static Comando_Eliminar_Usuario Fabricar_Cmd_Eliminar_Usuario(int IdUsuario)
-        {
-            return new Comando_Eliminar_Usuario(IdUsuario);
-        }
-
-        public static Comando_Registro_Usuario_Familiar_DAO Fabricar_Cmd_Registro_Usuario_Familiar_DAO(RegistrationModel Form)
-        {
-            return new Comando_Registro_Usuario_Familiar_DAO(Form);
-        }
-
-        public static Comando_Registro_Usuario_Familiar Fabricar_Cmd_Registro_Usuario_Familiar(UserManager<Usuario> UserManager, RegistrationModel Registration, ApplicationSettings AppSettings, IEmailSender EmailSender)
-        {
-            return new Comando_Registro_Usuario_Familiar(UserManager, Registration, AppSettings, EmailSender);
-        }
-
-        public static Comando_Establecer_Limite_Parametro Fabricar_Cmd_Establecer_Limite_Parametro(int IdParametro, string Limite)
-        {
-            return new Comando_Establecer_Limite_Parametro(IdParametro, Limite);
-        }
-
-        public static Comando_Establecer_Comision Fabricar_Cmd_Establecer_Comision(int IdComision, double Comision)
-        {
-            return new Comando_Establecer_Comision(IdComision, Comision);
-        }
     }
 }

@@ -462,49 +462,5 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [HttpGet]
-        [Authorize]
-        [Route("ConsultarUsuarios")]
-        //GET: /api/Dashboard/InformacionPersona
-        public async Task<Object> ConsultarUsuarios([FromQuery] string Query)
-        {
-
-            try
-            {
-                return FabricaComandos.Fabricar_Cmd_Consultar_Usuarios(Query).Ejecutar();
-            }
-            catch (MoneyUcabException ex)
-            {
-                //Se retorna el badRequest con los datos de la excepción
-                return BadRequest(ex.Response());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("ConsultarUsuariosFamiliares")]
-        //GET: /api/Dashboard/InformacionPersona
-        public async Task<Object> ConsultarUsuariosFamiliares([FromQuery] int IdUsuario)
-        {
-
-            try
-            {
-                return FabricaComandos.Fabricar_Cmd_Consultar_Usuarios_Familiares(IdUsuario).Ejecutar();
-            }
-            catch (MoneyUcabException ex)
-            {
-                //Se retorna el badRequest con los datos de la excepción
-                return BadRequest(ex.Response());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }
-        }
-
     }
 }

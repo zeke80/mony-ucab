@@ -60,6 +60,7 @@ namespace Comunes.Comun
             ComandoSQL.Parameters.Add(new NpgsqlParameter("RazonSocial", this.razonSocial));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("Nombre", this.nombreRepresentante));
             ComandoSQL.Parameters.Add(new NpgsqlParameter("Apellido", this.apellidoRepresentante));
+            ComandoSQL.Parameters.Add(new NpgsqlParameter("Comision", this.comision));
         }
 
         public void LlenadoDataFormPersona(NpgsqlCommand ComandoSQL)
