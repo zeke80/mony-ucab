@@ -248,5 +248,68 @@ namespace moneyucab_portalweb_back.Controllers
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("BotonPagoTarjeta")]
+        public async Task<Object> BotonPagoTarjeta([FromBody] BotonPago Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Boton_Pago_Tarjeta(Formulario.idUsuario, Formulario.usuarioDestino, Formulario.monto, Formulario.idMedioPaga).Ejecutar();
+                return Ok(new { key = "RealizarRetiro", message = "Retiro realizado", result });
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("BotonPagoCuenta")]
+        public async Task<Object> BotonPagoCuenta([FromBody] BotonPago Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Boton_Pago_Cuenta(Formulario.idUsuario, Formulario.usuarioDestino, Formulario.monto, Formulario.idMedioPaga).Ejecutar();
+                return Ok(new { key = "RealizarRetiro", message = "Retiro realizado", result });
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("BotonPagoMonedero")]
+        public async Task<Object> BotonPagoMonedero([FromBody] BotonPago Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Boton_Pago_Monedero(Formulario.idUsuario, Formulario.usuarioDestino, Formulario.monto).Ejecutar();
+                return Ok(new { key = "RealizarRetiro", message = "Retiro realizado", result });
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
     }
 }

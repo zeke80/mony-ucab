@@ -312,5 +312,60 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Cambio_Contraseña(UserManager, Usuario, PasswordActual, PasswordCambio);
         }
+
+        public static Comando_Consultar_Usuarios Fabricar_Cmd_Consultar_Usuarios(string Query)
+        {
+            return new Comando_Consultar_Usuarios(Query);
+        }
+
+        public static Comando_Consultar_Usuarios_Familiares Fabricar_Cmd_Consultar_Usuarios_Familiares(int idUsuario)
+        {
+            return new Comando_Consultar_Usuarios_Familiares(idUsuario);
+        }
+
+        public static Comando_Eliminar_Usuario Fabricar_Cmd_Eliminar_Usuario(int idUsuario)
+        {
+            return new Comando_Eliminar_Usuario(idUsuario);
+        }
+
+        public static Comando_Registro_Usuario_Familiar Fabricar_Cmd_Registro_Usuario_Familiar(UserManager<Usuario> UserManager, RegistrationModel Registration, ApplicationSettings AppSettings, IEmailSender EmailSender)
+        {
+            return new Comando_Registro_Usuario_Familiar(UserManager, Registration, AppSettings, EmailSender);
+        }
+
+        public static Comando_Registro_Usuario_Familiar_DAO Fabricar_Cmd_Registro_Usuario_Familiar_DAO(RegistrationModel Form)
+        {
+            return new Comando_Registro_Usuario_Familiar_DAO(Form);
+        }
+
+        public static Comando_Establecer_Limite_Parametro Fabricar_Cmd_Establecer_Limite_Parametro(int IdUsuario, string Limite)
+        {
+            return new Comando_Establecer_Limite_Parametro(IdUsuario, Limite);
+        }
+
+        public static Comando_Establecer_Comision Fabricar_Cmd_Establecer_Comision(int IdComercio, double Comision)
+        {
+            return new Comando_Establecer_Comision(IdComercio, Comision);
+        }
+
+        public static Comando_Retiro Fabricar_Cmd_Retiro(int IdUsuario, int IdCuenta, double Monto)
+        {
+            return new Comando_Retiro(IdUsuario, IdCuenta, Monto);
+        }
+
+        public static Comando_Boton_Pago_Cuenta Fabricar_Cmd_Boton_Pago_Cuenta(int IdUsuario, string UsuarioDestino, double Monto, int IdCuenta)
+        {
+            return new Comando_Boton_Pago_Cuenta(IdUsuario, UsuarioDestino, Monto, IdCuenta);
+        }
+
+        public static Comando_Boton_Pago_Tarjeta Fabricar_Cmd_Boton_Pago_Tarjeta(int IdUsuario, string UsuarioDestino, double Monto, int IdTarjeta)
+        {
+            return new Comando_Boton_Pago_Tarjeta(IdUsuario, UsuarioDestino, Monto, IdTarjeta);
+        }
+
+        public static Comando_Boton_Pago_Monedero Fabricar_Cmd_Boton_Pago_Monedero(int IdUsuario, string UsuarioDestino, double Monto)
+        {
+            return new Comando_Boton_Pago_Monedero(IdUsuario, UsuarioDestino, Monto);
+        }
     }
 }
