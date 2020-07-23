@@ -19,16 +19,16 @@ namespace PruebasUnitarias
         {
             persona = new Persona
             {
-                Usuario = "user1231",
-                Email = "user1231@gmail.com",
-                Password = "passuser1",
+                Usuario = "HOLA",
+                Email = "hola@gmail.com",
+                Password = "agente86",
                 IdTipoUsuario = 1,
                 IdTipoIdentificacion = 1,
                 IdEstadoCivil = 1,
                 AnoRegistro = DateTime.Now.Year,
                 MesRegistro = DateTime.Now.Month,
                 DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = 1231,
+                NroIdentificacion = 26411293,
                 Telefono = "telfuser1",
                 Direccion = "diruser1",
                 Estatus = 1,
