@@ -870,6 +870,7 @@ AS $$
 DECLARE
 BEGIN
 	UPDATE Usuario SET estatus = 4 WHERE idUsuario = $1;
+	RETURN TRUE;
 END;
 $$;
 

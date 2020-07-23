@@ -28,7 +28,7 @@ namespace moneyucab_portalweb_back.Controllers
         }
 
         //Operaciones de consulta---------------------------------------------------------------
-        [HttpPost]
+        [HttpGet]
         [Route("ConsultaUsuarios")]
         //Post: /api/Authentication/Register
         public async Task<Object> ConsultarUsuarios([FromQuery]string Query)
@@ -47,7 +47,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("EliminarUsuario")]
         //Post: /api/Authentication/Register
         public async Task<Object> EliminarUsuario([FromQuery] int idUsuario)

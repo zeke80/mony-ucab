@@ -462,7 +462,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("ConsultaUsuariosF")]
         //Post: /api/Authentication/Register
         public async Task<Object> ConsultarUsuariosF([FromQuery] int idUsuario)
