@@ -2018,5 +2018,215 @@ namespace DAO
             }
             throw new MoneyUcabException("No se pudo realizar la recarga", 240);
         }
+
+        public List<ComUsuario> ConsultarUsuarios(string Query)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM Consultar_Usuarios(@Query);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Query", Query));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComUsuario> listaUsuarios = new List<ComUsuario>();
+                ComUsuario row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComUsuario();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public List<ComUsuario> ConsultarUsuariosFamiliares(int idUsuario)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM Consultar_Usuario_Familiar(@idUsuario);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("idUsuario", idUsuario));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComUsuario> listaUsuarios = new List<ComUsuario>();
+                ComUsuario row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComUsuario();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public bool EliminarUsuario(int idUsuario)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM Eliminar_Usuario(@idUsuario);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("idUsuario", idUsuario));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    return lectorTablaSQL.GetBoolean(0);
+                }
+                else
+                    throw new MoneyUcabException("No se pudo realizar la eliminación", 240);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return false;
+        }
+
+        public void RegistroUsuarioPersonaF(ComUsuario Formulario)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Registro_Usuario_F(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, " +
+                    "@Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento, @IdUsuarioF, @Comision)");
+                Formulario.LlenadoDataFormPersonaF(comandoSQL);
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void RegistroUsuarioComercioF(ComUsuario Formulario)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Registro_Usuario_F(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, " +
+                    "@Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento, @IdUsuarioF, @Comision)");
+                Formulario.LlenadoDataFormComercioF(comandoSQL);
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
     }
 }

@@ -846,7 +846,7 @@ END;
 $$;
 
 --Consulta de usuario familiar
-CREATE OR REPLACE FUNCTION Consultar_Usuario_Familiar(VARCHAR)
+CREATE OR REPLACE FUNCTION Consultar_Usuario_Familiar(INT)
 												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
 						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
 						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
@@ -875,7 +875,7 @@ $$;
 
 --RegistroUsuario(@TipoUsuarioId, @TipoIdentificacionId, @Usuario, @FechaRegistro, @NroIdentificacion, @Email, @Telefono, @Direccion, @Estatus, @TipoSol, @Nombre, @Apellido, @Contrasena, @RazonSocial, @IdEstadoCivil, @FechaNacimiento)
 CREATE OR REPLACE FUNCTION Registro_Usuario_F(INT, INT, VARCHAR, DATE, INT, VARCHAR, VARCHAR, VARCHAR, INT, CHAR, VARCHAR, VARCHAR, VARCHAR, VARCHAR,
-												INT, DATE, INT)
+												INT, DATE, INT, DOUBLE PRECISION)
 												RETURNS BOOLEAN
 LANGUAGE plpgsql    
 AS $$
@@ -898,7 +898,7 @@ BEGIN
 		VALUES
 					(usuario, $13, 0, 1);
 		IF ($10 = 'C') THEN
-			SELECT Registro_Comercio($11,$12,$14,usuario) INTO RESPONSE;
+			SELECT Registro_Comercio($11,$12,$14,usuario, $18) INTO RESPONSE;
 			IF NOT (RESPONSE) THEN
 				RAISE EXCEPTION 'Error al intentar registrar el Comercio';
 			END IF;

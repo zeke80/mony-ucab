@@ -536,5 +536,50 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
         Boolean PersonaUsuario(string Usuario);
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <param name="Query">Especifica el query a usar para consultar a los usuarios</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComUsuario> ConsultarUsuarios(string Query);
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios vinculados familiarmente con el indicado.
+        /// </summary>
+        /// <param name="idUsuario">Especifica el id del usuariop relacionados directamente al usuario indicado.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComUsuario> ConsultarUsuariosFamiliares(int idUsuario);
+
+        /// <summary>
+        /// Se realiza una eliminación de usuario en base de datos.
+        /// </summary>
+        /// <param name="idUsuario">Especifica el id del usuario para inhabilitarlo (eliminarlo).</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        bool EliminarUsuario(int idUsuario);
+
+        /// <summary>
+        /// Realiza el registro de un usuario como persona dentro del modelo de negocio.
+        /// </summary>
+        /// <param name="Formulario">Formulario de llenado para realizar el registro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void RegistroUsuarioPersonaF(ComUsuario Formulario);
+
+        /// <summary>
+        /// Realiza el registro de un usuario como comercio dentro del modelo de negocio.
+        /// </summary>
+        /// <param name="Formulario">Formulario de llenado para realizar el registro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void RegistroUsuarioComercioF(ComUsuario Formulario);
     }
 }
