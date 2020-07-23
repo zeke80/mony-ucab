@@ -21,6 +21,81 @@
 
         <ion-card>
             <ion-card-header>
+                <h2>Reintegros solicitados</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cobroExitoso of cobrosExitosos">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{cobroExitoso.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{cobroExitoso.fecha.day}}-{{cobroExitoso.fecha.month}}-{{cobroExitoso.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Reintegros Cancelados</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cobroExitoso of cobrosExitosos">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{cobroExitoso.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{cobroExitoso.fecha.day}}-{{cobroExitoso.fecha.month}}-{{cobroExitoso.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Reintegros Exitosos</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cobroExitoso of cobrosExitosos">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{cobroExitoso.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{cobroExitoso.fecha.day}}-{{cobroExitoso.fecha.month}}-{{cobroExitoso.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+
+
+
+
+
+
+        <ion-card>
+            <ion-card-header>
                 <h2>Operaciones del monedero</h2>
             </ion-card-header>
             <ion-card-contend>

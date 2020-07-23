@@ -1,8 +1,12 @@
 export class Reintegro {
-    idreintegro: number;
-    idusuario_solicitante: number;
-    idusuario_receptor: number;
-    fecha_solicitud: string;
-    referencia: string;
-    status: string;
+    "idReintegro": number;
+    "idUsuarioSolicitante": number;
+    "fecha": {
+        "year": number;
+        "month": number;
+        "day": number;
+    };
+    "monto": number;
+    "estatus": string;
+    "referencia": string
 }
