@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pago } from '../../models/pago.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,16 @@ export class PagoService {
     }
   ];
 
+  formModel = this.form.group({
+    idUsuarioSolicitante : [0, Validators.required],
+    emailPagador : ['', [Validators.required, Validators.email]],
+    monto : [0, Validators.required]
+  });
+
+  solicitante = '1';
+
   constructor(
-    public http: HttpClient
+    public http: HttpClient,private form: FormBuilder
   ) { }
 
   getVacio() {
@@ -59,6 +68,13 @@ export class PagoService {
     };
 
     return this.http.post(url, data);
+  }
+
+  cobrosActivos(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
+    .set('solicitante', this.solicitante )
+    return this.http.get('http://localhost:49683/api/dashboard/cobrosactivos', {params: param, headers: header})
   }
 
 }

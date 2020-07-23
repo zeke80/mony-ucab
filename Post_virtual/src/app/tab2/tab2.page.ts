@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import {Tarjeta} from '../models/tarjeta.model';
 import { Cuenta } from '../models/cuenta.model';
+import { CobroActivo } from '../models/CobroActivo.model';
 
 @Component({
   selector: 'app-tab2',
@@ -24,6 +25,8 @@ export class Tab2Page implements OnInit {
   usuario: Usuario;
   tarjetas: Tarjeta[]= [];
   banco: {} = {}; 
+
+  cobrosActivos: CobroActivo[] = [];
 
   constructor(
     public _cuentaServices: CuentaService,
@@ -75,7 +78,7 @@ export class Tab2Page implements OnInit {
     (res: any)=>{
       
       this.tarjetas = res;
-      console.log(this.tarjetas); 
+      //console.log(this.tarjetas); 
     },
     (err:any)=>{
       
@@ -86,6 +89,13 @@ export class Tab2Page implements OnInit {
       (data: any) =>{
         this.banco = data;
         this.cuentas = data;
+        //console.log(data);
+      }
+    );
+
+    this._pagoServices.cobrosActivos().subscribe(
+      (data: any) =>{
+        this.cobrosActivos = data;
         console.log(data);
       }
     );

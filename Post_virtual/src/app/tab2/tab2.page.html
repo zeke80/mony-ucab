@@ -33,15 +33,15 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let pago of pagos">
+                    <ion-item *ngFor="let cobroActivo of cobrosActivos">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
 
                             <h1>
-                                $ {{pago.monto}}
+                                $ {{cobroActivo.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{pago.fecha_solicitus}}
+                                Fecha: {{cobroActivo.fecha.day}}-{{cobroActivo.fecha.month}}-{{cobroActivo.fecha.year}}
                             </h2>
 
                         </ion-label>
