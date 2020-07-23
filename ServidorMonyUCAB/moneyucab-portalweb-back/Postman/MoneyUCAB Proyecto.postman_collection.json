@@ -31,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\": \"CodeCodigo7\",\r\n    \"email\": \"pjfariakiddo7@gmail.com\",\r\n    \"password\": \"weawística\",\r\n    \"idTipoUsuario\": 1,\r\n    \"idTipoIdentificacion\": 1,\r\n    \"idEstadoCivil\": 1,\r\n    \"anoRegistro\":2020,\r\n    \"mesRegistro\":5,\r\n    \"diaRegistro\":30,\r\n    \"nroIdentificacion\": 26466404,\r\n    \"telefono\": \"04123746609\",\r\n    \"direccion\": \"Candelaria\",\r\n    \"estatus\": 1,\r\n    \"comercio\": false,\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"Faria\",\r\n    \"anoNacimiento\": 1998,\r\n    \"mesNacimiento\": 5,\r\n    \"diaNacimiento\":30,\r\n    \"razonSocial\": \"\"\r\n}",
+							"raw": "{\r\n    \"usuario\": \"ezez8\",\r\n    \"email\": \"ezequielmonteroz8@gmail.com\",\r\n    \"password\": \"weawística\",\r\n    \"idTipoUsuario\": 1,\r\n    \"idTipoIdentificacion\": 1,\r\n    \"idEstadoCivil\": 1,\r\n    \"anoRegistro\":2020,\r\n    \"mesRegistro\":5,\r\n    \"diaRegistro\":30,\r\n    \"nroIdentificacion\": 26466466,\r\n    \"telefono\": \"04123746609\",\r\n    \"direccion\": \"Candelaria\",\r\n    \"estatus\": 1,\r\n    \"comercio\": false,\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"Faria\",\r\n    \"anoNacimiento\": 1998,\r\n    \"mesNacimiento\": 5,\r\n    \"diaNacimiento\":30,\r\n    \"razonSocial\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,7 +135,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"UserName\": \"CodeCodigo7\",\r\n    \"Email\": \"ezequielmonteroz8@gmail.com\",\r\n    \"Password\": \"weawística\",\r\n    \"comercio\": false\r\n}",
+							"raw": "{\r\n    \"UserName\": \"ezez8\",\r\n    \"Email\": \"ezequielmonteroz8@gmail.com\",\r\n    \"Password\": \"weawística\",\r\n    \"comercio\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,7 +164,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\":\"CodeCodigo7\",\r\n    \"idUsuario\":1,\r\n    \"razonSocial\":\"carniceria\",\r\n    \"nombre\":\"Pedro\",\r\n    \"apellido\":\"Faria\"\r\n}",
+							"raw": "{\r\n    \"usuario\":\"ezez8\",\r\n    \"idUsuario\":1,\r\n    \"razonSocial\":\"carniceria\",\r\n    \"nombre\":\"Pedro\",\r\n    \"apellido\":\"Faria\",\r\n    \"comision\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,7 +193,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\":1,\r\n    \"idTipoCuenta\":1,\r\n    \"idBanco\":1,\r\n    \"numero\":\"1512ff\"\r\n}",
+							"raw": "{\r\n    \"idUsuario\":3,\r\n    \"idTipoCuenta\":3,\r\n    \"idBanco\":1,\r\n    \"numero\":\"666\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -222,7 +222,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\":2,\r\n    \"idTipoTarjeta\":1,\r\n    \"idBanco\":1,\r\n    \"numero\":6394890001016612816,\r\n    \"ano\":2021,\r\n    \"mes\":5,\r\n    \"dia\":30,\r\n    \"cvc\": 1550,\r\n    \"estatus\":1\r\n}",
+							"raw": "{\r\n    \"idUsuario\":1,\r\n    \"idTipoTarjeta\":1,\r\n    \"idBanco\":1,\r\n    \"numero\":6394890001016612816,\r\n    \"ano\":2021,\r\n    \"mes\":5,\r\n    \"dia\":30,\r\n    \"cvc\": 1550,\r\n    \"estatus\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -941,7 +941,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=CodeCodigo7",
+									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=ezez8",
 									"host": [
 										"{{url}}"
 									],
@@ -953,7 +953,7 @@
 									"query": [
 										{
 											"key": "Usuario",
-											"value": "CodeCodigo7"
+											"value": "ezez8"
 										}
 									]
 								},
@@ -1526,7 +1526,7 @@
 	],
 	"variable": [
 		{
-			"id": "d5104755-ee00-4749-9318-39beb5c8ccc8",
+			"id": "7dda370c-25b8-40c2-9912-23bb3a73394e",
 			"key": "url",
 			"value": ""
 		}
