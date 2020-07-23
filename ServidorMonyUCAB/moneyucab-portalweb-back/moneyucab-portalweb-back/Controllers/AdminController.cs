@@ -54,7 +54,48 @@ namespace moneyucab_portalweb_back.Controllers
         {
             try
             {
-                return await FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(idUsuario).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(idUsuario).Ejecutar();
+                return Ok(new { key = "EliminacionUsuario", message = "Usuario eliminado.", result });
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("EstablecerLimiteParametro")]
+        //Post: /api/Authentication/Register
+        public async Task<Object> EstablecerLimiteParametro([FromQuery] EstLimParam formulario)
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Limite_Parametro(formulario.idParametro, formulario.limite).Ejecutar();
+                return Ok(new { key = "LimiteParametro", message = "Limite establecido.", result });
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Route("EstablecerComision")]
+        //Post: /api/Authentication/Register
+        public async Task<Object> EstablecerComision([FromQuery] EstComision formulario)
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Comision(formulario.idComercio, formulario.comision).Ejecutar();
+                return Ok(new { key = "ComisionComercio", message = "Comision establecido.", result });
             }
             catch (MoneyUcabException ex)
             {

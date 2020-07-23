@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace moneyucab_portalweb_back.EntitiesForm
 {
-	public class LimiteParametro
+	public class EstLimParam
 	{
 		public int idParametro { get; set; }
 		public string limite { get; set; }

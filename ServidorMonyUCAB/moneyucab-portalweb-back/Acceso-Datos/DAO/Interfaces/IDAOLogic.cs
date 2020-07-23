@@ -581,5 +581,71 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
         void RegistroUsuarioComercioF(ComUsuario Formulario);
+
+        /// <summary>
+        /// Establecer el limite de parámetro.
+        /// </summary>
+        /// <param name="IdParametro">Id del parámetro vinculado.</param>
+        /// <param name="Limite">Valor límite que puede tener el parámetro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void EstablecerLimiteParametro(int IdParametro, string Limite);
+
+        /// <summary>
+        /// Establecer el limite de parámetro.
+        /// </summary>
+        /// <param name="IdComercio">Id del comercio vinculado.</param>
+        /// <param name="Comision">Valor de comisión que puede obtener el comercio.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void EstablecerComision(int IdComercio, double Comision);
+
+        /// <summary>
+        /// Se realiza el retiro, transfiriendo el dinero a la cuenta.
+        /// </summary>
+        /// <param name="IdUsuario">Id del usuario.</param>
+        /// <param name="IdCuenta">Id de la cuenta vinculada al usuario.</param>
+        /// <param name="Monto">Monto para realizar el retiro.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void Retiro(int IdUsuario, int IdCuenta, double Monto);
+
+        /// <summary>
+        /// Se realiza un pago instantáneo como botón.
+        /// </summary>
+        /// <param name="IdUsuario">Id del usuario.</param>
+        /// <param name="UsuarioDestino">Usuario al que se le destinará el pago.</param>
+        /// <param name="Monto">Monto para realizar el pago.</param>
+        /// <param name="IdCuenta">Id del medio que realizará el pago.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void BotonPagoCuenta(int IdUsuario, string UsuarioDestino, double Monto, int IdCuenta);
+
+        /// <summary>
+        /// Se realiza un pago instantáneo como botón.
+        /// </summary>
+        /// <param name="IdUsuario">Id del usuario.</param>
+        /// <param name="UsuarioDestino">Usuario al que se le destinará el pago.</param>
+        /// <param name="Monto">Monto para realizar el pago.</param>
+        /// <param name="IdTarjeta">Id del medio que realizará el pago.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void BotonPagoTarjeta(int IdUsuario, string UsuarioDestino, double Monto, int IdTarjeta);
+
+        /// <summary>
+        /// Se realiza un pago instantáneo como botón.
+        /// </summary>
+        /// <param name="IdUsuario">Id del usuario.</param>
+        /// <param name="UsuarioDestino">Usuario al que se le destinará el pago.</param>
+        /// <param name="Monto">Monto para realizar el pago.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void BotonPagoMonedero(int IdUsuario, string UsuarioDestino, double Monto);
     }
 }

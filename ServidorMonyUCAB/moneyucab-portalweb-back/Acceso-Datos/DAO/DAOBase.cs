@@ -2161,11 +2161,11 @@ namespace DAO
                 {
                     if (!lectorTablaSQL.GetBoolean(0))
                     {
-                        throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+                        throw new MoneyUcabException("No se pudo registrar al usuario familiar", 212);
                     }
                 }
                 else
-                    throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+                    throw new MoneyUcabException("No se pudo registrar al usuario familiar", 212);
             }
             catch (NpgsqlException ex)
             {
@@ -2203,11 +2203,269 @@ namespace DAO
                 {
                     if (!lectorTablaSQL.GetBoolean(0))
                     {
-                        throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+                        throw new MoneyUcabException("No se pudo registrar al usuario familiar", 212);
                     }
                 }
                 else
-                    throw new MoneyUcabException("No se pudo registrar al usuario", 201);
+                    throw new MoneyUcabException("No se pudo registrar al usuario familiar", 212);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void EstablecerLimiteParametro(int IdParametro, string Limite)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Establecer_Limite_Parametro(@IdParametro, @Limite)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdParametro", IdParametro));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Limite", Limite));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo establecer límite parámetro", 211);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo establecer límite parámetro", 211);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void EstablecerComision(int IdComercio, double Comision)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Establecer_Comision(@IdComercio, @Comision)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdComercio", IdComercio));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Comision", Comision));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void Retiro(int IdUsuario, int IdCuenta, double Monto)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Retiro(@IdUsuario, @IdCuenta, @Monto)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuario", IdUsuario));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdCuenta", IdCuenta));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Monto", Monto));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void BotonPagoCuenta(int IdUsuario, string UsuarioDestino, double Monto, int IdCuenta)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Boton_Pago_Cuenta(@IdUsuario, @UsuarioDestino, @Monto, @IdCuenta)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuario", IdUsuario));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("UsuarioDestino", UsuarioDestino));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Monto", Monto));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdCuenta", IdCuenta));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void BotonPagoTarjeta(int IdUsuario, string UsuarioDestino, double Monto, int IdTarjeta)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Boton_Pago_Tarjeta(@IdUsuario, @UsuarioDestino, @Monto, @IdTarjeta)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuario", IdUsuario));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("UsuarioDestino", UsuarioDestino));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Monto", Monto));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdTarjeta", IdTarjeta));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void BotonPagoMonedero(int IdUsuario, string UsuarioDestino, double Monto)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT Boton_Pago_Monedero(@IdUsuario, @UsuarioDestino, @Monto)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuario", IdUsuario));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("UsuarioDestino", UsuarioDestino));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Monto", Monto));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo establecer comision", 210);
             }
             catch (NpgsqlException ex)
             {

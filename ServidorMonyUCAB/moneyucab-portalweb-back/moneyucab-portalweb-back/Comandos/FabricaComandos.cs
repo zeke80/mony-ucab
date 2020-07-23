@@ -337,5 +337,35 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Registro_Usuario_Familiar_DAO(Form);
         }
+
+        public static Comando_Establecer_Limite_Parametro Fabricar_Cmd_Establecer_Limite_Parametro(int IdUsuario, string Limite)
+        {
+            return new Comando_Establecer_Limite_Parametro(IdUsuario, Limite);
+        }
+
+        public static Comando_Establecer_Comision Fabricar_Cmd_Establecer_Comision(int IdComercio, double Comision)
+        {
+            return new Comando_Establecer_Comision(IdComercio, Comision);
+        }
+
+        public static Comando_Retiro Fabricar_Cmd_Retiro(int IdUsuario, int IdCuenta, double Monto)
+        {
+            return new Comando_Retiro(IdUsuario, IdCuenta, Monto);
+        }
+
+        public static Comando_Boton_Pago_Cuenta Fabricar_Cmd_Boton_Pago_Cuenta(int IdUsuario, string UsuarioDestino, double Monto, int IdCuenta)
+        {
+            return new Comando_Boton_Pago_Cuenta(IdUsuario, UsuarioDestino, Monto, IdCuenta);
+        }
+
+        public static Comando_Boton_Pago_Tarjeta Fabricar_Cmd_Boton_Pago_Tarjeta(int IdUsuario, string UsuarioDestino, double Monto, int IdTarjeta)
+        {
+            return new Comando_Boton_Pago_Tarjeta(IdUsuario, UsuarioDestino, Monto, IdTarjeta);
+        }
+
+        public static Comando_Boton_Pago_Monedero Fabricar_Cmd_Boton_Pago_Monedero(int IdUsuario, string UsuarioDestino, double Monto)
+        {
+            return new Comando_Boton_Pago_Monedero(IdUsuario, UsuarioDestino, Monto);
+        }
     }
 }

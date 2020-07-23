@@ -79,5 +79,27 @@ namespace moneyucab_portalweb_back.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Retiro")]
+        public async Task<Object> Retiro([FromBody] Transferencia Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                var result = await FabricaComandos.Fabricar_Cmd_Retiro(Formulario.idUsuarioReceptor, Formulario.idMedioPaga, Formulario.monto).Ejecutar();
+                return Ok(new { key = "RealizarRetiro", message = "Retiro realizado", result });
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+
+        }
     }
 }
