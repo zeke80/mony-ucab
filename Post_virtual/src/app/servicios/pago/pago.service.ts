@@ -88,7 +88,7 @@ export class PagoService {
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', '1')
-    return this.http.get('http://localhost:49683/api/dashboard/CobrosCancelados', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/dashboard/CobrosExitosos', {params: param, headers: header})
   }
 
 }
