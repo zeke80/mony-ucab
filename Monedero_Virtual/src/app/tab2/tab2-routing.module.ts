@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'pago-recarga',
     loadChildren: () => import('./pago-recarga/pago-recarga.module').then( m => m.PagoRecargaPageModule)
+  },
+  {
+    path: 'retiro',
+    loadChildren: () => import('./retiro/retiro.module').then( m => m.RetiroPageModule)
   }
 
 ];

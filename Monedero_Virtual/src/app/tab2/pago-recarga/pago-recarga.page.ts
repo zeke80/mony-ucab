@@ -40,29 +40,29 @@ export class PagoRecargaPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe(paramMap => {
-      const recipeID = paramMap.get('pagoID');
-      let id: number = +recipeID;
-      this.operacion = this._pagoServices.getpagoSol(id);
-    });
-    this._usuarioServices.inforUsurio(this.operacion.idusuario_receptor)
-        .subscribe((data: any) => {
-          this.user = data.usuario;
-        });
-    this.usuario = this._usuarioServices.getUsuario();
-    this._cuentaServices.getCuentas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.metodoPagoC = data;
-        });
-    this._tarjetaServices.getTarjetas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.metodoPagoT = data;
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertServer();
+    // this._activatedRoute.paramMap.subscribe(paramMap => {
+    //   const recipeID = paramMap.get('pagoID');
+    //   let id: number = +recipeID;
+    //   this.operacion = this._pagoServices.getpagoSol(id);
+    // });
+    // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
+    //     .subscribe((data: any) => {
+    //       this.user = data.usuario;
+    //     });
+    // this.usuario = this._usuarioServices.getUsuario();
+    // this._cuentaServices.getCuentas(this.usuario.idUsuario)
+    //     .subscribe((data: any) => {
+    //       this.metodoPagoC = data;
+    //     });
+    // this._tarjetaServices.getTarjetas(this.usuario.idUsuario)
+    //     .subscribe((data: any) => {
+    //       this.metodoPagoT = data;
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //         this.AlertServer();
 
-        });
-    this.saldo = this._pagoServices.getSaldo();
+    //     });
+    // this.saldo = this._pagoServices.getSaldo();
   }
 
   boolTarjeta() {

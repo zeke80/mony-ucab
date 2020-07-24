@@ -59,6 +59,10 @@ const routes: Routes = [
         loadChildren: () => import ('../tab2/pago-recarga/pago-recarga.module').then(m => m.PagoRecargaPageModule)
       },
       {
+        path: 'cuenta/retiro',
+        loadChildren: () => import ('../tab2/retiro/retiro.module').then(m => m.RetiroPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/cuenta',
         pathMatch: 'full'

@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/cuenta"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Realizar retiro</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+    <div class="contaier-monto">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <h1>Especificaciones del retio</h1>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-item>
+                    <ion-label position="floating"><strong>Monto: </strong></ion-label>
+                    <ion-input #input type="number"></ion-input>
+                </ion-item>
+
+                <h2 class="ion-text-center">Metodo de pago</h2>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-button (click)="boolTarjeta()" color="primary" fill="solid" expand="block">
+            Tarjeta
+        </ion-button>
+
+        <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
+            Cuenta
+        </ion-button>
+        <br>
+        <ion-item *ngIf="auxT">
+            <ion-label>Escoja una tarjeta</ion-label>
+            <ion-select [(ngModel)]="tarjeta" (ionChange)="obtenerIDtajeta()">
+                <ion-select-option value="{{metodo.idTarjeta}}" *ngFor="let metodo of metodoPagoT">Nro tarjeta: {{metodo.numero}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <br>
+        <ion-button (click)="pagarTarjeta( input.value )" *ngIf="auxT" color="warning" fill="solid" expand="block">
+            Pagar con tarjeta
+        </ion-button>
+
+
+
+        <ion-item *ngIf="auxC">
+            <ion-label>Escoja una cuenta</ion-label>
+            <ion-select [(ngModel)]="cuenta" (ionChange)="obtenerIDcuenta()">
+                <ion-select-option value="{{metodo._idCuenta}}" *ngFor="let metodo of metodoPagoC">{{metodo._numero}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <br>
+
+        <ion-button (click)="pagarCuenta( input.value )" *ngIf="auxC" color="warning" fill="solid" expand="block">
+            Pagar con cuenta
+        </ion-button>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+
+
+
+
+</ion-content>

@@ -102,4 +102,9 @@ export class UsuarioService {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.post('http://monyucab.somee.com/api/authentication/modification', body, {headers: tokenHeader});
   }
+
+  recuperarContrasena(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/authentication/ForgotPasswordEmail', body, {headers: tokenHeader});
+  }
 }

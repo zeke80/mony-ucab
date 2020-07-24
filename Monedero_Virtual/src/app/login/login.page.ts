@@ -63,6 +63,7 @@ ingresar( f: NgForm ) {
           localStorage.setItem('token', data.result.token);
           this._usuarioServices.getUserInfo(data.result.username)
               .subscribe((data: any) => {
+                this.aux = false;
                 this._loginServices.login();
                 let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
                     data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
@@ -115,11 +116,12 @@ async AlertaError() {
     this.aux = true;
   }
 
-  recuperar(email: string) {
-    let correoMay: string = email.toUpperCase();
-    console.log(correoMay);
-    this._loginServices.recuperarUserContra(correoMay)
-        .subscribe((data: any) => {
+  recuperar(correo: string) {
+    var body = {
+      email: correo
+    };
+    this._usuarioServices.recuperarContrasena(body)
+        .subscribe((data:any) => {
           this.correo();
         });
   }

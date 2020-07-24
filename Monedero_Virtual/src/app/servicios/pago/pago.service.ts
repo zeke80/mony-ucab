@@ -11,23 +11,25 @@ export class PagoService {
 
   public pagos: Pago[] = [
     {
-      idpago: 1,
-      idusuario_solicitante: 1,
-      idusuario_receptor: 1,
-      fechasolicitud: '01/01/2020',
+      idPago: 1,
+      idUsuarioSolicitante: 1,
+      idUsuarioReceptor: 1,
+      fecha: '',
       monto: 0,
-      estatus: '1'
+      estatus: '1',
+      referencia: ''
     },
   ];
 
   public pagosS: Pago[] = [
     {
-      idpago: 1,
-      idusuario_solicitante: 1,
-      idusuario_receptor: 1,
-      fechasolicitud: '01/01/2020',
+      idPago: 1,
+      idUsuarioSolicitante: 1,
+      idUsuarioReceptor: 1,
+      fecha: '',
       monto: 0,
-      estatus: '1'
+      estatus: '1',
+      referencia: ''
     },
   ];
 
@@ -55,6 +57,7 @@ export class PagoService {
     this.pagosS = pagos;
 
   }
+  
 
   getPagos(idusuario: number) {
     let url: string = 'http://monyucab.somee.com/api/Usuario/pagosSolicitadosReceptor';
@@ -79,7 +82,7 @@ export class PagoService {
   getpago(operacionID: number){
     return {
       ...this.pagos.find(operacion => {
-        return operacion.idpago === operacionID;
+        return operacion.idPago === operacionID;
       })
     };
   }
@@ -87,7 +90,7 @@ export class PagoService {
   getpagoSol(operacionID: number){
     return {
       ...this.pagosS.find(operacion => {
-        return operacion.idpago === operacionID;
+        return operacion.idPago === operacionID;
       })
     };
   }
@@ -170,5 +173,14 @@ export class PagoService {
     return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarPagoMonedero', body, {headers: tokenHeader});
   }
 
+  realizarRetiro(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/monedero/Retiro', body, {headers: tokenHeader});
+  }
+
+  obtenerSolicitudes(idUser) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.get('http://monyucab.somee.com/api/dashboard/CobrosActivos?idUsuario='+idUser+'&idSolicitante=0', {headers: tokenHeader});
+  }
 
 }

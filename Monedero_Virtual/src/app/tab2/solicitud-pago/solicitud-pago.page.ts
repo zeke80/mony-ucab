@@ -43,22 +43,24 @@ export class SolicitudPagoPage implements OnInit {
       const recipeID = paramMap.get('pagoID');
       let id: number = +recipeID;
       this.operacion = this._pagoServices.getpago(id);
+      console.log(this.operacion);
     });
-    this._usuarioServices.inforUsurio(this.operacion.idusuario_solicitante)
-        .subscribe((data: any) => {
-          this.user = data.usuario;
-        });
-    this.usuario = this._usuarioServices.getUsuario();
-    this._cuentaServices.getCuentas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          console.log(data);
-          this.metodoPagoC = data;
-        });
-    this._tarjetaServices.getTarjetas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.metodoPagoT = data;
-        });
-    this.saldo = this._pagoServices.getSaldo();
+
+    // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
+    //     .subscribe((data: any) => {
+    //       this.user = data.usuario;
+    //     });
+    // this.usuario = this._usuarioServices.getUsuario();
+    // this._cuentaServices.getCuentas(this.usuario.idUsuario)
+    //     .subscribe((data: any) => {
+    //       console.log(data);
+    //       this.metodoPagoC = data;
+    //     });
+    // this._tarjetaServices.getTarjetas(this.usuario.idUsuario)
+    //     .subscribe((data: any) => {
+    //       this.metodoPagoT = data;
+    //     });
+    // this.saldo = this._pagoServices.getSaldo();
   }
 
   boolTarjeta() {

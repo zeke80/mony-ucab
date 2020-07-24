@@ -28,6 +28,10 @@
             Realizar pago
         </ion-button>
 
+        <ion-button (click)="solicitudRetiro()" color="warning" fill="solid" expand="full">
+            Realizar retiro
+        </ion-button>
+
         <ion-button (click)="recarga()" color="warning" fill="solid" expand="full">
             Recarga
         </ion-button>
@@ -38,7 +42,7 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let pago of pagos" [routerLink]="['/tabs/cuenta/solicitudPago', pago.idpago]">
+                    <ion-item *ngFor="let pago of pagos" [routerLink]="['/tabs/cuenta/solicitudPago', pago.idPago]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
 
@@ -46,7 +50,7 @@
                                 $ {{pago.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{pago.fecha_solicitus}}
+                                Fecha: {{pago.fecha.day}}/{{pago.fecha.month}}/{{pago.fecha.year}}
                             </h2>
 
                         </ion-label>

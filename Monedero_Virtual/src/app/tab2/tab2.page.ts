@@ -47,16 +47,18 @@ export class Tab2Page implements OnInit{
 
     this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
         .subscribe((data: any) => {
-          
           this.tarjetas = data;
         });
 
     this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
-        .subscribe((data:any) => {
-          console.log(data);
+        .subscribe((data: any) => {
           this.cuentas = data;
-          
-        })
+        });
+    this._pagoServices.obtenerSolicitudes(this.usuario.idUsuario)
+        .subscribe((data: any) => {
+          this.pagos = data;
+          this._pagoServices.guardarPago(this.pagos);
+        });
     // this.cuentas = this._cuentaServices.getVacio();
     // this._cuentaServices.getCuentas(this.usuario.idUsuario)
     //      .subscribe((data: any) => {
@@ -86,6 +88,10 @@ export class Tab2Page implements OnInit{
 
   solicitudPago() {
     this.router.navigate(['tabs/cuenta/pagoSinSolicitud']);
+  }
+
+  solicitudRetiro() {
+    this.router.navigate(['tabs/cuenta/retiro']);
   }
 
   recarga() {
