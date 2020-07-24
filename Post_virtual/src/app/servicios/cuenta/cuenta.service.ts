@@ -16,12 +16,12 @@ export class CuentaService {
 
   obtenerTipoCuenta(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
-    return this.http.get('http://localhost:80/api/Dashboard/TiposCuentas', {headers: header});
+    return this.http.get('http://localhost:49683/api/Dashboard/TiposCuentas', {headers: header});
   }
 
   obtenerBanco(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
-    return this.http.get('http://localhost:80/api/Dashboard/Bancos', {headers: header});
+    return this.http.get('http://localhost:49683/api/Dashboard/Bancos', {headers: header});
   }
 
 
@@ -29,7 +29,7 @@ export class CuentaService {
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'));
 
-    return this.http.get('http://localhost:80/api/Dashboard/cuentas',{params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/Dashboard/cuentas',{params: param, headers: header})
   }
 
 

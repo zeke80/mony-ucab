@@ -21,87 +21,45 @@
 
         <ion-card>
             <ion-card-header>
-                <h2>Operaciones del monedero</h2>
+                <h2>Reintegros solicitados</h2>
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let monedero of monederos" [routerLink]="['/tabs/operaciones/monedero', monedero.idoperacionesmonedero]">
-                        <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <div *ngIf="monedero.idtipooperacion === 2">
-                            <ion-label>
-                                <h1>
-                                    $ -{{monedero.monto}}
-                                </h1>
-                                <h2>
-                                    Fecha: {{monedero.fecha.split('T', 1 )}}
-                                </h2>
-                                Hora: {{monedero.hora.hours}}:{{monedero.hora.minutes}}
-                            </ion-label>
-                        </div>
-                        <div *ngIf="monedero.idtipooperacion === 1">
-                            <ion-label>
-                                <h1>
-                                    $ +{{monedero.monto}}
-                                </h1>
-                                <h2>
-                                    Fecha: {{monedero.fecha.split('T', 1 )}}
-                                </h2>
-                                Hora: {{monedero.hora.hours}}:{{monedero.hora.minutes}}
-                            </ion-label>
-                        </div>
-
-                    </ion-item>
-                </ion-list>
-            </ion-card-contend>
-        </ion-card>
-
-
-        <ion-card>
-            <ion-card-header>
-                <h2>Operaciones de cuentas</h2>
-            </ion-card-header>
-            <ion-card-contend>
-                <ion-list>
-                    <ion-item *ngFor="let cuenta of cuentas" [routerLink]="['/tabs/operaciones', cuenta.idoperacioncuenta]">
+                    <ion-item *ngFor="let reintegroActivo of reintegrosActivos">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
 
                             <h1>
-                                $ +{{cuenta.monto}}
+                                $ {{reintegroActivo.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{cuenta.fecha.split('T', 1 )}}
+                                Fecha: {{reintegroActivo.fecha.day}}-{{reintegroActivo.fecha.month}}-{{reintegroActivo.fecha.year}}
                             </h2>
 
-                            Hora: {{cuenta.hora.hours}}:{{cuenta.hora.minutes}}
                         </ion-label>
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
         </ion-card>
 
-
-
         <ion-card>
             <ion-card-header>
-                <h2>Operaciones de tarjetas</h2>
+                <h2>Reintegros Cancelados</h2>
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let tarjeta of tarjetas" [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idoperaciontarjeta]">
+                    <ion-item *ngFor="let reintegroCancelado of reintegrosCancelados">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
 
                             <h1>
-                                $ +{{tarjeta.monto}}
+                                $ {{reintegroCancelado.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{tarjeta.fecha.split('T', 1 )}}
+                                Fecha: {{reintegroCancelado.fecha.day}}-{{reintegroCancelado.fecha.month}}-{{reintegroCancelado.fecha.year}}
                             </h2>
 
-                            Hora: {{tarjeta.hora.hours}}:{{tarjeta.hora.minutes}}
                         </ion-label>
-
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
@@ -109,23 +67,28 @@
 
         <ion-card>
             <ion-card-header>
-                <h2>Operaciones de reintegro</h2>
+                <h2>Reintegros Exitosos</h2>
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let reintegro of reintegros" [routerLink]="['/tabs/operaciones/reintegro', reintegro.idreintegro]">
+                    <ion-item *ngFor="let reintegroExitoso of reintegrosExitosos">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
-                            Estatus: {{reintegro.estatus}}
-                            <h2>
-                                Fecha: {{reintegro.fecha_solicitud.split('T', 1 )}}
-                            </h2>
-                        </ion-label>
 
+                            <h1>
+                                $ {{reintegroExitoso.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{reintegroExitoso.fecha.day}}-{{reintegroExitoso.fecha.month}}-{{reintegroExitoso.fecha.year}}
+                            </h2>
+
+                        </ion-label>
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
         </ion-card>
+
+
 
     </div>
 

@@ -3,6 +3,10 @@ import { OperacionService } from '../servicios/operacion/operacion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
 import { UsuarioService } from '../servicios/usuario/usuario.service';
+import { Reintegro } from '../models/reintegro.model';
+import { ToastController, LoadingController, AlertController } from '@ionic/angular';
+import { ReintegroService } from '../servicios/reintegro/reintegro.service';
+import { TarjetaService } from '../servicios/tarjeta/tarjeta.service';
 
 @Component({
   selector: 'app-tab3',
@@ -18,56 +22,47 @@ export class Tab3Page implements OnInit{
   usuario: Usuario;
   cont: number = 0;
 
-  constructor(
-    public _operacionServices: OperacionService,
-    public _usuarioServices: UsuarioService,
-    private _activatedRoute: ActivatedRoute,
-    public router: Router
-  ) {
-    this._activatedRoute.paramMap.subscribe(params => {
-      this.ngOnInit();
-  });
-  }
+  reintegrosActivos: Reintegro[] = [];
+
+  reintegrosCancelados: Reintegro[] = [];
+
+  reintegrosExitosos: Reintegro[] = [];
+
+  constructor(private router: Router,
+    public toastController : ToastController, 
+    private loadingController: LoadingController,
+    private alertController: AlertController,
+    private reintegroService: ReintegroService,
+    private tarjetaService: TarjetaService) { }
 
   ngOnInit(){
-    this.getData();
+
+ 
+
+    this.reintegroService.reintegrosActivos().subscribe(
+      (data: any) =>{
+        this.reintegrosActivos = data;
+        console.log(this.reintegrosActivos);
+      }
+    );
+
+    this.reintegroService.reintegrosCancelados().subscribe(
+      (data: any) =>{
+        this.reintegrosCancelados = data;
+        console.log(this.reintegrosCancelados);
+      }
+    );
+
+    this.reintegroService.reintegrosExitosos().subscribe(
+      (data: any) =>{
+        this.reintegrosExitosos = data;
+        console.log(this.reintegrosExitosos);
+      }
+    );
+
   }
 
-  getData() {
-    this.cuentas = this._operacionServices.getoperacionesCuentaVacio();
-    this.tarjetas = this._operacionServices.getoperacionesTarjetaVacio();
-    this.monederos = this._operacionServices.getoperacionesMonederoVacio();
-    this.reintegros = this._operacionServices.getreintegrosVacio();
-   // this.usuario = this._usuarioServices.getUsuario();
-    this._operacionServices.getoperacionesCuenta(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.cuentas = data;
-          this._operacionServices.guardarCuentas(this.cuentas);
-        });
-    this._operacionServices.getoperacionesTarjeta(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.tarjetas = data;
-          this._operacionServices.guardarTarjetas(this.tarjetas);
 
-        });
-    this._operacionServices.getoperacionesMonedero(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.monederos = data;
-          this._operacionServices.guardarMonedero(this.monederos);
-        });
-    this._operacionServices.getoperacionesreintegros(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.reintegros = data;
-          this._operacionServices.guardarReintegros(this.reintegros);
-        });
-  }
 
-  solicitudPago() {
-    this.router.navigate(['tabs/operaciones/pago']);
-  }
-
-  cierre() {
-    this.router.navigate(['tabs/operaciones/cierre']);
-  }
 
 }

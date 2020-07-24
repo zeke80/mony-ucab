@@ -44,7 +44,7 @@ export class OperacionService {
     }
   ];
 
-  reintegros: Reintegro[] = [
+ /* reintegros: Reintegro[] = [
     {
       idreintegro: 0,
       idusuario_solicitante: 0,
@@ -53,13 +53,13 @@ export class OperacionService {
       referencia: '',
       status: ''
     }
-  ];
+  ];*/
 
   constructor(
     public http: HttpClient
   ) { }
 
-  getoperacionesCuentaVacio() {
+  /*getoperacionesCuentaVacio() {
 
     return [...this.operacionesCuenta];
 
@@ -201,6 +201,6 @@ export class OperacionService {
     };
 
     return this.http.post(url, data);
-  }
+  }*/
 
 }

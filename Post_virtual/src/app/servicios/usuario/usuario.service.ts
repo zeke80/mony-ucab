@@ -63,7 +63,7 @@ export class UsuarioService {
   getDatosUsuario(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('Usuario', localStorage.getItem('email'));
-    let url = "http://localhost:80/api/Dashboard/InformacionPersona";
+    let url = "http://localhost:49683/api/Dashboard/InformacionPersona";
     return this.http.get(url, {params: param, headers: header});
   }
 
@@ -71,7 +71,7 @@ export class UsuarioService {
     
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('IdUsuario', localStorage.getItem('idUsuario'));
-    let url = "http://localhost:80/api/monedero/Consultar";
+    let url = "http://localhost:49683/api/monedero/Consultar";
   
 
     return this.http.get(url, {params: param, headers: header});
