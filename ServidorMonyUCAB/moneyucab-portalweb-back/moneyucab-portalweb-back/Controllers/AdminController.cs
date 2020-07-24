@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using moneyucab_portalweb_back.Services.Middleware.ActionFilter;
 
 namespace moneyucab_portalweb_back.Controllers
 {
@@ -28,7 +29,9 @@ namespace moneyucab_portalweb_back.Controllers
         }
 
         //Operaciones de consulta---------------------------------------------------------------
+        [ServiceFilter(typeof(AdminFilter))]
         [HttpGet]
+        [Authorize]
         [Route("ConsultaUsuarios")]
         //Post: /api/Authentication/Register
         public async Task<Object> ConsultarUsuarios([FromQuery]string Query)
@@ -47,7 +50,9 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AdminFilter))]
         [HttpDelete]
+        [Authorize]
         [Route("EliminarUsuario")]
         //Post: /api/Authentication/Register
         public async Task<Object> EliminarUsuario([FromQuery] int idUsuario)
@@ -67,7 +72,9 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AdminFilter))]
         [HttpPost]
+        [Authorize]
         [Route("EstablecerLimiteParametro")]
         //Post: /api/Authentication/Register
         public async Task<Object> EstablecerLimiteParametro([FromQuery] EstLimParam formulario)
@@ -87,7 +94,9 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AdminFilter))]
         [HttpPost]
+        [Authorize]
         [Route("EstablecerComision")]
         //Post: /api/Authentication/Register
         public async Task<Object> EstablecerComision([FromQuery] EstComision formulario)
