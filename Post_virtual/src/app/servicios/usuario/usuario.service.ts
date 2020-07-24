@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Perfil } from '../../models/perfil.model';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,27 @@ export class UsuarioService {
   
 
     return this.http.get(url, {params: param, headers: header});
+  }
+
+  getDatosPerfil(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('Usuario', localStorage.getItem('email'));
+    let url = "http://localhost:80/api/Dashboard/InformacionPersona";
+    return this.http.get(url, {params: param, headers: header});
+  }
+
+  modificarUsaurio(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    var body = {
+      nombre : this.usuarioModel.value.nombre,
+      apellido : this.usuarioModel.value.apellido,
+      telefono : this.usuarioModel.value.telefono,
+      direccion : this.usuarioModel.value.direccion,
+      razonSocial : this.usuarioModel.value.razonSocial,
+      idEstadoCivil : Number(this.usuarioModel.value.idEstadoCivil),
+      idUsuario: parseInt(localStorage.getItem('idUsuario'))
+    };
+    return this.http.post('http://localhost:80/api/Authentication/Modification', body , {headers: header});
   }
 
  /* inforUsurio(idusuario: number) {

@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
   }
 
   aux = false;
+  email : string;
 
   constructor(public router: Router,
               public _loginServices: LoginService,
@@ -39,6 +40,8 @@ export class LoginPage implements OnInit {
                 console.log(this.formModel.email);
                 localStorage.setItem('token', data.result.token);
                 localStorage.setItem('email', this.formModel.email);
+
+                this.email = localStorage.getItem('email');
 
               this.router.navigate(['/tabs/cuenta']);
 

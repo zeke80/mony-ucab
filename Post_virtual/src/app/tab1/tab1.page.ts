@@ -6,6 +6,9 @@ import { UsuarioService } from '../servicios/usuario/usuario.service';
 import { ComercioService } from '../servicios/comercio/comercio.service';
 import { AlertController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Perfil } from '../models/perfil.model';
+import { LoginService } from '../servicios/login/login.service';
+
 
 @Component({
   selector: 'app-tab1',
@@ -16,15 +19,53 @@ export class Tab1Page implements OnInit {
 
   usuario: Usuario;
   comercio: Comercio;
+  perfil: Perfil[] = [];
+
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  direccion: string;
+  razonsocial: string;
+  email: string;
+
 
   constructor(
     public _usuarioService: UsuarioService,
     public _comercioService: ComercioService,
+    public _loginServices: LoginService,
     public alert: AlertController
   ) {
   }
 
   ngOnInit(){
+
+    this._usuarioService.getDatosPerfil().subscribe(
+      (data: any) => {
+
+        localStorage.setItem('name', data.persona.nombre);
+        localStorage.setItem('apellido', data.persona.apellido);
+        localStorage.setItem('telefono', data.result.telefono);
+        localStorage.setItem('direccion', data.result.direccion);
+        localStorage.setItem('razonsocial', data.comercio.razonSocial);
+
+        this.nombre = localStorage.getItem('name');
+        this.apellido = localStorage.getItem('apellido');
+        this.telefono = localStorage.getItem('telefono');
+        this.direccion = localStorage.getItem('direccion');
+        this.razonsocial = localStorage.getItem('razonsocial');
+        console.log(data);
+      },
+      
+    );
+
+     this._usuarioService.getDatosUsuario().subscribe(
+      (res: any)=>{
+        this.usuario = res;
+      },
+      (err:any)=>{
+
+      }
+    );
     /*this.usuario = this._usuarioService.getUsuario();
     this.comercio = this._comercioService.getVacio();
     this._comercioService.getComercio(this.usuario.idUsuario)
