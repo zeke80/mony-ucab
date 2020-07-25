@@ -1,7 +1,10 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            <h4 class="ion-text-center"><strong>Perfil de la empresa</strong></h4>
+            <ion-item>
+               
+            <h1 class="ion-text-center"><strong>Perfil de la empresa</strong></h1>
+            </ion-item>
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -14,7 +17,8 @@
             <ion-card-header>
                 <ion-row>
                     <ion-col>
-                        <h1>Editar perfil</h1>
+                        <p class="ion-text-center"><ion-icon name="person-circle-outline" color="dark" class="icon"></ion-icon></p>
+                      <strong> <ion-text color="tertiary"><h2 class="ion-text-center">Editar perfil</h2></ion-text></strong>
                     </ion-col>
                 </ion-row>
             </ion-card-header>
@@ -58,8 +62,8 @@
                         <ion-input [ngModel]="razonsocial" name="razon"></ion-input>
                     </ion-item>
 
-                    <ion-button type="submit" fill="solid" expand="full">
-                        Guardar
+                    <ion-button type="submit" fill="solid" expand="full" color="success"  expand="block">
+                       Guardar
                     </ion-button>
                 </form>
 
