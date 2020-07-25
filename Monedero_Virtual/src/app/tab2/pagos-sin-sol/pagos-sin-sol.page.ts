@@ -113,6 +113,8 @@ export class PagosSinSolPage implements OnInit {
             idOperacion: 2
           };
 
+          console.log(body);
+
           this._pagoServices.realizarPagoCuenta(body)
               .subscribe((data:any) => {
                 this.router.navigate(['/tabs/cuenta']);

@@ -6,9 +6,7 @@ import { UsuarioService } from '../../servicios/usuario/usuario.service';
 import { Usuario } from '../../models/usuario.model';
 import { CuentaService } from '../../servicios/cuenta/cuenta.service';
 import { TarjetaService } from '../../servicios/tarjeta/tarjeta.service';
-import { NgForm } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-solicitud-pago',
@@ -19,14 +17,18 @@ export class SolicitudPagoPage implements OnInit {
 
   operacion: Pago;
   usuario: Usuario;
-  user: string;
-  saldo: number;
-  metodoPagoC = [];
-  metodoPagoT = [];
+  aux: number;
+
   auxT = false;
   auxC = false;
+
+  metodoPagoC = [];
+  metodoPagoT = [];
+
   tarjeta: any;
   cuenta: any;
+
+  saldo: number;
 
   constructor(
     public _activatedRoute: ActivatedRoute,
@@ -43,8 +45,22 @@ export class SolicitudPagoPage implements OnInit {
       const recipeID = paramMap.get('pagoID');
       let id: number = +recipeID;
       this.operacion = this._pagoServices.getpago(id);
-      console.log(this.operacion);
+      console.log(this.operacion)
     });
+
+    this.usuario = this._usuarioServices.getUsuario();
+    this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+        .subscribe((data: any) =>  {
+          this.metodoPagoC = data;
+        });
+    this._tarjetaServices.obtenerTarjetas(this.usuario.idUsuario)
+        .subscribe((data: any) => {
+          this.metodoPagoT = data;
+        });
+    this._usuarioServices.getSaldo(this.usuario.idUsuario)
+        .subscribe((data:any) => {
+          this.saldo = data;
+        });
 
     // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
     //     .subscribe((data: any) => {
@@ -80,53 +96,79 @@ export class SolicitudPagoPage implements OnInit {
   }
 
   pagarTarjeta() {
-    console.log('user del usuario receptor: ' + this.user);
-    console.log('id tarjeta: ' + this.tarjeta);
-    console.log('monto: ' + this.operacion.monto);
-    console.log('referencia: ' + this.operacion.referencia);
-    
     let id: number = + this.tarjeta;
-    let ref: number = + this.operacion.referencia
     let cant: number = + this.operacion.monto;
+    var body = {
+      idUsuarioReceptor: this.operacion.idUsuarioSolicitante,
+      idMedioPaga: id,
+      monto: cant,
+      idOperacion: this.operacion.idPago
+    };
 
-    this._pagoServices.pagoTarjeta(id, this.user, cant, ref)
-        .subscribe((data: any) => {
+    console.log(body);
+
+    this._pagoServices.realizarPagoTarjeta(body)
+        .subscribe((data:any) => {
+          console.log(data);
           this.router.navigate(['/tabs/cuenta']);
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertServer();
-
         });
 
   }
 
   pagarCuenta() {
-    console.log('user del usuario receptor: ' + this.user);
-    console.log('id cuenta: ' + this.cuenta);
-    console.log('monto: ' + this.operacion.monto);
-    console.log('referencia: ' + this.operacion.referencia);
     let id: number = + this.cuenta;
-    let ref: number = + this.operacion.referencia
     let cant: number = + this.operacion.monto;
+    var body = {
+      idUsuarioReceptor: this.operacion.idUsuarioSolicitante,
+      idMedioPaga: id,
+      monto: cant,
+      idOperacion: this.operacion.idPago
+    };
 
-    this._pagoServices.pagoCuenta(id, this.user, cant, ref)
-        .subscribe((data: any) => {
+    console.log(body);
+
+    this._pagoServices.realizarPagoCuenta(body)
+        .subscribe((data:any) => {
           this.router.navigate(['/tabs/cuenta']);
         });
   }
 
   pagarMonedero() {
-    if (this.saldo >= this.operacion.monto) {
-      let ref: number = + this.operacion.referencia;
-      let cant: number = + this.operacion.monto;
-      this._pagoServices.pagoMonedero(this.usuario.idUsuario, this.user, cant, ref)
-          .subscribe((data: any) => {
-            this.router.navigate(['/tabs/cuenta']);
-          });
+    let cant: number = + this.operacion.monto;
+    if (cant > this.saldo) {
+      this.AlertSaldo();
+      return;
     }
-    else {
-      this.AlertaError();
-    }
+
+    var body = {
+      idUsuarioReceptor: this.operacion.idUsuarioSolicitante,
+      idMedioPaga: this.usuario.idUsuario,
+      monto: cant,
+      idOperacion: this.operacion.idPago
+    };
+
+    this._pagoServices.realizarPagoMonedero(body)
+        .subscribe((data:any) => {
+          this.router.navigate(['/tabs/cuenta']);
+        });
+
+  }
+
+  async AlertSaldo() {
+    const alertElement = await this.alert.create({
+      header: 'Saldo insuficiente',
+      message: '',
+      buttons: [
+        {
+          text: 'Aceptar',
+          handler: () => {
+          }
+        },
+
+      ]
+    });
+
+    await alertElement.present();
 
   }
 

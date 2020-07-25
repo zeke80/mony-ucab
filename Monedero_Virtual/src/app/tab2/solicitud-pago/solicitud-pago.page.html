@@ -22,11 +22,6 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-item>
-                    <ion-label position="floating"><strong>Usuario solicitante:</strong></ion-label>
-                    <br>
-                    <h4 class="ion-text-center">{{user}}</h4>
-                </ion-item>
-                <ion-item>
                     <ion-label position="floating"><strong>Monto:</strong></ion-label>
                     <br>
                     <h4 class="ion-text-center">{{operacion.monto}}</h4>
@@ -34,7 +29,7 @@
                 <ion-item>
                     <ion-label position="floating"><strong>Fecha:</strong></ion-label>
                     <br>
-                    <h4 class="ion-text-center">{{operacion.fecha_solicitus}}</h4>
+                    <h4 class="ion-text-center">{{operacion.fecha.day}}/{{operacion.fecha.month}}/{{operacion.fecha.year}}</h4>
                 </ion-item>
                 <ion-item>
                     <ion-label position="floating"><strong>Estatus:</strong></ion-label>
@@ -63,7 +58,7 @@
         <ion-item *ngIf="auxT">
             <ion-label>Escoja una tarjeta</ion-label>
             <ion-select [(ngModel)]="tarjeta" (ionChange)="obtenerIDtajeta()">
-                <ion-select-option value="{{metodo.idtarjeta}}" *ngFor="let metodo of metodoPagoT">{{metodo.numero}}</ion-select-option>
+                <ion-select-option value="{{metodo.idTarjeta}}" *ngFor="let metodo of metodoPagoT">Nro tarjeta: {{metodo.numero}}</ion-select-option>
             </ion-select>
         </ion-item>
         <br>
@@ -76,7 +71,7 @@
         <ion-item *ngIf="auxC">
             <ion-label>Escoja una cuenta</ion-label>
             <ion-select [(ngModel)]="cuenta" (ionChange)="obtenerIDcuenta()">
-                <ion-select-option value="{{metodo.idcuenta}}" *ngFor="let metodo of metodoPagoC">{{metodo.numero}}</ion-select-option>
+                <ion-select-option value="{{metodo._idCuenta}}" *ngFor="let metodo of metodoPagoC">{{metodo._numero}}</ion-select-option>
             </ion-select>
         </ion-item>
         <br>
