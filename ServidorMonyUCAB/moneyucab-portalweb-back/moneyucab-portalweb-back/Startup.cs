@@ -14,6 +14,8 @@ using moneyucab_portalweb_back.EntitiesForm;
 using moneyucab_portalweb_back.IdentityExtentions;
 using moneyucab_portalweb_back.Migrations;
 using moneyucab_portalweb_back.Models;
+using moneyucab_portalweb_back.Services.Middleware;
+using moneyucab_portalweb_back.Services.Middleware.ActionFilter;
 using System;
 using System.Text;
 
@@ -36,6 +38,13 @@ namespace moneyucab_portalweb_back
             //RF12
             services.AddDbContext<DatosUsuarioDBContext> (options =>
                    options.UseNpgsql(Configuration.GetConnectionString("IdentityConnection")));
+
+            //Filtrado de acciones según controlador
+            services.AddScoped<AdminFilter>(container =>
+            {
+                return new AdminFilter(
+                    Configuration["AdminList"]);
+            });
 
             services.AddTransient<EntityDatosUsuario, EntityDatosUsuario>();
             //
@@ -99,6 +108,7 @@ namespace moneyucab_portalweb_back
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<AdminBlackListMiddleware>(Configuration["AdminBlackList"]);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

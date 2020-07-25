@@ -15,5 +15,13 @@
             exception.error = "El usuario no está autenticado";
             throw exception;
         }
+
+        public static void UsuarioNoValido()
+        {
+            AutenticacionException exception = new AutenticacionException();
+            exception.codigo = 80;
+            exception.error = "El usuario tiene un estatus que no permite acceder a la información";
+            throw exception;
+        }
     }
 }

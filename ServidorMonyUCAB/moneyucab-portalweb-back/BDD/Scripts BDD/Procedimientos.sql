@@ -90,6 +90,7 @@ tipo_cuenta int;
 numero_cuenta varchar:= $3 || 'MONEDERO';
 banco int;
 BEGIN
+	IF NOT EXISTS (SELECT * FROM Usuario WHERE Usuario.email = $6 AND Usuario.estatus <> 1) THEN
 		SELECT "Id" FROM "AspNetUsers" into entity_user_id WHERE "AspNetUsers"."UserName" = $3 or "AspNetUsers"."Email" = $6;
 		IF entity_user_id IS NULL THEN
 			RAISE EXCEPTION 'No existe el usuario registrado en Entity';
@@ -118,6 +119,12 @@ BEGIN
 				RAISE EXCEPTION 'Error al intentar registrar el monedero';
 			END IF;
 		RETURN TRUE;
+	ELSE
+		IF EXISTS (SELECT * FROM Usuario WHERE Usuario.email = $6 AND Usuario.estatus = 4) THEN
+			UPDATE Usuario SET Usuario.estatus = 1 WHERE Usuario.email = $6;
+		END IF;
+		RETURN TRUE;
+	END IF;
 END;
 $$;
 
@@ -757,7 +764,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-		UPDATE Tarjeta SET estatus = 2 WHERE Tarjeta.idTarjeta = $1;
+		UPDATE Tarjeta SET estatus = 3 WHERE Tarjeta.idTarjeta = $1;
 		RETURN TRUE;
 END;
 $$;
@@ -769,7 +776,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-		UPDATE Cuenta SET estatus = 2 WHERE Cuenta.idCuenta = $1;
+		UPDATE Cuenta SET estatus = 3 WHERE Cuenta.idCuenta = $1;
 		RETURN TRUE;
 END;
 $$;
@@ -829,19 +836,16 @@ $$;
 --Gestión de usuario
 --Consulta de usuario
 CREATE OR REPLACE FUNCTION Consultar_Usuarios(VARCHAR)
-												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
+												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int, idusuariof int,
 						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
-						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
+						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar, comision double precision,
 						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
 						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int)
 LANGUAGE plpgsql    
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
-										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
-										JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
-										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
+	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
 END;
 $$;
 
@@ -869,7 +873,8 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-	UPDATE Usuario SET estatus = 4 WHERE idUsuario = $1;
+	UPDATE Usuario SET estatus = 3 WHERE idUsuario = $1;
+	RETURN TRUE;
 END;
 $$;
 

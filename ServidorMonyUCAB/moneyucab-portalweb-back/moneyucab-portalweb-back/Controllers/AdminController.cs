@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using moneyucab_portalweb_back.Services.Middleware.ActionFilter;
 
 namespace moneyucab_portalweb_back.Controllers
 {
@@ -28,7 +29,9 @@ namespace moneyucab_portalweb_back.Controllers
         }
 
         //Operaciones de consulta---------------------------------------------------------------
-        [HttpPost]
+        [ServiceFilter(typeof(AdminFilter))]
+        [HttpGet]
+        [Authorize]
         [Route("ConsultaUsuarios")]
         //Post: /api/Authentication/Register
         public async Task<Object> ConsultarUsuarios([FromQuery]string Query)
@@ -47,14 +50,16 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [HttpPost]
+        [ServiceFilter(typeof(AdminFilter))]
+        [HttpDelete]
+        [Authorize]
         [Route("EliminarUsuario")]
         //Post: /api/Authentication/Register
-        public async Task<Object> EliminarUsuario([FromQuery] int idUsuario)
+        public async Task<Object> EliminarUsuario([FromQuery] int IdUsuario)
         {
             try
             {
-                var result = await FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(idUsuario).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(IdUsuario).Ejecutar();
                 return Ok(new { key = "EliminacionUsuario", message = "Usuario eliminado.", result });
             }
             catch (MoneyUcabException ex)
@@ -67,14 +72,16 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AdminFilter))]
         [HttpPost]
+        [Authorize]
         [Route("EstablecerLimiteParametro")]
         //Post: /api/Authentication/Register
-        public async Task<Object> EstablecerLimiteParametro([FromQuery] EstLimParam formulario)
+        public async Task<Object> EstablecerLimiteParametro([FromQuery] EstLimParam Formulario)
         {
             try
             {
-                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Limite_Parametro(formulario.idParametro, formulario.limite).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Limite_Parametro(Formulario.idParametro, Formulario.limite).Ejecutar();
                 return Ok(new { key = "LimiteParametro", message = "Limite establecido.", result });
             }
             catch (MoneyUcabException ex)
@@ -87,14 +94,16 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
+        [ServiceFilter(typeof(AdminFilter))]
         [HttpPost]
+        [Authorize]
         [Route("EstablecerComision")]
         //Post: /api/Authentication/Register
-        public async Task<Object> EstablecerComision([FromQuery] EstComision formulario)
+        public async Task<Object> EstablecerComision([FromQuery] EstComision Formulario)
         {
             try
             {
-                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Comision(formulario.idComercio, formulario.comision).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Establecer_Comision(Formulario.idComercio, Formulario.comision).Ejecutar();
                 return Ok(new { key = "ComisionComercio", message = "Comision establecido.", result });
             }
             catch (MoneyUcabException ex)

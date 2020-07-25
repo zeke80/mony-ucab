@@ -367,5 +367,10 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Boton_Pago_Monedero(IdUsuario, UsuarioDestino, Monto);
         }
+
+        public static Comando_Recuperacion_Usuario Fabricar_Cmd_Recuperacion_Usuario(UserManager<Usuario> UserManager, string Email, ApplicationSettings AppSettings, IEmailSender EmailSender)
+        {
+            return new Comando_Recuperacion_Usuario(UserManager, Email, AppSettings, EmailSender);
+        }
     }
 }
