@@ -829,7 +829,7 @@ $$;
 --Gestión de usuario
 --Consulta de usuario
 CREATE OR REPLACE FUNCTION Consultar_Usuarios(VARCHAR)
-												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
+												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int, idusuariof int,
 						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
 						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
 						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
@@ -838,10 +838,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
-										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
-										JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
-										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
+	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
 END;
 $$;
 

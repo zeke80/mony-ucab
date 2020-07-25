@@ -202,6 +202,28 @@ namespace moneyucab_portalweb_back.Controllers
 
         }
 
+        [HttpPost]
+        [Route("RecuperacionUsuario")]
+        //Post: /api/Authentication/ForgotPasswordEmail
+        public async Task<IActionResult> RecuperacionUsuario([FromQuery] string Email)
+        {
+            try
+            {
+                //Proceso de envío y recuperación de contraseña.    
+                var result = await FabricaComandos.Fabricar_Cmd_Recuperacion_Usuario(_userManager, Email, _appSettings, _emailSender).Ejecutar();
+                return Ok(new { key = "ForgotPasswordEmailSent", message = "Un mensaje ha sido enviado a su email con instrucciones para restablecer su contraseña", result });
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+
+        }
+
 
         [HttpPost]
         [Route("ResetPassword")]
