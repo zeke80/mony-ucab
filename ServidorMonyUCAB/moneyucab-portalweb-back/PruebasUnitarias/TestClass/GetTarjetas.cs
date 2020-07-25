@@ -12,7 +12,7 @@ namespace PruebasUnitarias
     [TestClass]
     public class GetTarjetas
     {
-        [TestMethod]
+        /*[TestMethod]
         public void consultaTarjetas()
         {
             Task.Run(async () =>
@@ -20,6 +20,6 @@ namespace PruebasUnitarias
                 HttpResponseMessage res = await APITest.getTarjetas(1);
                 Assert.IsTrue(res.StatusCode == HttpStatusCode.Unauthorized);
             }).GetAwaiter().GetResult();
-        }
+        }*/
     }
 }

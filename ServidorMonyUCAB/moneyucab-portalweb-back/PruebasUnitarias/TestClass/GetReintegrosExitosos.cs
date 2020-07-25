@@ -12,7 +12,7 @@ namespace PruebasUnitarias
     [TestClass]
     public class GetReintegrosExitosos
     {
-        [TestMethod]
+        /*[TestMethod]
         public void consultaReintegrosCancelados()
         {
             Task.Run(async () =>
@@ -20,6 +20,6 @@ namespace PruebasUnitarias
                 HttpResponseMessage res = await APITest.getReintegrosExitosos(1, 2);
                 Assert.IsTrue(res.StatusCode == HttpStatusCode.Unauthorized);
             }).GetAwaiter().GetResult();
-        }
+        }*/
     }
 }

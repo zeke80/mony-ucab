@@ -13,7 +13,7 @@ namespace PruebasUnitarias
     [TestClass]
     public class GetCuentas
     {
-        [TestMethod]
+        /*[TestMethod]
         public void consultaCuentas()
         {
             Task.Run(async () =>
@@ -21,6 +21,6 @@ namespace PruebasUnitarias
                 HttpResponseMessage res = await APITest.getCuentas(1);
                 Assert.IsTrue(res.StatusCode == HttpStatusCode.Unauthorized);
             }).GetAwaiter().GetResult();
-        }
+        }*/
     }
 }

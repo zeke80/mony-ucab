@@ -16,14 +16,35 @@ namespace PruebasUnitarias
         static string url = "http://monyucab.somee.com";
         static string token;
 
+        public static StringContent serializarObjetoJson(object objeto)
+        {
+            var json = JsonConvert.SerializeObject(objeto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            return data;
+        }
+
+        //Admin//
+
+        /*public static async Task<HttpResponseMessage> ConsultaUsuarios(Persona persona)
+        {
+            var data = serializarObjetoJson(persona);
+            return await client.PostAsync(url + "/api/Admin/ConsultaUsuarios", data);
+        }*/
+
+        public static async Task<HttpResponseMessage> EliminarUsuario(int idUsuario)
+        {
+            return await client.PostAsync(url + "/api/Admin/EliminarUsuario?idUsuario=" + idUsuario, null);
+        }
+
+        //Authentication//
+
         public static async Task<HttpResponseMessage> register(Persona persona)
         {
-            var json = JsonConvert.SerializeObject(persona);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var data = serializarObjetoJson(persona);
             return await client.PostAsync(url + "/api/authentication/register", data);
         }
 
-        public static async Task<HttpResponseMessage> login()
+        /*public static async Task<HttpResponseMessage> login()
         {
             Login login = new Login() {
                 UserName = "ezez8",
@@ -37,10 +58,35 @@ namespace PruebasUnitarias
             var respuesta = JsonConvert.DeserializeObject<RespuestaLogin>(res.Content.ReadAsStringAsync().Result);
             token = respuesta.Key;
             return res;
-        }
+        }*/
+
+        //Billetera//
+
+        //Dashboard//
+
+        //Historial Operaciones//
+
+        //Monedero//
+
+        //Transfer//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /* Inicio de consultas get complejas  */
-        public static async Task<HttpResponseMessage> getTarjetas(int id)
+        /*public static async Task<HttpResponseMessage> getTarjetas(int id)
         {
             await login();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -80,11 +126,11 @@ namespace PruebasUnitarias
         public static async Task<HttpResponseMessage> getCobrosExitosos(int idUsuario, int idSolicitante)
         {
             return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=" + idSolicitante);
-        }
+        }*/
 
         /*error en peticion ParametrosUsuarios*/
 
-        public static async Task<HttpResponseMessage> getInformacionPersona(string user)
+        /*public static async Task<HttpResponseMessage> getInformacionPersona(string user)
         {
             return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
         }
@@ -112,9 +158,6 @@ namespace PruebasUnitarias
         public static async Task<HttpResponseMessage> getSaldo(int id)
         {
             return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
-        }
-
-        /* Fin de consultas get complejas */
-
+        }*/
     }
 }

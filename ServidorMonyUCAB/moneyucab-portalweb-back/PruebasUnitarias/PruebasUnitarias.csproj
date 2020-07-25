@@ -58,7 +58,7 @@
     <Compile Include="Modelos\Persona.cs" />
     <Compile Include="Modelos\RespuestaLogin.cs" />
     <Compile Include="Modelos\resp.cs" />
-    <Compile Include="TestClass\RegistroUsuario.cs" />
+    <Compile Include="TestClass\UsuarioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass\GetTarjetas.cs" />
     <Compile Include="TestClass\GetCuentas.cs" />

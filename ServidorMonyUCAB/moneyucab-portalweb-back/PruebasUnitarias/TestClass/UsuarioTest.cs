@@ -12,44 +12,73 @@ namespace PruebasUnitarias
     [TestClass]
     public class RegistroUsuario
     {
+        Persona admin;
         Persona persona;
 
         [TestInitialize]
         public void TestInitialize()
         {
+            admin = new Persona
+            {
+                Usuario = "admin1",
+                Email = "admin1@gmail.com",
+                Password = "admin1",
+                IdTipoUsuario = 3,
+                IdTipoIdentificacion = 1,
+                IdEstadoCivil = 1,
+                AnoRegistro = DateTime.Now.Year,
+                MesRegistro = DateTime.Now.Month,
+                DiaRegistro = DateTime.Now.Day,
+                NroIdentificacion = 1,
+                Telefono = "admin1",
+                Direccion = "admin1",
+                Estatus = 1,
+                Comercio = false,
+                Nombre = "admin1",
+                Apellido = "admin1",
+                AnoNacimiento = 2000,
+                MesNacimiento = 1,
+                DiaNacimiento = 1,
+                RazonSocial = "admin1",
+            };
+
             persona = new Persona
             {
-                Usuario = "HOLA",
-                Email = "hola@gmail.com",
-                Password = "agente86",
+                Usuario = "testUser12",
+                Email = "testUser12@gmail.com",
+                Password = "testUser12",
                 IdTipoUsuario = 1,
                 IdTipoIdentificacion = 1,
                 IdEstadoCivil = 1,
                 AnoRegistro = DateTime.Now.Year,
                 MesRegistro = DateTime.Now.Month,
                 DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = 26411293,
-                Telefono = "telfuser1",
-                Direccion = "diruser1",
+                NroIdentificacion = 12,
+                Telefono = "testUser1",
+                Direccion = "testUser1",
                 Estatus = 1,
                 Comercio = false,
-                Nombre = "nomuser1",
-                Apellido = "apeuser1",
+                Nombre = "testUser1",
+                Apellido = "testUser1",
                 AnoNacimiento = 2000,
                 MesNacimiento = 1,
                 DiaNacimiento = 1,
-                RazonSocial = "razuser1",
+                RazonSocial = "testUser1",
             };
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+
         }
 
         [TestMethod]
         public void registro_usuario()
         {
-            Task.Run(async () =>
-            {
-                HttpResponseMessage res = await APITest.register(persona);
-                Assert.IsTrue(res.StatusCode == HttpStatusCode.OK);
-            }).GetAwaiter().GetResult();
+            Task<HttpResponseMessage> res = APITest.register(persona);
+            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            APITest.EliminarUsuario(1);
         }
 
         /*[TestMethod]
@@ -73,5 +102,6 @@ namespace PruebasUnitarias
                 Assert.IsTrue(res.StatusCode == HttpStatusCode.BadRequest);
             }).GetAwaiter().GetResult();
         }*/
+
     }
 }
