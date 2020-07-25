@@ -25,8 +25,6 @@ namespace moneyucab_portalweb_back.Services.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if (context.Request.Method != HttpMethod.Get.Method)
-            {
                 var remoteIp = context.Connection.RemoteIpAddress;
 
                 string[] ip = _safelist.Split(';');
@@ -35,10 +33,17 @@ namespace moneyucab_portalweb_back.Services.Middleware
                 var badIp = false;
                 foreach (var address in ip)
                 {
-                    var testIp = IPAddress.Parse(address);
-                    if (testIp.GetAddressBytes().SequenceEqual(bytes))
+                    try
                     {
-                        badIp = true;
+                        var testIp = IPAddress.Parse(address);
+                        if (testIp.GetAddressBytes().SequenceEqual(bytes))
+                        {
+                            badIp = true;
+                            break;
+                        }
+                    }
+                    catch (FormatException e)
+                    {
                         break;
                     }
                 }
@@ -48,7 +53,6 @@ namespace moneyucab_portalweb_back.Services.Middleware
                     context.Response.StatusCode = StatusCodes.Status403Forbidden;
                     return;
                 }
-            }
 
             await _next.Invoke(context);
         }

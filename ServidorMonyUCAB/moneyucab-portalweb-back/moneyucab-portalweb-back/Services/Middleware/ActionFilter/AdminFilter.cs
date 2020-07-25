@@ -28,14 +28,21 @@ namespace moneyucab_portalweb_back.Services.Middleware.ActionFilter
             var badIp = true;
             foreach (var address in ip)
             {
-                if (remoteIp.IsIPv4MappedToIPv6)
+                try
                 {
-                    remoteIp = remoteIp.MapToIPv4();
+                    if (remoteIp.IsIPv4MappedToIPv6)
+                    {
+                        remoteIp = remoteIp.MapToIPv4();
+                    }
+                    var testIp = IPAddress.Parse(address);
+                    if (testIp.Equals(remoteIp))
+                    {
+                        badIp = false;
+                        break;
+                    }
                 }
-                var testIp = IPAddress.Parse(address);
-                if (testIp.Equals(remoteIp))
+                catch (FormatException e)
                 {
-                    badIp = false;
                     break;
                 }
             }
