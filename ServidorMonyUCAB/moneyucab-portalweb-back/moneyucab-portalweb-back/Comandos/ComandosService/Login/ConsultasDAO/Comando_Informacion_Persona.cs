@@ -1,5 +1,6 @@
 ﻿using Comunes.Comun;
 using DAO;
+using Excepciones.Excepciones_Especificas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,12 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 		async public Task<ComUsuario> Ejecutar()
 		{
 			DAOBase dao = FabricaDAO.CrearDaoBase();
-			return dao.InformacionPersona(this._usuario);
+			ComUsuario usuario = dao.InformacionPersona(this._usuario);
+			if (usuario.estatus != 1)
+            {
+				AutenticacionException.UsuarioNoValido();
+            }
+			return usuario;
 		}
 		
 		
