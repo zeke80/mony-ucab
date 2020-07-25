@@ -183,4 +183,9 @@ export class PagoService {
     return this.http.get('http://monyucab.somee.com/api/dashboard/CobrosActivos?idUsuario='+idUser+'&idSolicitante=0', {headers: tokenHeader});
   }
 
+  realizarCobro(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarCobro', body, {headers: tokenHeader});
+  }
+
 }

@@ -45,20 +45,6 @@ export class RetiroPage implements OnInit {
         .subscribe((data: any) =>  {
           this.metodoPagoC = data;
         });
-    this._tarjetaServices.obtenerTarjetas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.metodoPagoT = data;
-        });
-  }
-
-  boolTarjeta() {
-    this.auxT = true;
-    this.auxC = false;
-  }
-
-  boolCuenta() {
-    this.auxC = true;
-    this.auxT = false;
   }
 
   obtenerIDtajeta() {
@@ -67,24 +53,7 @@ export class RetiroPage implements OnInit {
   obtenerIDcuenta() {
   }
 
-  pagarTarjeta(montoIn: number) {
-    let id: number = + this.tarjeta;
-    let cant: number = + montoIn;
-    var body = {
-      idUsuarioReceptor: this.usuario.idUsuario,
-      idMedioPaga: id,
-      monto: cant,
-      idOperacion: 2
-    };
 
-    console.log(body);
-
-    this._pagoSercives.realizarRetiro(body)
-        .subscribe((data: any) => {
-          this.router.navigate(['/tabs/cuenta']);
-        });
-
-  }
 
   pagarCuenta(montoIn: number) {
     let id: number = + this.cuenta;
@@ -98,9 +67,7 @@ export class RetiroPage implements OnInit {
 
     console.log(body);
 
-
-
-    this._pagoSercives.recargaCuenta(body)
+    this._pagoSercives.realizarRetiro(body)
         .subscribe((data: any) => {
           this.router.navigate(['/tabs/cuenta']);
         });
