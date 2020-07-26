@@ -8,6 +8,7 @@ import { AlertController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Perfil } from '../models/perfil.model';
 import { LoginService } from '../servicios/login/login.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,19 +22,72 @@ export class Tab1Page implements OnInit {
   comercio: Comercio;
   perfil: Perfil[] = [];
 
-  nombre: string;
-  apellido: string;
-  telefono: string;
-  direccion: string;
-  razonsocial: string;
-  email: string;
+  user = {
+    "result": {
+        "idUsuario": null,
+        "idEntity": ' ',
+        "usuario": ' ',
+        "fechaRegistro": {
+            "dayOfYear": null,
+            "year": null,
+            "month": null,
+            "day": null,
+            "dayOfWeek": null,
+            "isLeapYear": false,
+            "isInfinity": false,
+            "isNegativeInfinity": false,
+            "isFinite": false
+        },
+        "nroIdentificacion": null,
+        "email": '',
+        "telefono": '',
+        "direccion": '',
+        "estatus": null,
+        "contrasena": '',
+        "idTipoUsuario": null
+    },
+    "tipoIdentificacion": {
+        "idTipoIdentificacion": null,
+        "codigo": '',
+        "descripcion": '',
+        "estatus": null
+    },
+    "persona": {
+        "nombre": '',
+        "apellido": '',
+        "fechaNacimiento": {
+            "dayOfYear": null,
+            "year": null,
+            "month": null,
+            "day": null,
+            "dayOfWeek": null,
+            "isLeapYear": false,
+            "isInfinity": false,
+            "isNegativeInfinity": false,
+            "isFinite": false
+        }
+    },
+    "estadoCivil": {
+        "idEstadoCivil": null,
+        "descripcion": '',
+        "codigo": '',
+        "estatus": null
+    },
+    "comercio": {
+        "razonSocial": '',
+        "nombreRepresentante": '',
+        "apellidoRepresentante": ''
+    }
+}
+
 
 
   constructor(
     public _usuarioService: UsuarioService,
     public _comercioService: ComercioService,
     public _loginServices: LoginService,
-    public alert: AlertController
+    public alert: AlertController,
+    public router: Router
   ) {
   }
 
@@ -42,60 +96,21 @@ export class Tab1Page implements OnInit {
     this._usuarioService.getDatosPerfil().subscribe(
       (data: any) => {
 
-        localStorage.setItem('name', data.persona.nombre);
-        localStorage.setItem('apellido', data.persona.apellido);
-        localStorage.setItem('telefono', data.result.telefono);
-        localStorage.setItem('direccion', data.result.direccion);
-        localStorage.setItem('razonsocial', data.comercio.razonSocial);
-
-        this.nombre = localStorage.getItem('name');
-        this.apellido = localStorage.getItem('apellido');
-        this.telefono = localStorage.getItem('telefono');
-        this.direccion = localStorage.getItem('direccion');
-        this.razonsocial = localStorage.getItem('razonsocial');
-        console.log(data);
+       
       },
       
     );
 
      this._usuarioService.getDatosUsuario().subscribe(
       (res: any)=>{
-        this.usuario = res;
+        this.user = res;
       },
       (err:any)=>{
 
       }
     );
-    /*this.usuario = this._usuarioService.getUsuario();
-    this.comercio = this._comercioService.getVacio();
-    this._comercioService.getComercio(this.usuario.idUsuario)
-                  .subscribe((data: any) => {
-                    this.comercio = data;
-                  });*/
-      
-    //aca debe ir el servicio para buscar los datos de usuario
+    }
 
-    
-  }
-
-  /*modificarUsuario( f: NgForm) {
-    let ident: number = + f.value.identificacion;
-    let correo: string = f.value.email.toUpperCase();
-    let userMas: string = f.value.user.toUpperCase();
-
-    this._comercioService.ajustarComercio(this.usuario.idUsuario, f.value.razon, f.value.nombre, f.value.apellido)
-        .subscribe((data: any) => {
-        });
-
-    this._usuarioService.ajustarUsurio(this.usuario.idUsuario, userMas, ident, correo, f.value.telefono,
-                                        f.value.direccion )
-        .subscribe((data: any) => {
-          this.modificado();
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertaError();
-        });
-  }*/
 
   async AlertaError() {
     const alertElement = await this.alert.create({
@@ -130,6 +145,25 @@ export class Tab1Page implements OnInit {
     await alertElement.present();
 
   }
+
+  async onSubmit(){
+    //await this.presentLoading();
+    this._usuarioService.modificarUsaurio(this.user).subscribe(
+      (res:any) => {
+       // this.loadingController.dismiss();
+
+        //this.successToast('success', 'Datos modificados satisfactioamente')
+
+        this.router.navigate(['tabs/operaciones/pago'])
+        console.log(this.user.estadoCivil.idEstadoCivil)
+      },
+      err => {
+        //this.loadingController.dismiss();
+        //this.presentToast('danger', 'Ha ocurrido un error al enviar el formulario');
+      }
+    );
+  }
+
 
 
 }
