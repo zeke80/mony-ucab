@@ -55,10 +55,6 @@ const routes: Routes = [
         loadChildren: () => import ('../tab2/recarga/recarga.module').then(m => m.RecargaPageModule)
       },
       {
-        path: 'cuenta/pagoRecarga/:pagoID',
-        loadChildren: () => import ('../tab2/pago-recarga/pago-recarga.module').then(m => m.PagoRecargaPageModule)
-      },
-      {
         path: 'cuenta/retiro',
         loadChildren: () => import ('../tab2/retiro/retiro.module').then(m => m.RetiroPageModule)
       },

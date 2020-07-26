@@ -16,9 +16,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class RetiroPage implements OnInit {
 
-  usuario: Usuario
-  pagos = [];
-  aux: number;
+  usuario: Usuario;
 
   auxT = false;
   auxC = false;
@@ -52,8 +50,6 @@ export class RetiroPage implements OnInit {
 
   obtenerIDcuenta() {
   }
-
-
 
   pagarCuenta(montoIn: number) {
     let id: number = + this.cuenta;

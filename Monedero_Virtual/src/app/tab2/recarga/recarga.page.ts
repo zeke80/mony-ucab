@@ -17,8 +17,6 @@ import { AlertController } from '@ionic/angular';
 export class RecargaPage implements OnInit {
 
   usuario: Usuario
-  pagos = [];
-  aux: number;
 
   auxT = false;
   auxC = false;

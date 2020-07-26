@@ -16,8 +16,6 @@ export class Tab1Page implements OnInit {
 
   usuario: Usuario;
   persona: Persona;
-  fecha: any;
-  fechaR: any;
 
   constructor(
     public _usuarioServices: UsuarioService,
@@ -38,32 +36,9 @@ export class Tab1Page implements OnInit {
           this.persona.estadoCivil = data.estadoCivil.descripcion;
         });
 
-    // this._personaServices.getPersona(this.usuario.idUsuario)
-    //     .subscribe((data: any) => {
-    //       this.persona = data;
-    //       this.fecha = this.persona.fecha_nacimiento.split('T', 1 );
-    //     });
-    // this.fechaR = this.usuario.fechaRegistro.split('T', 1 );
   }
 
   modificarUsuario( f: NgForm){
-    // let ident: number = + f.value.identificacion;
-    // let correo: string = f.value.email.toUpperCase();
-    // let userMas: string = f.value.user.toUpperCase();
-
-    // this._personaServices.ajustarPersona(this.usuario.idUsuario, f.value.nombre, f.value.apellido)
-    //     .subscribe((data: any) => {
-
-    //     });
-
-    // this._usuarioServices.ajustarUsurio(this.usuario.idUsuario, userMas, ident, correo, f.value.telefono,
-    //                                     f.value.direccion )
-    //     .subscribe((data: any) => {
-    //       this.modificado();
-    //     },
-    //     (error: HttpErrorResponse) => {
-    //         this.AlertaError();
-    //     });
 
     var body = {
       nombre: f.value.nombre,

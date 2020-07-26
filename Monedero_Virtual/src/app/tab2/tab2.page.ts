@@ -59,30 +59,6 @@ export class Tab2Page implements OnInit{
           this.pagos = data;
           this._pagoServices.guardarPago(this.pagos);
         });
-    // this.cuentas = this._cuentaServices.getVacio();
-    // this._cuentaServices.getCuentas(this.usuario.idUsuario)
-    //      .subscribe((data: any) => {
-    //        this.cuentas = data;
-    //      });
-    // this.tarjetas = this._tarjetaService.getVacio();
-    // this._tarjetaService.getTarjetas(this.usuario.idUsuario)
-    //      .subscribe((data: any) => {
-    //        this.tarjetas = data;
-    //      });
-    // this.pagos = this._pagoServices.getVacio();
-    // this._pagoServices.getPagos(this.usuario.idUsuario)
-    //     .subscribe((data: any) => {
-    //       this.pagos = data;
-    //       this._pagoServices.guardarPago(this.pagos);
-    //     });
-    // this._usuarioService.saldo(this.usuario.idUsuario)
-    // .subscribe((data: any) => {
-    //   this.saldo = data;
-    //   this._pagoServices.guardarSaldo(data);
-    // },
-    //   (error: HttpErrorResponse) => {
-    //       this.AlertServer();
-    //   });
 
   }
 

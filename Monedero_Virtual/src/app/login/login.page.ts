@@ -15,10 +15,6 @@ import { AlertController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   aux = false;
-  formModel = {
-    Email : '',
-    Password : ''
-  }
 
   constructor(public router: Router,
               public _usuarioServices: UsuarioService,
@@ -37,26 +33,6 @@ ingresar( f: NgForm ) {
       Password: f.value.password,
       comercio: this.aux
     };
-    // this._loginServices.verificarUsuario(userM, f.value.password)
-    //   .subscribe((data: any) => {
-
-    //     this._loginServices.login();
-
-    //   let usuario = new Usuario(data.idusuario, data.idtipousuario, data.idtipoidentificacion, data.usuario, data.fecha_registro,
-    //     data.nro_identificacion, data.email, data.telefono, data.direccion, data.estatus);
-    //   this._usuarioServices.guardarStorage(usuario, usuario.idUsuario, usuario.idTipoUsuario, usuario.usuario, usuario.fechaRegistro,
-    //     usuario.nroIdentificacion, usuario.email, usuario.telefono, usuario.direccion);
-    //   this.router.navigate(['/tabs/cuenta']);
-
-    // },
-    // (error: HttpErrorResponse) => {
-    //   if (error.status === 409) {
-    //     this.AlertServer();
-    //   }
-    //   else {
-    //     this.AlertaError();
-    //   }
-    // });
 
     this._loginServices.ingresar(body)
         .subscribe((data: any) => {
