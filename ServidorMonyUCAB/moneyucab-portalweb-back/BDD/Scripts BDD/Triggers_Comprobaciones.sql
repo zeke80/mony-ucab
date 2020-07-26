@@ -47,7 +47,7 @@ LANGUAGE plpgsql
 AS $BODY$
 DECLARE
 BEGIN
-	IF EXISTS (SELECT * FROM Persona WHERE idUsuario = new.idUsuario) THEN
+	IF EXISTS (SELECT * FROM Persona WHERE idUsuario = new.idUsuario and estatus <> 4) THEN
 		
 		RAISE EXCEPTION 'Ya hay un registro de persona asignado al usuario';
 		RETURN NULL;

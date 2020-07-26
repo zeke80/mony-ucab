@@ -55,11 +55,11 @@ namespace moneyucab_portalweb_back.Controllers
         [Authorize]
         [Route("EliminarUsuario")]
         //Post: /api/Authentication/Register
-        public async Task<Object> EliminarUsuario([FromQuery] int IdUsuario)
+        public async Task<Object> EliminarUsuario([FromQuery] EliminacionnUsuario Formulario)
         {
             try
             {
-                var result = await FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(IdUsuario).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Eliminar_Usuario(Formulario.idUsuario, _userManager, Formulario.usuario).Ejecutar();
                 return Ok(new { key = "EliminacionUsuario", message = "Usuario eliminado.", result });
             }
             catch (MoneyUcabException ex)

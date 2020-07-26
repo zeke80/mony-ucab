@@ -323,9 +323,9 @@ namespace moneyucab_portalweb_back.Comandos
             return new Comando_Consultar_Usuarios_Familiares(idUsuario);
         }
 
-        public static Comando_Eliminar_Usuario Fabricar_Cmd_Eliminar_Usuario(int idUsuario)
+        public static Comando_Eliminar_Usuario Fabricar_Cmd_Eliminar_Usuario(int IdUsuario, UserManager<Usuario> UserManager, string Usuario)
         {
-            return new Comando_Eliminar_Usuario(idUsuario);
+            return new Comando_Eliminar_Usuario(IdUsuario, UserManager, Usuario);
         }
 
         public static Comando_Registro_Usuario_Familiar Fabricar_Cmd_Registro_Usuario_Familiar(UserManager<Usuario> UserManager, RegistrationModel Registration, ApplicationSettings AppSettings, IEmailSender EmailSender)
