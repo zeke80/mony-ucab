@@ -23,44 +23,42 @@
                 </ion-row>
             </ion-card-header>
             <ion-card-contend>
-                <form #f='ngForm' (ngSubmit)="modificarUsuario( f )">
-                    <!--<ion-item>
-                        <ion-label position="floating"><strong>Fecha de registro:</strong></ion-label>
-                        <br>
-                        <h4 class="ion-text-center">{{usuario.fechaRegistro}}</h4>
-                    </ion-item> -->
-                   <!--- <ion-item>
-                        <ion-label position="floating"><strong>Email:</strong></ion-label>
-                        <ion-input [ngModel]="email" name="email"></ion-input>
-                    </ion-item> 
-                    <ion-item>
-                        <ion-label position="floating"><strong>Usuario: </strong></ion-label>
-                        <ion-input [ngModel]="usuario.usuario" name="user"></ion-input>
-                    </ion-item> -->
-                    <ion-item>
-                        <ion-label position="floating"><strong>Nombre del representante:</strong></ion-label>
-                        <ion-input [ngModel]="nombre" name="nombre" ></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating"><strong>Apellido del Representante:</strong></ion-label>
-                        <ion-input [ngModel]="apellido" name="apellido"></ion-input>
-                    </ion-item>
-                    <!--<ion-item>
-                        <ion-label position="floating"><strong>Numero de identificación:</strong></ion-label>
-                        <ion-input [ngModel]="usuario.nroIdentificacion" name="identificacion"></ion-input>
-                    </ion-item> -->
-                    <ion-item>
-                        <ion-label position="floating"><strong>Dirección:</strong></ion-label>
-                        <ion-input [ngModel]="direccion" name="direccion"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating"><strong>Telefono:</strong></ion-label>
-                        <ion-input [ngModel]="telefono" name="telefono"></ion-input>
-                    </ion-item>
-                    <ion-item>
-                        <ion-label position="floating"><strong>Razon social de la empresa:</strong></ion-label>
-                        <ion-input [ngModel]="razonsocial" name="razon"></ion-input>
-                    </ion-item>
+                <form (submit)="onSubmit()">
+
+                    <ion-item class="margin-top-5">
+                        <ion-label position="fixed">Nombre</ion-label>
+                        <ion-input  [(ngModel)]="user.persona.nombre" name="nombre"></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <ion-label position="fixed">Apellido</ion-label>
+                        <ion-input  [(ngModel)]="user.persona.apellido" name="apellido"></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <ion-label position="fixed">Teléfono</ion-label>
+                        <ion-input  [(ngModel)]="user.result.telefono" name="telefono" ></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <ion-label position="fixed">Dirección</ion-label>
+                        <ion-input  [(ngModel)]="user.result.direccion" name="direccion"></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <ion-label position="fixed">Razón social</ion-label>
+                        <ion-input  [(ngModel)]="user.comercio.razonSocial" name="razonsocial" ></ion-input>
+                      </ion-item>
+            
+                      <ion-item>
+                        <ion-label>Estado Civil</ion-label>
+                        <ion-select [(ngModel)]="user.estadoCivil.idEstadoCivil" name="idEstadoCivil" ok-text="Aceptar" cancel-text="cancelar">
+                          <ion-select-option   value="1">C</ion-select-option>
+                          <ion-select-option   value="2">S</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+            
+
 
                     <ion-button type="submit" fill="solid" expand="full" color="success"  expand="block">
                        Guardar

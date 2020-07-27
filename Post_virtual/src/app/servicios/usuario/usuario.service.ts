@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Perfil } from '../../models/perfil.model';
+import { User } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,7 +63,7 @@ export class UsuarioService {
   getDatosUsuario(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('Usuario', localStorage.getItem('email'));
-    let url = "http://localhost:80/api/Dashboard/InformacionPersona";
+    let url = "http://localhost:49683/api/Dashboard/InformacionPersona";
     return this.http.get(url, {params: param, headers: header});
   }
 
@@ -71,7 +71,7 @@ export class UsuarioService {
     
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('IdUsuario', localStorage.getItem('idUsuario'));
-    let url = "http://localhost:80/api/monedero/Consultar";
+    let url = "http://localhost:49683/api/monedero/Consultar";
   
 
     return this.http.get(url, {params: param, headers: header});
@@ -80,22 +80,24 @@ export class UsuarioService {
   getDatosPerfil(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('Usuario', localStorage.getItem('email'));
-    let url = "http://localhost:80/api/Dashboard/InformacionPersona";
+    let url = "http://localhost:49683/api/Dashboard/InformacionPersona";
     return this.http.get(url, {params: param, headers: header});
   }
 
-  modificarUsaurio(){
+
+
+  modificarUsaurio(usuario: User){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     var body = {
-      nombre : this.usuarioModel.value.nombre,
-      apellido : this.usuarioModel.value.apellido,
-      telefono : this.usuarioModel.value.telefono,
-      direccion : this.usuarioModel.value.direccion,
-      razonSocial : this.usuarioModel.value.razonSocial,
-      idEstadoCivil : Number(this.usuarioModel.value.idEstadoCivil),
+      nombre : usuario.persona.nombre,
+      apellido : usuario.persona.apellido,
+      telefono : usuario.result.telefono,
+      direccion : usuario.result.direccion,
+      razonSocial : usuario.comercio.razonSocial,
+      idEstadoCivil : Number(usuario.estadoCivil.idEstadoCivil),
       idUsuario: parseInt(localStorage.getItem('idUsuario'))
     };
-    return this.http.post('http://localhost:80/api/Authentication/Modification', body , {headers: header});
+    return this.http.post('http://localhost:49683/api/Authentication/Modification', body , {headers: header});
   }
 
  /* inforUsurio(idusuario: number) {
@@ -108,7 +110,7 @@ export class UsuarioService {
     return this.http.post(url, data);
   }
 
-  ajustarUsurio(idusuario: number, user:string, di:number, correo:string, telefono:string, direccion:string) {
+  ajustarUsurio(idusuario: number, usuario:string, di:number, correo:string, telefono:string, direccion:string) {
     let url: string = 'http://monyucab.somee.com/api/Usuario/ajustarUsuario';
 
     let data = {

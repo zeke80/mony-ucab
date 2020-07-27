@@ -28,12 +28,17 @@ export class Tab3Page implements OnInit{
 
   reintegrosExitosos: Reintegro[] = [];
 
+
   constructor(private router: Router,
     public toastController : ToastController, 
     private loadingController: LoadingController,
     private alertController: AlertController,
     private reintegroService: ReintegroService,
     private tarjetaService: TarjetaService) { }
+
+    solicitudPago(){
+      this.router.navigate(['tabs/operaciones/pago'])
+    }
 
   ngOnInit(){
 
