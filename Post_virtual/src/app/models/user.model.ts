@@ -54,4 +54,8 @@ export class User {
         "nombreRepresentante": string,
         "apellidoRepresentante": string
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5e4d3001121b6bcad66ad7b2217a2dcfbd42b2e8
