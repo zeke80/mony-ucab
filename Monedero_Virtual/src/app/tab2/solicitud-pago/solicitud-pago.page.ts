@@ -21,6 +21,9 @@ export class SolicitudPagoPage implements OnInit {
 
   auxT = false;
   auxC = false;
+  show = true;
+  showM = true;
+
 
   metodoPagoC = [];
   metodoPagoT = [];
@@ -62,21 +65,6 @@ export class SolicitudPagoPage implements OnInit {
           this.saldo = data;
         });
 
-    // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
-    //     .subscribe((data: any) => {
-    //       this.user = data.usuario;
-    //     });
-    // this.usuario = this._usuarioServices.getUsuario();
-    // this._cuentaServices.getCuentas(this.usuario.idUsuario)
-    //     .subscribe((data: any) => {
-    //       console.log(data);
-    //       this.metodoPagoC = data;
-    //     });
-    // this._tarjetaServices.getTarjetas(this.usuario.idUsuario)
-    //     .subscribe((data: any) => {
-    //       this.metodoPagoT = data;
-    //     });
-    // this.saldo = this._pagoServices.getSaldo();
   }
 
   boolTarjeta() {
@@ -96,6 +84,7 @@ export class SolicitudPagoPage implements OnInit {
   }
 
   pagarTarjeta() {
+    this.show = false;
     let id: number = + this.tarjeta;
     let cant: number = + this.operacion.monto;
     var body = {
@@ -110,12 +99,14 @@ export class SolicitudPagoPage implements OnInit {
     this._pagoServices.realizarPagoTarjeta(body)
         .subscribe((data:any) => {
           console.log(data);
+          this.show = true;
           this.router.navigate(['/tabs/cuenta']);
         });
 
   }
 
   pagarCuenta() {
+    this.show = false;
     let id: number = + this.cuenta;
     let cant: number = + this.operacion.monto;
     var body = {
@@ -129,11 +120,13 @@ export class SolicitudPagoPage implements OnInit {
 
     this._pagoServices.realizarPagoCuenta(body)
         .subscribe((data:any) => {
+          this.show = true;
           this.router.navigate(['/tabs/cuenta']);
         });
   }
 
   pagarMonedero() {
+    this.showM = false;
     let cant: number = + this.operacion.monto;
     if (cant > this.saldo) {
       this.AlertSaldo();
@@ -149,6 +142,7 @@ export class SolicitudPagoPage implements OnInit {
 
     this._pagoServices.realizarPagoMonedero(body)
         .subscribe((data:any) => {
+          this.showM = true;
           this.router.navigate(['/tabs/cuenta']);
         });
 

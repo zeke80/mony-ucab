@@ -52,7 +52,10 @@
         </ion-button>
 
         <ion-button (click)="pagarMonedero()" color="primary" fill="solid" expand="block">
-            Monedero
+            <div *ngIf="showM">
+                Monedero
+            </div>
+            <ion-spinner *ngIf="!showM" name="circles"></ion-spinner>
         </ion-button>
         <br>
         <ion-item *ngIf="auxT">
@@ -63,7 +66,10 @@
         </ion-item>
         <br>
         <ion-button (click)="pagarTarjeta()" *ngIf="auxT" color="warning" fill="solid" expand="block">
-            Pagar con tarjeta
+            <div *ngIf="show">
+                Pagar con tarjeta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
         </ion-button>
 
 
@@ -77,7 +83,10 @@
         <br>
 
         <ion-button (click)="pagarCuenta()" *ngIf="auxC" color="warning" fill="solid" expand="block">
-            Pagar con cuenta
+            <div *ngIf="show">
+                Pagar con cuenta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
         </ion-button>
 
         <br>

@@ -20,6 +20,7 @@ export class RetiroPage implements OnInit {
 
   auxT = false;
   auxC = false;
+  show = true;
 
   metodoPagoC = [];
   metodoPagoT = [];
@@ -52,6 +53,7 @@ export class RetiroPage implements OnInit {
   }
 
   pagarCuenta(montoIn: number) {
+    this.show = false;
     let id: number = + this.cuenta;
     let cant: number = + montoIn;
     var body = {
@@ -65,6 +67,7 @@ export class RetiroPage implements OnInit {
 
     this._pagoSercives.realizarRetiro(body)
         .subscribe((data: any) => {
+          this.show = true;
           this.router.navigate(['/tabs/cuenta']);
         });
 

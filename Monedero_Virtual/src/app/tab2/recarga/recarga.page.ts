@@ -16,10 +16,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class RecargaPage implements OnInit {
 
-  usuario: Usuario
+  usuario: Usuario;
 
   auxT = false;
   auxC = false;
+  show = true;
 
   metodoPagoC = [];
   metodoPagoT = [];
@@ -66,6 +67,7 @@ export class RecargaPage implements OnInit {
   }
 
   pagarTarjeta(montoIn: number) {
+    this.show = false;
     let id: number = + this.tarjeta;
     let cant: number = + montoIn;
     var body = {
@@ -79,12 +81,14 @@ export class RecargaPage implements OnInit {
 
     this._pagoSercives.recargaTarjeta(body)
         .subscribe((data: any) => {
+          this.show = true;
           this.router.navigate(['/tabs/cuenta']);
         });
 
   }
 
   pagarCuenta(montoIn: number) {
+    this.show = false;
     let id: number = + this.cuenta;
     let cant: number = + montoIn;
     var body = {
@@ -100,6 +104,7 @@ export class RecargaPage implements OnInit {
 
     this._pagoSercives.recargaCuenta(body)
         .subscribe((data: any) => {
+          this.show = true;
           this.router.navigate(['/tabs/cuenta']);
         });
 

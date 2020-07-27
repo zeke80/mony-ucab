@@ -38,7 +38,10 @@
         </ion-item>
         <br>
         <ion-button (click)="pagarCuenta( input.value )" color="warning" fill="solid" expand="block">
-            Recargar cuenta
+            <div *ngIf="show">
+                Recargar cuenta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
         </ion-button>
 
         <br>

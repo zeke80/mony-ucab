@@ -46,7 +46,10 @@
         </ion-item>
         <br>
         <ion-button (click)="pagarTarjeta( input.value )" *ngIf="auxT" color="warning" fill="solid" expand="block">
-            Pagar con tarjeta
+            <div *ngIf="show">
+                Pagar con tarjeta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
         </ion-button>
 
 
@@ -60,7 +63,10 @@
         <br>
 
         <ion-button (click)="pagarCuenta( input.value )" *ngIf="auxC" color="warning" fill="solid" expand="block">
-            Pagar con cuenta
+            <div *ngIf="show">
+                Pagar con cuenta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
         </ion-button>
 
         <br>

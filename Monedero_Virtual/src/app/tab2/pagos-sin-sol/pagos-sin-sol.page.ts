@@ -17,6 +17,7 @@ export class PagosSinSolPage implements OnInit {
 
 
   usuario: Usuario;
+  show = true;
 
 
   constructor(
@@ -35,6 +36,7 @@ export class PagosSinSolPage implements OnInit {
   }
 
   realizarSolicitud(f: NgForm) {
+    this.show = false;
 
     var body = {
       idUsuarioSolicitante: this.usuario.idUsuario,
@@ -44,6 +46,7 @@ export class PagosSinSolPage implements OnInit {
 
     this._pagoServices.realizarCobro(body)
         .subscribe((data: any) => {
+          this.show = true;
           this.router.navigate(['/tabs/cuenta']);
         });
 

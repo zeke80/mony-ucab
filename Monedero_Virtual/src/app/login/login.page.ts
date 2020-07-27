@@ -15,6 +15,7 @@ import { AlertController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
   aux = false;
+  show = true;
 
   constructor(public router: Router,
               public _usuarioServices: UsuarioService,
@@ -26,28 +27,31 @@ ngOnInit() {
 }
 
 ingresar( f: NgForm ) {
-    let userM: string = f.value.user.toUpperCase();
-    var body = {
-      UserName: '',
-      Email: f.value.user,
-      Password: f.value.password,
-      comercio: this.aux
-    };
+  this.show = false;
 
-    this._loginServices.ingresar(body)
-        .subscribe((data: any) => {
-          localStorage.setItem('token', data.result.token);
-          this._usuarioServices.getUserInfo(data.result.username)
-              .subscribe((data: any) => {
-                this.aux = false;
-                this._loginServices.login();
-                let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
-                    data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
-                    data.result.direccion, data.result.estatus);
-                this._usuarioServices.guardarUsuario(usuario);
-                this.router.navigate(['/tabs/cuenta']);
-              });
-        });
+  let userM: string = f.value.user.toUpperCase();
+  var body = {
+    UserName: '',
+    Email: f.value.user,
+    Password: f.value.password,
+    comercio: this.aux
+  };
+
+  this._loginServices.ingresar(body)
+      .subscribe((data: any) => {
+        localStorage.setItem('token', data.result.token);
+        this._usuarioServices.getUserInfo(data.result.username)
+            .subscribe((data: any) => {
+              this.aux = false;
+              this._loginServices.login();
+              let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
+                  data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
+                  data.result.direccion, data.result.estatus);
+              this._usuarioServices.guardarUsuario(usuario);
+              this.show = true;
+              this.router.navigate(['/tabs/cuenta']);
+            });
+      });
 
 }
 

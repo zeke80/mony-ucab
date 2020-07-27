@@ -31,7 +31,10 @@
                         <ion-input type="number" [ngModel]="monto" name="monto"></ion-input>
                     </ion-item>
                     <ion-button type="submit" fill="solid" expand="full">
-                        Realizar Solicitud de cobro
+                        <div *ngIf="show">
+                            Realizar Solicitud de cobro
+                        </div>
+                        <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
                     </ion-button>
                 </form>
             </ion-card-contend>
