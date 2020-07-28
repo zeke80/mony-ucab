@@ -12,13 +12,15 @@ namespace PruebasUnitarias
     [TestClass]
     public class RegistroUsuario
     {
-        Persona admin;
+        Persona registroAdmin1;
+        Login loginAdmin1;
+
         Persona persona;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            admin = new Persona
+            registroAdmin1 = new Persona
             {
                 Usuario = "admin1",
                 Email = "admin1@gmail.com",
@@ -41,6 +43,18 @@ namespace PruebasUnitarias
                 DiaNacimiento = 1,
                 RazonSocial = "admin1",
             };
+
+            loginAdmin1 = new Login()
+            {
+                UserName = registroAdmin1.Usuario,
+                Email = registroAdmin1.Email,
+                Password = registroAdmin1.Password,
+                Comercio = registroAdmin1.Comercio
+            };
+
+            //APITest.register(registroAdmin1);
+            //APITest.login(loginAdmin1);
+            
 
             persona = new Persona
             {
@@ -70,15 +84,37 @@ namespace PruebasUnitarias
         [TestCleanup]
         public void TestCleanup()
         {
-
         }
 
-        [TestMethod]
-        public void registro_usuario()
+        /*[TestMethod]
+        public void registro_persona()
         {
             Task<HttpResponseMessage> res = APITest.register(persona);
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
             APITest.EliminarUsuario(1);
+        }*/
+
+        /*[TestMethod]
+        public void inicio_secion_persona()
+        {
+            Login login = new Login()
+            {
+                UserName = "admin1",
+                Email = "admin1@gmail.com",
+                Password = "admin1",
+                Comercio = false
+            };
+            Task<HttpResponseMessage> res = APITest.login(login);
+            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+        }*/
+
+        [TestMethod]
+        public void estados_civiles()
+        {
+            Task<HttpResponseMessage> res1 =APITest.login(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.EstadosCiviles();
+            var s = res.Result.StatusCode;
+            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
 
         /*[TestMethod]

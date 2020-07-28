@@ -44,25 +44,27 @@ namespace PruebasUnitarias
             return await client.PostAsync(url + "/api/authentication/register", data);
         }
 
-        /*public static async Task<HttpResponseMessage> login()
+        public static async Task<HttpResponseMessage> login(Login login)
         {
-            Login login = new Login() {
-                UserName = "ezez8",
-                Email = "ezequielmonteroz8@gmail.com",
-                Password = "weawística",
-                Comercio = false
-            };
-            var json = JsonConvert.SerializeObject(login);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var data = serializarObjetoJson(login);
             HttpResponseMessage res = await client.PostAsync(url + "/api/authentication/login", data);
-            var respuesta = JsonConvert.DeserializeObject<RespuestaLogin>(res.Content.ReadAsStringAsync().Result);
-            token = respuesta.Key;
+
+            dynamic respuesta = JsonConvert.DeserializeObject(res.Content.ReadAsStringAsync().Result);
+            token = respuesta.result.token;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             return res;
-        }*/
+        }
 
         //Billetera//
 
         //Dashboard//
+
+        public static async Task<HttpResponseMessage> EstadosCiviles()
+        {
+            return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
+        }
+        
 
         //Historial Operaciones//
 
