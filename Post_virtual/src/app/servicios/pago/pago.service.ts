@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pago } from '../../models/pago.model';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Cobro } from 'src/app/models/cobro.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,6 @@ export class PagoService {
     }
   ];
 
-  formModel = this.form.group({
-    idUsuarioSolicitante : [0, Validators.required],
-    emailPagador : ['', [Validators.required, Validators.email]],
-    monto : [0, Validators.required]
-  });
 
   solicitante = '1';
 
@@ -89,6 +85,17 @@ export class PagoService {
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', '1')
     return this.http.get('http://localhost:49683/api/dashboard/CobrosExitosos', {params: param, headers: header})
+  }
+
+  realizarCobro(cobro: Cobro){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    var body = {
+      idUsuarioSolicitante: parseInt(localStorage.getItem('idUsuario')),
+      emailPagador: cobro.emailPagador,
+      monto: cobro.monto
+    }
+    console.log(body);
+    return this.http.post('http://localhost:49683/api/Transfer/realizarcobro',body, {headers: header});
   }
 
 }

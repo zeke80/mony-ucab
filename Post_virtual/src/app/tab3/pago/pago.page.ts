@@ -16,6 +16,12 @@ export class PagoPage implements OnInit {
 
   usuario: Usuario
 
+  cobro = {
+    idUsuarioSolicitante: 0,
+    emailPagador: '',
+    monto: 0
+}
+
   constructor(
     public _usuarioServices: UsuarioService,
     public _pagoSercives: PagoService,
@@ -24,66 +30,21 @@ export class PagoPage implements OnInit {
   ) { }
 
   ngOnInit() {
-   /* this.usuario = this._usuarioServices.getUsuario();*/
-  }
-
-  realizarSolicitud( f: NgForm) {
-    let cant: number = + f.value.monto;
-    let text = f.value.user.toUpperCase();
-    if (this.usuario.usuario === f.value.user) {
-      this.pagoError()
-    }
-    else{
-      this._pagoSercives.solicitudPago(this.usuario.idUsuario, text, cant )
-      .subscribe((data: any) => {
-        this.realizarSol();
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 409) {
-          this.AlertaError();
-        }
-        else {
-          this.AlertaError();
-        }
-      });
-    }
     
   }
 
-  async realizarSol() {
-    const alertElement = await this.alert.create({
-      header: 'Transaccion exitosa',
-      message: 'se mando la solicitud de pago',
-      buttons: [
-        {
-          text: 'Aceptar',
-          handler: () => {
-            this.router.navigate(['/tabs/operaciones']);
-          }
-        }
-      ]
-    });
-
-    await alertElement.present();
-
+  realizarPago(){
+    this._pagoSercives.realizarCobro(this.cobro).subscribe(
+      (data:any)=>{
+        console.log(data);
+        this.router.navigate(['/tabs/cuenta']);
+      },
+      (err:any)=>{
+        console.log(err);
+      }
+    )
   }
 
-  async pagoError() {
-    const alertElement = await this.alert.create({
-      header: 'Error',
-      message: 'no se puede solicitar un pago a uno mismo',
-      buttons: [
-        {
-          text: 'Aceptar',
-          handler: () => {
-          }
-        }
-      ]
-    });
-
-    await alertElement.present();
-
-  }
 
   async AlertaError() {
     const alertElement = await this.alert.create({

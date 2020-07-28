@@ -22,14 +22,14 @@
                 </ion-row>
             </ion-card-header>
             <ion-card-contend>
-                <form #f='ngForm' (ngSubmit)="realizarSolicitud( f )">
+                <form (ngSubmit)="realizarPago()">
                     <ion-item>
                         <ion-label position="floating"><strong>Usuario a solicitar: </strong></ion-label>
-                        <ion-input [ngModel]="user" name="user"></ion-input>
+                        <ion-input [(ngModel)]="cobro.emailPagador" name="user"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating"><strong>Monto: </strong></ion-label>
-                        <ion-input [ngModel]="monto" name="monto"></ion-input>
+                        <ion-input [(ngModel)]="cobro.monto" type="number" name="monto"></ion-input>
                     </ion-item>
                     <ion-button type="submit" fill="solid" expand="full">
                         Realizar

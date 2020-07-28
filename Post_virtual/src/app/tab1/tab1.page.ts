@@ -154,7 +154,7 @@ export class Tab1Page implements OnInit {
 
         //this.successToast('success', 'Datos modificados satisfactioamente')
 
-        this.router.navigate(['tabs/operaciones/pago'])
+        this.router.navigate(['/tabs/cuenta']);
         console.log(this.user.estadoCivil.idEstadoCivil)
       },
       err => {
