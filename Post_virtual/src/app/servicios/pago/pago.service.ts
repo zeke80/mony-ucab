@@ -98,4 +98,22 @@ export class PagoService {
     return this.http.post('http://localhost:49683/api/Transfer/realizarcobro',body, {headers: header});
   }
 
+  cancelarCobro(IdCobro){
+    console.log(IdCobro);
+
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+
+    let param = new HttpParams().set('IdCobro', IdCobro);
+
+
+    const options = {
+      headers: header,
+      params: param
+    };
+
+    console.log(options);
+
+    return this.http.post('http://localhost:49683/api/Transfer/CancelarCobro',null, options)
+  }
+
 }

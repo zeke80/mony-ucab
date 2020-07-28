@@ -144,4 +144,41 @@ export class Tab2Page implements OnInit {
 
   }
 
+  async onClick(idPago){
+  
+    const alert = await this.alert.create({
+      header: 'Cancelar',
+      message: '¿Desea cancelar este cobro?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            
+            this._pagoServices.cancelarCobro(idPago)
+            .subscribe(
+              (data: any) =>
+              {
+                
+                //this.successToast('success', 'Cobro cancelado satisfactoriamente')
+                console.log(data);
+                //this.router.navigate(['/post']);
+              },
+              err =>{
+                console.log(err);
+                
+                //this.presentToast('danger', 'Ha ocurrido un error al cancelar el cobro');
+              }
+            );         
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 }

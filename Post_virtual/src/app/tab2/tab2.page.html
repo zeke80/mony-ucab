@@ -41,13 +41,17 @@
                 <ion-list>
                     <ion-item *ngFor="let cobroActivo of cobrosActivos">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-button fill="clear" (click)="onClick(cobroActivo.idPago)">
+                            <ion-icon slot="end" color="danger" class="cancelar" name="close-circle-outline" size="large"></ion-icon>
+                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+                        </ion-button>
                         <ion-label>
-
+                            
                             <h1>
-                                $ {{cobroActivo.monto}}
+                                $ {{cobroActivo.monto}} 
                             </h1>
                             <h2>
-                                Fecha: {{cobroActivo.fecha.day}}-{{cobroActivo.fecha.month}}-{{cobroActivo.fecha.year}}
+                                Fecha: {{cobroActivo.fecha.day}}-{{cobroActivo.fecha.month}}-{{cobroActivo.fecha.year}} 
                             </h2>
 
                         </ion-label>
