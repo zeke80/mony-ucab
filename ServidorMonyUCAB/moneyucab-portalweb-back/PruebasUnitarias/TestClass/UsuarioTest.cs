@@ -111,8 +111,8 @@ namespace PruebasUnitarias
         [TestMethod]
         public void estados_civiles()
         {
-            Task<HttpResponseMessage> res1 =APITest.login(loginAdmin1);
-            Task<HttpResponseMessage> res = APITest.EstadosCiviles();
+            // Task<HttpResponseMessage> res1 =APITest.login();
+            Task<HttpResponseMessage> res = APITest.EstadosCiviles(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }

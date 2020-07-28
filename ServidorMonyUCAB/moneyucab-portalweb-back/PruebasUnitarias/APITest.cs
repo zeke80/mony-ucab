@@ -60,8 +60,9 @@ namespace PruebasUnitarias
 
         //Dashboard//
 
-        public static async Task<HttpResponseMessage> EstadosCiviles()
+        public static async Task<HttpResponseMessage> EstadosCiviles(Login loginAdmin1)
         {
+            await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
         }
         
