@@ -1,6 +1,9 @@
 <body>
+  <br>
+  <div class="section-title" data-aos="fade-up">
+    <h2>Iniciar Sesión</h2>
+  </div>
     <form class="form-signin">
-    <h1 class="h3 mb-3 font-weight-normal">Inicia Sesión</h1>
     <input type="text" #usuario="ngModel" class="form-control" placeholder="Usuario" name="user" [(ngModel)] ="user" required>
     <span *ngIf="usuario.invalid && usuario.touched" class="error">Campo obligatorio</span>
 

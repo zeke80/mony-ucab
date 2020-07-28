@@ -26,7 +26,11 @@
             "styles": [
               "src/styles.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@icon/icofont/icofont.css",
+              "node_modules/animate.css/animate.min.css",
+              "node_modules/venobox/venobox/venobox.min.css",
+              "node_modules/boxicons/css/boxicons.min.css"
             ],
             "scripts": []
           },

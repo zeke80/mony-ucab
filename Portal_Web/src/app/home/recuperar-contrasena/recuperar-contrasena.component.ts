@@ -12,9 +12,16 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 export class RecuperarContrasenaComponent implements OnInit {
 
   recuperarContrasenaFormulario = new FormGroup({
-    correo : new FormControl('', Validators.email)
+    correo : new FormControl('', [Validators.email, Validators.required])
   })
   email = '';
+
+  contrasenaNueva = new FormGroup({
+    contra1 : new FormControl('', [Validators.pattern(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}/),
+    Validators.required]),
+    contra2 : new FormControl('', [Validators.pattern(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}/),
+    Validators.required])
+  })
 
   constructor(private s_contrasena : RecuperarContrasenaService) { }
 
@@ -28,8 +35,11 @@ export class RecuperarContrasenaComponent implements OnInit {
     } );
   }
 
-  get correo (): AbstractControl{
-    return this.recuperarContrasenaFormulario.get('correo'); 
+  compararContrasenas(){
+    if (this.contrasenaNueva.get('contra1').value != this.contrasenaNueva.get('contra2').value){
+      alert("Contraseñas no coinciden")
+    }
   }
+
 }
 

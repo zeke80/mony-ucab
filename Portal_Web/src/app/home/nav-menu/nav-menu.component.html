@@ -1,46 +1,23 @@
 <nav *ngIf="router.url != '/dashboard'">
-    <header>
-      <nav
-        class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-        
-        <a class="navbar-brand" href="#">
-        <img src="../../assets/img/logo-blanco.png" class="img-responsive" style="max-width: 50px ;">  monyucab
-      </a>
-        <div class="container">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target=".navbar-collapse"
-            aria-label="Toggle navigation"
-            [attr.aria-expanded]="isExpanded"
-            (click)="toggle()"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div
-            class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-            [ngClass]="{ show: isExpanded }"
-          >
-            <ul class="navbar-nav flex-grow">
-              <li
-                class="nav-item"
-                [routerLinkActive]="['link-active']"
-                [routerLinkActiveOptions]="{ exact: true }"
-              >
-              </li>
-              
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-light" [routerLink]="['/login']">Inicia Sessión</a>
-              </li>
-  
-              <li class="nav-item" [routerLinkActive]="['link-active']">
-                <a class="nav-link text-light" [routerLink]="['/sign-up']">Registrarse</a>
-              </li>
-              
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-  </nav>
+  <header id="header">
+    <div class="container d-flex">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="#"><span style="color: white;">MonyUcab</span></a></h1>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link active" [routerLink]="['/']">Inicio</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/login']">Iniciar Sesion</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link" [routerLink]="['/sign-up']">Registrarse</a>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header>
+</nav>
