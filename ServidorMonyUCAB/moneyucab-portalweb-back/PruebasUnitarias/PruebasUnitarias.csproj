@@ -57,6 +57,16 @@
     <Compile Include="APITest.cs" />
     <Compile Include="Modelos\Login.cs" />
     <Compile Include="Modelos\Persona.cs" />
+    <Compile Include="TestClass\RegistrodeUsuario.cs" />
+    <Compile Include="TestClass\Cuentas.cs" />
+    <Compile Include="TestClass\Tarjetas.cs" />
+    <Compile Include="TestClass\ReintegrosActivos.cs" />
+    <Compile Include="TestClass\ReintegrosCancelados.cs" />
+    <Compile Include="TestClass\ReintegrosExitosos.cs" />
+    <Compile Include="TestClass\CobrosActivos.cs" />
+    <Compile Include="TestClass\CobrosCancelados.cs" />
+    <Compile Include="TestClass\CobrosExitosos.cs" />
+    <Compile Include="TestClass\InformacionPersona.cs" />
     <Compile Include="TestClass\UsuarioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

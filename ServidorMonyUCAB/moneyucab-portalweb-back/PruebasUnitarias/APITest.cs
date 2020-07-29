@@ -25,8 +25,9 @@ namespace PruebasUnitarias
 
         //Admin//
 
-        /*public static async Task<HttpResponseMessage> ConsultaUsuarios(Persona persona)
+        /*public static async Task<HttpResponseMessage> ConsultaUsuarios(Persona persona, Login loginAdmin1)
         {
+            await login(loginAdmin1);
             var data = serializarObjetoJson(persona);
             return await client.PostAsync(url + "/api/Admin/ConsultaUsuarios", data);
         }*/
@@ -65,102 +66,100 @@ namespace PruebasUnitarias
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
         }
-        
+
+        // Consultas de usuario //
+
+        public static async Task<HttpResponseMessage> tarjetas(int id, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/Tarjetas?IdUsuario=" + id);
+        }
+        public static async Task<HttpResponseMessage> cuentas(int id, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/Cuentas?IdUsuario=" + id);
+        }
+
+        public static async Task<HttpResponseMessage> reintegros_activos(int idUsuario, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/ReintegrosActivos?IdUsuario="+ idUsuario +"&solicitante=0");
+        }
+
+        public static async Task<HttpResponseMessage> reintegros_cancelados(int idUsuario, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/ReintegrosCancelados?UsuarioId="+ idUsuario +"&solicitante=0");
+        }
+
+        public static async Task<HttpResponseMessage> reintegros_exitosos(int idUsuario, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/ReintegrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0" );
+        }
+
+        public static async Task<HttpResponseMessage> cobros_activos(int idUsuario, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/CobrosActivos?IdUsuario=" + idUsuario + "&solicitante=0");
+        }
+
+        public static async Task<HttpResponseMessage> cobros_cancelados(int idUsuario, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/CobrosCancelados?UsuarioId=" + idUsuario + "&solicitante=0");
+        }
+
+        public static async Task<HttpResponseMessage> cobros_exitosos(int idUsuario, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0");
+        }
+
+        /*error en peticion ParametrosUsuarios*/
+
+        public static async Task<HttpResponseMessage> informacion_persona(string user, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
+        }
+
+
+        // Fin Consultas de usuario // 
+
 
         //Historial Operaciones//
 
+        public static async Task<HttpResponseMessage> historial_operacion_targeta(int id)
+        {
+            return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=" + id);
+        }
+
+        public static async Task<HttpResponseMessage> historial_operacion_cuenta(int id)
+        {
+            return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=" + id);
+        }
+
+        public static async Task<HttpResponseMessage> historial_operacion_monedero(int id)
+        {
+            return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=" + id);
+        }
+
+        public static async Task<HttpResponseMessage> ejecutar_cierre(int id)
+        {
+            return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?IdUsuario=" + id);
+        }
+
         //Monedero//
+
+        public static async Task<HttpResponseMessage> saldo(int id)
+        {
+            return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
+        }
 
         //Transfer//
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /* Inicio de consultas get complejas  */
-        /*public static async Task<HttpResponseMessage> getTarjetas(int id)
-        {
-            await login();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return await client.GetAsync(url + "/api/dashboard/Tarjetas?IdUsuario=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> getCuentas(int id)
-        {
-            return await client.GetAsync(url + "/api/dashboard/Cuentas?IdUsuario=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> getReintegrosActivos(int idUsuario, int idSolicitante)
-        {
-            return await client.GetAsync(url + "/api/dashboard/ReintegrosActivos?IdUsuario="+ idUsuario +"&solicitante=" + idSolicitante);
-        }
-
-        public static async Task<HttpResponseMessage> getReintegrosCancelados(int idUsuario, int idSolicitante)
-        {
-            return await client.GetAsync(url + "/api/dashboard/ReintegrosCancelados?UsuarioId="+ idUsuario +"&solicitante="+ idSolicitante);
-        }
-
-        public static async Task<HttpResponseMessage> getReintegrosExitosos(int idUsuario, int idSolicitante)
-        {
-            return await client.GetAsync(url + "/api/dashboard/ReintegrosExitosos?UsuarioId=" + idUsuario + "&solicitante=" + idSolicitante);
-        }
-
-        public static async Task<HttpResponseMessage> getCobrosActivos(int idUsuario, int idSolicitante)
-        {
-            return await client.GetAsync(url + "/api/dashboard/CobrosActivos?IdUsuario=" + idUsuario + "&solicitante=" + idSolicitante);
-        }
-
-        public static async Task<HttpResponseMessage> getCobrosCancelados(int idUsuario, int idSolicitante)
-        {
-            return await client.GetAsync(url + "/api/dashboard/CobrosCancelados?UsuarioId=" + idUsuario + "&solicitante=" + idSolicitante);
-        }
-
-        public static async Task<HttpResponseMessage> getCobrosExitosos(int idUsuario, int idSolicitante)
-        {
-            return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=" + idSolicitante);
-        }*/
-
-        /*error en peticion ParametrosUsuarios*/
-
-        /*public static async Task<HttpResponseMessage> getInformacionPersona(string user)
-        {
-            return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
-        }
-
-        public static async Task<HttpResponseMessage> getHistorialOperacionTarjeta(int id)
-        {
-            return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> getHistorialOperacionCuenta(int id)
-        {
-            return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> getHistorialOperacionMonedero(int id)
-        {
-            return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> getEjecutarCierre(int id)
-        {
-            return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?IdUsuario=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> getSaldo(int id)
-        {
-            return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
-        }*/
     }
 }
