@@ -38,7 +38,7 @@ export class OperacionDetallePage implements OnInit {
 
   ngOnInit() {
 
-    this._activatedRoute.paramMap.subscribe(paramMap => {
+      this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getoperacionCuenta(id);
@@ -102,5 +102,4 @@ export class OperacionDetallePage implements OnInit {
     await alertElement.present();
 
   }
-
 }

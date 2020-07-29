@@ -3,7 +3,7 @@ import { OperacionCuenta } from '../../models/operacionCuenta.model';
 import { OperacionMonedero } from '../../models/operacionMonedero.model';
 import { OperacionTarjeta } from '../../models/operacionTarjeta.model';
 import { Reintegro } from '../../models/reintegro.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -99,15 +99,10 @@ export class OperacionService {
     this.reintegros = reintegro;
   }
 
-  getoperacionesCuenta(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/operacionesCuentas';
-
-    let data = {
-      "id" : idusuario
-    };
-
-
-    return this.http.post(url, data);
+  getoperacionesCuenta(idcuenta: number) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    let url: string = 'http://monyucab.somee.com/api/HistorialOperaciones/HistorialOperacionesCuenta?IdCuenta='+idcuenta;
+    return this.http.get(url,{headers: tokenHeader});
   }
 
   getoperacionesTarjeta(idusuario: number) {
