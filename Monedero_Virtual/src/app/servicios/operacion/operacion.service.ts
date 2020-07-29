@@ -105,24 +105,17 @@ export class OperacionService {
     return this.http.get(url,{headers: tokenHeader});
   }
 
-  getoperacionesTarjeta(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/operacionesTarjetas';
+  getoperacionesTarjeta(idtarjeta: number) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    let url: string = 'http://monyucab.somee.com/api/HistorialOperaciones/HistorialOperacionesTarjeta?IdTarjeta='+idtarjeta;
 
-    let data = {
-      "id" : idusuario
-    };
-
-    return this.http.post(url, data);
+    return this.http.get(url,{headers:tokenHeader});
   }
 
   getoperacionesMonedero(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/operacionesMonedero';
-
-    let data = {
-      "id" : idusuario
-    };
-
-    return this.http.post(url, data);
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    let url: string = 'http://monyucab.somee.com/api/HistorialOperaciones/HistorialOperacionesMonedero?IdUsuario='+idusuario;
+    return this.http.get(url,{headers: tokenHeader});
   }
 
   getoperacionesreintegros(idusuario: number) {

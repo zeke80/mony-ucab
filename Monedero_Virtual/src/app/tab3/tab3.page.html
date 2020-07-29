@@ -17,17 +17,16 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let monedero of monederos" [routerLink]="['/tabs/operaciones/monedero', monedero.idoperacionesmonedero]">
+                    <ion-item *ngFor="let monedero of monederos" [routerLink]="['/tabs/operaciones/monedero', monedero.idOperacionMonedero]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <div *ngIf="monedero.idtipooperacion === 2">
+                        <div *ngIf="true">
                             <ion-label>
                                 <h1>
                                     $ -{{monedero.monto}}
                                 </h1>
                                 <h2>
-                                    Fecha: {{monedero.fecha.split('T', 1 )}}
+                                    Fecha: {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
                                 </h2>
-                                Hora: {{monedero.hora.hours}}:{{monedero.hora.minutes}}
                             </ion-label>
                         </div>
                         <div *ngIf="monedero.idtipooperacion === 1">
@@ -36,9 +35,8 @@
                                     $ +{{monedero.monto}}
                                 </h1>
                                 <h2>
-                                    Fecha: {{monedero.fecha.split('T', 1 )}}
+                                    Fecha: {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
                                 </h2>
-                                Hora: {{monedero.hora.hours}}:{{monedero.hora.minutes}}
                             </ion-label>
                         </div>
 
@@ -79,8 +77,8 @@
                 <h2>Operaciones de tarjetas</h2>
             </ion-card-header>
             <ion-card-contend>
-                <ion-list>
-                    <ion-item *ngFor="let tarjeta of tarjetas" [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idoperaciontarjeta]">
+                <ion-list >
+                    <ion-item *ngFor="let tarjeta of operacionesTarjeta" [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idOperacionTarjeta]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
 
@@ -88,10 +86,8 @@
                                 $ -{{tarjeta.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{tarjeta.fecha.split('T', 1 )}}
+                                Fecha: {{tarjeta.fecha.day}}/{{tarjeta.fecha.month}}/{{tarjeta.fecha.year}}
                             </h2>
-
-                            Hora: {{tarjeta.hora.hours}}:{{tarjeta.hora.minutes}}
                         </ion-label>
 
                     </ion-item>
