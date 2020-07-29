@@ -8,6 +8,7 @@ import { ToastController, LoadingController, AlertController } from '@ionic/angu
 import { ReintegroService } from '../servicios/reintegro/reintegro.service';
 import { TarjetaService } from '../servicios/tarjeta/tarjeta.service';
 
+
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
@@ -34,6 +35,7 @@ export class Tab3Page implements OnInit{
     private loadingController: LoadingController,
     private alertController: AlertController,
     private reintegroService: ReintegroService,
+    public alert: AlertController,
     private tarjetaService: TarjetaService) { }
 
     solicitudPago(){
@@ -67,6 +69,42 @@ export class Tab3Page implements OnInit{
 
   }
 
+  async onClick(IdReintegro){
+  
+    const alert = await this.alert.create({
+      header: 'Cancelar',
+      message: '¿Desea cancelar este reintegro?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+        },
+        {
+          text: 'Aceptar',
+          handler: () => {
+            
+            this.reintegroService.cancelarReintegro(IdReintegro)
+            .subscribe(
+              (data: any) =>
+              {
+                
+                //this.successToast('success', 'Cobro cancelado satisfactoriamente')
+                console.log(data);
+                //this.router.navigate(['/post']);
+              },
+              err =>{
+                console.log(err);
+                
+                //this.presentToast('danger', 'Ha ocurrido un error al cancelar el cobro');
+              }
+            );         
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
 
 
 

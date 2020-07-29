@@ -41,10 +41,7 @@
                 <ion-list>
                     <ion-item *ngFor="let cobroActivo of cobrosActivos">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <ion-button fill="clear" (click)="onClick(cobroActivo.idPago)">
-                            <ion-icon slot="end" color="danger" class="cancelar" name="close-circle-outline" size="large"></ion-icon>
-                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
-                        </ion-button>
+                        
                         <ion-label>
                             
                             <h1>
@@ -55,6 +52,10 @@
                             </h2>
 
                         </ion-label>
+                        <ion-button fill="clear" (click)="onClick(cobroActivo.idPago)">
+                            <ion-icon slot="end" color="danger" class="cancelar" name="close-circle-outline" size="large"></ion-icon>
+                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+                        </ion-button>
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
