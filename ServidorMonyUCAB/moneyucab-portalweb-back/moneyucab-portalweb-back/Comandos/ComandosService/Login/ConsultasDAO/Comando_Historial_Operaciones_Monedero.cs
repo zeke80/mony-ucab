@@ -21,10 +21,18 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 			this._idUsuario = idUsuario;
 		}
 
-		async public Task<List<ComOperacionMonedero>> Ejecutar()
+		async public Task<List<Object>> Ejecutar()
 		{
 			DAOBase dao = FabricaDAO.CrearDaoBase();
-			return dao.HistorialOperacionesMonedero(this._idUsuario);
+			List<ComOperacionMonedero> Operaciones = dao.HistorialOperacionesMonedero(this._idUsuario);
+			List<Object> HistMonederoResponse = new List<Object>();
+			for (int i = 0; i < Operaciones.Count; i++)
+			{
+				var infoAdicional = new { Operaciones[i].tipoOperacion, Operaciones[i].operacionCuenta, Operaciones[i].operacionTarjeta };
+				var elementResponse = new { Operaciones[i].fecha, Operaciones[i].idOperacionMonedero, Operaciones[i].idUsuario, Operaciones[i].referencia, infoAdicional };
+				HistMonederoResponse.Add(elementResponse);
+			}
+			return HistMonederoResponse;
 		}
 		
 		

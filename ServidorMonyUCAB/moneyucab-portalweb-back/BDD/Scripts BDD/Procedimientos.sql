@@ -115,16 +115,14 @@ BEGIN
 		SELECT idBanco FROM Banco into banco WHERE nombre = 'WEB';
 		SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Monedero';
 		SELECT Registro_Cuenta(usuario, tipo_cuenta, banco, numero_cuenta) INTO RESPONSE;
-			IF NOT (RESPONSE) THEN
-				RAISE EXCEPTION 'Error al intentar registrar el monedero';
-			END IF;
-		RETURN TRUE;
-	ELSE
-		IF EXISTS (SELECT * FROM Usuario WHERE Usuario.email = $6 AND Usuario.estatus = 4) THEN
-			UPDATE Usuario SET Usuario.estatus = 1 WHERE Usuario.email = $6;
+		IF NOT (RESPONSE) THEN
+			RAISE EXCEPTION 'Error al intentar registrar el monedero';
 		END IF;
-		RETURN TRUE;
+	ELSE
+			SELECT "Id" FROM "AspNetUsers" into entity_user_id WHERE "AspNetUsers"."UserName" = $3 or "AspNetUsers"."Email" = $6;
+			UPDATE Usuario SET estatus = 1 and "idEntity" = entity_user_id WHERE Usuario.email = $6;
 	END IF;
+	RETURN TRUE;
 END;
 $$;
 
@@ -872,8 +870,11 @@ CREATE OR REPLACE FUNCTION Eliminar_Usuario(int)
 LANGUAGE plpgsql    
 AS $$
 DECLARE
+	tipo_cuenta int;
 BEGIN
+	SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Monedero';
 	UPDATE Usuario SET estatus = 3 WHERE idUsuario = $1;
+	DELETE FROM Cuenta WHERE Cuenta.idTipoCuenta = tipo_cuenta and Cuenta.idUsuario = $1;
 	RETURN TRUE;
 END;
 $$;
