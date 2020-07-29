@@ -26,32 +26,32 @@
                 <form (submit)="onSubmit()">
 
                     <ion-item class="margin-top-5">
-                        <ion-label position="fixed">Nombre</ion-label>
+                        <strong><ion-label position="fixed">Nombre</ion-label></strong>
                         <ion-input  [(ngModel)]="user.persona.nombre" name="nombre"></ion-input>
                       </ion-item>
             
                       <ion-item class="margin-top-5">
-                        <ion-label position="fixed">Apellido</ion-label>
+                        <strong><ion-label position="fixed">Apellido</ion-label></strong>
                         <ion-input  [(ngModel)]="user.persona.apellido" name="apellido"></ion-input>
                       </ion-item>
             
                       <ion-item class="margin-top-5">
-                        <ion-label position="fixed">Teléfono</ion-label>
+                        <strong><ion-label position="fixed">Teléfono</ion-label></strong>
                         <ion-input  [(ngModel)]="user.result.telefono" name="telefono" ></ion-input>
                       </ion-item>
             
                       <ion-item class="margin-top-5">
-                        <ion-label position="fixed">Dirección</ion-label>
+                        <strong><ion-label position="fixed">Dirección</ion-label></strong>
                         <ion-input  [(ngModel)]="user.result.direccion" name="direccion"></ion-input>
                       </ion-item>
             
                       <ion-item class="margin-top-5">
-                        <ion-label position="fixed">Razón social</ion-label>
+                        <strong><ion-label position="fixed">Razón social</ion-label></strong>
                         <ion-input  [(ngModel)]="user.comercio.razonSocial" name="razonsocial" ></ion-input>
                       </ion-item>
             
                       <ion-item>
-                        <ion-label>Estado Civil</ion-label>
+                        <strong><ion-label>Estado Civil</ion-label></strong>
                         <ion-select [(ngModel)]="user.estadoCivil.idEstadoCivil" name="idEstadoCivil" ok-text="Aceptar" cancel-text="cancelar">
                           <ion-select-option   value="1">C</ion-select-option>
                           <ion-select-option   value="2">S</ion-select-option>
@@ -60,8 +60,8 @@
             
 
 
-                    <ion-button type="submit" fill="solid" expand="full" color="success"  expand="block">
-                       Guardar
+                    <ion-button type="submit" fill="solid" color="success"  expand="block">
+                       Guardar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
                     </ion-button>
                 </form>
 

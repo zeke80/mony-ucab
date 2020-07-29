@@ -1,38 +1,44 @@
 <ion-header [translucent]="true">
-    <ion-toolbar color="secondary">
+    <ion-toolbar>
         <ion-buttons slot="start">
             <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
         </ion-buttons>
         <ion-title>
-            Realizar Solicitud de pago
+            <ion-item>
+            
+            <h1 class="ion-text-center"><strong>Realizar Pago</strong></h1>
+            <ion-icon name="cash-outline"></ion-icon>
+            </ion-item>
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-
     <div class="contaier-monto">
+<br>
+<br>
+<br>
         <ion-card>
             <ion-card-header>
                 <ion-row>
                     <ion-col>
-                        <h1>Especificaciones del pago</h1>
+                        <p class="ion-text-center"><ion-icon name="wallet-outline" color="dark" class="icon"></ion-icon></p>
                     </ion-col>
                 </ion-row>
             </ion-card-header>
             <ion-card-contend>
                 <form (ngSubmit)="realizarPago()">
                     <ion-item>
-                        <ion-label position="floating"><strong>Usuario a solicitar: </strong></ion-label>
+                        <strong><ion-label position="fixed">Correo</ion-label></strong>
                         <ion-input [(ngModel)]="cobro.emailPagador" name="user"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating"><strong>Monto: </strong></ion-label>
-                        <ion-input [(ngModel)]="cobro.monto" type="number" name="monto"></ion-input>
+                        <strong><ion-label position="fixed">Monto</ion-label></strong>
+                        <ion-input [(ngModel)]="cobro.monto" type="number" name="monto">$</ion-input>
                     </ion-item>
-                    <ion-button type="submit" fill="solid" expand="full">
-                        Realizar
+                    <ion-button type="submit" fill="solid"  expand="block" color="success">
+                        Realizar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
                     </ion-button>
                 </form>
 
@@ -49,13 +55,7 @@
         <br>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+    
 
     </div>
 
