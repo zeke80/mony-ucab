@@ -28,7 +28,7 @@
                 </ion-row>
             </ion-card-header>
             <ion-card-contend>
-                <form (ngSubmit)="realizarPago()">
+                <form  (submit)="onSubmit()">
                     <ion-item>
                         <strong><ion-label position="fixed">Correo</ion-label></strong>
                         <ion-input [(ngModel)]="cobro.emailPagador" name="user"></ion-input>

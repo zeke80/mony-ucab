@@ -3,11 +3,31 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Pago } from '../../models/pago.model';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Cobro } from 'src/app/models/cobro.model';
+import { FormsModule } from '@angular/forms';
+import {  FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PagoService {
+
+
+  public cobro: Cobro[] = [
+    {
+      idUsuarioSolicitante: 0,
+    emailPagador : '',
+    monto: 0
+
+    }
+  ];
+
+  formModel = this.form.group({
+    idUsuarioSolicitante : [0, Validators.required],
+    emailPagador : ['', [Validators.required, Validators.email]],
+    monto : [0, Validators.required]
+  });
+
+  basic = 'Bearer ' +localStorage.getItem('token');
 
   public pagos: Pago[] = [
     {

@@ -6,6 +6,9 @@ import { PagoService } from '../../servicios/pago/pago.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { MenuController } from "@ionic/angular";
+import { ToastController, LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pago',
@@ -17,68 +20,79 @@ export class PagoPage implements OnInit {
   usuario: Usuario
 
   cobro = {
-    idUsuarioSolicitante: 0,
-    emailPagador: '',
-    monto: 0
+    "idUsuarioSolicitante": 0,
+    "emailPagador": '',
+    "monto": 0,
 }
 
-  constructor(
-    public _usuarioServices: UsuarioService,
-    public _pagoSercives: PagoService,
-    public router: Router,
-    public alert: AlertController,
+
+constructor(private router: Router, private formModulo: FormsModule, 
+  private menuController: MenuController,
+  private loadingController: LoadingController,
+  private toastController: ToastController,
+  private cobroService: PagoService
   ) { }
 
   ngOnInit() {
     
   }
 
-  realizarPago(){
-    this._pagoSercives.realizarCobro(this.cobro).subscribe(
-      (data:any)=>{
-        console.log(data);
-        this.router.navigate(['/tabs/cuenta']);
+  async onSubmit(){
+    await this.presentLoading();
+    this.cobroService.realizarCobro(this.cobro).subscribe(
+      (res:any) => {
+        this.loadingController.dismiss();
+
+        this.successToast('success', 'Cobro procesado satisfactioamente')
+        this.router.navigateByUrl('/post');
       },
-      (err:any)=>{
+      err => {
+        this.loadingController.dismiss();
         console.log(err);
+        this.presentToast('danger', err.error.error);
       }
-    )
+    );
   }
 
-
-  async AlertaError() {
-    const alertElement = await this.alert.create({
-      header: 'Error al realizar apgo',
-      message: 'El usuario no existe en el sistema',
-      buttons: [
+  async presentToast(color : string, mensaje : string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      color : color,
+      buttons: [ 
         {
-          text: 'Aceptar',
-          handler: () => {
-          }
-        },
+          icon: 'close',
+          role: 'cancel'
+        }
       ]
     });
-
-    await alertElement.present();
-
+    toast.present();
   }
-
-  async AlertServer() {
-    const alertElement = await this.alert.create({
-      header: 'Error inesperado',
-      message: 'intentelo mas tarde',
-      buttons: [
+  
+  async successToast(color : string, mensaje : string) {
+    const success = await this.toastController.create({
+      message: mensaje,
+      color : color,
+      buttons: [ 
         {
-          text: 'Aceptar',
-          handler: () => {
-          }
-        },
-
+          icon: 'close',
+          role: 'cancel'
+        }
       ]
     });
-
-    await alertElement.present();
-
+    success.present();
   }
+
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      spinner: "bubbles",
+      duration: 100000,
+      message: 'Cargando ...',
+      translucent: true,
+      cssClass: 'custom-class custom-loading',
+    });
+    loading.present();
+  }
+
 
 }
