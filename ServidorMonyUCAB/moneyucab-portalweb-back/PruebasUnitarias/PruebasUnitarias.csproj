@@ -55,8 +55,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APITest.cs" />
+    <Compile Include="Modelos\ConsultaUsuariosFamiliares.cs" />
     <Compile Include="Modelos\Login.cs" />
     <Compile Include="Modelos\Persona.cs" />
+    <Compile Include="Modelos\RecargaSaldoUsuario.cs" />
     <Compile Include="TestClass\RegistrodeUsuario.cs" />
     <Compile Include="TestClass\Cuentas.cs" />
     <Compile Include="TestClass\Tarjetas.cs" />
@@ -67,6 +69,11 @@
     <Compile Include="TestClass\CobrosCancelados.cs" />
     <Compile Include="TestClass\CobrosExitosos.cs" />
     <Compile Include="TestClass\InformacionPersona.cs" />
+    <Compile Include="TestClass\ConsultaBase.cs" />
+    <Compile Include="TestClass\Saldo.cs" />
+    <Compile Include="TestClass\RecargaSaldoTarjeta.cs" />
+    <Compile Include="TestClass\RecargaSaldoCuenta.cs" />
+    <Compile Include="TestClass\Retiro.cs" />
     <Compile Include="TestClass\UsuarioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -37,7 +37,7 @@ namespace PruebasUnitarias
             return await client.PostAsync(url + "/api/Admin/EliminarUsuario?idUsuario=" + idUsuario, null);
         }
 
-        //Authentication//
+        ////////////////////////////////////////////////////////////Authentication////////////////////////////////////////////////////////////
 
         public static async Task<HttpResponseMessage> register(Persona persona)
         {
@@ -57,15 +57,72 @@ namespace PruebasUnitarias
             return res;
         }
 
-        //Billetera//
+        ////////////////////////////////////////////////////////////Authentication///////////////////////////////////////////////////////////
 
-        //Dashboard//
+        //////////////////////////////////////////////////////////////Billetera/////////////////////////////////////////////////////////////
 
-        public static async Task<HttpResponseMessage> EstadosCiviles(Login loginAdmin1)
+
+        //////////////////////////////////////////////////////////////Billetera/////////////////////////////////////////////////////////////
+
+        //////////////////////////////////////////////////////////////Dashboard/////////////////////////////////////////////////////////////
+
+        // Consultas basicas //
+
+        public static async Task<HttpResponseMessage> estados_civilies(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
         }
+
+        public static async Task<HttpResponseMessage> tipos_tarjetas(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/TiposTarjetas");
+        }
+
+        public static async Task<HttpResponseMessage> bancos(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/Bancos");
+        }
+
+        public static async Task<HttpResponseMessage> tipos_cuentas(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/TiposCuentas");
+        }
+
+        public static async Task<HttpResponseMessage> tipos_parametros(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/TiposParametros");
+        }
+        
+        public static async Task<HttpResponseMessage> frecuencia(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/Frecuencias");
+        }
+
+        // error desonocido en peticion de parametros
+        public static async Task<HttpResponseMessage> parametros(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/Parametros");
+        }
+        public static async Task<HttpResponseMessage> tipos_operaciones(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/TiposOperaciones");
+        }
+
+        public static async Task<HttpResponseMessage> tipos_identificacion(Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/TiposIdentificaciones");
+        }
+
+        // Fin consultas basicas // 
 
         // Consultas de usuario //
 
@@ -124,9 +181,18 @@ namespace PruebasUnitarias
             return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
         }
 
+        public static async Task<HttpResponseMessage> consulta_usuarios_familiares(ConsultaUsuariosFamiliares idUsuario)
+        {
+            var data = serializarObjetoJson(idUsuario);
+            HttpResponseMessage res = await client.PostAsync(url + "/api/dashboard/ConsultaUsuariosF", data);
+
+            return res;
+        }
+
 
         // Fin Consultas de usuario // 
 
+        //////////////////////////////////////////////////////////////Dashboard/////////////////////////////////////////////////////////////
 
         //Historial Operaciones//
 
@@ -150,12 +216,36 @@ namespace PruebasUnitarias
             return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?IdUsuario=" + id);
         }
 
-        //Monedero//
+        //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
 
-        public static async Task<HttpResponseMessage> saldo(int id)
+        public static async Task<HttpResponseMessage> saldo(int id, Login loginAdmin1)
         {
+            await login(loginAdmin1);
             return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
         }
+
+        public static async Task<HttpResponseMessage> recargar_saldo_tarjeta(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            var data = serializarObjetoJson(recarga);
+            return await client.PostAsync(url + "/api/monedero/RecargaMonederoTarjeta", data);
+        }
+
+        public static async Task<HttpResponseMessage> recargar_saldo_cuenta(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            var data = serializarObjetoJson(recarga);
+            return await client.PostAsync(url + "/api/monedero/RecargaMonederoCuenta", data);
+        }
+
+        public static async Task<HttpResponseMessage> retiro(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            var data = serializarObjetoJson(recarga);
+            return await client.PostAsync(url + "/api/monedero/Retiro", data);
+        }
+
+        //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
 
         //Transfer//
 
