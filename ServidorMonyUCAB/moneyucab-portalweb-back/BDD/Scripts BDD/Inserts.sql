@@ -42,7 +42,9 @@ ALTER SEQUENCE TipoCuenta_idTipoCuenta_seq RESTART WITH 1;
 INSERT INTO TipoCuenta (descripcion, estatus)
 VALUES ('Ahorro', 1),
 ('Corriente', 1),
-('Monedero', 1);
+('Monedero', 1),
+('Stripe', 1),
+('Paypal', 1);
 
 --Tipos de parametro:
 /*

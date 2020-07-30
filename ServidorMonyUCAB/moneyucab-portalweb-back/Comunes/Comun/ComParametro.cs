@@ -53,7 +53,14 @@ namespace Comunes.Comun
             this.idParametro = Data.GetInt32(0 + offset);
             this.nombre = Data.GetString(3 + offset);
             this.estatus = Data.GetInt32(4 + offset);
-            this.limite = Data.GetString(5 + offset);
+            try
+            {
+                this.limite = Data.GetString(5 + offset);
+            }
+            catch (InvalidCastException ex)
+            {
+                this.limite = null;
+            }
             this.tipoParametro.offset = 6 + offset;
             this.tipoParametro.LlenadoDataNpgsql(Data);
             this.frecuencia.offset = 9 + offset;

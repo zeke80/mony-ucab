@@ -73,7 +73,7 @@ BEGIN
 		FOR opcion IN opcionMenuCurs LOOP
 			INSERT INTO Usuario_OpcionMenu (idUsuario, idOpcionMenu, estatus) VALUES ($5, opcion.idOpcionMenu, 1);
 		END LOOP;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (20, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de persona: ' || $1 ' ' $2 ' ' $4, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (20, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de persona: ' || $1 || ' '||  $2 || ' ' || $4, '');
 		RETURN TRUE;
 END;
 $$;
@@ -90,6 +90,8 @@ response boolean;
 entity_user_id text;
 tipo_cuenta int;
 numero_cuenta varchar:= $3 || 'MONEDERO';
+numero_cuenta_P varchar:= $3 || 'PAYPAL';
+numero_cuenta_S varchar:= $3 || 'STRIPE';
 banco int;
 BEGIN
 	IF NOT EXISTS (SELECT * FROM Usuario WHERE Usuario.email = $6 AND Usuario.estatus <> 1) THEN
@@ -120,11 +122,21 @@ BEGIN
 		IF NOT (RESPONSE) THEN
 			RAISE EXCEPTION 'Error al intentar registrar el monedero';
 		END IF;
+		SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Paypal';
+		SELECT Registro_Cuenta(usuario, tipo_cuenta, banco, numero_cuenta_P) INTO RESPONSE;
+		IF NOT (RESPONSE) THEN
+			RAISE EXCEPTION 'Error al intentar registrar el método pago PayPal';
+		END IF;
+		SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Stripe';
+		SELECT Registro_Cuenta(usuario, tipo_cuenta, banco, numero_cuenta_S) INTO RESPONSE;
+		IF NOT (RESPONSE) THEN
+			RAISE EXCEPTION 'Error al intentar registrar el método pago Stripe';
+		END IF;
 	ELSE
 			SELECT "Id" FROM "AspNetUsers" into entity_user_id WHERE "AspNetUsers"."UserName" = $3 or "AspNetUsers"."Email" = $6;
 			UPDATE Usuario SET estatus = 1 and "idEntity" = entity_user_id WHERE Usuario.email = $6;
 	END IF;
-	INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (15, usuario, CURRENT_DATE, CURRENT_TIME, 'Registro de usuario: ' || $3 ' ' $6, '');
+	INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (15, usuario, CURRENT_DATE, CURRENT_TIME, 'Registro de usuario: ' || $3 || ' '||  $6, '');
 	RETURN TRUE;
 END;
 $$;
@@ -137,7 +149,7 @@ DECLARE
 BEGIN
 		INSERT INTO Cuenta (idUsuario, idTipoCuenta, idBanco, numero) VALUES ($1, $2, $3, $4);
 		RETURN TRUE;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (18, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de cuenta: ' || $1 ' ' $2 ' ' $3 ' ' $4, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (18, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de cuenta: ' || $1 || ' ' ||$2|| ' ' ||$3|| ' ' ||$4, '');
 END;
 $$;
 CREATE OR REPLACE FUNCTION Registro_Tarjeta(INT, INT, INT, BIGINT, DATE, INT, INT)
@@ -153,7 +165,7 @@ BEGIN
 		ELSE
 			INSERT INTO Tarjeta (idUsuario, idTipoTarjeta, idBanco, numero, fecha_vencimiento, cvc, estatus) VALUES ($1, $2, $3, $4, $5, $6, $7);
 		END IF;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (17, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de cuenta: ' || $1 ' ' $2 ' ' $3 ' ' $4, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (17, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de cuenta: ' || $1|| ' ' ||$2|| ' ' ||$3|| ' ' ||$4, '');
 		RETURN TRUE;
 END;
 $$;
@@ -168,7 +180,7 @@ BEGIN
 		ELSE
 			UPDATE Usuario_Parametro SET Estatus = $4, Validacion = $3 WHERE idUsuario = $1 AND idParametro = $2;
 		END IF;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (12, $1, CURRENT_DATE, CURRENT_TIME, 'Establecer parámetro: ' || $1 ' ' $2 ' ' $3 ' ' $4, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (12, $1, CURRENT_DATE, CURRENT_TIME, 'Establecer parámetro: ' || $1|| ' ' ||$2|| ' ' ||$3|| ' ' ||$4, '');
 		RETURN TRUE;
 END;
 $$;
@@ -479,8 +491,8 @@ BEGIN
 		END IF;
 		INSERT INTO Pago (idUsuario_Solicitante, idUsuario_Receptor, fecha_solicitud, monto, estatus, referencia)
 		VALUES (idUsuario_Solicitante, $1, current_date, $3, 'Solicitado', NULL);
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (21, $1, CURRENT_DATE, CURRENT_TIME, 'Cobrante: ' || $2 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (21, idUsuario_Solicitante, CURRENT_DATE, CURRENT_TIME, 'Siendo cobrado: ' || $2 ' ' $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (21, $1, CURRENT_DATE, CURRENT_TIME, 'Cobrante: ' || $2 ||' '|| $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (21, idUsuario_Solicitante, CURRENT_DATE, CURRENT_TIME, 'Siendo cobrado: ' || $2|| ' ' ||$3, '');
 		RETURN TRUE;
 END;
 $$;
@@ -517,8 +529,8 @@ BEGIN
 		END IF;
 		INSERT INTO Reintegro (idUsuario_Solicitante, idUsuario_Receptor, fecha_solicitud, estatus, referencia, referencia_reintegro)
 		VALUES ($1, idUsuario_Receptor, current_date, 'Solicitado', $3, NULL);
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (22, $1, CURRENT_DATE, CURRENT_TIME, 'Reintegro: ' || $2 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (22, idUsuario_Receptor, CURRENT_DATE, CURRENT_TIME, 'Ssiendo solicitado el reintegro: ' || $2 ' ' $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (22, $1, CURRENT_DATE, CURRENT_TIME, 'Reintegro: ' || $2 ||' '|| $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (22, idUsuario_Receptor, CURRENT_DATE, CURRENT_TIME, 'Ssiendo solicitado el reintegro: ' || $2 ||' ' ||$3, '');
 		RETURN TRUE;
 END;
 $$;
@@ -556,8 +568,8 @@ BEGIN
 		INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Pago SET referencia = referenciaValid, estatus = 'Consolidado' WHERE idPago = $4;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (4, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (4, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (4, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ||' ' ||$3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (4, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ||' '|| $3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -575,8 +587,8 @@ BEGIN
 		INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Pago SET referencia = referenciaValid, estatus = 'Consolidado' WHERE idPago = $4;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (5, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (5, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (5, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4|| ' ' ||$3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (5, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ||' ' ||$3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -606,8 +618,8 @@ BEGIN
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($2, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		UPDATE Pago SET referencia = referenciaValid, estatus = 'Consolidado' WHERE idPago = $4;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (6, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (6, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (6, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ||' ' ||$3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (6, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ||' ' ||$3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -626,8 +638,8 @@ BEGIN
 		INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Reintegro SET referencia_reintegro = referenciaValid, estatus = 'Consolidado' WHERE idReintegro = $4;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (9, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (9, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (9, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ||' ' ||$3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (9, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ||' ' ||$3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -645,8 +657,8 @@ BEGIN
 		INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Reintegro SET referencia_reintegro = referenciaValid, estatus = 'Consolidado' WHERE idReintegro = $4;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (10, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (10, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (10, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ||' '|| $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (10, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ||' '|| $3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -676,8 +688,8 @@ BEGIN
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($2, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		UPDATE Reintegro SET referencia_reintegro = referenciaValid, estatus = 'Consolidado' WHERE idReintegro = $4;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (11, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (11, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (11, $1, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ||' '|| $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (11, $2, CURRENT_DATE, CURRENT_TIME, 'Recepción de pago ' || $4 ||' '|| $3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -699,8 +711,8 @@ BEGIN
 		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recarga';
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (7, $1, CURRENT_DATE, CURRENT_TIME, 'Recarga ' || $2 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (7, $2, CURRENT_DATE, CURRENT_TIME, 'Recepcion de recarga ' || $2 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (7, $1, CURRENT_DATE, CURRENT_TIME, 'Recarga ' || $2 ||' '|| $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (7, $2, CURRENT_DATE, CURRENT_TIME, 'Recepcion de recarga ' || $2 ||' '|| $3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -722,8 +734,8 @@ BEGIN
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (8, $1, CURRENT_DATE, CURRENT_TIME, 'Recarga ' || $2 ' ' $3, '');
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (8, $2, CURRENT_DATE, CURRENT_TIME, 'Recepcion de recarga ' || $2 ' ' $3 , '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (8, $1, CURRENT_DATE, CURRENT_TIME, 'Recarga ' || $2 ||' '|| $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (8, $2, CURRENT_DATE, CURRENT_TIME, 'Recepcion de recarga ' || $2 ||' '|| $3 , '');
 		RETURN TRUE;
 END;
 $$;
@@ -789,7 +801,7 @@ BEGIN
 		UPDATE Usuario SET telefono=$3, direccion=$4 WHERE Usuario.idUsuario = $7;
 		UPDATE Comercio SET nombre_representante = $1, apellido_representante = $2, Razon_Social = $5 WHERE Comercio.idUsuario = $7;
 		UPDATE Persona SET nombre = $1, apellido = $2, idEstadoCivil=$6 WHERE Persona.idUsuario = $7;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (26, $7, CURRENT_DATE, CURRENT_TIME, 'Datos de modificación: ' || $1 ' ' $2 ' ' $3 ' ' $4 ' ' $5 ' ' $6, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (26, $7, CURRENT_DATE, CURRENT_TIME, 'Datos de modificación: ' || $1 ||' '|| $2 ||' '|| $3 ||' '|| $4 ||' '|| $5 ||' '|| $6, '');
 		RETURN TRUE;
 END;
 $$;
@@ -998,7 +1010,7 @@ BEGIN
 		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Retiro';
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (30, $4, CURRENT_DATE, CURRENT_TIME, 'Retiro con datos: ' || $2 ' ' $3, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (30, $4, CURRENT_DATE, CURRENT_TIME, 'Retiro con datos: ' || $2 ||' '|| $3, '');
 		RETURN TRUE;
 END;
 $$;
