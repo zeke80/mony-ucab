@@ -42,6 +42,10 @@ export class Tab3Page implements OnInit{
       this.router.navigate(['tabs/operaciones/pago'])
     }
 
+    cierre(){
+      this.router.navigate(['tabs/operaciones/cierre'])
+    }
+
   ngOnInit(){
 
  

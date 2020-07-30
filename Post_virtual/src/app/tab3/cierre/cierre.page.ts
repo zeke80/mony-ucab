@@ -24,7 +24,7 @@ export class CierrePage implements OnInit {
   ) { }
 
   ngOnInit() {
- /* //  this.usuario = this._usuarioService.getUsuario();
+ this.usuario = this._usuarioService.getUsuario();
     this.pagos = this._pagoServices.getVacio();
     this._operacionServices.cierre(this.usuario.idUsuario)
         .subscribe((data: any) => {
@@ -32,10 +32,10 @@ export class CierrePage implements OnInit {
         },
         (error: HttpErrorResponse) => {
             this.AlertServer();
-        });*/
+        });
   }
 
-  async AlertServer() {
+  /*async AlertServer() {
     const alertElement = await this.alert.create({
       header: 'Error inesperado',
       message: 'intentelo mas tarde',
@@ -51,6 +51,6 @@ export class CierrePage implements OnInit {
 
     await alertElement.present();
 
-  }
+  }*/
 
 }
