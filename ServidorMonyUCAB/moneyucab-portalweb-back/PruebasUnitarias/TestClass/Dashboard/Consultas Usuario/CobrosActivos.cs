@@ -12,13 +12,15 @@ namespace PruebasUnitarias
     [TestClass]
     public class CobrosActivos
     {
-        Persona registroAdmin1;
-        Login loginAdmin1;
+        /*Persona registroAdmin1;
+        Login loginAdmin1;*/
+
+        TestUser testUser1;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            registroAdmin1 = new Persona
+            /*registroAdmin1 = new Persona
             {
                 Usuario = "admin1",
                 Email = "admin1@gmail.com",
@@ -48,13 +50,27 @@ namespace PruebasUnitarias
                 Email = registroAdmin1.Email,
                 Password = registroAdmin1.Password,
                 Comercio = registroAdmin1.Comercio
-            };
+            };*/
 
+            /*testUser1 = new TestUser(1,1);
+            testUser1.registrar();*/
+            //testUser1.login();
         }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            //testUser1.eliminar();
+        }
+
         [TestMethod]
         public void cobros_activos()
         {
-            Task<HttpResponseMessage> res = APITest.cobros_activos(10, loginAdmin1);
+            testUser1 = new TestUser(123, 1);
+            Task<HttpResponseMessage> res = testUser1.registrar();
+
+            //System.Threading.Thread.Sleep(10000);
+            /*Task<HttpResponseMessage> res = APITest.cobros_activos(10, testUser1.getInfoLogin());*/
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
