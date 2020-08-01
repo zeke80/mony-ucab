@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,27 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestCleanup]
         public void TestCleanup()
         {
+        }
+
+        public void establecerComision()
+        {
+            Task<HttpResponseMessage> res = APITest.EstablecerComision(new {idComercio =  1,comision = 1});
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
+        }
+
+        public void establecerComision_invalidoComercioNoRegistrado()
+        {
+            Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = 404, comision = 1 });
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
+        }
+
+        public void establecerComision_UsuarioInvalido()
+        {
+            Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = -1, comision = 1 });
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }
