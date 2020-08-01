@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class Login
+    public class Login
     {
         [TestInitialize]
         public void TestInitialize()

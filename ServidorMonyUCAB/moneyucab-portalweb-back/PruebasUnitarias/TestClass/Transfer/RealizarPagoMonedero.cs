@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Transfer
 {
     [TestClass]
-    class RealizarPagoMonedero
+    public class RealizarPagoMonedero
     {
         [TestInitialize]
         public void TestInitialize()

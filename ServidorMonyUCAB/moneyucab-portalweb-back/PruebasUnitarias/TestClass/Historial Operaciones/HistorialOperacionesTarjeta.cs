@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Historial_Operaciones
 {
     [TestClass]
-    class HistorialOperacionesTarjeta
+    public class HistorialOperacionesTarjeta
     {
         [TestInitialize]
         public void TestInitialize()

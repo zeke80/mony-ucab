@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Admin
 {
     [TestClass]
-    class ConsultaUsuarios
+    public class ConsultaUsuarios
     {
         [TestInitialize]
         public void TestInitialize()

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Dashboard.Consultas_Usuario
 {
     [TestClass]
-    class ParametrosUsuario
+    public class ParametrosUsuario
     {
         [TestInitialize]
         public void TestInitialize()

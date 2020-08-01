@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Billetera
 {
     [TestClass]
-    class EliminarCuenta
+    public class EliminarCuenta
     {
         [TestInitialize]
         public void TestInitialize()

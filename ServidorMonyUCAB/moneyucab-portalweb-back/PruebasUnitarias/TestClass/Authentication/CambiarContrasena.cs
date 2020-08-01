@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class CambiarContrasena
+    public class CambiarContrasena
     {
         [TestInitialize]
         public void TestInitialize()

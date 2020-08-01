@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Billetera
 {
     [TestClass]
-    class RegistroCuenta
+    public class RegistroCuenta
     {
         [TestInitialize]
         public void TestInitialize()

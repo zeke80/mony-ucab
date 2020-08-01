@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Admin
 {
     [TestClass]
-    class EliminarUsuario
+    public class EliminarUsuario
     {
         [TestInitialize]
         public void TestInitialize()

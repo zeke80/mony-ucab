@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class RegistroFamiliar
+    public class RegistroFamiliar
     {
         [TestInitialize]
         public void TestInitialize()

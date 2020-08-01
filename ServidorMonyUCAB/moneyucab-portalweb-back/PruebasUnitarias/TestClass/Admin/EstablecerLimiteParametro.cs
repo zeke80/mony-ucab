@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Admin
 {
     [TestClass]
-    class EstablecerLimiteParametro
+    public class EstablecerLimiteParametro
     {
         [TestInitialize]
         public void TestInitialize()

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class RestablecerContrasena
+    public class RestablecerContrasena
     {
         [TestInitialize]
         public void TestInitialize()

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class RegistroComercio
+    public class RegistroComercio
     {
         [TestInitialize]
         public void TestInitialize()
