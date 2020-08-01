@@ -39,6 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.1.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -57,9 +58,62 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APITest.cs" />
+    <Compile Include="Modelos\InfoLogin.cs" />
     <Compile Include="Modelos\Persona.cs" />
-    <Compile Include="TestClass\RegistroUsuario.cs" />
+    <Compile Include="Modelos\RecargaSaldoUsuario.cs" />
+    <Compile Include="TestClass\Admin\ConsultaUsuarios.cs" />
+    <Compile Include="TestClass\Admin\EliminarUsuario.cs" />
+    <Compile Include="TestClass\Admin\EstablecerComision.cs" />
+    <Compile Include="TestClass\Admin\EstablecerLimiteParametro.cs" />
+    <Compile Include="TestClass\Authentication\CambiarContrasena.cs" />
+    <Compile Include="TestClass\Authentication\ConfirmarCorreo.cs" />
+    <Compile Include="TestClass\Authentication\Login.cs" />
+    <Compile Include="TestClass\Authentication\ModificarUsuario.cs" />
+    <Compile Include="TestClass\Authentication\RecuperarContrasena.cs" />
+    <Compile Include="TestClass\Authentication\RegistroComercio.cs" />
+    <Compile Include="TestClass\Authentication\RegistroFamiliar.cs" />
+    <Compile Include="TestClass\Authentication\RegistroUsuario.cs" />
+    <Compile Include="TestClass\Authentication\RestablecerContrasena.cs" />
+    <Compile Include="TestClass\Billetera\EliminarCuenta.cs" />
+    <Compile Include="TestClass\Billetera\EliminarTarjeta.cs" />
+    <Compile Include="TestClass\Billetera\RegistroCuenta.cs" />
+    <Compile Include="TestClass\Billetera\RegistroTarjeta.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\ConsultaFamiliares.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\Cuentas.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\ParametrosUsuario.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\Tarjetas.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\ReintegrosActivos.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\ReintegrosCancelados.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\ReintegrosExitosos.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\CobrosActivos.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\CobrosCancelados.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\CobrosExitosos.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Usuario\InformacionPersona.cs" />
+    <Compile Include="TestClass\Dashboard\Consultas Base\ConsultasBase.cs" />
+    <Compile Include="TestClass\Historial Operaciones\EjecutarCierre.cs" />
+    <Compile Include="TestClass\Historial Operaciones\HistorialOperacionesCuenta.cs" />
+    <Compile Include="TestClass\Historial Operaciones\HistorialOperacionesMonedero.cs" />
+    <Compile Include="TestClass\Historial Operaciones\HistorialOperacionesTarjeta.cs" />
+    <Compile Include="TestClass\Monedero\Saldo.cs" />
+    <Compile Include="TestClass\Monedero\RecargaMonederoTarjeta.cs" />
+    <Compile Include="TestClass\Monedero\RecargaMonederoCuenta.cs" />
+    <Compile Include="TestClass\Monedero\Retiro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestClass\Transfer\BotonPagoCuenta.cs" />
+    <Compile Include="TestClass\Transfer\BotonPagoMonedero.cs" />
+    <Compile Include="TestClass\Transfer\BotonPagoTarjeta.cs" />
+    <Compile Include="TestClass\Transfer\CancelarCobro.cs" />
+    <Compile Include="TestClass\Transfer\CancelarReintegro.cs" />
+    <Compile Include="TestClass\Transfer\EstablecerParametro.cs" />
+    <Compile Include="TestClass\Transfer\RealizarCobro.cs" />
+    <Compile Include="TestClass\Transfer\RealizarPagoCuenta.cs" />
+    <Compile Include="TestClass\Transfer\RealizarPagoMonedero.cs" />
+    <Compile Include="TestClass\Transfer\RealizarPagoTarjeta.cs" />
+    <Compile Include="TestClass\Transfer\RealizarReintegroCuenta.cs" />
+    <Compile Include="TestClass\Transfer\RealizarReintegroMonedero.cs" />
+    <Compile Include="TestClass\Transfer\RealizarReintegroTarjeta.cs" />
+    <Compile Include="TestClass\Transfer\SolicitarReintegro.cs" />
+    <Compile Include="TestUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
