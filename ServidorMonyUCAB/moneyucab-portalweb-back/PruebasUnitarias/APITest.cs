@@ -284,7 +284,7 @@ namespace PruebasUnitarias
 
         //////////////////////////////Historial Operaciones//////////////////////
 
-        public static async Task<HttpResponseMessage> HistorialOperacionesTarjeta(int id)
+        public static async Task<HttpResponseMessage> HistorialOperacionesTarjeta(dynamic id)
         {
             return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=" + id);
         }
@@ -299,30 +299,27 @@ namespace PruebasUnitarias
             return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=" + id);
         }
 
-        public static async Task<HttpResponseMessage> EjecutarCierre(int id)
+        public static async Task<HttpResponseMessage> EjecutarCierre(dynamic id)
         {
             return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?IdUsuario=" + id);
         }
 
         //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
 
-        public static async Task<HttpResponseMessage> Consultar(int id, InfoLogin loginAdmin1)
+        public static async Task<HttpResponseMessage> Consultar(dynamic id)
         {
-            await login(loginAdmin1);
             return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
         }
 
-        public static async Task<HttpResponseMessage> RecargaMonederoTarjeta(RecargaSaldoUsuario recarga, InfoLogin loginAdmin1)
+        public static async Task<HttpResponseMessage> RecargaMonederoTarjeta(dynamic info)
         {
-            await login(loginAdmin1);
-            var data = serializarObjetoJson(recarga);
+            var data = serializarObjetoJson(info);
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoTarjeta", data);
         }
 
-        public static async Task<HttpResponseMessage> RecargaMonederoCuenta(RecargaSaldoUsuario recarga, InfoLogin loginAdmin1)
+        public static async Task<HttpResponseMessage> RecargaMonederoCuenta(dynamic info)
         {
-            await login(loginAdmin1);
-            var data = serializarObjetoJson(recarga);
+            var data = serializarObjetoJson(info);
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoCuenta", data);
         }
 
