@@ -52,6 +52,12 @@ namespace PruebasUnitarias
             };
 
         }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
+
         [TestMethod]
         public void saldo()
         {

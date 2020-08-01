@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Authentication
     [TestClass]
     class RegistroComercio
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

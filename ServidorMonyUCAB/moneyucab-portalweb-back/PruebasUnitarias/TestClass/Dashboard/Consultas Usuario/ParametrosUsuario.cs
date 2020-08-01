@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Dashboard.Consultas_Usuario
     [TestClass]
     class ParametrosUsuario
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

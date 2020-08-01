@@ -51,6 +51,12 @@ namespace PruebasUnitarias
             };
 
         }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
+
         [TestMethod]
         public void cobros_cancelados()
         {

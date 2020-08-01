@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Transfer
     [TestClass]
     class CancelarCobro
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

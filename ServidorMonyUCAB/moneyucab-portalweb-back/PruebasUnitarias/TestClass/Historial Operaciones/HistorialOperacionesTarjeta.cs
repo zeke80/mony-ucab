@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Historial_Operaciones
     [TestClass]
     class HistorialOperacionesTarjeta
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

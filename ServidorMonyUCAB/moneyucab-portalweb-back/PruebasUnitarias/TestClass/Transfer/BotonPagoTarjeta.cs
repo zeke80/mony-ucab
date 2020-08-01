@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Transfer
     [TestClass]
     class BotonPagoTarjeta
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

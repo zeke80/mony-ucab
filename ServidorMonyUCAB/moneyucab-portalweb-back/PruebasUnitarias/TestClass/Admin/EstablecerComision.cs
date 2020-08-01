@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Admin
     [TestClass]
     class EstablecerComision
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

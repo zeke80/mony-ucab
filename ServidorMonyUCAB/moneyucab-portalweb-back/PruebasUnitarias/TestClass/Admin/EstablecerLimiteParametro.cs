@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Admin
     [TestClass]
     class EstablecerLimiteParametro
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

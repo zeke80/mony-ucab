@@ -44,6 +44,11 @@ namespace PruebasUnitarias
             };
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
+
         // error en json estatus 400
 
         /*[TestMethod]

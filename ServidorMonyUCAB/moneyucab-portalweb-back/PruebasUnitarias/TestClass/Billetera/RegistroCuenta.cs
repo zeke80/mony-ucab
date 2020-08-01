@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Billetera
     [TestClass]
     class RegistroCuenta
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

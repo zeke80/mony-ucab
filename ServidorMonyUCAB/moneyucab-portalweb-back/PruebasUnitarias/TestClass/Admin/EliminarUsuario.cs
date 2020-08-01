@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Admin
     [TestClass]
     class EliminarUsuario
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }

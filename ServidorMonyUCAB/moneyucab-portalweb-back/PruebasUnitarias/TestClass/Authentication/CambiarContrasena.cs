@@ -10,5 +10,14 @@ namespace PruebasUnitarias.TestClass.Authentication
     [TestClass]
     class CambiarContrasena
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
     }
 }
