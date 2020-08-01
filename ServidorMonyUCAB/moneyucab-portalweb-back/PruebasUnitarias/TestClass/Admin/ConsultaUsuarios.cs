@@ -31,6 +31,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
+        [TestMethod]
         public void consultaUsuarios_invalido()
         {
             string query = "WHERE";

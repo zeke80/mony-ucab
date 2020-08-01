@@ -22,6 +22,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
         }
 
+        [TestMethod]
         public void establecerComision()
         {
             Task<HttpResponseMessage> res = APITest.EstablecerComision(new {idComercio =  1,comision = 1});
@@ -29,6 +30,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
+        [TestMethod]
         public void establecerComision_invalidoComercioNoRegistrado()
         {
             Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = 404, comision = 1 });
@@ -36,6 +38,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
+        [TestMethod]
         public void establecerComision_UsuarioInvalido()
         {
             Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = -1, comision = 1 });

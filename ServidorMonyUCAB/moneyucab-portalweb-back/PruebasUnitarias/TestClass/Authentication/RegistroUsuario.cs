@@ -13,35 +13,9 @@ namespace PruebasUnitarias
     public class RegistrodeUsuario
     {
 
-        Persona persona;
-
         [TestInitialize]
         public void TestInitialize()
         {
-
-            persona = new Persona
-            {
-                Usuario = "admin12",
-                Email = "admin12@gmail.com",
-                Password = "admin12",
-                IdTipoUsuario = 3,
-                IdTipoIdentificacion = 1,
-                IdEstadoCivil = 1,
-                AnoRegistro = DateTime.Now.Year,
-                MesRegistro = DateTime.Now.Month,
-                DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = 12,
-                Telefono = "admin1",
-                Direccion = "admin1",
-                Estatus = 1,
-                Comercio = false,
-                Nombre = "admin1",
-                Apellido = "admin1",
-                AnoNacimiento = 2000,
-                MesNacimiento = 1,
-                DiaNacimiento = 1,
-                RazonSocial = "admin1"
-            };
         }
 
         [TestCleanup]
@@ -49,14 +23,34 @@ namespace PruebasUnitarias
         {
         }
 
-        // error en json estatus 400
-
-        /*[TestMethod]
-        public void registro_persona()
+        [TestMethod]
+        public void registrodeUsuario()
         {
-            Task<HttpResponseMessage> res = APITest.register(persona);
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
-            
-        }*/
+            Task<HttpResponseMessage> res = APITest.register(new Persona
+            {
+                Usuario = "TestUserR",
+                Email = "testuserr@gmail.com",
+                Password = "testuserr",
+                IdTipoUsuario = 1,
+                IdTipoIdentificacion = 1,
+                IdEstadoCivil = 1,
+                AnoRegistro = 2020,
+                MesRegistro = 1,
+                DiaRegistro = 1,
+                NroIdentificacion = 1,
+                Telefono = "TelfTestUserR",
+                Direccion = "DirTestUserR",
+                Estatus = 1,
+                Comercio = false,
+                Nombre = "NomTestUserR",
+                Apellido = "ApeTestUserR",
+                AnoNacimiento = 1998,
+                MesNacimiento = 5,
+                DiaNacimiento = 30,
+                RazonSocial = "RazTestUserR"
+            });
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
+        }
     }
 }

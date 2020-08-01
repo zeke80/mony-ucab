@@ -15,7 +15,7 @@ namespace PruebasUnitarias
     {
         static HttpClient client = new HttpClient();
         static string url = "http://monyucab.somee.com";
-        static Login loginTestUser = new Login
+        static InfoLogin loginTestUser = new InfoLogin
         {
             UserName = "TestUser",
             Email = "testuser@gmail.com",
@@ -87,7 +87,7 @@ namespace PruebasUnitarias
             return await client.PostAsync(url + "/api/authentication/RegisterFamiliar", data);
         }
 
-        public static async Task<HttpResponseMessage> login(Login login)
+        public static async Task<HttpResponseMessage> login(InfoLogin login)
         {
             var data = serializarObjetoJson(login);
             HttpResponseMessage res = await client.PostAsync(url + "/api/authentication/login", data);
@@ -99,7 +99,7 @@ namespace PruebasUnitarias
             return res;
         }
 
-        public static async Task<HttpResponseMessage> ConfirmedEmail(string infoConfirmacionCorreo)
+        public static async Task<HttpResponseMessage> ConfirmedEmail(dynamic infoConfirmacionCorreo)
         {
             var data = serializarObjetoJson(infoConfirmacionCorreo);
             return await client.PostAsync(url + "/api/authentication/ConfirmedEmail", data);
@@ -159,55 +159,55 @@ namespace PruebasUnitarias
 
         ///ConsultasBase///
 
-        public static async Task<HttpResponseMessage> EstadosCiviles(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> EstadosCiviles(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
         }
 
-        public static async Task<HttpResponseMessage> TiposTarjetas(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposTarjetas(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposTarjetas");
         }
 
-        public static async Task<HttpResponseMessage> Bancos(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Bancos(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Bancos");
         }
 
-        public static async Task<HttpResponseMessage> TiposCuentas(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposCuentas(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposCuentas");
         }
 
-        public static async Task<HttpResponseMessage> TiposParametros(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposParametros(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposParametros");
         }
         
-        public static async Task<HttpResponseMessage> Frecuencias(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Frecuencias(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Frecuencias");
         }
 
         // error desonocido en peticion de parametros
-        public static async Task<HttpResponseMessage> Parametros(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Parametros(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Parametros");
         }
-        public static async Task<HttpResponseMessage> TiposOperaciones(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposOperaciones(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposOperaciones");
         }
 
-        public static async Task<HttpResponseMessage> TiposIdentificaciones(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposIdentificaciones(InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposIdentificaciones");
@@ -215,60 +215,60 @@ namespace PruebasUnitarias
 
         ///ConsultasUsuario///
 
-        public static async Task<HttpResponseMessage> Tarjetas(int id, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Tarjetas(int id, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Tarjetas?IdUsuario=" + id);
         }
-        public static async Task<HttpResponseMessage> Cuentas(int id, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Cuentas(int id, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Cuentas?IdUsuario=" + id);
         }
 
-        public static async Task<HttpResponseMessage> ReintegrosActivos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ReintegrosActivos(int idUsuario, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosActivos?IdUsuario="+ idUsuario +"&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> ReintegrosCancelados(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ReintegrosCancelados(int idUsuario, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosCancelados?UsuarioId="+ idUsuario +"&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> ReintegrosExitosos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ReintegrosExitosos(int idUsuario, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0" );
         }
 
-        public static async Task<HttpResponseMessage> CobrosActivos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> CobrosActivos(int idUsuario, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/CobrosActivos?IdUsuario=" + idUsuario + "&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> CobrosCancelados(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> CobrosCancelados(int idUsuario, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/CobrosCancelados?UsuarioId=" + idUsuario + "&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> CobrosExitosos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> CobrosExitosos(int idUsuario, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> ParametrosUsuario(string user, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ParametrosUsuario(string user, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ParametrosUsuario?UsuarioId=" + user);
         }
 
-        public static async Task<HttpResponseMessage> InformacionPersona(string user, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> InformacionPersona(string user, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
@@ -306,27 +306,27 @@ namespace PruebasUnitarias
 
         //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
 
-        public static async Task<HttpResponseMessage> Consultar(int id, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Consultar(int id, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
         }
 
-        public static async Task<HttpResponseMessage> RecargaMonederoTarjeta(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> RecargaMonederoTarjeta(RecargaSaldoUsuario recarga, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             var data = serializarObjetoJson(recarga);
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoTarjeta", data);
         }
 
-        public static async Task<HttpResponseMessage> RecargaMonederoCuenta(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> RecargaMonederoCuenta(RecargaSaldoUsuario recarga, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             var data = serializarObjetoJson(recarga);
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoCuenta", data);
         }
 
-        public static async Task<HttpResponseMessage> Retiro(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Retiro(RecargaSaldoUsuario recarga, InfoLogin loginAdmin1)
         {
             await login(loginAdmin1);
             var data = serializarObjetoJson(recarga);

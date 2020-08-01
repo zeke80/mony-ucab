@@ -14,7 +14,7 @@ namespace PruebasUnitarias
     public class Saldo
     {
         Persona registroAdmin1;
-        Login loginAdmin1;
+        InfoLogin loginAdmin1;
 
         [TestInitialize]
         public void TestInitialize()
@@ -43,7 +43,7 @@ namespace PruebasUnitarias
                 RazonSocial = "admin1",
             };
 
-            loginAdmin1 = new Login()
+            loginAdmin1 = new InfoLogin()
             {
                 UserName = registroAdmin1.Usuario,
                 Email = registroAdmin1.Email,

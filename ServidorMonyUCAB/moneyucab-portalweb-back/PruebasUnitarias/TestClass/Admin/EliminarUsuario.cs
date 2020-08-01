@@ -22,6 +22,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
         }
 
+        [TestMethod]
         public void eliminarUsuario()
         {
             Task<HttpResponseMessage> res = APITest.EliminarUsuario(1);
@@ -29,6 +30,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
+        [TestMethod]
         public void eliminarUsuario_invalidoNoRegistrado()
         {
             Task<HttpResponseMessage> res = APITest.EliminarUsuario(404);
@@ -36,6 +38,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
+        [TestMethod]
         public void eliminarUsuario_ParametroInvalido()
         {
             Task<HttpResponseMessage> res = APITest.EliminarUsuario(-1);

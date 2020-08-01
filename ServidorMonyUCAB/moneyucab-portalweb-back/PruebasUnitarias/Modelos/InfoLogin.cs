@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PruebasUnitarias.Modelos
 {
-    class Login
+    class InfoLogin
     {
         string userName;
         string email;

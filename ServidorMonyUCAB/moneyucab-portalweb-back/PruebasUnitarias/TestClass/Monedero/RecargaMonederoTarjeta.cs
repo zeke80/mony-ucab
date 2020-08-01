@@ -14,7 +14,7 @@ namespace PruebasUnitarias
     {
 
         Persona registroAdmin1;
-        Login loginAdmin1;
+        InfoLogin loginAdmin1;
         RecargaSaldoUsuario recargaExito;
         RecargaSaldoUsuario recargaFalloUsuario;
         RecargaSaldoUsuario recargaFalloMedioPaga;
@@ -46,7 +46,7 @@ namespace PruebasUnitarias
                 RazonSocial = "admin1",
             };
 
-            loginAdmin1 = new Login()
+            loginAdmin1 = new InfoLogin()
             {
                 UserName = registroAdmin1.Usuario,
                 Email = registroAdmin1.Email,

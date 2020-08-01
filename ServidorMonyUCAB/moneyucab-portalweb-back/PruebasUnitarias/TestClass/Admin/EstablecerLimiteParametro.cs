@@ -22,6 +22,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
         }
 
+        [TestMethod]
         public void establecerLimiteParametro()
         {
             Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new {idParametro = 1,limite = ""});
@@ -29,6 +30,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
+        [TestMethod]
         public void establecerLimiteParametro_invalidoParametroNoRegistrado()
         {
             Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new { idParametro = 404, limite = "" });
@@ -36,6 +38,7 @@ namespace PruebasUnitarias.TestClass.Admin
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
+        [TestMethod]
         public void establecerLimiteParametro_ParametroInvalido()
         {
             Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new { idParametro = -1, limite = "" });

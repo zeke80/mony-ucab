@@ -12,7 +12,7 @@ namespace PruebasUnitarias
     {
         Persona infoUser;
         int userId;
-        Login infoLogin;
+        InfoLogin infoLogin;
 
         public TestUser(int userId, int idTipoUsuario)
         {
@@ -41,7 +41,7 @@ namespace PruebasUnitarias
                 RazonSocial = "testuser1",
             };
 
-            infoLogin = new Login
+            infoLogin = new InfoLogin
             {
                 UserName = infoUser.Usuario,
                 Email = infoUser.Email,
@@ -55,7 +55,7 @@ namespace PruebasUnitarias
             return infoUser.Usuario;
         }
 
-        public Login getInfoLogin()
+        public InfoLogin getInfoLogin()
         {
             return infoLogin;
         }
