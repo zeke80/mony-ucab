@@ -6,7 +6,7 @@
 -----.Registro Comercio
 -----.Registro Persona
 -----.Registro de contacto dentro del comercio
-
+select * from "AspNetUsers";
 --Validación de registro de comercio
 DROP TRIGGER IF EXISTS validar_comercioT ON Comercio CASCADE;
 CREATE OR REPLACE FUNCTION validar_comercio()

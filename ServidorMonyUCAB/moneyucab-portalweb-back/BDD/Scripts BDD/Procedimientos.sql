@@ -73,7 +73,7 @@ BEGIN
 		FOR opcion IN opcionMenuCurs LOOP
 			INSERT INTO Usuario_OpcionMenu (idUsuario, idOpcionMenu, estatus) VALUES ($5, opcion.idOpcionMenu, 1);
 		END LOOP;
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (20, $4, CURRENT_DATE, CURRENT_TIME, 'Registro de persona: ' || $1 || ' '||  $2 || ' ' || $4, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (20, $5, CURRENT_DATE, CURRENT_TIME, 'Registro de persona: ' || $1 || ' '||  $2 || ' ' || $4, '');
 		RETURN TRUE;
 END;
 $$;
@@ -1073,5 +1073,56 @@ BEGIN
 	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
 	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
 	SELECT Pago_Monedero(usuario, $1, $3, cobro);
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Cambio_Estatus_Op (BOOLEAN, INT, VARCHAR)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	
+BEGIN
+	--Se realizó un pago
+	IF ($1) THEN
+		UPDATE Pago SET estatus = $3;
+	--Se realizó un reintegro
+	ELSE
+		UPDATE Reintegro SET estatus = $3;
+	END IF;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Pago_Paypal (BOOLEAN, INT, VARCHAR)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	
+BEGIN
+	--Se realizó un pago
+	IF ($1) THEN
+		UPDATE Pago SET estatus = $3 WHERE idPago = $2;
+	--Se realizó un reintegro
+	ELSE
+		UPDATE Reintegro SET estatus = $3 WHERE idReintegro = $2;
+	END IF;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Pago_Stripe (BOOLEAN, INT, VARCHAR)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS $$
+DECLARE
+	
+BEGIN
+	--Se realizó un pago
+	IF ($1) THEN
+		UPDATE Pago SET estatus = $3 WHERE idPago = $2;
+	--Se realizó un reintegro
+	ELSE
+		UPDATE Reintegro SET estatus = $3 WHERE idReintegro = $2;
+	END IF;
 END;
 $$;
