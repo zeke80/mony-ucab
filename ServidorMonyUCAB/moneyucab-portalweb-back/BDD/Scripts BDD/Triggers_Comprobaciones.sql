@@ -194,7 +194,7 @@ BEGIN
 		RAISE EXCEPTION 'Banco en estatus inválido para permitir transacciones';
 		RETURN NULL;
 	END IF;
-	IF EXISTS (SELECT * FROM Usuario JOIN Tarjeta ON Tarjeta.idTarjeta = new.idTarjeta WHERE Usuario.estatus > 1)THEN
+	IF EXISTS (SELECT * FROM Usuario JOIN Tarjeta ON Tarjeta.idTarjeta = new.idTarjeta AND Tarjeta.idUsuario = Usuario.idUsuario WHERE Usuario.estatus > 1)THEN
 		
 		RAISE EXCEPTION 'El usuario tiene un estatus inválido para realizar dichos procedimientos.';
 		RETURN NULL;
@@ -306,7 +306,7 @@ BEGIN
 		RAISE EXCEPTION 'Banco en estatus inválido para permitir transacciones';
 		RETURN NULL;
 	END IF;
-	IF EXISTS (SELECT * FROM Usuario JOIN Cuenta ON Cuenta.idCuenta = new.idCuenta WHERE Usuario.estatus > 1)THEN
+	IF EXISTS (SELECT * FROM Usuario JOIN Cuenta ON Cuenta.idCuenta = new.idCuenta AND Cuenta.idUsuario = Usuario.idUsuario WHERE Usuario.estatus > 1)THEN
 		
 		RAISE EXCEPTION 'El usuario tiene un estatus inválido para realizar dichos procedimientos.';
 		RETURN NULL;

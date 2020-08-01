@@ -4,8 +4,8 @@
 --Estatus:
 /*
 1: activo
-2: alerta - No puede realizar operaciones según su contexto
-3: bloqueado - No puede realizar operaciones ni ingresar a la plataforma según su contexto
+2: bloqueado - No puede realizar operaciones según su contexto
+3: eliminado - No puede realizar operaciones ni ingresar a la plataforma según su contexto
 4: inactivo - No se puede volver a usar
 */
 select * from usuario;
@@ -42,7 +42,9 @@ ALTER SEQUENCE TipoCuenta_idTipoCuenta_seq RESTART WITH 1;
 INSERT INTO TipoCuenta (descripcion, estatus)
 VALUES ('Ahorro', 1),
 ('Corriente', 1),
-('Monedero', 1);
+('Monedero', 1),
+('Stripe', 1),
+('Paypal', 1);
 
 --Tipos de parametro:
 /*
@@ -143,11 +145,21 @@ VALUES ('TRAT', 'Transferencia con tarjeta', 1),
 ('INGU', 'Ingreso de Usuario', 1),
 ('CAMC', 'Cambio de contraseña', 1),
 ('REGU', 'Registro de usuario', 1),
-('BLQU', 'Bloqueo de usuario', 3),
+('BLQU', 'Bloqueo de usuario', 2),
 ('REGT', 'Registro de Tarjeta', 1),
 ('REGC', 'Registro de Cuenta', 1),
 ('REGE', 'Registro de Empresa/Comercio', 1),
-('REGP', 'Registro de Persona', 1);
+('REGP', 'Registro de Persona', 1),
+('COBP', 'Cobro', 1),
+('REIG', 'Reintegro', 1),
+('COBC', 'Cobro cancelado', 1),
+('REIC', 'Reintegro cancelado', 1),
+('EJEC', 'Ejecución de Cierre', 1),
+('MODU', 'Modificación de Usuario', 1),
+('ELIT', 'Eliminar Tarjeta', 1),
+('ELIC', 'Eliminar Cuenta', 1),
+('ELIU', 'Eliminación de Usuario', 1),
+('RETP', 'Retiro', 1);
 
 DELETE FROM Aplicacion CASCADE;
 ALTER SEQUENCE Aplicacion_idAplicacion_seq RESTART WITH 1;
