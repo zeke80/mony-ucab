@@ -54,7 +54,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void cobros_cancelados()
         {
-            Task<HttpResponseMessage> res = APITest.cobros_cancelados(10, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.CobrosCancelados(10, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }

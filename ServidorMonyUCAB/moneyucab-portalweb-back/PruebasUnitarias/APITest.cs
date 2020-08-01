@@ -274,7 +274,7 @@ namespace PruebasUnitarias
             return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
         }
 
-        public static async Task<HttpResponseMessage> ConsultaUsuariosF(ConsultaUsuariosFamiliares idUsuario)
+        public static async Task<HttpResponseMessage> ConsultaUsuariosF(int idUsuario)
         {
             var data = serializarObjetoJson(idUsuario);
             HttpResponseMessage res = await client.PostAsync(url + "/api/dashboard/ConsultaUsuariosF", data);

@@ -54,7 +54,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void reintergros_cancelados()
         {
-            Task<HttpResponseMessage> res = APITest.reintegros_cancelados(10, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.ReintegrosCancelados(10, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }

@@ -82,7 +82,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void retiro()
         {
-            Task<HttpResponseMessage> res = APITest.retiro(recargaExito, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Retiro(recargaExito, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -90,7 +90,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void retiro_UsuarioReceptorInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.retiro(recargaFalloUsuario, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Retiro(recargaFalloUsuario, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
         }
@@ -98,7 +98,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void retiro_MedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.retiro(recargaFalloMedioPaga, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Retiro(recargaFalloMedioPaga, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
         }

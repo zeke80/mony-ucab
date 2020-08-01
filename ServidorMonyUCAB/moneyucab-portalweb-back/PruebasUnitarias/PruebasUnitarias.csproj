@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APITest.cs" />
-    <Compile Include="Modelos\ConsultaUsuariosFamiliares.cs" />
     <Compile Include="Modelos\Login.cs" />
     <Compile Include="Modelos\Persona.cs" />
     <Compile Include="Modelos\RecargaSaldoUsuario.cs" />

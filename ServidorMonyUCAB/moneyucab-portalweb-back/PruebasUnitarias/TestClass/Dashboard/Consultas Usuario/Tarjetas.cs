@@ -54,7 +54,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void tarjetas()
         {
-            Task<HttpResponseMessage> res = APITest.tarjetas(10, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Tarjetas(10, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }

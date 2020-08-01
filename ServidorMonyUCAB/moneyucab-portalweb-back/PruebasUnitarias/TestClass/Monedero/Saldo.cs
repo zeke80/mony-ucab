@@ -55,7 +55,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void saldo()
         {
-            Task<HttpResponseMessage> res = APITest.saldo(10, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Consultar(10, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }

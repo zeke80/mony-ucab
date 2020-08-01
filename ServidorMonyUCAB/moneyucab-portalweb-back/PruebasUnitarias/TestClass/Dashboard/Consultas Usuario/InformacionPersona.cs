@@ -54,7 +54,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void informacion_persona()
         {
-            Task<HttpResponseMessage> res = APITest.informacion_persona(registroAdmin1.Usuario, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.InformacionPersona(registroAdmin1.Usuario, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -62,7 +62,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void informacion_persona_usuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.informacion_persona("wegrr", loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.InformacionPersona("wegrr", loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
         }

@@ -83,7 +83,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void recarga_saldo_tarjeta()
         {
-            Task<HttpResponseMessage> res = APITest.recargar_saldo_tarjeta(recargaExito, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.RecargaMonederoTarjeta(recargaExito, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -91,7 +91,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void recarga_saldo_tarjeta_UsuarioReceptorInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.recargar_saldo_tarjeta(recargaFalloUsuario, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.RecargaMonederoTarjeta(recargaFalloUsuario, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
         }
@@ -99,7 +99,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void recarga_saldo_tarjeta_MedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.recargar_saldo_tarjeta(recargaFalloMedioPaga, loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.RecargaMonederoTarjeta(recargaFalloMedioPaga, loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
         }

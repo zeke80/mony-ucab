@@ -55,7 +55,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void estados_civiles()
         {
-            Task<HttpResponseMessage> res = APITest.estados_civilies(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.EstadosCiviles(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -63,7 +63,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void tipos_tarjetas()
         {
-            Task<HttpResponseMessage> res = APITest.tipos_tarjetas(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.TiposTarjetas(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -71,7 +71,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void bancos()
         {
-            Task<HttpResponseMessage> res = APITest.bancos(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Bancos(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -79,7 +79,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void tipos_cuentas()
         {
-            Task<HttpResponseMessage> res = APITest.tipos_cuentas(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.TiposCuentas(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -87,7 +87,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void tipos_parametros()
         {
-            Task<HttpResponseMessage> res = APITest.tipos_parametros(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.TiposParametros(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -95,7 +95,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void frecuencia()
         {
-            Task<HttpResponseMessage> res = APITest.frecuencia(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Frecuencias(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -103,7 +103,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void parametros()
         {
-            Task<HttpResponseMessage> res = APITest.parametros(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.Parametros(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -111,7 +111,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void tipos_operaciones()
         {
-            Task<HttpResponseMessage> res = APITest.tipos_operaciones(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.TiposOperaciones(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
@@ -119,7 +119,7 @@ namespace PruebasUnitarias
         [TestMethod]
         public void tipos_identificacion()
         {
-            Task<HttpResponseMessage> res = APITest.tipos_identificacion(loginAdmin1);
+            Task<HttpResponseMessage> res = APITest.TiposIdentificaciones(loginAdmin1);
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
         }
