@@ -19,26 +19,26 @@ namespace PruebasUnitarias
             this.userId = userId;
             infoUser = new Persona
             {
-                Usuario = "TestUser" + userId,
-                Email = "testuser" + +userId + "@gmail.com",
-                Password = "TestUser" + +userId,
-                IdTipoUsuario = idTipoUsuario,
+                Usuario = "testuser1" + userId,
+                Email = "testuser1" + userId + "@gmail.com",
+                Password = "testuser1",
+                IdTipoUsuario = 3,
                 IdTipoIdentificacion = 1,
                 IdEstadoCivil = 1,
                 AnoRegistro = DateTime.Now.Year,
                 MesRegistro = DateTime.Now.Month,
                 DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = userId,
-                Telefono = "telf-TestUser" + userId,
-                Direccion = "dir-TestUser" + userId,
+                NroIdentificacion = 2222,
+                Telefono = "testuser1",
+                Direccion = "testuser1",
                 Estatus = 1,
                 Comercio = false,
-                Nombre = "nom-TestUser" + userId,
-                Apellido = "ape-TestUser" + userId,
+                Nombre = "testuser1",
+                Apellido = "testuser1",
                 AnoNacimiento = 2000,
                 MesNacimiento = 1,
                 DiaNacimiento = 1,
-                RazonSocial = "raz-TestUser" + userId,
+                RazonSocial = "testuser1",
             };
 
             infoLogin = new Login

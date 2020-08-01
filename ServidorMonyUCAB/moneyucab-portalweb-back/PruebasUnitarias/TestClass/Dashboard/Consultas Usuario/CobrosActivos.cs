@@ -22,16 +22,16 @@ namespace PruebasUnitarias
         {
             /*registroAdmin1 = new Persona
             {
-                Usuario = "admin1",
-                Email = "admin1@gmail.com",
-                Password = "admin1",
+                Usuario = "admin123",
+                Email = "admin123@gmail.com",
+                Password = "admin123",
                 IdTipoUsuario = 3,
                 IdTipoIdentificacion = 1,
                 IdEstadoCivil = 1,
                 AnoRegistro = DateTime.Now.Year,
                 MesRegistro = DateTime.Now.Month,
                 DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = 1,
+                NroIdentificacion = 146789,
                 Telefono = "admin1",
                 Direccion = "admin1",
                 Estatus = 1,
@@ -66,9 +66,10 @@ namespace PruebasUnitarias
         [TestMethod]
         public void cobros_activos()
         {
-            testUser1 = new TestUser(123, 1);
+            testUser1 = new TestUser(2, 1);
             Task<HttpResponseMessage> res = testUser1.registrar();
 
+            //Task<HttpResponseMessage> res = APITest.register(registroAdmin1);
             //System.Threading.Thread.Sleep(10000);
             /*Task<HttpResponseMessage> res = APITest.cobros_activos(10, testUser1.getInfoLogin());*/
             var s = res.Result.StatusCode;

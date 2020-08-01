@@ -2,6 +2,7 @@
 using PruebasUnitarias.Modelos;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,7 +15,26 @@ namespace PruebasUnitarias
     {
         static HttpClient client = new HttpClient();
         static string url = "http://monyucab.somee.com";
-        static string token;
+        static Login loginTestUser = new Login
+        {
+            UserName = "TestUser",
+            Email = "testuser@gmail.com",
+            Password = "passtestuser",
+            Comercio = false,
+        };
+        static Task<string> token = getToken();
+
+        public async static Task<string> getToken()
+        {
+            var data = serializarObjetoJson(loginTestUser);
+            HttpResponseMessage res = await client.PostAsync(url + "/api/authentication/login", data);
+
+            dynamic respuesta = JsonConvert.DeserializeObject(res.Content.ReadAsStringAsync().Result);
+            string token = respuesta.result.token;
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return token;
+        }
 
         public static StringContent serializarObjetoJson(object objeto)
         {
@@ -49,11 +69,11 @@ namespace PruebasUnitarias
         {
             var data = serializarObjetoJson(login);
             HttpResponseMessage res = await client.PostAsync(url + "/api/authentication/login", data);
-
+            /*
             dynamic respuesta = JsonConvert.DeserializeObject(res.Content.ReadAsStringAsync().Result);
             token = respuesta.result.token;
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
+            */
             return res;
         }
 
