@@ -10,7 +10,7 @@ using PruebasUnitarias.Modelos;
 namespace PruebasUnitarias
 {
     [TestClass]
-    public class ConsultaBase
+    public class ConsultasBase
     {
         Persona registroAdmin1;
         Login loginAdmin1;

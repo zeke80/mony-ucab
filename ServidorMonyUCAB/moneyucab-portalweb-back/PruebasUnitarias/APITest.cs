@@ -43,18 +43,28 @@ namespace PruebasUnitarias
             return data;
         }
 
-        //Admin//
+        ///////////////////////////////////////////////////Admin/////////////////////////////////////
 
-        /*public static async Task<HttpResponseMessage> ConsultaUsuarios(Persona persona, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ConsultaUsuarios(string query)
         {
-            await login(loginAdmin1);
-            var data = serializarObjetoJson(persona);
-            return await client.PostAsync(url + "/api/Admin/ConsultaUsuarios", data);
-        }*/
+            return await client.PostAsync(url + "/api/Admin/ConsultaUsuarios?query=" + query, null);
+        }
 
         public static async Task<HttpResponseMessage> EliminarUsuario(int idUsuario)
         {
             return await client.PostAsync(url + "/api/Admin/EliminarUsuario?idUsuario=" + idUsuario, null);
+        }
+
+        public static async Task<HttpResponseMessage> EstablecerLimiteParametro(dynamic infoParametro)
+        {
+            var data = serializarObjetoJson(infoParametro);
+            return await client.PostAsync(url + "/api/Admin/EstablecerLimiteParametro", data);
+        }
+
+        public static async Task<HttpResponseMessage> EstablecerComision(dynamic infoComision)
+        {
+            var data = serializarObjetoJson(infoComision);
+            return await client.PostAsync(url + "/api/Admin/EstablecerComision", data);
         }
 
         ////////////////////////////////////////////////////////////Authentication////////////////////////////////////////////////////////////
@@ -63,6 +73,18 @@ namespace PruebasUnitarias
         {
             var data = serializarObjetoJson(persona);
             return await client.PostAsync(url + "/api/authentication/register", data);
+        }
+
+        public static async Task<HttpResponseMessage> RegisterComercio(dynamic comercio)
+        {
+            var data = serializarObjetoJson(comercio);
+            return await client.PostAsync(url + "/api/authentication/RegisterComercio", data);
+        }
+
+        public static async Task<HttpResponseMessage> RegisterFamiliar(Persona persona)
+        {
+            var data = serializarObjetoJson(persona);
+            return await client.PostAsync(url + "/api/authentication/RegisterFamiliar", data);
         }
 
         public static async Task<HttpResponseMessage> login(Login login)
@@ -77,131 +99,182 @@ namespace PruebasUnitarias
             return res;
         }
 
-        ////////////////////////////////////////////////////////////Authentication///////////////////////////////////////////////////////////
+        public static async Task<HttpResponseMessage> ConfirmedEmail(string infoConfirmacionCorreo)
+        {
+            var data = serializarObjetoJson(infoConfirmacionCorreo);
+            return await client.PostAsync(url + "/api/authentication/ConfirmedEmail", data);
+        }
+
+        public static async Task<HttpResponseMessage> ForgotPasswordEmail(string correo)
+        {
+            var data = serializarObjetoJson(correo);
+            return await client.PostAsync(url + "/api/authentication/ForgotPasswordEmail", data);
+        }
+
+        public static async Task<HttpResponseMessage> ResetPassword(dynamic infoRestablecerContrasena)
+        {
+            var data = serializarObjetoJson(infoRestablecerContrasena);
+            return await client.PostAsync(url + "/api/authentication/ResetPassword", data);
+        }
+
+        public static async Task<HttpResponseMessage> ChangePassword(dynamic infoCambiarContrasena)
+        {
+            var data = serializarObjetoJson(infoCambiarContrasena);
+            return await client.PostAsync(url + "/api/authentication/ChangePassword", data);
+        }
+
+        public static async Task<HttpResponseMessage> modification(dynamic infoModificacionUsuario)
+        {
+            var data = serializarObjetoJson(infoModificacionUsuario);
+            return await client.PostAsync(url + "/api/authentication/modification", data);
+        }
 
         //////////////////////////////////////////////////////////////Billetera/////////////////////////////////////////////////////////////
 
+        public static async Task<HttpResponseMessage> Cuenta(dynamic cuenta)
+        {
+            var data = serializarObjetoJson(cuenta);
+            return await client.PostAsync(url + "/api/Billetera/Cuenta", data);
+        }
 
-        //////////////////////////////////////////////////////////////Billetera/////////////////////////////////////////////////////////////
+        public static async Task<HttpResponseMessage> tarjeta(dynamic tarjeta)
+        {
+            var data = serializarObjetoJson(tarjeta);
+            return await client.PostAsync(url + "/api/Billetera/tarjeta", data);
+        }
+
+        public static async Task<HttpResponseMessage> EliminarCuenta(int CuentaId)
+        {
+            var data = serializarObjetoJson(CuentaId);
+            return await client.DeleteAsync(url + "/api/Billetera/EliminarCuenta?CuentaId=" + CuentaId);
+        }
+
+        public static async Task<HttpResponseMessage> EliminarTarjeta(int TarjetaId)
+        {
+            var data = serializarObjetoJson(TarjetaId);
+            return await client.DeleteAsync(url + "/api/Billetera/EliminarTarjeta?TarjetaId=" + TarjetaId);
+        }
 
         //////////////////////////////////////////////////////////////Dashboard/////////////////////////////////////////////////////////////
 
-        // Consultas basicas //
+        ///ConsultasBase///
 
-        public static async Task<HttpResponseMessage> estados_civilies(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> EstadosCiviles(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
         }
 
-        public static async Task<HttpResponseMessage> tipos_tarjetas(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposTarjetas(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposTarjetas");
         }
 
-        public static async Task<HttpResponseMessage> bancos(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Bancos(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Bancos");
         }
 
-        public static async Task<HttpResponseMessage> tipos_cuentas(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposCuentas(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposCuentas");
         }
 
-        public static async Task<HttpResponseMessage> tipos_parametros(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposParametros(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposParametros");
         }
         
-        public static async Task<HttpResponseMessage> frecuencia(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Frecuencias(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Frecuencias");
         }
 
         // error desonocido en peticion de parametros
-        public static async Task<HttpResponseMessage> parametros(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Parametros(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Parametros");
         }
-        public static async Task<HttpResponseMessage> tipos_operaciones(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposOperaciones(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposOperaciones");
         }
 
-        public static async Task<HttpResponseMessage> tipos_identificacion(Login loginAdmin1)
+        public static async Task<HttpResponseMessage> TiposIdentificaciones(Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/TiposIdentificaciones");
         }
 
-        // Fin consultas basicas // 
+        ///ConsultasUsuario///
 
-        // Consultas de usuario //
-
-        public static async Task<HttpResponseMessage> tarjetas(int id, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Tarjetas(int id, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Tarjetas?IdUsuario=" + id);
         }
-        public static async Task<HttpResponseMessage> cuentas(int id, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Cuentas(int id, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/Cuentas?IdUsuario=" + id);
         }
 
-        public static async Task<HttpResponseMessage> reintegros_activos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ReintegrosActivos(int idUsuario, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosActivos?IdUsuario="+ idUsuario +"&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> reintegros_cancelados(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ReintegrosCancelados(int idUsuario, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosCancelados?UsuarioId="+ idUsuario +"&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> reintegros_exitosos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> ReintegrosExitosos(int idUsuario, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0" );
         }
 
-        public static async Task<HttpResponseMessage> cobros_activos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> CobrosActivos(int idUsuario, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/CobrosActivos?IdUsuario=" + idUsuario + "&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> cobros_cancelados(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> CobrosCancelados(int idUsuario, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/CobrosCancelados?UsuarioId=" + idUsuario + "&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> cobros_exitosos(int idUsuario, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> CobrosExitosos(int idUsuario, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0");
         }
 
-        /*error en peticion ParametrosUsuarios*/
+        public static async Task<HttpResponseMessage> ParametrosUsuario(string user, Login loginAdmin1)
+        {
+            await login(loginAdmin1);
+            return await client.GetAsync(url + "/api/dashboard/ParametrosUsuario?UsuarioId=" + user);
+        }
 
-        public static async Task<HttpResponseMessage> informacion_persona(string user, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> InformacionPersona(string user, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
         }
 
-        public static async Task<HttpResponseMessage> consulta_usuarios_familiares(ConsultaUsuariosFamiliares idUsuario)
+        public static async Task<HttpResponseMessage> ConsultaUsuariosF(ConsultaUsuariosFamiliares idUsuario)
         {
             var data = serializarObjetoJson(idUsuario);
             HttpResponseMessage res = await client.PostAsync(url + "/api/dashboard/ConsultaUsuariosF", data);
@@ -209,67 +282,142 @@ namespace PruebasUnitarias
             return res;
         }
 
+        //////////////////////////////Historial Operaciones//////////////////////
 
-        // Fin Consultas de usuario // 
-
-        //////////////////////////////////////////////////////////////Dashboard/////////////////////////////////////////////////////////////
-
-        //Historial Operaciones//
-
-        public static async Task<HttpResponseMessage> historial_operacion_targeta(int id)
+        public static async Task<HttpResponseMessage> HistorialOperacionesTarjeta(int id)
         {
             return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=" + id);
         }
 
-        public static async Task<HttpResponseMessage> historial_operacion_cuenta(int id)
+        public static async Task<HttpResponseMessage> HistorialOperacionesCuenta(int id)
         {
             return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=" + id);
         }
 
-        public static async Task<HttpResponseMessage> historial_operacion_monedero(int id)
+        public static async Task<HttpResponseMessage> HistorialOperacionesMonedero(int id)
         {
             return await client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=" + id);
         }
 
-        public static async Task<HttpResponseMessage> ejecutar_cierre(int id)
+        public static async Task<HttpResponseMessage> EjecutarCierre(int id)
         {
             return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?IdUsuario=" + id);
         }
 
         //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
 
-        public static async Task<HttpResponseMessage> saldo(int id, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Consultar(int id, Login loginAdmin1)
         {
             await login(loginAdmin1);
             return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
         }
 
-        public static async Task<HttpResponseMessage> recargar_saldo_tarjeta(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> RecargaMonederoTarjeta(RecargaSaldoUsuario recarga, Login loginAdmin1)
         {
             await login(loginAdmin1);
             var data = serializarObjetoJson(recarga);
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoTarjeta", data);
         }
 
-        public static async Task<HttpResponseMessage> recargar_saldo_cuenta(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> RecargaMonederoCuenta(RecargaSaldoUsuario recarga, Login loginAdmin1)
         {
             await login(loginAdmin1);
             var data = serializarObjetoJson(recarga);
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoCuenta", data);
         }
 
-        public static async Task<HttpResponseMessage> retiro(RecargaSaldoUsuario recarga, Login loginAdmin1)
+        public static async Task<HttpResponseMessage> Retiro(RecargaSaldoUsuario recarga, Login loginAdmin1)
         {
             await login(loginAdmin1);
             var data = serializarObjetoJson(recarga);
             return await client.PostAsync(url + "/api/monedero/Retiro", data);
         }
 
-        //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////Transfer//////////////////////////////////
 
-        //Transfer//
+        public static async Task<HttpResponseMessage> RealizarCobro(dynamic infoCobro)
+        {
+            var data = serializarObjetoJson(infoCobro);
+            return await client.PostAsync(url + "/api/Transfer/RealizarCobro", data);
+        }
 
+        public static async Task<HttpResponseMessage> SolicitarReintegro(dynamic infoReintegro)
+        {
+            var data = serializarObjetoJson(infoReintegro);
+            return await client.PostAsync(url + "/api/Transfer/SolicitarReintegro", data);
+        }
 
+        public static async Task<HttpResponseMessage> CancelarCobro(int IdCobro)
+        {
+            var data = serializarObjetoJson(IdCobro);
+            return await client.PostAsync(url + "/api/Transfer/CancelarCobro", data);
+        }
+
+        public static async Task<HttpResponseMessage> CancelarReintegro(int IdReintegro)
+        {
+            var data = serializarObjetoJson(IdReintegro);
+            return await client.PostAsync(url + "/api/Transfer/CancelarReintegro", data);
+        }
+
+        public static async Task<HttpResponseMessage> RealizarPagoCuenta(dynamic infoPagoCuenta)
+        {
+            var data = serializarObjetoJson(infoPagoCuenta);
+            return await client.PostAsync(url + "/api/Transfer/RealizarPagoCuenta", data);
+        }
+
+        public static async Task<HttpResponseMessage> RealizarPagoTarjeta(dynamic infoPagoTarjeta)
+        {
+            var data = serializarObjetoJson(infoPagoTarjeta);
+            return await client.PostAsync(url + "/api/Transfer/RealizarPagoTarjeta", data);
+        }
+
+        public static async Task<HttpResponseMessage> RealizarPagoMonedero(dynamic infoPagoMonedero)
+        {
+            var data = serializarObjetoJson(infoPagoMonedero);
+            return await client.PostAsync(url + "/api/Transfer/RealizarPagoMonedero", data);
+        }
+
+        public static async Task<HttpResponseMessage> RealizarReintegroCuenta(dynamic infoReintegroCuenta)
+        {
+            var data = serializarObjetoJson(infoReintegroCuenta);
+            return await client.PostAsync(url + "/api/Transfer/RealizarReintegroCuenta", data);
+        }
+
+        public static async Task<HttpResponseMessage> RealizarReintegroTarjeta(dynamic infoReintegroTarjeta)
+        {
+            var data = serializarObjetoJson(infoReintegroTarjeta);
+            return await client.PostAsync(url + "/api/Transfer/RealizarReintegroTarjeta", data);
+        }
+
+        public static async Task<HttpResponseMessage> RealizarReintegroMonedero(dynamic infoReintegroMonedero)
+        {
+            var data = serializarObjetoJson(infoReintegroMonedero);
+            return await client.PostAsync(url + "/api/Transfer/RealizarReintegroMonedero", data);
+        }
+
+        public static async Task<HttpResponseMessage> EstablecerParametro(dynamic infoParametro)
+        {
+            var data = serializarObjetoJson(infoParametro);
+            return await client.PostAsync(url + "/api/Transfer/EstablecerParametro", data);
+        }
+
+        public static async Task<HttpResponseMessage> BotonPagoTarjeta(dynamic infoPagoTarjeta)
+        {
+            var data = serializarObjetoJson(infoPagoTarjeta);
+            return await client.PostAsync(url + "/api/Transfer/BotonPagoTarjeta", data);
+        }
+
+        public static async Task<HttpResponseMessage> BotonPagoCuenta(dynamic infoPagoCuenta)
+        {
+            var data = serializarObjetoJson(infoPagoCuenta);
+            return await client.PostAsync(url + "/api/Transfer/BotonPagoCuenta", data);
+        }
+
+        public static async Task<HttpResponseMessage> BotonPagoMonedero(dynamic infoPagoMonedero)
+        {
+            var data = serializarObjetoJson(infoPagoMonedero);
+            return await client.PostAsync(url + "/api/Transfer/BotonPagoMonedero", data);
+        }
 
     }
 }
