@@ -343,17 +343,17 @@ namespace PruebasUnitarias
             var data = serializarObjetoJson(infoReintegro);
             return await client.PostAsync(url + "/api/Transfer/SolicitarReintegro", data);
         }
-
+        // por hacer 
         public static async Task<HttpResponseMessage> CancelarCobro(int IdCobro)
         {
             var data = serializarObjetoJson(IdCobro);
-            return await client.PostAsync(url + "/api/Transfer/CancelarCobro", data);
+            return await client.PostAsync(url + "/api/Transfer/CancelarCobro?idCobro=" + IdCobro, data);
         }
-
+        // por hacer 
         public static async Task<HttpResponseMessage> CancelarReintegro(int IdReintegro)
         {
             var data = serializarObjetoJson(IdReintegro);
-            return await client.PostAsync(url + "/api/Transfer/CancelarReintegro", data);
+            return await client.PostAsync(url + "/api/Transfer/CancelarReintegro?idreintegro=" + IdReintegro, data);
         }
 
         public static async Task<HttpResponseMessage> RealizarPagoCuenta(dynamic infoPagoCuenta)
