@@ -13,7 +13,7 @@ namespace PruebasUnitarias.TestClass.Authentication
     [TestClass]
     public class Login
     {
-        [TestInitialize]
+        /*[TestInitialize]
         public void TestInitialize()
         {
         }
@@ -91,6 +91,6 @@ namespace PruebasUnitarias.TestClass.Authentication
             });
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
+        }*/
     }
 }

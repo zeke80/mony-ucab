@@ -60,9 +60,9 @@ namespace PruebasUnitarias
         [TestMethod]
         public void estados_civiles()
         {
-            Task<HttpResponseMessage> res = APITest.EstadosCiviles(loginAdmin1);
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            Task<HttpResponseMessage> res = APITest.EstadosCiviles();
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
         
         [TestMethod]
