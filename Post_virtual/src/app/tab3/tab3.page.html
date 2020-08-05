@@ -30,7 +30,13 @@
             <ion-card-contend>
                 <ion-list>
                     <ion-item *ngFor="let reintegroActivo of reintegrosActivos">
-                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        
+
+                        <ion-button fill="clear" (click)="onDetail(reintegroActivo)">
+                            <ion-icon slot="start" color="success" class="cancelar" name="reader-outline" size="large"></ion-icon>
+                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+                        </ion-button>
+
                         <ion-label>
 
                             <h1>

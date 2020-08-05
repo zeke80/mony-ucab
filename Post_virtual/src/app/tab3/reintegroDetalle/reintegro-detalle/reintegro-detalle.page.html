@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Informacion sobre el reintegro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true"> 
+
+
+  <div class="contaier-detalle">
+
+      <ion-card>
+          <ion-card-header>
+              <strong><ion-text color="tertiary"><h1 class="ion-text-center">Detalle del Reintegro</h1></ion-text></strong>
+          </ion-card-header>
+          
+          <ion-card-contend>
+
+              <ion-row>
+                  <ion-col>
+                      
+                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">monto :</h1></ion-text></strong>
+                   <ion-text color="dark"> <h2 class="ion-text-center" >$ {{reintegroDetalle.monto}}</h2></ion-text>
+
+                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Usuario Solicitante :</h1></ion-text></strong>
+                   <ion-text color="dark"> <h2 class="ion-text-center" > {{reintegroDetalle.idUsuarioSolicitante}}</h2></ion-text>
+
+                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Fecha de la peticion de reintegro :</h1></ion-text></strong>
+                   <ion-text color="dark"> <h2 class="ion-text-center" >{{reintegroDetalle.fecha.day}} - {{reintegroDetalle.fecha.month}} - {{reintegroDetalle.fecha.year}}</h2></ion-text>
+
+                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Estatus :</h1></ion-text></strong>
+                   <ion-text color="dark"> <h2 class="ion-text-center" >{{reintegroDetalle.estatus}}</h2></ion-text>
+
+                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Numero de referencia :</h1></ion-text></strong>
+                   <ion-text color="dark"> <h2 class="ion-text-center" >{{reintegroDetalle.referencia}}</h2></ion-text>
+
+                  </ion-col>
+              </ion-row>
+
+
+            (boton para pagar con monedero)      
+            (boton para pagar con paypal)       
+            (boton para pagar con stripe)
+          </ion-card-contend>
+      </ion-card>
+
+
+
+  </div>
+
+
+</ion-content>
+

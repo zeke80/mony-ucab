@@ -66,6 +66,8 @@ export class UsuarioService {
     let url = "http://localhost:49683/api/Dashboard/InformacionPersona";
     return this.http.get(url, {params: param, headers: header});
   }
+  
+  
 
   saldoActual(){
     

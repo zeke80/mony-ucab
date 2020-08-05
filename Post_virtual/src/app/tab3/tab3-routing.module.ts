@@ -14,7 +14,12 @@ const routes: Routes = [
   {
     path: 'cierre',
     loadChildren: () => import('./cierre/cierre.module').then( m => m.CierrePageModule)
+  },
+  {
+    path: 'reintegro-detalle',
+    loadChildren: () => import('./reintegroDetalle/reintegro-detalle/reintegro-detalle.module').then( m => m.ReintegroDetallePageModule)
   }
+
 
 ];
 

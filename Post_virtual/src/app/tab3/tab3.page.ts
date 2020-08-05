@@ -28,6 +28,8 @@ export class Tab3Page implements OnInit{
   reintegrosCancelados: Reintegro[] = [];
 
   reintegrosExitosos: Reintegro[] = [];
+  
+  reintegroDetalle: Reintegro;
 
 
   constructor(private router: Router,
@@ -44,6 +46,7 @@ export class Tab3Page implements OnInit{
 
     cierre(){
       this.router.navigate(['tabs/operaciones/cierre'])
+      //this.router.navigate(['tabs/operaciones/reintegro-detalle']);
     }
 
   ngOnInit(){
@@ -71,6 +74,21 @@ export class Tab3Page implements OnInit{
       }
     );
 
+  }
+
+  onDetail(Reintegro){
+    console.log(Reintegro.fecha.year);
+    //setear todos los valores para el detalle
+    localStorage.setItem('idReintegroDetalle', Reintegro.idReintegro);
+    localStorage.setItem('idUsuarioSolicitanteDetalle', Reintegro.idUsuarioSolicitante);
+    localStorage.setItem('anoDetalle', Reintegro.fecha.year);
+    localStorage.setItem('mesDetalle', Reintegro.fecha.month);
+    localStorage.setItem('diaDetalle', Reintegro.fecha.day);
+    localStorage.setItem('montoDetalle', Reintegro.monto);
+    localStorage.setItem('estatusDetalle', Reintegro.estatus);
+    localStorage.setItem('referenciaDetalle', Reintegro.referencia);
+    
+    this.router.navigate(['tabs/operaciones/reintegro-detalle']);
   }
 
   async onClick(IdReintegro){
