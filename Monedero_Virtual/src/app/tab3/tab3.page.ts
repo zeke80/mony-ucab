@@ -49,12 +49,15 @@ export class Tab3Page implements OnInit{
     loadTargetOperations(){
       this.tarjetas.forEach((tarjeta)=>{
         this._operacionServices.getoperacionesTarjeta(tarjeta.idTarjeta)
-        .toPromise().then((data:any)=>this.operacionesTarjeta = data)
+        .toPromise().then((data:any)=>{
+          this.operacionesTarjeta = data
+        }  )
         .catch(()=>console.log('Usurio no posee tarjetas.'));
       });
     }
 
     getTargetsAndLoadTargetOperations(){
+      console.log(this.usuario.idUsuario);
       this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
       .toPromise().then((data: any) => {
         this.tarjetas = data;
@@ -65,7 +68,15 @@ export class Tab3Page implements OnInit{
       this._operacionServices.getoperacionesMonedero(this.usuario.idUsuario)
       .toPromise().then((data: any )=>{
         this.monederos = data;
-      })
+      }).then(()=>this.cleanMonederoOperations());
+    }
+
+    isNotClosingOperation(monedero){
+      return monedero.infoAdicional.tipoOperacion.idTipoOperacion !== 4;
+    }
+
+    cleanMonederoOperations(){
+      this.monederos = this.monederos.filter(this.isNotClosingOperation);
     }
 
     getAccountsAndLoadOperations(){

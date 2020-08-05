@@ -17,29 +17,69 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let monedero of monederos" [routerLink]="['/tabs/operaciones/monedero', monedero.idOperacionMonedero]">
+                    <ion-item *ngFor="let monedero of monederos"
+                        [routerLink]="['/tabs/operaciones/monedero', monedero]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <div *ngIf="true">
-                            <ion-label>
-                                <h1>
-                                    $ -{{monedero.monto}}
-                                </h1>
-                                <h2>
-                                    Fecha: {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
-                                </h2>
-                            </ion-label>
+                        <div *ngIf="monedero.infoAdicional">
+                            <div *ngIf="monedero.infoAdicional.operacionTarjeta">
+                                <div *ngIf="monedero.infoAdicional.tipoOperacion">
+                                    <div *ngIf="monedero.infoAdicional.tipoOperacion.idTipoOperacion === 1
+                                        || monedero.infoAdicional.tipoOperacion.idTipoOperacion === 3">
+                                        <ion-label>
+                                            <h1>
+                                                $ -{{monedero.infoAdicional.operacionTarjeta.monto}}
+                                            </h1>
+                                            <h2>
+                                                Fecha:
+                                                {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
+                                            </h2>
+                                        </ion-label>
+                                    </div>
+                                    <div *ngIf="monedero.infoAdicional.tipoOperacion.idTipoOperacion === 5
+                                        || monedero.infoAdicional.tipoOperacion.idTipoOperacion === 2">
+                                        <ion-label>
+                                            <h1>
+                                                $ +{{monedero.infoAdicional.operacionTarjeta.monto}}
+                                            </h1>
+                                            <h2>
+                                                Fecha:
+                                                {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
+                                            </h2>
+                                        </ion-label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div *ngIf="monedero.idtipooperacion === 1">
-                            <ion-label>
-                                <h1>
-                                    $ +{{monedero.monto}}
-                                </h1>
-                                <h2>
-                                    Fecha: {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
-                                </h2>
-                            </ion-label>
+                        <div *ngIf="monedero.infoAdicional">
+                            <div *ngIf="monedero.infoAdicional.operacionCuenta">
+                                <div *ngIf="monedero.infoAdicional.tipoOperacion">
+                                    <div *ngIf="monedero.infoAdicional.tipoOperacion.idTipoOperacion === 1
+                                        || monedero.infoAdicional.tipoOperacion.idTipoOperacion === 3">
+                                        <ion-label>
+                                            <h1>
+                                                $ -{{monedero.infoAdicional.operacionCuenta.monto}}
+                                            </h1>
+                                            <h2>
+                                                Fecha:
+                                                {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
+                                            </h2>
+                                        </ion-label>
+                                    </div>
+                                    <div *ngIf="monedero.infoAdicional.tipoOperacion.idTipoOperacion === 5
+                                        || monedero.infoAdicional.tipoOperacion.idTipoOperacion === 2">
+                                        <ion-label>
+                                            <h1>
+                                                $ +{{monedero.infoAdicional.operacionCuenta.monto}}
+                                            </h1>
+                                            <h2>
+                                                Fecha:
+                                                {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
+                                            </h2>
+                                        </ion-label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
@@ -52,7 +92,8 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let operacion of operaciones" [routerLink]="['/tabs/operaciones', operacion.idOperacionCuenta]">
+                    <ion-item *ngFor="let operacion of operaciones"
+                        [routerLink]="['/tabs/operaciones', operacion.idOperacionCuenta]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
 
@@ -62,28 +103,23 @@
                             <h2>
                                 Fecha: {{operacion.fecha.day}}/{{operacion.fecha.month}}/{{operacion.fecha.year}}
                             </h2>
-
-                           <!--Hora: {{cuenta.hora.hours}}:{{cuenta.hora.minutes}}--> 
                         </ion-label>
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
         </ion-card>
-
-
-
         <ion-card>
             <ion-card-header>
                 <h2>Operaciones de tarjetas</h2>
             </ion-card-header>
             <ion-card-contend>
-                <ion-list >
-                    <ion-item *ngFor="let tarjeta of operacionesTarjeta" [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idOperacionTarjeta]">
+                <ion-list>
+                    <ion-item *ngFor="let tarjeta of operacionesTarjeta"
+                        [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idOperacionTarjeta]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
-
                             <h1>
-                                $ -{{tarjeta.monto}}
+                                $ +{{tarjeta.monto}}
                             </h1>
                             <h2>
                                 Fecha: {{tarjeta.fecha.day}}/{{tarjeta.fecha.month}}/{{tarjeta.fecha.year}}
@@ -101,7 +137,8 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let reintegro of reintegros" [routerLink]="['/tabs/operaciones/reintegro', reintegro.idreintegro]">
+                    <ion-item *ngFor="let reintegro of reintegros"
+                        [routerLink]="['/tabs/operaciones/reintegro', reintegro.idreintegro]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
                             Estatus: {{reintegro.estatus}}
