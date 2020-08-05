@@ -44,7 +44,7 @@ constructor(private router: Router, private formModulo: FormsModule,
         this.loadingController.dismiss();
 
         this.successToast('success', 'Cobro procesado satisfactioamente')
-        this.router.navigateByUrl('/post');
+        this.router.navigate(['/tabs/cuenta']);
       },
       err => {
         this.loadingController.dismiss();
