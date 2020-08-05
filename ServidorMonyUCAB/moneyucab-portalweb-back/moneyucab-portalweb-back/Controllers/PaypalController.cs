@@ -27,7 +27,7 @@ namespace moneyucab_portalweb_back.Controllers
         {
             try
             {
-                await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, Formulario.status).Ejecutar();
+                await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 1).Ejecutar();
                 Payment payment = await FabricaComandos.Fabricar_Cmd_Crear_Pago_Paypal(_baseUrl, "sale", Formulario.listaT).Ejecutar();
                 return payment;
             }
@@ -48,7 +48,7 @@ namespace moneyucab_portalweb_back.Controllers
         {
             try
             {
-                await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, Formulario.status).Ejecutar();
+                await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 3).Ejecutar();
                 return Ok();
             }
             catch (MoneyUcabException ex)

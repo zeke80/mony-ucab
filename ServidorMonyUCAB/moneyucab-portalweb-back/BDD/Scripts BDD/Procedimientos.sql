@@ -465,8 +465,11 @@ DECLARE
 	Recargas decimal;
 	Transferencias_Retiros decimal;
 BEGIN
+	IF NOT EXISTS (SELECT * FROM Usuario WHERE Usuario.idUsuario = $1) THEN
+			RAISE EXCEPTION 'No existe tal usuario';
+	END IF;
 	SELECT COALESCE(SUM(A.monto),0) FROM OperacionesMonedero A INTO Recargas JOIN TipoOperacion B ON B.idTipoOperacion = A.idTipoOperacion 
-																		AND (B.descripcion = 'Recarga')
+																		AND (B.descripcion = 'Recarga' OR B.descripcion = 'Recepción de transferencia')
 																WHERE A.idUsuario = $1 AND A.referencia is not null;
 	SELECT COALESCE(SUM(A.monto),0) FROM OperacionesMonedero A INTO Transferencias_Retiros JOIN TipoOperacion B ON B.idTipoOperacion = A.idTipoOperacion 
 																		AND (B.descripcion = 'Transferencia' OR B.descripcion = 'Retiro') 
@@ -496,7 +499,6 @@ BEGIN
 		RETURN TRUE;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION Cancelar_Cobro(INT)
 			RETURNS BOOLEAN
 LANGUAGE plpgsql    
@@ -505,6 +507,9 @@ DECLARE
 	idUsuario_Solicitante_r int;
 	idUsuario_Receptor_r int;
 BEGIN
+		IF NOT EXISTS (SELECT * FROM Pago WHERE Pago.idPago = $1) THEN
+			RAISE EXCEPTION 'No existe tal usuario';
+		END IF;
 		SELECT idUsuario_Solicitante INTO idUsuario_Solicitante_r FROM Pago WHERE Pago.idPago = $1;
 		SELECT idUsuario_Receptor INTO idUsuario_Receptor_r FROM Pago WHERE Pago.idPago = $1;
 		UPDATE Pago SET estatus = 'Cancelado' WHERE idPago = $1;
@@ -534,7 +539,6 @@ BEGIN
 		RETURN TRUE;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION Cancelar_Reintegro(INT)
 			RETURNS BOOLEAN
 LANGUAGE plpgsql    
@@ -543,8 +547,11 @@ DECLARE
 	idUsuario_Solicitante_r int;
 	idUsuario_Receptor_r int;
 BEGIN
-		SELECT idUsuario_Solicitante INTO idUsuario_Solicitante_r FROM Reintegro WHERE Pago.idPago = $1;
-		SELECT idUsuario_Receptor INTO idUsuario_Receptor_r FROM Reintegro WHERE Pago.idPago = $1;
+		IF NOT EXISTS (SELECT * FROM Reintegro WHERE Reintegro.idReintegro = $1) THEN
+			RAISE EXCEPTION 'No existe tal usuario';
+		END IF;
+		SELECT idUsuario_Solicitante INTO idUsuario_Solicitante_r FROM Reintegro WHERE Reintegro.idReintegro = $1;
+		SELECT idUsuario_Receptor INTO idUsuario_Receptor_r FROM Reintegro WHERE Reintegro.idReintegro = $1;
 		UPDATE Reintegro SET estatus = 'Cancelado' WHERE idReintegro = $1;
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (24, idUsuario_Solicitante_r, CURRENT_DATE, CURRENT_TIME, 'Cobro cancelado: ' || $1 , '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (24, idUsuario_Receptor_r, CURRENT_DATE, CURRENT_TIME, 'Cobro cancelado a recepcion: ' || $1 , '');
@@ -562,14 +569,18 @@ AS $$
 DECLARE
 	referenciaValid varchar;
 	idUsuario_Pagante int;
+	tipoOperacion int;
 BEGIN
 		referenciaValid:= ($1|| '' || current_date || '' || current_time || '' || $2);
 		UPDATE Pago SET estatus = 'En proceso' WHERE Pago.idPago = $4;
-		SELECT idUsuario_Pagante INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Tarjeta.idUsuario = Usuario.idUsuario AND Tarjeta.idTarjeta= $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Tarjeta.idUsuario = Usuario.idUsuario AND Tarjeta.idTarjeta= $2;
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Pago SET referencia = referenciaValid, estatus = 'Consolidado' WHERE idPago = $4;
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (4, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de pago' || $4 ||' ' ||$3, '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (4, idUsuario_Pagante, CURRENT_DATE, CURRENT_TIME, 'Pagador' || $4 ||' '|| $3 , '');
 		RETURN TRUE;
@@ -583,14 +594,18 @@ AS $$
 DECLARE
 	referenciaValid varchar;
 	idUsuario_Pagante int;
+	tipoOperacion int;
 BEGIN
 		referenciaValid:= ($1 || '' || current_date || '' || current_time || '' ||$2);
 		UPDATE Pago SET estatus = 'En proceso' WHERE idPago = $4;
-		SELECT idUsuario_Pagante INTO idUsuario_Pagante FROM Usuario JOIN Cuenta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Cuenta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Pago SET referencia = referenciaValid, estatus = 'Consolidado' WHERE idPago = $4;
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (5, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de pago ' || $4|| ' ' ||$3, '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (5, idUsuario_Pagante, CURRENT_DATE, CURRENT_TIME, 'Pago realizado ' || $4 ||' ' ||$3 , '');
 		RETURN TRUE;
@@ -621,6 +636,9 @@ BEGIN
 		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Transferencia';
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($2, tipoOperacion, $3, current_date, current_time, referenciaValid);
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		UPDATE Pago SET referencia = referenciaValid, estatus = 'Consolidado' WHERE idPago = $4;
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (6, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de pago ' || $4 ||' ' ||$3, '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (6, $2, CURRENT_DATE, CURRENT_TIME, 'Pago realizado por ' || $4 ||' ' ||$3 , '');
@@ -636,13 +654,17 @@ AS $$
 DECLARE
 	referenciaValid varchar;
 	idUsuario_Pagante int;
+	tipoOperacion int;
 BEGIN
 		referenciaValid:= ($1 || '' || current_date || '' || current_time || '' ||$2);
 		UPDATE Reintegro SET estatus = 'En proceso' WHERE idReintegro = $4;
-		SELECT idUsuario_Pagante INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Tarjeta.idUsuario = Usuario.idUsuario AND Tarjeta.idTarjeta= $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Tarjeta.idUsuario = Usuario.idUsuario AND Tarjeta.idTarjeta= $2;
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		UPDATE Reintegro SET referencia_reintegro = referenciaValid, estatus = 'Consolidado' WHERE idReintegro = $4;
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (9, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de pago ' || $4 ||' ' ||$3, '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (9, idUsuario_Pagante, CURRENT_DATE, CURRENT_TIME, 'Reintegro realizado ' || $4 ||' ' ||$3 , '');
@@ -656,15 +678,19 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 	referenciaValid varchar;
-	idUsuario_Pagante int; 
+	idUsuario_Pagante int;
+	tipoOperacion int;
 BEGIN
 		referenciaValid:= ($1 || '' || current_date || '' || current_time || '' ||$2);
 		UPDATE Reintegro SET estatus = 'En proceso' WHERE idReintegro = $4;
-		SELECT idUsuario_Pagante INTO idUsuario_Pagante FROM Usuario JOIN Cuenta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Cuenta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
 		UPDATE Reintegro SET referencia_reintegro = referenciaValid, estatus = 'Consolidado' WHERE idReintegro = $4;
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (10, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de reintegro ' || $4 ||' '|| $3, '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (10, idUsuario_Pagante, CURRENT_DATE, CURRENT_TIME, 'Reintegro realizado por ' || $4 ||' '|| $3 , '');
 		RETURN TRUE;
@@ -695,6 +721,9 @@ BEGIN
 		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Transferencia';
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($2, tipoOperacion, $3, current_date, current_time, referenciaValid);
+		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		UPDATE Reintegro SET referencia_reintegro = referenciaValid, estatus = 'Consolidado' WHERE idReintegro = $4;
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (11, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de reintegro ' || $4 ||' '|| $3, '');
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (11, $2, CURRENT_DATE, CURRENT_TIME, 'Reintegro realizado por' || $4 ||' '|| $3 , '');
@@ -717,7 +746,7 @@ BEGIN
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
-		SELECT idUsuario_Pagante INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Tarjeta.idUsuario = Usuario.idUsuario AND Tarjeta.idTarjeta= $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Tarjeta.idUsuario = Usuario.idUsuario AND Tarjeta.idTarjeta= $2;
 		SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recarga';
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
@@ -743,7 +772,7 @@ BEGIN
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionCuenta(idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
-		SELECT idUsuario_Pagante INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (8, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de recarga ' || $2 ||' '|| $3, '');
@@ -810,6 +839,9 @@ entity_user_id text;
 tipo_cuenta int;
 banco int;
 BEGIN
+		IF NOT EXISTS (SELECT * FROM Usuario WHERE Usuario.idUsuario = $7) THEN
+			RAISE EXCEPTION 'No existe tal usuario';
+		END IF;
 		UPDATE Usuario SET telefono=$3, direccion=$4 WHERE Usuario.idUsuario = $7;
 		UPDATE Comercio SET nombre_representante = $1, apellido_representante = $2, Razon_Social = $5 WHERE Comercio.idUsuario = $7;
 		UPDATE Persona SET nombre = $1, apellido = $2, idEstadoCivil=$6 WHERE Persona.idUsuario = $7;
@@ -825,6 +857,9 @@ AS $$
 DECLARE
 	idUsuario_U int;
 BEGIN
+		IF NOT EXISTS (SELECT * FROM Tarjeta WHERE Tarjeta.idTarjeta = $1) THEN
+			RAISE EXCEPTION 'No existe tal tarjeta';
+		END IF;
 		UPDATE Tarjeta SET estatus = 3 WHERE Tarjeta.idTarjeta = $1;
 		SELECT Tarjeta.idUsuario INTO idUsuario_U FROM Tarjeta WHERE Tarjeta.idTarjeta = $1;
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (27, idUsuario_U, CURRENT_DATE, CURRENT_TIME, 'Eliminacion de tarjeta: ' || $1, '');
@@ -840,6 +875,9 @@ AS $$
 DECLARE
 	idUsuario_U int;
 BEGIN
+		IF NOT EXISTS (SELECT * FROM Cuenta WHERE Cuenta.idCuenta = $1) THEN
+			RAISE EXCEPTION 'No existe tal cuenta';
+		END IF;
 		UPDATE Cuenta SET estatus = 3 WHERE Cuenta.idCuenta = $1;
 		SELECT Cuenta.idUsuario INTO idUsuario_U FROM Cuenta WHERE Cuenta.idCuenta = $1;
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (28, idUsuario_U, CURRENT_DATE, CURRENT_TIME, 'Eliminacion de Cuenta: ' || $1, '');
@@ -855,15 +893,15 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 	retorno DATE;
-	parametro text;
+	parametrol text;
 BEGIN
-	SELECT Usuario_Parametro.validacion|| ' ' || frecuencia.descripcion FROM Usuario_Parametro
-			INTO parametro
+	SELECT coalesce(Usuario_Parametro.validacion, '0')|| ' ' || frecuencia.descripcion FROM Usuario_Parametro
+			INTO parametrol
 			JOIN Parametro ON Parametro.idParametro = Usuario_Parametro.idParametro
 			JOIN Frecuencia ON Parametro.idFrecuencia = Frecuencia.idFrecuencia
 			JOIN TipoParametro ON TipoParametro.idTipoParametro = Parametro.idTipoParametro AND TipoParametro.descripcion = $3
 			WHERE Usuario_Parametro.idParametro = $2 AND USUARIO_PARAMETRO.idUsuario = $1;
-	SELECT (current_date - cast(parametro as interval)) FROM Usuario_Parametro
+	SELECT (current_date - cast(parametrol as interval)) FROM Usuario_Parametro
 			INTO retorno
 			JOIN Parametro ON Parametro.idParametro = Usuario_Parametro.idParametro
 			JOIN Frecuencia ON Parametro.idFrecuencia = Frecuencia.idFrecuencia
@@ -940,6 +978,9 @@ AS $$
 DECLARE
 	tipo_cuenta int;
 BEGIN
+	IF NOT EXISTS (SELECT * FROM Usuario WHERE Usuario.idUsuario = $1) THEN
+			RAISE EXCEPTION 'No existe tal usuario';
+	END IF;
 	SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Monedero';
 	UPDATE Usuario SET estatus = 3 WHERE idUsuario = $1;
 	DELETE FROM Cuenta WHERE Cuenta.idTipoCuenta = tipo_cuenta and Cuenta.idUsuario = $1;
@@ -1006,6 +1047,9 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
+	IF NOT EXISTS (SELECT * FROM Comercio WHERE Comercio.idComercio = $1) THEN
+			RAISE EXCEPTION 'No existe tal comercio';
+	END IF;
 	UPDATE Comercio SET comision = $2 WHERE idComercio = $1;
 END;
 $$;
@@ -1038,11 +1082,19 @@ AS $$
 DECLARE
 	usuario int;
 	cobro int;
+	response bool;
 BEGIN
-	SELECT cobro($1,$2,$3);
-	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
-	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
-	SELECT Pago_Cuenta(usuario, $4, $3, cobro);
+	SELECT cobro($1,$2,$3) into response;
+	IF NOT (response) THEN
+		RAISE EXCEPTION 'No se logró realizar el cobro';
+	END IF;
+	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario_Receptor = $1;
+	SELECT Usuario.idUsuario FROM Usuario INTO Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
+	SELECT Pago_Cuenta(usuario, $4, $3, cobro) into response;
+	IF NOT (response) THEN
+		RAISE EXCEPTION 'No se logró realizar el pago';
+	END IF;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1053,11 +1105,19 @@ AS $$
 DECLARE
 	usuario int;
 	cobro int;
+	response bool;
 BEGIN
-	SELECT cobro($1,$2,$3);
-	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
-	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
-	SELECT Pago_Tarjeta(usuario, $4, $3, cobro);
+	SELECT cobro($1,$2,$3) INTO response;
+	IF NOT (response) THEN
+		RAISE EXCEPTION 'No se logró realizar el cobro';
+	END IF;
+	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario_Receptor = $1;
+	SELECT Usuario.idUsuario FROM Usuario INTO usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
+	SELECT Pago_Tarjeta(usuario, $4, $3, cobro) INTO response;
+	IF NOT (response) THEN
+		RAISE EXCEPTION 'No se logró realizar el pago';
+	END IF;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1068,11 +1128,19 @@ AS $$
 DECLARE
 	usuario int;
 	cobro int;
+	response bool;
 BEGIN
-	SELECT cobro($1,$2,$3);
-	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario = $1;
-	SELECT Usuario.idUsuario FROM Usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
-	SELECT Pago_Monedero(usuario, $1, $3, cobro);
+	SELECT cobro($1,$2,$3) into response;
+	IF NOT (response) THEN
+		RAISE EXCEPTION 'No se logró realizar el cobro';
+	END IF;
+	SELECT MAX(Pago.idPago) FROM Pago INTO cobro WHERE Pago.idUsuario_Receptor = $1;
+	SELECT Usuario.idUsuario FROM Usuario INTO usuario WHERE Usuario.usuario = $2 or Usuario.email = $2;
+	SELECT Pago_Monedero(usuario, $1, $3, cobro) into response;
+	IF NOT (response) THEN
+		RAISE EXCEPTION 'No se logró realizar el pago';
+	END IF;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1090,6 +1158,7 @@ BEGIN
 	ELSE
 		UPDATE Reintegro SET estatus = $3;
 	END IF;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1107,6 +1176,7 @@ BEGIN
 	ELSE
 		UPDATE Reintegro SET estatus = $3 WHERE idReintegro = $2;
 	END IF;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1124,5 +1194,6 @@ BEGIN
 	ELSE
 		UPDATE Reintegro SET estatus = $3 WHERE idReintegro = $2;
 	END IF;
+	RETURN TRUE;
 END;
 $$;
