@@ -1,50 +1,77 @@
-<ion-header>
+<ion-header  [translucent]="true">
   <ion-toolbar>
-    <ion-title>Informacion sobre el reintegro</ion-title>
+  <ion-buttons slot="start">
+    <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+</ion-buttons>
+
+    <ion-title>
+      <ion-item>
+      <h1 class="ion-text-center" color="dark"><strong>Reintegro</strong></h1>
+      <ion-icon name="reader-outline" color="dark"></ion-icon>
+    </ion-item>
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content [fullscreen]="true"> 
+<ion-content> 
 
 
   <div class="contaier-detalle">
 
       <ion-card>
-          <ion-card-header>
+         <!-- <ion-card-header>
               <strong><ion-text color="tertiary"><h1 class="ion-text-center">Detalle del Reintegro</h1></ion-text></strong>
-          </ion-card-header>
+          </ion-card-header> -->
           
           <ion-card-contend>
 
               <ion-row>
                   <ion-col>
-                      
-                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">monto :</h1></ion-text></strong>
-                   <ion-text color="dark"> <h2 class="ion-text-center" >$ {{reintegroDetalle.monto}}</h2></ion-text>
+                  <ion-item>
+                   <h2 ><ion-text color="tertiary">monto: </ion-text></h2>
+                   <ion-text color="dark"> <h2> ${{reintegroDetalle.monto}}</h2></ion-text>
+                  </ion-item>
 
-                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Usuario Solicitante :</h1></ion-text></strong>
-                   <ion-text color="dark"> <h2 class="ion-text-center" > {{reintegroDetalle.idUsuarioSolicitante}}</h2></ion-text>
+                  <ion-item>
+                   <ion-text color="tertiary"> <h2>Solicitante:</h2></ion-text>
+                   <ion-text color="dark"> <h2> {{reintegroDetalle.idUsuarioSolicitante}}</h2></ion-text>
+                  </ion-item>
 
-                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Fecha de la peticion de reintegro :</h1></ion-text></strong>
-                   <ion-text color="dark"> <h2 class="ion-text-center" >{{reintegroDetalle.fecha.day}} - {{reintegroDetalle.fecha.month}} - {{reintegroDetalle.fecha.year}}</h2></ion-text>
+                  <ion-item>
+                   <ion-text color="tertiary"> <h2>Fecha:</h2></ion-text>
+                   <ion-text color="dark"> <h2 >{{reintegroDetalle.fecha.day}}-{{reintegroDetalle.fecha.month}}-{{reintegroDetalle.fecha.year}}</h2></ion-text>
+                  </ion-item>
 
-                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Estatus :</h1></ion-text></strong>
-                   <ion-text color="dark"> <h2 class="ion-text-center" >{{reintegroDetalle.estatus}}</h2></ion-text>
+                  <ion-item>
+                   <ion-text color="tertiary"><h2>Estatus:</h2></ion-text>
+                   <ion-text color="dark"> <h2>{{reintegroDetalle.estatus}}</h2></ion-text>
+                  </ion-item>
 
-                   <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Numero de referencia :</h1></ion-text></strong>
-                   <ion-text color="dark"> <h2 class="ion-text-center" >{{reintegroDetalle.referencia}}</h2></ion-text>
-
+                  <ion-item>
+                   <ion-text color="tertiary"><h2>Referencia:</h2></ion-text>
+                  </ion-item>
+                   <ion-text color="dark"> <h4>{{reintegroDetalle.referencia}}</h4></ion-text>
+                  
                   </ion-col>
               </ion-row>
 
 
-            (boton para pagar con monedero)      
-            (boton para pagar con paypal)       
-            (boton para pagar con stripe)
+              <ion-button  color="success" fill="solid" expand="block">
+                Pago con monedero
+            </ion-button>
+    
+            <ion-button  color="secondary" fill="solid" expand="block">
+                PayPal
+            </ion-button>
+            <ion-button  color="tertiary" fill="solid" expand="block">
+              Stripe
+          </ion-button>
           </ion-card-contend>
       </ion-card>
-
+<br>
+<br>
+<br>
 
 
   </div>
