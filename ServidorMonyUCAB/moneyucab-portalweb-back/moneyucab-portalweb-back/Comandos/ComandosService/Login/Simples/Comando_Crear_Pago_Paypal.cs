@@ -21,9 +21,9 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples
 
         private string _baseUrl;
         private string _intent;
-        private List<Transaction> _listaT;
+        private Payment _listaT;
 
-        public Comando_Crear_Pago_Paypal(string BaseUrl, string Intent, List<Transaction> ListaT)
+        public Comando_Crear_Pago_Paypal(string BaseUrl, string Intent, Payment ListaT)
         {
             this._baseUrl = BaseUrl;
             this._intent = Intent;

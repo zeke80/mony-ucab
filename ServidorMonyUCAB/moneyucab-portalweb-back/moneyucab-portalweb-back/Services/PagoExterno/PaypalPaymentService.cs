@@ -10,24 +10,17 @@ namespace moneyucab_portalweb_back.Services.PagoExterno
     {
 
 
-        public static Payment CreatePayment(string baseUrl, string intent, List<Transaction> listaT)
+        public static Payment CreatePayment(string baseUrl, string intent, Payment listaT)
         {
             // ### Api Context
             // Pass in a `APIContext` object to authenticate 
             // the call and to send a unique request id 
             // (that ensures idempotency). The SDK generates
             // a request id if you do not pass one explicitly. 
-            var apiContext = PaypalConfiguration.GetAPIContext();
+            APIContext apiContext = PaypalConfiguration.GetAPIContext();
 
             // Payment Resource
-            var payment = new Payment()
-            {
-                intent = intent,    // `sale` or `authorize`
-                payer = new Payer() { payment_method = "paypal" },
-                transactions = listaT,
-                redirect_urls = GetReturnUrls(baseUrl, intent)
-            };
-
+            var payment = listaT;
             // Create a payment using a valid APIContext
             var createdPayment = payment.Create(apiContext);
 

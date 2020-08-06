@@ -10,6 +10,6 @@ namespace moneyucab_portalweb_back.EntitiesForm
 	{
 		public bool reg { get; set; }
 		public int idOperacion { get; set; }
-		public List<Transaction> listaT;
+		public Payment payment { get; set; }
 	}
 }

@@ -391,7 +391,7 @@ namespace moneyucab_portalweb_back.Comandos
             return new Comando_Pago_Stripe(Reg, IdOperacion, Referencia);
         }
 
-        public static Comando_Crear_Pago_Paypal Fabricar_Cmd_Crear_Pago_Paypal(string BaseUrl, string Intent, List<Transaction> ListaT)
+        public static Comando_Crear_Pago_Paypal Fabricar_Cmd_Crear_Pago_Paypal(string BaseUrl, string Intent, Payment ListaT)
         {
             return new Comando_Crear_Pago_Paypal(BaseUrl, Intent, ListaT);
         }
