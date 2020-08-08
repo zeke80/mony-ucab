@@ -40,6 +40,8 @@ ingresar( f: NgForm ) {
   this._loginServices.ingresar(body)
       .subscribe((data: any) => {
         localStorage.setItem('token', data.result.token);
+        localStorage.setItem('user', data.result.username);
+        localStorage.setItem('guard', 'true');
         this._usuarioServices.getUserInfo(data.result.username)
             .subscribe((data: any) => {
               this.aux = false;

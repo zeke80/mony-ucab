@@ -7,7 +7,6 @@ import { Usuario } from '../../models/usuario.model';
 import { CuentaService } from '../../servicios/cuenta/cuenta.service';
 import { TarjetaService } from '../../servicios/tarjeta/tarjeta.service';
 import { AlertController } from '@ionic/angular';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-solicitud-pago',
@@ -43,7 +42,6 @@ export class SolicitudPagoPage implements OnInit {
     public _tarjetaServices: TarjetaService,
     public router: Router,
     public alert: AlertController,
-    public iab: InAppBrowser
   ) { }
 
   ngOnInit() {
@@ -152,7 +150,7 @@ export class SolicitudPagoPage implements OnInit {
   }
 
   pagarPaypal() {
-    let cant: number = + this.operacion.monto;
+    this.show = false;
     var bodyl = {
       reg:true,
       idOperacion: this.id,
@@ -185,8 +183,8 @@ export class SolicitudPagoPage implements OnInit {
         item_list: {
           items: [
             {
-              name: "hat",
-              description: "Brown hat.",
+              name: "transacción",
+              description: "",
               quantity: "1",
               price: this.operacion.monto,
               tax: "0",
@@ -217,7 +215,8 @@ export class SolicitudPagoPage implements OnInit {
     this._pagoServices.pagoPaypal(bodyl)
         .subscribe((data: any) => {
           console.log(data.links[1].href);
-          this.iab.create(data.links[1].href);
+          window.location.href = data.links[1].href;
+          this.show = true;
         });
 
 

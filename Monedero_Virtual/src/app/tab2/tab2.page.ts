@@ -21,6 +21,7 @@ export class Tab2Page implements OnInit{
   pagos = [];
   saldo = 0;
   usuario: Usuario;
+  user: string;
 
   constructor(
     public _cuentaServices: CuentaService,
@@ -38,27 +39,36 @@ export class Tab2Page implements OnInit{
   }
 
   ngOnInit(){
-    this.usuario = this._usuarioService.getUsuario();
+    this.user = localStorage.getItem('user');
+    this._usuarioService.getUserInfo(this.user)
+    .subscribe((data: any) => {
+      this._logiServices.login();
+      let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
+          data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
+          data.result.direccion, data.result.estatus);
+      this._usuarioService.guardarUsuario(usuario);
+      this.usuario = this._usuarioService.getUsuario();
 
-    this._usuarioService.getSaldo(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.saldo = data;
-        });
+      this._usuarioService.getSaldo(this.usuario.idUsuario)
+          .subscribe((data: any) => {
+            this.saldo = data;
+          });
 
-    this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.tarjetas = data;
-        });
+      this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
+          .subscribe((data: any) => {
+            this.tarjetas = data;
+          });
 
-    this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.cuentas = data;
-        });
-    this._pagoServices.obtenerSolicitudes(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.pagos = data;
-          this._pagoServices.guardarPago(this.pagos);
-        });
+      this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+          .subscribe((data: any) => {
+            this.cuentas = data;
+          });
+      this._pagoServices.obtenerSolicitudes(this.usuario.idUsuario)
+          .subscribe((data: any) => {
+            this.pagos = data;
+            this._pagoServices.guardarPago(this.pagos);
+          });
+    });
 
   }
 
@@ -76,6 +86,7 @@ export class Tab2Page implements OnInit{
 
   logout() {
     this._logiServices.logout();
+    localStorage.setItem('guard', 'false');
     this.router.navigate(['/login']);
   }
 
