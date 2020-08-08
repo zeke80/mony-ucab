@@ -61,10 +61,10 @@
                 Pago con monedero
             </ion-button>
     
-            <ion-button  color="secondary" fill="solid" expand="block">
+            <ion-button  (click)="pagoPaypal()" color="secondary" fill="solid" expand="block">
                 PayPal
             </ion-button>
-            <ion-button  color="tertiary" fill="solid" expand="block">
+            <ion-button  (click)="pagoStripe()" color="tertiary" fill="solid" expand="block">
               Stripe
           </ion-button>
           </ion-card-contend>

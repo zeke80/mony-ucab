@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ReintegroDetallePage
+  },
+  {
+    path: 'pago-paypal',
+    loadChildren: () => import('./pago-paypal/pago-paypal.module').then( m => m.PagoPaypalPageModule)
   }
 ];
 

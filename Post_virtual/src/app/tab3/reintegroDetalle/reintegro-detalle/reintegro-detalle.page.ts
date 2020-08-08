@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reintegro-detalle',
@@ -20,7 +21,7 @@ export class ReintegroDetallePage implements OnInit {
     "referencia": ''
   }
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   setDetalle(){
    this.reintegroDetalle.idReintegro = localStorage.getItem('idReintegroDetalle');
@@ -35,6 +36,17 @@ export class ReintegroDetallePage implements OnInit {
 
 getUser(){
   
+}
+pagoMonedero(){
+
+}
+
+pagoPaypal(){
+  this.router.navigate(['tabs/operaciones/reintegro-detalle/pago-paypal']);
+}
+
+pagoStripe(){
+  this.router.navigate(['tabs/operaciones/pago']);
 }
 
   ngOnInit() {
