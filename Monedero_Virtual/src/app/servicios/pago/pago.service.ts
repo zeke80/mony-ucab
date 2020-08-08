@@ -188,4 +188,9 @@ export class PagoService {
     return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarCobro', body, {headers: tokenHeader});
   }
 
+  pagoPaypal(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Paypal/CrearPago', body, {headers: tokenHeader});
+  }
+
 }

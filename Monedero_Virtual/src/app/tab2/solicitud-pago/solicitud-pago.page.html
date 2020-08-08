@@ -57,6 +57,9 @@
             </div>
             <ion-spinner *ngIf="!showM" name="circles"></ion-spinner>
         </ion-button>
+        <ion-button (click)="pagarPaypal()" color="primary" fill="solid" expand="block">
+            <ion-icon name="card-outline"></ion-icon> Paypal
+        </ion-button>
         <br>
         <ion-item *ngIf="auxT">
             <ion-label>Escoja una tarjeta</ion-label>

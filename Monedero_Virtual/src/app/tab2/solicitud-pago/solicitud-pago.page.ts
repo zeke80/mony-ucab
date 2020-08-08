@@ -7,6 +7,7 @@ import { Usuario } from '../../models/usuario.model';
 import { CuentaService } from '../../servicios/cuenta/cuenta.service';
 import { TarjetaService } from '../../servicios/tarjeta/tarjeta.service';
 import { AlertController } from '@ionic/angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-solicitud-pago',
@@ -32,6 +33,7 @@ export class SolicitudPagoPage implements OnInit {
   cuenta: any;
 
   saldo: number;
+  id: number;
 
   constructor(
     public _activatedRoute: ActivatedRoute,
@@ -41,14 +43,15 @@ export class SolicitudPagoPage implements OnInit {
     public _tarjetaServices: TarjetaService,
     public router: Router,
     public alert: AlertController,
+    public iab: InAppBrowser
   ) { }
 
   ngOnInit() {
     this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('pagoID');
-      let id: number = +recipeID;
-      this.operacion = this._pagoServices.getpago(id);
-      console.log(this.operacion)
+      this.id = +recipeID;
+      this.operacion = this._pagoServices.getpago(this.id);
+      console.log(this.operacion);
     });
 
     this.usuario = this._usuarioServices.getUsuario();
@@ -145,6 +148,78 @@ export class SolicitudPagoPage implements OnInit {
           this.showM = true;
           this.router.navigate(['/tabs/cuenta']);
         });
+
+  }
+
+  pagarPaypal() {
+    let cant: number = + this.operacion.monto;
+    var bodyl = {
+      reg:true,
+      idOperacion: this.id,
+      payment:{
+    intent: "sale",
+    payer: {
+      payment_method: "paypal"
+    },
+    transactions: [
+      {
+        amount: {
+          total: this.operacion.monto,
+          currency: "USD",
+          details: {
+            subtotal: this.operacion.monto,
+            tax: "0",
+            shipping: "0",
+            handling_fee: "0",
+            shipping_discount: "0",
+            insurance: "0"
+          }
+        },
+        description: "The payment transaction description.",
+        custom: "EBAY_EMS_90048630024435",
+        invoice_number: "48787589673",
+        payment_options: {
+          allowed_payment_method: "INSTANT_FUNDING_SOURCE"
+        },
+        soft_descriptor: "ECHI5786786",
+        item_list: {
+          items: [
+            {
+              name: "hat",
+              description: "Brown hat.",
+              quantity: "1",
+              price: this.operacion.monto,
+              tax: "0",
+              sku: "0",
+              currency: "USD"
+            }
+          ],
+          shipping_address: {
+            recipient_name: "Brian Robinson",
+            line1: "4th Floor",
+            line2: "Unit #34",
+            city: "San Jose",
+            country_code: "US",
+            postal_code: "95131",
+            phone: "011862212345678",
+            state: "CA"
+          }
+        }
+      }
+    ],
+    note_to_payer: "Contact us for any questions on your order.",
+    redirect_urls: {
+      return_url: "http://localhost:8100/tabs/cuenta",
+      cancel_url: "http://localhost:8100/tabs/cuenta/solicitudPago/43"+ this.id
+    }
+  }
+    };
+    this._pagoServices.pagoPaypal(bodyl)
+        .subscribe((data: any) => {
+          console.log(data.links[1].href);
+          this.iab.create(data.links[1].href);
+        });
+
 
   }
 
