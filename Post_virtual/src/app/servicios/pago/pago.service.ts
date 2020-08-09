@@ -136,4 +136,75 @@ export class PagoService {
     return this.http.post('http://localhost:49683/api/Transfer/CancelarCobro',null, options)
   }
 
+  crearPagoPaypal(paypalForm){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    //console.log(paypalForm);
+
+    var body  = { 
+      "reg":false, 
+      "idOperacion": 1, 
+      "payment":{ 
+          "intent": "sale", 
+          "payer": { "payment_method": "paypal" }, 
+          "transactions": [ { 
+                  "amount": { 
+                      "total": "", 
+                      "currency": "USD", 
+                      "details": { 
+                          "subtotal": "30.00", 
+                          "tax": "0.00", 
+                          "shipping": "0.00", 
+                          "handling_fee": "0.00", 
+                          "shipping_discount": "0.00", 
+                          "insurance": "0.00" 
+                              } 
+                          }, 
+                  "description": "The payment transaction description.", 
+                  "custom": "EBAY_EMS_90048630024435", 
+                  "invoice_number": "48787589673", 
+                  "payment_options": { 
+                          "allowed_payment_method": "INSTANT_FUNDING_SOURCE" }, 
+                          "soft_descriptor": "ECHI5786786", 
+                          "item_list": { 
+                              "items": [ { 
+                                  "name": "hat", 
+                                  "description": "Brown hat.", 
+                                  "quantity": "1", 
+                                  "price": "0", 
+                                  "tax": "0.00",  
+                                  "sku": "0", 
+                                  "currency": "USD" 
+                                      }, { 
+                                  "name": "handbag", 
+                                  "description": "Black handbag.", 
+                                  "quantity": "1", 
+                                  "price": "0", 
+                                  "tax": "0.00", 
+                                  "sku": "product34", 
+                                  "currency": "USD" 
+                                      } ], 
+                              "shipping_address": { 
+                                  "recipient_name": "Brian Robinson", 
+                                  "line1": "asd", 
+                                  "line2": "asd", 
+                                  "city": "asd", 
+                                  "country_code": "US", 
+                                  "postal_code": "1234", 
+                                  "phone": "02129450643", 
+                                  "state": "guarico" 
+          } } } ],
+       "note_to_payer": "Contact us for any questions on your order.", 
+      "redirect_urls": { "return_url": "https://example.com/return", 
+      "cancel_url": "https://example.com/cancel" } } }
+      //console.log(body);
+      var num2 = parseInt(localStorage.getItem('idReintegroDetalle'));
+      body.idOperacion = num2;
+      body.payment.transactions[0].amount.total = localStorage.getItem('montoDetalle');
+      body.payment.transactions[0].amount.details.subtotal = localStorage.getItem('montoDetalle');
+      body.payment.transactions[0].item_list.items[0].price = localStorage.getItem('montoDetalle');
+      console.log(body);
+
+    return this.http.post('http://localhost:49683/api/Paypal/CrearPago',body, {headers: header});
+  }
+
 }

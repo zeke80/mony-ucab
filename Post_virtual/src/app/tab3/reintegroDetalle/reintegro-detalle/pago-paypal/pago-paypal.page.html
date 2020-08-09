@@ -9,24 +9,44 @@
     <ion-card-header>
         <ion-row>
             <ion-col>
-                <p class="ion-text-center"><ion-icon name="wallet-outline" color="dark" class="icon"></ion-icon></p>
+                <p class="ion-text-center"><ion-icon name="wallet-outline" color="dark" class="icon" size="large"></ion-icon></p>
             </ion-col>
         </ion-row>
     </ion-card-header>
     <ion-card-contend>
       
         <form  (submit)="onSubmit()">
+
+          <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Costo antes de impuestos:</h1></ion-text></strong>
+          <ion-text color="dark"> <h2 class="ion-text-center" >$ {{costo}}</h2></ion-text>
             <ion-item>
-                <strong><ion-label position="fixed">atributo 1</ion-label></strong>
-                <ion-input [(ngModel)]="cobro.emailPagador" name="user"></ion-input>
+                <strong><ion-label position="fixed">Estado: </ion-label></strong>
+                <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.state" name="user1"></ion-input>
             </ion-item>
             <ion-item>
-                <strong><ion-label position="fixed">atributo 2</ion-label></strong>
-                <ion-input [(ngModel)]="cobro.monto" type="number" name="monto">$</ion-input>
-            </ion-item>
-            <ion-button type="submit" fill="solid"  expand="block" color="success">
-                Realizar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
-            </ion-button>
+              <strong><ion-label position="fixed">Ciudad: </ion-label></strong>
+              <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.city" name="user2"></ion-input>
+          </ion-item>
+            <ion-item>
+              <strong><ion-label position="fixed">Direccion: </ion-label></strong>
+              <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.line1" name="user3"></ion-input>
+          </ion-item>
+          <ion-item>
+            <strong><ion-label position="fixed">Direccion(cont): </ion-label></strong>
+            <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.line2" name="user4"></ion-input>
+          </ion-item>
+          <ion-item>
+              <strong><ion-label position="fixed">Cod. Postal: </ion-label></strong>
+              <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.postal_code" name="user5"  type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <strong><ion-label position="fixed">Telefono: </ion-label></strong>
+            <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.phone" name="user6"  type="number"></ion-input>
+        </ion-item>
+             
+            <ion-button  (click)="onSubmit()" fill="solid"  expand="block" color="success">
+              PayPal <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
         </form>
 
     </ion-card-contend>
