@@ -136,7 +136,7 @@ export class PagoService {
     return this.http.post('http://localhost:49683/api/Transfer/CancelarCobro',null, options)
   }
 
-  crearPagoPaypal(paypalForm){
+  crearPagoPaypal(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     //console.log(paypalForm);
 
@@ -202,7 +202,14 @@ export class PagoService {
       body.payment.transactions[0].amount.total = localStorage.getItem('montoDetalle');
       body.payment.transactions[0].amount.details.subtotal = localStorage.getItem('montoDetalle');
       body.payment.transactions[0].item_list.items[0].price = localStorage.getItem('montoDetalle');
-      console.log(body);
+      body.payment.transactions[0].item_list.shipping_address.city = localStorage.getItem('ciudadPaypal');
+      body.payment.transactions[0].item_list.shipping_address.state = localStorage.getItem('estadoPaypal');
+      body.payment.transactions[0].item_list.shipping_address.line1 = localStorage.getItem('direccion1');
+      body.payment.transactions[0].item_list.shipping_address.line2 = localStorage.getItem('direccion2');
+      body.payment.transactions[0].item_list.shipping_address.postal_code = localStorage.getItem('codPost');
+      body.payment.transactions[0].item_list.shipping_address.phone = localStorage.getItem('telfPaypal');
+
+      //console.log(localStorage.getItem('ciudadPaypal'));
 
     return this.http.post('http://localhost:49683/api/Paypal/CrearPago',body, {headers: header});
   }

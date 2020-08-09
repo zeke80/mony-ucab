@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { PagoService } from 'src/app/servicios/pago/pago.service';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 @Component({
   selector: 'app-pago-paypal',
@@ -10,7 +11,7 @@ import { PagoService } from 'src/app/servicios/pago/pago.service';
   styleUrls: ['./pago-paypal.page.scss'],
 })
 export class PagoPaypalPage implements OnInit {
-
+  
   paypalForm = { 
     "reg":false, 
     "idOperacion": 0, 
@@ -70,6 +71,8 @@ export class PagoPaypalPage implements OnInit {
   
   }
 
+  
+
   reintegroDetalle = {
     "idReintegro": null,
     "idUsuarioSolicitante": null,
@@ -85,11 +88,14 @@ export class PagoPaypalPage implements OnInit {
 
  costo = 0;
 
+ url: string;
+
   constructor(
         private router: Router, 
         private formModulo: FormsModule,
         private alert: AlertController,
-        private pagoService:PagoService
+        private pagoService:PagoService,
+        private inAppBrowser:InAppBrowser
         ) { }
 
   setDetalle(){
@@ -118,19 +124,23 @@ export class PagoPaypalPage implements OnInit {
           text: 'Aceptar',
           handler: () => {
             //console.log(this.paypalForm);
-            this.pagoService.crearPagoPaypal(this.paypalForm.payment.transactions[0].amount.total)
+            localStorage.setItem('ciudadPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.city);
+            localStorage.setItem('estadoPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.state);
+            localStorage.setItem('direccion1',this.paypalForm.payment.transactions[0].item_list.shipping_address.line1);
+            localStorage.setItem('direccion2',this.paypalForm.payment.transactions[0].item_list.shipping_address.line2);
+            localStorage.setItem('codPost',this.paypalForm.payment.transactions[0].item_list.shipping_address.postal_code);
+            localStorage.setItem('telfPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.phone);
+            this.pagoService.crearPagoPaypal()
             .subscribe(
               (data: any) =>
               {
-                
-                //this.successToast('success', 'Cobro cancelado satisfactoriamente')
-                console.log(data);
-                //this.router.navigate(['/post']);
+                console.log(data.links[1].href);
+               // data.links[1].href
+                this.openWebPage(data.links[1].href);
               },
               err =>{
                 console.log(err);
                 
-                //this.presentToast('danger', 'Ha ocurrido un error al cancelar el cobro');
               }
             );         
           }
@@ -141,6 +151,9 @@ export class PagoPaypalPage implements OnInit {
   }
 
   
+  openWebPage(url){
+    const browser = this.inAppBrowser.create(url, '_system')
+  }
 
   ngOnInit() {
     this.setDetalle();

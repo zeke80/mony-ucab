@@ -1,5 +1,7 @@
 {
   "name": "Post_virtual",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
