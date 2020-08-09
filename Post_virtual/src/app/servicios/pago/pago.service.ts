@@ -194,8 +194,8 @@ export class PagoService {
                                   "state": "guarico" 
           } } } ],
        "note_to_payer": "Contact us for any questions on your order.", 
-      "redirect_urls": { "return_url": "https://example.com/return", 
-      "cancel_url": "https://example.com/cancel" } } }
+      "redirect_urls": { "return_url": "http://localhost:8100/tabs/operaciones/reintegro-detalle/pago-paypal/payment-message", 
+      "cancel_url": "http://localhost:8100/tabs/operaciones/reintegro-detalle/pago-paypal/payment-message" } } }
       //console.log(body);
       var num2 = parseInt(localStorage.getItem('idReintegroDetalle'));
       body.idOperacion = num2;

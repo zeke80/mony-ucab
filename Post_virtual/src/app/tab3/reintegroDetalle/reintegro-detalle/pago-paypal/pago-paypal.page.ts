@@ -66,7 +66,7 @@ export class PagoPaypalPage implements OnInit {
                                 "state": "" 
         } } } ],
      "note_to_payer": "Contact us for any questions on your order.", 
-    "redirect_urls": { "return_url": "https://example.com/return", 
+    "redirect_urls": { "return_url": "http://localhost:8100/tabs/operaciones/reintegro-detalle/pago-paypal/confirmar-paypal", 
     "cancel_url": "https://example.com/cancel" } } 
   
   }
