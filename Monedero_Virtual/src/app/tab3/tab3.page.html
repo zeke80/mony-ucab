@@ -18,7 +18,7 @@
             <ion-card-contend>
                 <ion-list>
                     <ion-item *ngFor="let monedero of monederos"
-                        [routerLink]="['/tabs/operaciones/monedero', monedero]">
+                        [routerLink]="['/tabs/operaciones/monedero', monedero.idOperacionMonedero]">
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <div *ngIf="monedero.infoAdicional">
                             <div *ngIf="monedero.infoAdicional.operacionTarjeta">

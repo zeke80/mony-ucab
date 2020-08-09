@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       
       {
-        path: 'operaciones/:operacionID',
+        path: 'operaciones/:monedero',
         loadChildren: () => import('../tab3/operacion-detalle/operacion-detalle.module').then(m => m.OperacionDetallePageModule)
       },
       {

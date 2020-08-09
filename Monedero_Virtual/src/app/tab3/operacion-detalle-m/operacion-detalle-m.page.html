@@ -19,20 +19,20 @@
                 <ion-item>
 
                     <br>
-                    <div *ngIf="operacion.idtipooperacion === 2">
+                    <div *ngIf="idtipooperacion === 1 || idtipooperacion === 3">
                         <ion-label position="floating"><strong>Monto:</strong></ion-label>
                         <br>
                         <h4>
-                            $ -{{operacion.monto}}
+                            $ -{{monto}}
                         </h4>
 
 
                     </div>
-                    <div *ngIf="operacion.idtipooperacion === 1">
+                    <div *ngIf="idtipooperacion === 5 || idtipooperacion === 2">
                         <ion-label position="floating"><strong>Monto:</strong></ion-label>
                         <br>
                         <h4>
-                            $ +{{operacion.monto}}
+                            $ +{{monto}}
                         </h4>
 
 
@@ -41,18 +41,18 @@
                 <ion-item>
                     <ion-label position="floating"><strong>Fecha:</strong></ion-label>
                     <br>
-                    <h4 class="ion-text-center">{{fecha}}</h4>
+                    <h4 class="ion-text-center">{{fecha.day}}/{{fecha.month}}/{{fecha.year}}</h4>
                 </ion-item>
                 <ion-item>
-                    <ion-label position="floating"><strong>Hora:</strong></ion-label>
+                    <ion-label position="floating"><strong>Descripción:</strong></ion-label>
                     <br>
-                    <h4 class="ion-text-center">{{operacion.hora.hours}}:{{operacion.hora.minutes}}</h4>
+                    <h4 class="ion-text-center">{{description}}</h4>
                 </ion-item>
 
                 <ion-item>
                     <ion-label position="floating"><strong>Referencia:</strong></ion-label>
                     <br>
-                    <h4 class="ion-text-center">{{operacion.referencia}}</h4>
+                    <h4 class="ion-text-center">{{referencia}}</h4>
                 </ion-item>
 
 

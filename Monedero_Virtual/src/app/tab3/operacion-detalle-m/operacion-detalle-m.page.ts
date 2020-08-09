@@ -22,6 +22,10 @@ export class OperacionDetalleMPage implements OnInit {
   usuario: Usuario;
   fecha: any;
   aux: boolean = true;
+  idtipooperacion: number;
+  referencia: string;
+  description: string;
+  monto: number;
 
   constructor(
     public _activatedRoute: ActivatedRoute,
@@ -34,29 +38,45 @@ export class OperacionDetalleMPage implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this._activatedRoute.paramMap.subscribe(paramMap => {
-      const recipeID = paramMap.get('operacionID');
-      let id: number = +recipeID;
-      this.operacion = this._operacionServices.getoperacionMonedero(id);
-      console.log(this.operacion);
-    });
     this.usuario = this._usuarioServices.getUsuario();
-    this._usuarioServices.inforUsurio(this.operacion.idusuario)
-    .subscribe((data: any) => {
-      this.user = data.usuario;
-      this.idreceptor = data.idusuario;
-    });
-    this.fecha = this.operacion.fecha.split('T', 1 );
-    this._personaServices.getPersona(this.operacion.idusuario)
-    .subscribe((data: any) => {
-      // if (data) {
-      //   this.aux = false;
-      // }
-      // else {
-      //   this.aux = true;
-      // }
-    });
+    let routeUrl = this.router.url;
+    console.log(routeUrl);
+    let routeSplit = routeUrl.split('/')
+    console.log(routeSplit);
+    console.log(routeSplit[4]);
+
+    this._operacionServices.getoperacionesMonedero(this.usuario.idUsuario).subscribe(operaciones => {
+      console.log('Operaciones ', operaciones['length']);
+      for (let i = 0; i < operaciones['length']; i++) {
+        const element = operaciones[i];
+        if (element['idOperacionMonedero'] === Number(routeSplit[4]))
+        {
+          console.log(element)
+          this.idtipooperacion = element['infoAdicional']['tipoOperacion']['idTipoOperacion'];
+          this.fecha = element['fecha'];
+          this.referencia = element['referencia'];
+          this.description = element['infoAdicional']['tipoOperacion']['descripcion'];
+          this.monto = element['infoAdicional']['operacionCuenta']['monto']
+        }
+      }
+    })
+
+    // this.usuario = this._usuarioServices.getUsuario();
+    // this._usuarioServices.inforUsurio(this.operacion.idusuario)
+    // .subscribe((data: any) => {
+    //   this.user = data.usuario;
+    //   this.idreceptor = data.idusuario;
+    // });
+    // this.fecha = this.operacion.fecha.split('T', 1 );
+    // this._personaServices.getPersona(this.operacion.idusuario)
+    // .subscribe((data: any) => {
+    //   // if (data) {
+    //   //   this.aux = false;
+    //   // }
+    //   // else {
+    //   //   this.aux = true;
+    //   // }
+    // });
   }
 
   SolicitarReintegro() {
