@@ -21,7 +21,6 @@ namespace DAO
         public DAOBase()
         {
             NpgsqlConnectionStringBuilder conn_string = new NpgsqlConnectionStringBuilder();
-
             //////////          LOCAL             ///////////////
             /*conn_string.Host = "localhost";
             conn_string.Port = 5432;
@@ -2330,11 +2329,11 @@ namespace DAO
                 {
                     if (!lectorTablaSQL.GetBoolean(0))
                     {
-                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                        throw new MoneyUcabException("No se pudo realizar retiro", 210);
                     }
                 }
                 else
-                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    throw new MoneyUcabException("No se pudo realizar retiro", 210);
             }
             catch (NpgsqlException ex)
             {
@@ -2374,11 +2373,11 @@ namespace DAO
                 {
                     if (!lectorTablaSQL.GetBoolean(0))
                     {
-                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                        throw new MoneyUcabException("No se pudo realizar botón pago", 210);
                     }
                 }
                 else
-                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    throw new MoneyUcabException("No se pudo realizar botón pago", 210);
             }
             catch (NpgsqlException ex)
             {
@@ -2418,11 +2417,11 @@ namespace DAO
                 {
                     if (!lectorTablaSQL.GetBoolean(0))
                     {
-                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                        throw new MoneyUcabException("No se pudo realizar botón pago", 210);
                     }
                 }
                 else
-                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    throw new MoneyUcabException("No se pudo realizar botón pago", 210);
             }
             catch (NpgsqlException ex)
             {
@@ -2461,11 +2460,150 @@ namespace DAO
                 {
                     if (!lectorTablaSQL.GetBoolean(0))
                     {
-                        throw new MoneyUcabException("No se pudo establecer comision", 210);
+                        throw new MoneyUcabException("No se pudo realizar botón pago", 210);
                     }
                 }
                 else
-                    throw new MoneyUcabException("No se pudo establecer comision", 210);
+                    throw new MoneyUcabException("No se pudo realizar botón pago", 210);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void CambioEstatus(bool Reg, int IdOperacion, int Status)
+        {
+            try
+            {
+                string _status;
+                Conectar();
+                switch (Status)
+                {
+                    case(0): _status = "Solicitado";
+                        break;
+                    case(1): _status = "En Proceso";
+                        break;
+                    case(2): _status = "Completado";
+                        break;
+                    case(3): _status = "Cancelado";
+                        break;
+                    default: throw new MoneyUcabException("Status inexistente para cambiarlo en la operación", 250);
+                }
+
+                comandoSQL = conector.CreateCommand();
+                comandoSQL.CommandText = string.Format("SELECT Cambio_Estatus_Op(@Reg, @IdOperacion, @Status)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Reg", Reg));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdOperacion", IdOperacion));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Status", _status));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo cambiar status de operación", 250);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo cambiar status de operación", 250);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void PagoPaypal(bool Reg, int IdOperacion, string Referencia)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+                comandoSQL.CommandText = string.Format("SELECT Pago_Paypal(@Reg, @IdOperacion, @Referencia)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Reg", Reg));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdOperacion", IdOperacion));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Referencia", Referencia));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo registrar el pago por PayPal", 251);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo registrar el pago por PayPal", 251);
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+        }
+
+        public void PagoStripe(bool Reg, int IdOperacion, string Referencia)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+                comandoSQL.CommandText = string.Format("SELECT Pago_Stripe(@Reg, @IdOperacion, @Referencia)");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Reg", Reg));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdOperacion", IdOperacion));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("Referencia", Referencia));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                if (lectorTablaSQL.Read())
+                {
+                    if (!lectorTablaSQL.GetBoolean(0))
+                    {
+                        throw new MoneyUcabException("No se pudo registrar el pago por PayPal", 251);
+                    }
+                }
+                else
+                    throw new MoneyUcabException("No se pudo registrar el pago por PayPal", 251);
             }
             catch (NpgsqlException ex)
             {
