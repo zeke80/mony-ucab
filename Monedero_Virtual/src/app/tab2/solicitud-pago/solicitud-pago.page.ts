@@ -21,6 +21,7 @@ export class SolicitudPagoPage implements OnInit {
 
   auxT = false;
   auxC = false;
+  auxS = false;
   show = true;
   showM = true;
 
@@ -71,11 +72,18 @@ export class SolicitudPagoPage implements OnInit {
   boolTarjeta() {
     this.auxT = true;
     this.auxC = false;
+    this.auxS = false;
   }
 
   boolCuenta() {
     this.auxC = true;
     this.auxT = false;
+    this.auxS = false;
+  }
+  boolStripe() {
+    this.auxT = false;
+    this.auxC = false;
+    this.auxS = true;
   }
 
   obtenerIDtajeta() {
@@ -219,6 +227,26 @@ export class SolicitudPagoPage implements OnInit {
           this.show = true;
         });
 
+
+  }
+
+  pagarStripe(email) {
+    let cant: number = + this.operacion.monto;
+
+    var body = {
+      monto: cant,
+      descripcion: "Prueba Exitosa",
+      emailReceptor: email,
+      reg: true,
+      idOperacion: this.id
+    };
+
+    console.log(body);
+
+    this._pagoServices.pagoStripe(body)
+        .subscribe((data: any) => {
+          this.router.navigate(['/tabs/cuenta']);
+        });
 
   }
 

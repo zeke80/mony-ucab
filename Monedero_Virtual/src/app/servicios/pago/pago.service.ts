@@ -193,4 +193,9 @@ export class PagoService {
     return this.http.post('http://monyucab.somee.com/api/Paypal/CrearPago', body, {headers: tokenHeader});
   }
 
+  pagoStripe(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Stripe/CrearPago', body, {headers: tokenHeader});
+  }
+
 }
