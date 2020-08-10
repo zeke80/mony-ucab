@@ -56,7 +56,19 @@ export class OperacionDetalleMPage implements OnInit {
           this.fecha = element['fecha'];
           this.referencia = element['referencia'];
           this.description = element['infoAdicional']['tipoOperacion']['descripcion'];
-          this.monto = element['infoAdicional']['operacionCuenta']['monto']
+          if (element['infoAdicional']['operacionCuenta'] !== null && element['infoAdicional']['operacionTarjeta'] === null)
+          {
+            console.log("Tarjeta null");
+            this.monto = element['infoAdicional']['operacionCuenta']['monto'];
+          }
+          else if (element['infoAdicional']['operacionCuenta'] === null && element['infoAdicional']['operacionTarjeta'] !== null)
+          {
+            console.log("Cuenta null");
+            this.monto = element['infoAdicional']['operacionTarjeta']['monto'];
+          }
+            
+          // console.log(element['infoAdicional']['operacionTarjeta']['monto']);
+          // console.log(this.recargat);
         }
       }
     })
