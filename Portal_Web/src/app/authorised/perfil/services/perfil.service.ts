@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -11,58 +11,24 @@ export class PerfilService {
   constructor(private http : HttpClient) {
   }
 
-  consultarUSuario(){
-    let url = "http://monyucab.somee.com/api/Usuario/infoUsuario";
+  consultar(){
 
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-    
-    return this.http.post(url, {'id' : id});
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + 
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIwM2M2MTQyYi03YzVhLTRhN2UtOTg5NC0yZWI3OWFlNjJiYmMiLCJMb2dnZWRPbiI6IjgvMTAvMjAyMCAyOjIyOjM4IEFNIiwibmJmIjoxNTk3MDUxMzU4LCJleHAiOjE1OTcwNTQwNTgsImlhdCI6MTU5NzA1MTM1OH0.1ovrAiDi0ElZJqQoodbNJjKYC2_tiIBEFtRCMshweQc"});
+    let param = new HttpParams().set('Usuario', 'maria');
+    let url ="http://monyucab.somee.com/api/dashboard/InformacionPersona";
 
-  }
-
-  consultarPersona(){
-    let url = "http://monyucab.somee.com/api/Usuario/infoPersona";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-    
-    return this.http.post(url, {'id' : id});
+    return this.http.get(url, {params : param, headers : header});
 
   }
 
-  consultarComercio(){
-    let url = "http://monyucab.somee.com/api/Usuario/infoComercio";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-    
-    return this.http.post(url, {'id' : id});
-
-  }
-
-  ajustarPersona(nombre : string, apellido : string){
-    let url = "http://monyucab.somee.com/api/Usuario/ajustarPersona";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-    
-    return this.http.post(url, {'idUsuario' : id, 'nombre' : nombre, 'apellido' : apellido});
-  }
-
-  ajustarComercio(razonSocial : string, nombre : string, apellido : string){
-    let url = "http://monyucab.somee.com/api/Usuario/ajustarComercio";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-    
-    return this.http.post(url, {'idUsuario' : id, 'razonSocial': razonSocial,'nombre' : nombre, 'apellido' : apellido});
+  consultarEstadosCiviles(){
+    let url = "http://monyucab.somee.com/api/dashboard/EstadosCiviles";
+   
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + 
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiIwM2M2MTQyYi03YzVhLTRhN2UtOTg5NC0yZWI3OWFlNjJiYmMiLCJMb2dnZWRPbiI6IjgvMTAvMjAyMCAyOjIyOjM4IEFNIiwibmJmIjoxNTk3MDUxMzU4LCJleHAiOjE1OTcwNTQwNTgsImlhdCI6MTU5NzA1MTM1OH0.1ovrAiDi0ElZJqQoodbNJjKYC2_tiIBEFtRCMshweQc"});
+    return this.http.get(url, {headers : header});
 
   }
 
-  ajustarUsuario(email : string, telefono : string, direccion : string, di : number){
-    let url = "http://monyucab.somee.com/api/Usuario/ajustarComercio";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-
-    let user = localStorage.getItem('usuario');
-    
-    return this.http.post(url, {'idUsuario' : id, 'user': user,  'di': di ,'email' : email, 'telf' : telefono, 'dir' : direccion});
-
-  }
 }

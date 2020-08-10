@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SignupService } from './services/signup.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,8 +22,10 @@ export class SignupFormComponent implements OnInit {
   showComercio = false;
   showUsuario = false;
 
-  idTipoUsuario = 0;  
+  idTipoUsuario = 1;  
   contrasena = '';
+
+  ano: string;
 
 
   formPersona = new FormGroup({
@@ -49,7 +52,7 @@ export class SignupFormComponent implements OnInit {
     Validators.required])
   }); 
 
-  constructor(private s_signup : SignupService) { }
+  constructor(private s_signup : SignupService, private datePipe: DatePipe, private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -59,7 +62,6 @@ export class SignupFormComponent implements OnInit {
     this.showUsuario = true;
     this.showCards = false;
     this.showComercio = false;
-    this.idTipoUsuario = 1;
   }
 
   toggleComercio(){
@@ -67,18 +69,9 @@ export class SignupFormComponent implements OnInit {
     this.showUsuario = true;
     this.showCards = false;
     this.showPersona = false;
-    this.idTipoUsuario = 2;
   }
 
   registrarPersona(){
-
-    var descripId = '';
-    if(this.formUsuario.get('tipoId').value == 3){
-      descripId = "pasaporte"
-    }
-    else if ((this.formUsuario.get('tipoId').value == 1) || (this.formUsuario.get('tipoId').value == 2)) {
-      descripId = "cedula"
-    }
     this.contrasena = this.formUsuario.get('contra').value;
 
     this.s_signup.registrarPersona(
@@ -86,25 +79,28 @@ export class SignupFormComponent implements OnInit {
         this.formPersona.get('nombre').value,
         this.formPersona.get('apellido').value,
         this.contrasena,
-        this.formPersona.get('fechaNac').value,
         this.formUsuario.get('correo').value,
         this.formUsuario.get('telefono').value,
         this.formUsuario.get('direccion').value,
         parseInt(this.formUsuario.get('numeroId').value,10),
-        "persona",
-        1,
+        this.idTipoUsuario,
         parseInt(this.formUsuario.get('tipoId').value,10),
-        descripId,
-        parseInt(this.formPersona.get('estadoCivil').value,10))
+        parseInt(this.formPersona.get('estadoCivil').value,10),
+        parseInt(this.datePipe.transform(this.formPersona.get('fechaNac').value,'yyyy'), 10),
+        parseInt(this.datePipe.transform(this.formPersona.get('fechaNac').value,'MM'), 10),
+        parseInt(this.datePipe.transform(this.formPersona.get('fechaNac').value,'dd'), 10), 
+        "",
+        parseInt(this.datePipe.transform(Date.now(),'yyyy'),10),
+        parseInt(this.datePipe.transform(Date.now(),'MM'),10),
+        parseInt(this.datePipe.transform(Date.now(),'dd'),10))
     .subscribe(
-      (data : any)=>{
+      (res: any)=>{
+        console.log(res);
+        this.router.navigate(['/login']);
       },
       (err : HttpErrorResponse) =>{
-        if (err.error == 400){
-          alert("Datos repetidos. Intente de nuevo");
-        }
-        else if (err.status == 200){
-          alert("Persona creado");
+        if (err.status >= 400){
+          alert(err.error.error);
         }
         else {
           alert("Error inesperado. Vuelva a intentar")

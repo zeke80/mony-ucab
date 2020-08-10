@@ -14,3 +14,13 @@ input.ng-valid{
   input.ng-invalid{
     border-left: 5px solid red;
   }
+
+  .form-signin {
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    padding: 15px;
+    margin: auto;
+    background-color: #E0E2F5;
+    border-radius: 25px;
+  }

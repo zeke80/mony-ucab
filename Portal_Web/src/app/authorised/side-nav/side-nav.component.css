@@ -1,5 +1,5 @@
 :host {
-    background: #0077b6;
+    background: #424B54;
     }
      
     #sidebar {
@@ -11,7 +11,7 @@
     font-weight: 300;
     font-size: 1rem;
     line-height: 1.5;
-    background-color: #0077b6;
+    background-color: #424B54;
     }
      
     #sidebar.hidden {

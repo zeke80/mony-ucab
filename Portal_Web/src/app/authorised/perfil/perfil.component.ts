@@ -41,26 +41,43 @@ export class PerfilComponent implements OnInit {
 
   estadoCivil = '';
   tipoIdentificacion = '';
+  idEstadoCivil = 0;
+
+  estados;
 
   isDisabled : boolean = true;
 
   constructor(public s_perfil : PerfilService) { }
 
   ngOnInit(): void {
-    this.consultar();
+    this.consutarPersona();
   }
 
-  consultar(){
-    this.consutarUsuario();
-    if (parseInt(localStorage.getItem('idTipoUsuario'), 10) == 1){
-      this.consutarPersona();
-    }
-    else if (parseInt(localStorage.getItem('idTipoUsuario'), 10) == 2){
-      this.consultarComercio();
-    }
+  fechaNacimientoString(fechaNacimiento : any){    
+    return fechaNacimiento.year.toString() + '-' + fechaNacimiento.month.toString() + '-' + fechaNacimiento.day.toString();
+    ;
   }
+
   consutarPersona(){
-    this.s_perfil.consultarPersona().subscribe((data : any) => {
+    this.s_perfil.consultar().subscribe(
+      (data : any) => {
+        if ( data.estadoCivil.codigo == 'C'){
+          this.estadoCivil = "Casado"
+        }
+        else{
+          this.estadoCivil = "Soltero"
+        }
+        this.idEstadoCivil == data.estadoCivil.idEstadoCivil;
+        this.infoPersona.nombre = data.persona.nombre;
+        this.infoPersona.apellido = data.persona.apellido;
+        this.infoPersona.fechaNacimiento = this.fechaNacimientoString(data.persona.fechaNacimiento);
+        this.infoUsuario.email = data.result.email;
+        this.infoUsuario.telefono = data.result.telefono;
+        this.infoUsuario.direccion = data.result.direccion;
+        this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
+        this.tipoIdentificacion = data.tipoIdentificacion.codigo;
+      }
+    );/*this.s_perfil.consultarPersona().subscribe((data : any) => {
       if (data.idestadocivil == 1){
         this.estadoCivil = "SOLTERO"
       }
@@ -71,50 +88,27 @@ export class PerfilComponent implements OnInit {
       this.infoPersona.apellido = data.apellido;
       this.infoPersona.fechaNacimiento = data.fecha_nacimiento;
     }
-    );
+    ); */
+    
     this.infoComercio = null;
-  }
-
-  consultarComercio(){
-    this.s_perfil.consultarComercio().subscribe((data : any) =>{
-      this.infoComercio.razonSocial = data.razon_social;
-      this.infoComercio.nombreRepresentante = data.nombre_representante;
-      this.infoComercio.apellidoRepresentante = data.apellido_representante;
-
-    });
-
-    this.infoPersona = null;
-
-  }
-
-  consutarUsuario(){
-    this.s_perfil.consultarUSuario().subscribe((data : any) =>{
-      this.infoUsuario.idUsuario = data.idusuario;
-      this.infoUsuario.idTipoUsuario = data.idtipousuario;
-      if(data.idtipoidentificacion == 1){
-        this.tipoIdentificacion = "V"
-      }
-      else if(data.idtipoidentificacion == 2){
-        this.tipoIdentificacion ="P"
-      }
-      else if(data.idtipoidentificacion == 3){
-        this.tipoIdentificacion = "E"
-      }
-      else if(data.idtipoidentificacion == 4){
-        this.tipoIdentificacion = "J"
-      }
-      this.infoUsuario.usuario = data.usuario;
-      this.infoUsuario.fechaRegistro = data.fecha_registro;
-      this.infoUsuario.nroIdentificacion = data.nro_identificacion;
-      this.infoUsuario.email = data.email;
-      this.infoUsuario.telefono = data.telefono;
-      this.infoUsuario.direccion = data.direccion;
-      this.infoUsuario.estatus = data.estatus;
-    });
   }
 
   editar(){
     this.isDisabled = false;
+
+    this.s_perfil.consultarEstadosCiviles().subscribe(
+      (data : any) => {
+        console.log(data);
+        if (data.codigo == 'C'){
+          this.estados = "Casado"
+          console.log("gola")
+        }
+        else{
+          this.estados = "Soltero"
+        }
+      }
+    );
+
   }
 
   cancelar(){
@@ -122,7 +116,11 @@ export class PerfilComponent implements OnInit {
   }
 
   guardarCambios(){
-    this.s_perfil.ajustarUsuario(
+
+    
+
+
+   /* this.s_perfil.ajustarUsuario(
       this.infoUsuario.email, this.infoUsuario.telefono, this.infoUsuario.direccion, this.infoUsuario.nroIdentificacion)
       .subscribe((data : any) =>{
     });
@@ -140,11 +138,10 @@ export class PerfilComponent implements OnInit {
       .subscribe((data : any) =>{
           if (data ==true)
           alert('Cambios guardados');
-      });
-    }
-    
-
-    this.cancelar();
+          
+      });}
+       */
+      this.cancelar();
   }
 
 }

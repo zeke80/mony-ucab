@@ -35,6 +35,7 @@ import { AgregarTarjetaComponent } from './authorised/agregar-tarjeta/agregar-ta
 import { AgregarCuentaComponent } from './authorised/agregar-cuenta/agregar-cuenta.component';
 import { PantallaInicioComponent } from './authorised/pantalla-inicio/pantalla-inicio.component';
 import { RecuperarContrasenaComponent } from './home/recuperar-contrasena/recuperar-contrasena.component';
+import { ReportesComponent } from './authorised/reportes/reportes.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { RecuperarContrasenaComponent } from './home/recuperar-contrasena/recupe
     AgregarTarjetaComponent,
     AgregarCuentaComponent,
     PantallaInicioComponent,
-    RecuperarContrasenaComponent
+    RecuperarContrasenaComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

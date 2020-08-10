@@ -1,5 +1,4 @@
 <div *ngIf = "showCards">
-     <!-- ======= Featured Section ======= -->
      <br>
      <section id="featured" class="featured">
       <div class="container">
@@ -55,15 +54,14 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label>Fecha de Nacimiento (*)</label>
-          <input class="form-control" type="date" formControlName="fechaNac"> 
+          <input class="form-control" type="date" formControlName="fechaNac">
         </div>
         <div class="form-group col-md-6">
           <label>Estado Civil (*)</label>
           <select class="form-control" required formControlName="estadoCivil">
-            <option value="1" selected>SOLTERO</option>
-            <option value="2">CASADO</option>
+            <option value="1">Soltero</option>
+            <option value="2">Casado</option>
           </select>
-
         </div>
       </div>
     </form>
@@ -108,10 +106,10 @@
       <div class="form-group col-md-1">
         <label>Tipo (*)</label>
         <select class="form-control" formControlName="tipoId">
-          <option value="1" selected>V</option>
+          <option value="1" selected>J</option>
           <option value="2">E</option>
-          <option value="3">P</option>
-          <option value="4">J</option>
+          <option value="3">V</option>
+          <option value="4">P</option>
         </select>
       </div>
   

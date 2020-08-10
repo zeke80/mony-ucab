@@ -21,21 +21,15 @@ export class SignupService {
     apellido: string
   ){
     let url = "http://monyucab.somee.com/api/Usuario/registrarComercio";
-
-    usuario = usuario.toLocaleUpperCase();
     
     let body ={
       "usuario" : usuario,
       "contrasena" : contra,
-      "email" : email,
-      "telefono" : telefono,
-      "direccion" : direccion,
-      "nro_identificacion" : numIdentificacion,
-      "idtipoidentificacion" : idTipoId,
-      "descripciontipoidentificacion" : "RIF",
-      "razon_social" : razonSocial,
-      "nombre_representante" : nombre,
-      "apellido_representante" : apellido
+      "razonSocial" : email,
+      "nombre" : telefono,
+      "apellido" : direccion,
+      "comision" : numIdentificacion,
+      "password" : idTipoId,
 
     }
 
@@ -48,46 +42,48 @@ export class SignupService {
     nombre : string,
     apellido : string,
     contra : string,
-    fechaNacimiento : string,
     email : string,
     telefono : string,
     direccion : string,
     nroIdentificacion : number,
-    descripcionTipoUsuario : string,
     idTipoUsuario : number,
     idTipoIdentificacion : number,
-    descripcionTipoIdentificacion : string,
-    idEstadoCivil : number
+    idEstadoCivil : number,
+    anoNacimiento : number,
+    mesNacimiento : number,
+    diaNacimiento : number,
+    razonSocial : string,
+    anoRegistro : number,
+    mesRegistro : number,
+    diaRegistro : number
+
   ){
 
-    let url = "http://monyucab.somee.com/api/Usuario/registrarUsuario";
-
-
-    usuario = usuario.toLocaleUpperCase();
-    nombre = nombre.toLocaleUpperCase();
-    apellido = apellido.toLocaleUpperCase();
-    email =  email.toLocaleUpperCase();
-    direccion = direccion.toLocaleUpperCase();
-    descripcionTipoIdentificacion = descripcionTipoIdentificacion.toLocaleUpperCase();
+    let url = "http://monyucab.somee.com/api/authentication/register";
 
     let body2 = {
-      "usuario" : usuario,
-      "nombre" : nombre,
-      "apellido" : apellido,
-      "contrasena" : contra,
-      "fecha_nacimiento": fechaNacimiento,
-      "email" : email,
-      "telefono" : telefono,
-      "direccion" : direccion,
-      "nro_identificacion" : nroIdentificacion,
-      "idtipoidentificacion" : idTipoIdentificacion,
-      "descripciontipoidentificacion" :  descripcionTipoIdentificacion,
-      "idestadocivil" : idEstadoCivil
-     };
-    
-
+      "usuario": usuario,
+      "email": email,
+      "password": contra,
+      "idTipoUsuario": idTipoUsuario,
+      "idTipoIdentificacion": idTipoIdentificacion,
+      "idEstadoCivil": idEstadoCivil,
+      "anoRegistro":anoRegistro,
+      "mesRegistro":mesRegistro,
+      "diaRegistro":diaRegistro,
+      "nroIdentificacion": nroIdentificacion,
+      "telefono": telefono,
+      "direccion": direccion,
+      "estatus": 1,
+      "comercio": false,
+      "nombre": nombre,
+      "apellido": apellido,
+      "anoNacimiento": anoNacimiento,
+      "mesNacimiento": mesNacimiento,
+      "diaNacimiento":diaNacimiento,
+      "razonSocial": razonSocial
+  };
     return this.http.post(url, body2);
-
   }
 
 }

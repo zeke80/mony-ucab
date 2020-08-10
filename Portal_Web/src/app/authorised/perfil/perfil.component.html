@@ -40,11 +40,11 @@
                     <div class="col-md-5">
                         <label><h4>Nro. Identificación</h4></label>
                         <label><h4> </h4></label>
-                        <input type="text" class="form-control" [(ngModel)]="infoUsuario.nroIdentificacion" value = {{infoUsuario.nroIdentificacion}} [disabled] = "isDisabled">
+                        <input type="text" class="form-control"  value = {{infoUsuario.nroIdentificacion}} disabled>
                     </div>
                     <div class="col-md-6">
                         <label ><h4>Correo Electrónico</h4></label>
-                        <input type="text" class="form-control" [(ngModel)]="infoUsuario.email" value={{infoUsuario.email}} [disabled] = "isDisabled">
+                        <input type="text" class="form-control" value={{infoUsuario.email}}  disabled>
                     </div>
                 </div>
                 <br>
@@ -57,8 +57,9 @@
                         </div>
                         <div class="col-md-6">
                             <label ><h4>Estado Civil</h4></label>
-                            <select class="form-control" disabled>
+                            <select class="form-control" [disabled] = "isDisabled">
                                 <option>{{estadoCivil}}</option>
+                                <option>{{estados}}</option>
                             </select>
                         </div>
 
