@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'payment-message',
     loadChildren: () => import('./payment-message/payment-message.module').then( m => m.PaymentMessagePageModule)
+  },
+  {
+    path: 'confirmacion-paypal',
+    loadChildren: () => import('./confirmacion-paypal/confirmacion-paypal.module').then( m => m.ConfirmacionPaypalPageModule)
   }
 ];
 

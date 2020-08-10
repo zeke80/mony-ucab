@@ -134,9 +134,9 @@ export class PagoPaypalPage implements OnInit {
             .subscribe(
               (data: any) =>
               {
-                console.log(data.links[1].href);
+                //console.log(data.links[1].href);
                // data.links[1].href
-                this.openWebPage(data.links[1].href);
+                this.detallePaypal(data); 
               },
               err =>{
                 console.log(err);
@@ -151,8 +151,13 @@ export class PagoPaypalPage implements OnInit {
   }
 
   
-  openWebPage(url){
+  async openWebPage(url){
     const browser = this.inAppBrowser.create(url, '_system')
+  }
+
+  async detallePaypal(data){
+    await this.openWebPage(data.links[1].href);//pasar al localstorage los valores de data
+    await this.router.navigate(['tabs/operaciones/reintegro-detalle/pago-paypal/confirmacion-paypal']);//placeholder confirmacion-paypal
   }
 
   ngOnInit() {
