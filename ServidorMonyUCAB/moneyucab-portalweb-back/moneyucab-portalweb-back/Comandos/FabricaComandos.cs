@@ -8,6 +8,9 @@ using moneyucab_portalweb_back.Comandos.ComandosService.Utilidades.Email;
 using moneyucab_portalweb_back.EntitiesForm;
 using moneyucab_portalweb_back.Models;
 using NpgsqlTypes;
+using System.Collections.Generic;
+using PayPal;
+using PayPal.Api;
 
 namespace moneyucab_portalweb_back.Comandos
 {
@@ -371,6 +374,35 @@ namespace moneyucab_portalweb_back.Comandos
         public static Comando_Recuperacion_Usuario Fabricar_Cmd_Recuperacion_Usuario(UserManager<Usuario> UserManager, string Email, ApplicationSettings AppSettings, IEmailSender EmailSender)
         {
             return new Comando_Recuperacion_Usuario(UserManager, Email, AppSettings, EmailSender);
+        }
+
+        public static Comando_Cambio_Status Fabricar_Cmd_Cambio_Status(bool Reg, int IdOperacion, int Status)
+        {
+            return new Comando_Cambio_Status(Reg, IdOperacion, Status);
+        }
+
+        public static Comando_Pago_Paypal Fabricar_Cmd_Pago_Paypal(bool Reg, int IdOperacion, string Referencia)
+        {
+            return new Comando_Pago_Paypal(Reg, IdOperacion, Referencia);
+        }
+
+        public static Comando_Pago_Stripe Fabricar_Cmd_Pago_Stripe(bool Reg, int IdOperacion, string Referencia)
+        {
+            return new Comando_Pago_Stripe(Reg, IdOperacion, Referencia);
+        }
+
+        public static Comando_Crear_Pago_Stripe Fabricar_Cmd_Stripe_Payouts(int amount, string emailReceptor, string descripcion,bool reg, int idOperacion)
+        {
+            return new Comando_Crear_Pago_Stripe(amount, emailReceptor, descripcion, reg, idOperacion);
+        }
+        public static Comando_Crear_Pago_Paypal Fabricar_Cmd_Crear_Pago_Paypal(string BaseUrl, string Intent, Payment ListaT)
+        {
+            return new Comando_Crear_Pago_Paypal(BaseUrl, Intent, ListaT);
+        }
+
+        public static Comando_Ejecutar_Pago_Paypal Fabricar_Cmd_Ejecutar_Pago_Paypal(string IdPago, string IdUsuarioPagante)
+        {
+            return new Comando_Ejecutar_Pago_Paypal(IdPago, IdUsuarioPagante);
         }
     }
 }

@@ -647,5 +647,38 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
         void BotonPagoMonedero(int IdUsuario, string UsuarioDestino, double Monto);
+
+        /// <summary>
+        /// Se realiza un cambio de estatus a una operación debido au n servicio externo.
+        /// </summary>
+        /// <param name="Reg">Indica a través de un valor booleano si es un registro de Reintegro o Pago.</param>
+        /// <param name="IdOperacion">Indica un id de la operación específica para el cambio de status</param>
+        /// <param name="Status">Status al cual se actualizara la operación.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void CambioEstatus(bool Reg, int IdOperacion, int Status);
+
+        /// <summary>
+        /// Se realiza el registro de pago por PayPal en la pltaforma.
+        /// </summary>
+        /// <param name="Reg">Indica a través de un valor booleano si es un registro de Reintegro o Pago.</param>
+        /// <param name="IdOperacion">Indica un id de la operación específica para el cambio de status</param>
+        /// <param name="Referencia">Establece el número de referencia para la plataforma externa</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void PagoPaypal(bool Reg, int IdOperacion, string Referencia);
+
+        /// <summary>
+        /// Se realiza el registro de pago por Stripe en la plataforma.
+        /// </summary>
+        /// <param name="Reg">Indica a través de un valor booleano si es un registro de Reintegro o Pago.</param>
+        /// <param name="IdOperacion">Indica un id de la operación específica para el cambio de status</param>
+        /// <param name="Referencia">Establece el número de referencia para la plataforma externa.</param>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        void PagoStripe(bool Reg, int IdOperacion, string Referencia);
     }
 }

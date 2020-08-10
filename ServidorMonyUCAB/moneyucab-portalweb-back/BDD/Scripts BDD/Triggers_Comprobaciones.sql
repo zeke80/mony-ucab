@@ -6,7 +6,6 @@
 -----.Registro Comercio
 -----.Registro Persona
 -----.Registro de contacto dentro del comercio
-
 --Validación de registro de comercio
 DROP TRIGGER IF EXISTS validar_comercioT ON Comercio CASCADE;
 CREATE OR REPLACE FUNCTION validar_comercio()
@@ -47,7 +46,7 @@ LANGUAGE plpgsql
 AS $BODY$
 DECLARE
 BEGIN
-	IF EXISTS (SELECT * FROM Persona WHERE idUsuario = new.idUsuario and estatus <> 4) THEN
+	IF EXISTS (SELECT * FROM Persona WHERE idUsuario = new.idUsuario) THEN
 		
 		RAISE EXCEPTION 'Ya hay un registro de persona asignado al usuario';
 		RETURN NULL;

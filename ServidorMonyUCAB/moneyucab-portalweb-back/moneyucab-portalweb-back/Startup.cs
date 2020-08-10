@@ -16,6 +16,7 @@ using moneyucab_portalweb_back.Migrations;
 using moneyucab_portalweb_back.Models;
 using moneyucab_portalweb_back.Services.Middleware;
 using moneyucab_portalweb_back.Services.Middleware.ActionFilter;
+using moneyucab_portalweb_back.Services.PagoExterno;
 using System;
 using System.Text;
 
@@ -33,6 +34,7 @@ namespace moneyucab_portalweb_back
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            PaypalConfiguration.Configuration = Configuration;
             // Inject App Settings
             services.Configure<ApplicationSettings>(Configuration.GetSection("ApplicationSettings"));
             //RF12

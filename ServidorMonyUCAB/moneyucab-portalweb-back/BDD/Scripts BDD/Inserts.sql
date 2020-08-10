@@ -111,7 +111,8 @@ INSERT INTO TipoOperacion (descripcion, estatus)
 VALUES ('Transferencia', 1),
 ('Recarga', 1),
 ('Retiro', 1),
-('Cierre', 1);
+('Cierre', 1),
+('Recepción de transferencia', 1);
 
 --Estatus de Reintegro:
 --'En Proceso': Se está ejecutando el pago. Si es fallido entonces vuelve a solicitado.
