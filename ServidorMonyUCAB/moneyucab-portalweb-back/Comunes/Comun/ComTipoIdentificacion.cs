@@ -47,10 +47,38 @@ namespace Comunes.Comun
 
         public void LlenadoDataNpgsql(NpgsqlDataReader Data)
         {
-            this.idTipoIdentificacion = Data.GetInt32(0 + offset);
-            this.codigo = Data.GetChar(1 + offset);
-            this.descripcion = Data.GetString(2 + offset);
-            this.estatus = Data.GetInt32(3 + offset);
+            try
+            {
+                this.idTipoIdentificacion = Data.GetInt32(0 + offset);
+            }
+            catch (InvalidCastException ex)
+            {
+                this.idTipoIdentificacion = 0;
+            }
+            try
+            {
+                this.codigo = Data.GetChar(1 + offset);
+            }
+            catch (InvalidCastException ex)
+            {
+                this.codigo = '';
+            }
+            try
+            {
+                this.descripcion = Data.GetString(2 + offset);
+            }
+            catch (InvalidCastException ex)
+            {
+                this.descripcion = "";
+            }
+            try
+            {
+                this.estatus = Data.GetInt32(3 + offset);
+            }
+            catch (InvalidCastException ex)
+            {
+                this.estatus = 0;
+            }
         }
     }
 }
