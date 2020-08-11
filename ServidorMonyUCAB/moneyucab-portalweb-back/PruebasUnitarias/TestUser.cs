@@ -72,9 +72,9 @@ namespace PruebasUnitarias
 
         public async void eliminar()
         {
-            dynamic infoPerosona = await APITest.InformacionPersona(infoUser.Usuario,infoLogin);
+            /*dynamic infoPerosona = await APITest.InformacionPersona(infoUser.Usuario,infoLogin);
             int idUsuario = infoPerosona.result.idUsuario;
-            await APITest.EliminarUsuario(idUsuario);
+            await APITest.EliminarUsuario(idUsuario);*/
         }
     }
 }

@@ -26,9 +26,14 @@ namespace PruebasUnitarias
         [TestMethod]
         public void cobros_activos()
         {
-            /*Task<HttpResponseMessage> res = APITest.CobrosActivos();
+            int idUsuario = 1;
+            int solicitante = 2;
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.CobrosActivos(idUsuario, solicitante);
+            }).Wait();
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);*/
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
     }
 }

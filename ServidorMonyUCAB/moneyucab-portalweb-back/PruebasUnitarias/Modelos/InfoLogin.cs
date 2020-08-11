@@ -8,14 +8,14 @@ namespace PruebasUnitarias.Modelos
 {
     class InfoLogin
     {
-        string userName;
-        string email;
-        string password;
-        bool comercio;
+        public string username { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public bool comercio { get; set; }
 
-        public string UserName { get => userName; set => userName = value; }
-        public string Email { get => email; set => email = value; }
-        public string Password { get => password; set => password = value; }
-        public bool Comercio { get => comercio; set => comercio = value; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public bool Comercio { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -15,20 +16,27 @@ namespace PruebasUnitarias
     {
         static HttpClient client = new HttpClient();
         static string url = "http://monyucab.somee.com";
-        static InfoLogin loginTestUser1 = new InfoLogin
+        static dynamic loginTestUser1 = new
         {
-            UserName = "TestUser1",
-            Email = "TestUser1@gmail.com",
-            Password = "PassTestUser1",
-            Comercio = false,
+            username = "TestUser1",
+            email = "testuser1@gmail.com",
+            password = "PassTestUser1",
+            comercio = false,
         };
-        static InfoLogin loginTestUser2 = new InfoLogin
+        /*static InfoLogin loginTestUser2 = new InfoLogin
         {
             UserName = "TestUser2",
             Email = "TestUser2@gmail.com",
             Password = "PassTestUser2",
             Comercio = false,
         };
+        static InfoLogin loginTestUser3 = new InfoLogin
+        {
+            UserName = "TestUser3",
+            Email = "TestUser3@gmail.com",
+            Password = "PassTestUser3",
+            Comercio = false,
+        };*/
         static string token;
 
         /*public async static Task<string> getToken()
@@ -101,15 +109,17 @@ namespace PruebasUnitarias
             return await client.PostAsync(url + "/api/authentication/RegisterFamiliar", data);
         }
 
-        public static async Task<HttpResponseMessage> login(InfoLogin login)
+        public static async Task<HttpResponseMessage> login(dynamic infoLogin)
         {
-            var data = serializarObjetoJson(login);
+            var data = serializarObjetoJson(infoLogin);
             HttpResponseMessage res = await client.PostAsync(url + "/api/authentication/login", data);
-            
-            dynamic respuesta = JsonConvert.DeserializeObject(res.Content.ReadAsStringAsync().Result);
-            token = respuesta.result.token;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            
+
+            if (res.StatusCode == HttpStatusCode.OK)
+            {
+                dynamic respuesta = JsonConvert.DeserializeObject(res.Content.ReadAsStringAsync().Result);
+                token = respuesta.result.token;
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             return res;
         }
 
@@ -238,60 +248,60 @@ namespace PruebasUnitarias
 
         ///ConsultasUsuario///
 
-        public static async Task<HttpResponseMessage> Tarjetas(int id, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> Tarjetas(int idUsuario)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/Tarjetas?IdUsuario=" + id);
+            return await client.GetAsync(url + "/api/dashboard/Tarjetas?idUsuario=" + idUsuario);
         }
-        public static async Task<HttpResponseMessage> Cuentas(int id, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> Cuentas(int idUsuario)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/Cuentas?IdUsuario=" + id);
-        }
-
-        public static async Task<HttpResponseMessage> ReintegrosActivos(int idUsuario, InfoLogin loginTestUser1)
-        {
-            await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/ReintegrosActivos?IdUsuario="+ idUsuario +"&solicitante=0");
+            return await client.GetAsync(url + "/api/dashboard/Cuentas?idUsuario=" + idUsuario);
         }
 
-        public static async Task<HttpResponseMessage> ReintegrosCancelados(int idUsuario, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> ReintegrosActivos(int idUsuario)
+        {
+            await login(loginTestUser1);
+            return await client.GetAsync(url + "/api/dashboard/ReintegrosActivos?idUsuario="+ idUsuario + "&solicitante=0");
+        }
+
+        public static async Task<HttpResponseMessage> ReintegrosCancelados(int idUsuario)
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosCancelados?UsuarioId="+ idUsuario +"&solicitante=0");
         }
 
-        public static async Task<HttpResponseMessage> ReintegrosExitosos(int idUsuario, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> ReintegrosExitosos(int idUsuario)
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/ReintegrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0" );
         }
 
-        public static async Task<HttpResponseMessage> CobrosActivos(int idUsuario, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> CobrosActivos(int idUsuario, int solicitante)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/CobrosActivos?IdUsuario=" + idUsuario + "&solicitante=0");
+            return await client.GetAsync(url + "/api/dashboard/CobrosActivos?idUsuario=" + idUsuario + "&solicitante=" + solicitante);
         }
 
-        public static async Task<HttpResponseMessage> CobrosCancelados(int idUsuario, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> CobrosCancelados(int idUsuario, int solicitante)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/CobrosCancelados?UsuarioId=" + idUsuario + "&solicitante=0");
+            return await client.GetAsync(url + "/api/dashboard/CobrosCancelados?UsuarioId=" + idUsuario + "&solicitante=" + solicitante);
         }
 
-        public static async Task<HttpResponseMessage> CobrosExitosos(int idUsuario, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> CobrosExitosos(int idUsuario, int solicitante)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=0");
+            return await client.GetAsync(url + "/api/dashboard/CobrosExitosos?UsuarioId=" + idUsuario + "&solicitante=" + solicitante);
         }
 
-        public static async Task<HttpResponseMessage> ParametrosUsuario(string user, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> ParametrosUsuario(int idUsuario)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/dashboard/ParametrosUsuario?UsuarioId=" + user);
+            return await client.GetAsync(url + "/api/dashboard/ParametrosUsuario?idUsuario=" + idUsuario);
         }
 
-        public static async Task<HttpResponseMessage> InformacionPersona(string user, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> InformacionPersona(string user)
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/InformacionPersona?Usuario=" + user);
@@ -328,7 +338,7 @@ namespace PruebasUnitarias
         public static async Task<HttpResponseMessage> EjecutarCierre(dynamic id)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?IdUsuario=" + id);
+            return await client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?idUsuario=" + id);
         }
 
         //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
@@ -336,7 +346,7 @@ namespace PruebasUnitarias
         public static async Task<HttpResponseMessage> Consultar(dynamic id)
         {
             await login(loginTestUser1);
-            return await client.GetAsync(url + "/api/monedero/Consultar?idusuario=" + id);
+            return await client.GetAsync(url + "/api/monedero/Consultar?idUsuario=" + id);
         }
 
         public static async Task<HttpResponseMessage> RecargaMonederoTarjeta(dynamic info)
@@ -353,7 +363,7 @@ namespace PruebasUnitarias
             return await client.PostAsync(url + "/api/monedero/RecargaMonederoCuenta", data);
         }
 
-        public static async Task<HttpResponseMessage> Retiro(RecargaSaldoUsuario recarga, InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> Retiro(dynamic recarga, InfoLogin loginTestUser1)
         {
             await login(loginTestUser1);
             var data = serializarObjetoJson(recarga);

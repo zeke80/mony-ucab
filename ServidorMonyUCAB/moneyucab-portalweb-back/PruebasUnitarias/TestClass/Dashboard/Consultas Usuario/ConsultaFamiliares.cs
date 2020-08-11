@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,18 @@ namespace PruebasUnitarias.TestClass.Dashboard.Consultas_Usuario
         [TestCleanup]
         public void TestCleanup()
         {
+        }
+
+        [TestMethod]
+        public void consulta_familiares()
+        {
+            int idUsuario = 1;
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ConsultaUsuariosF(idUsuario);
+            }).Wait();
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
     }
 }

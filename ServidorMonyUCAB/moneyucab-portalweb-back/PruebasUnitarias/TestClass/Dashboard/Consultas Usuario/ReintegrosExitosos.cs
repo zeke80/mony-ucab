@@ -60,9 +60,13 @@ namespace PruebasUnitarias
         [TestMethod]
         public void reintergros_exitosos()
         {
-            Task<HttpResponseMessage> res = APITest.ReintegrosExitosos(10, loginAdmin1);
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            int idUsuario = 1;
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ReintegrosExitosos(idUsuario);
+            }).Wait();
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
     }
 }
