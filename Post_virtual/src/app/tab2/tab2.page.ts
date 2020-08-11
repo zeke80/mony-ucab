@@ -91,6 +91,8 @@ export class Tab2Page implements OnInit {
     this._cuentaServices.obtenerCuentas().subscribe(
       (data: any) =>{
         this.banco = data;
+        localStorage.setItem('idCuentaMonedero',this.banco[0]._idCuenta);
+        //console.log(localStorage.getItem('idCuentaMonedero'));
         this.cuentas = data;
         //console.log(data);
       }

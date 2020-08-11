@@ -61,7 +61,22 @@ export class ReintegroService {
   }
 
 
+  pagarReintegroMonedero(body){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    
+    var body2 =  {
+      "idUsuarioReceptor":3,
+      "idMedioPaga":4,
+      "monto":70,
+      "idOperacion":7
+  }
+    
+    console.log(body);
+    return this.http.post('http://localhost:49683/api/transfer/RealizarReintegromonedero',body, {headers: header});
+  }
 
+
+  
 
 }
 
