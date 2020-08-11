@@ -25,6 +25,9 @@ export class OperacionDetallePage implements OnInit {
   fecha: any;
   aux: boolean = true;
   idusuarioRealizador: number;
+  referencia: string;
+  monto: number;
+
 
   constructor(
     public _operacionServices: OperacionService,
@@ -38,39 +41,59 @@ export class OperacionDetallePage implements OnInit {
 
   ngOnInit() {
 
-      this._activatedRoute.paramMap.subscribe(paramMap => {
-      const recipeID = paramMap.get('operacionID');
-      let id: number = +recipeID;
-      this.operacion = this._operacionServices.getoperacionCuenta(id);
-    });
+    //   this._activatedRoute.paramMap.subscribe(paramMap => {
+    //   const recipeID = paramMap.get('operacionID');
+    //   let id: number = +recipeID;
+    //   this.operacion = this._operacionServices.getoperacionCuenta(id);
+    // });
     this.usuario = this._usuarioServices.getUsuario();
-    this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
-        .subscribe((data: any) => {
-          this.user = data.usuario;
-          this.idreceptor = data.idusuario;
-        });
-    this._cuentaServices.infoCuenta(this.operacion.idcuenta)
-        .subscribe((data: any) => {
-          this.nroCuenta = data.numero;
-          this.idusuarioRealizador = data.idusuario;
-          this._usuarioServices.inforUsurio(this.idusuarioRealizador)
-              .subscribe((data: any) => {
-                this.userR = data.usuario;
-              });
-        });
-    this._personaServices.getPersona(this.operacion.idUsuarioReceptor)
-        .subscribe((data: any) => {
-          if (data) {
-            this.aux = false;
-            console.log('estado 2 de aux: ' + this.aux);
-          }
-          else {
-            this.aux = true;
-            console.log('estado 2 de aux: ' + this.aux);
-          }
-        });
-    this.fecha = this.operacion.fecha.split('T', 1 );
-
+    let routeUrl = this.router.url;
+    console.log(routeUrl);
+    let routeSplit = routeUrl.split('/')
+    console.log(routeSplit);
+    this._operacionServices.getoperacionesCuenta(10).subscribe(operaciones => {
+      console.log('Operaciones ', operaciones['length']);
+      for (let i = 0; i < operaciones['length']; i++) {
+        const element = operaciones[i];
+        if (element['idOperacionCuenta'] === Number(routeSplit[4]))
+        {
+          console.log(element)
+          this.fecha = element['fecha'];
+          this.referencia = element['referencia'];
+          this.monto = element['monto'];
+        }
+      }
+    })
+    // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
+    //     .subscribe((data: any) => {
+    //       this.user = data.usuario;
+    //       this.idreceptor = data.idusuario;
+    //     });
+    // this._usuarioServices.getUserInfo(this.operacion.idUsuarioReceptor).subscribe((data:any) => {
+    //   console.log(data);
+    // })     
+    // this._cuentaServices.infoCuenta(this.operacion.idcuenta)
+    //     .subscribe((data: any) => {
+    //       this.nroCuenta = data.numero;
+    //       this.idusuarioRealizador = data.idusuario;
+    //       this._usuarioServices.inforUsurio(this.idusuarioRealizador)
+    //           .subscribe((data: any) => {
+    //             this.userR = data.usuario;
+    //           });
+    //     });
+    // this._personaServices.getPersona(this.operacion.idUsuarioReceptor)
+    //     .subscribe((data: any) => {
+    //       if (data) {
+    //         this.aux = false;
+    //         console.log('estado 2 de aux: ' + this.aux);
+    //       }
+    //       else {
+    //         this.aux = true;
+    //         console.log('estado 2 de aux: ' + this.aux);
+    //       }
+    //     });
+    // this.fecha = this.operacion.fecha.split('T', 1 );
+  
   }
 
   SolicitarReintegro() {
