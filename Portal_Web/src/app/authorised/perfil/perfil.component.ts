@@ -6,6 +6,8 @@ import { Persona } from './../../models/persona.model';
 import { Comercio } from './../../models/comercio.model';
 
 import { PerfilService } from './services/perfil.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -50,7 +52,7 @@ export class PerfilComponent implements OnInit {
   constructor(public s_perfil : PerfilService) { }
 
   ngOnInit(): void {
-    this.consutarPersona();
+    this.consutarInfo();
   }
 
   fechaNacimientoString(fechaNacimiento : any){    
@@ -58,38 +60,53 @@ export class PerfilComponent implements OnInit {
     ;
   }
 
-  consutarPersona(){
+  mostrarPersona(data : any){
+    if ( data.estadoCivil.codigo == 'C'){
+      this.estadoCivil = "Casado"
+    }
+    else{
+      this.estadoCivil = "Soltero"
+    }
+    this.idEstadoCivil == data.estadoCivil.idEstadoCivil;
+    this.infoPersona.nombre = data.persona.nombre;
+    this.infoPersona.apellido = data.persona.apellido;
+    this.infoPersona.fechaNacimiento = this.fechaNacimientoString(data.persona.fechaNacimiento);
+    this.infoUsuario.email = data.result.email;
+    this.infoUsuario.telefono = data.result.telefono;
+    this.infoUsuario.direccion = data.result.direccion;
+    this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
+    this.tipoIdentificacion = data.tipoIdentificacion.codigo;
+
+  }
+
+  mostrarComercio(data : any){
+    console.log('mostrar comercio')
+    this.infoPersona.nombre = data.persona.nombre;
+    this.infoPersona.apellido = data.persona.apellido;
+    this.infoUsuario.email = data.result.email;
+    this.infoUsuario.telefono = data.result.telefono;
+    this.infoUsuario.direccion = data.result.direccion;
+    this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
+    this.infoComercio.nombreRepresentante = data.comercio.nombreRepresentante;
+    this.infoComercio.apellidoRepresentante = data.comercio.apellidoRepresentante;
+
+  }
+  consutarInfo(){
     this.s_perfil.consultar().subscribe(
       (data : any) => {
-        if ( data.estadoCivil.codigo == 'C'){
-          this.estadoCivil = "Casado"
+        localStorage.setItem('id', data.result.idUsuario);  
+        if (data.comercio.razonSocial == ""){
+          this.mostrarPersona(data);
+          this.infoComercio = null;
         }
         else{
-          this.estadoCivil = "Soltero"
+          this.infoPersona = null;
+          this.mostrarComercio(data);
         }
-        this.idEstadoCivil == data.estadoCivil.idEstadoCivil;
-        this.infoPersona.nombre = data.persona.nombre;
-        this.infoPersona.apellido = data.persona.apellido;
-        this.infoPersona.fechaNacimiento = this.fechaNacimientoString(data.persona.fechaNacimiento);
-        this.infoUsuario.email = data.result.email;
-        this.infoUsuario.telefono = data.result.telefono;
-        this.infoUsuario.direccion = data.result.direccion;
-        this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
-        this.tipoIdentificacion = data.tipoIdentificacion.codigo;
       }
-    );/*this.s_perfil.consultarPersona().subscribe((data : any) => {
-      if (data.idestadocivil == 1){
-        this.estadoCivil = "SOLTERO"
-      }
-      else {
-        this.estadoCivil = "CASADO"
-      }
-      this.infoPersona.nombre = data.nombre;
-      this.infoPersona.apellido = data.apellido;
-      this.infoPersona.fechaNacimiento = data.fecha_nacimiento;
-    }
-    ); */
-    
+    );
+
+      
     this.infoComercio = null;
   }
 
@@ -98,10 +115,8 @@ export class PerfilComponent implements OnInit {
 
     this.s_perfil.consultarEstadosCiviles().subscribe(
       (data : any) => {
-        console.log(data);
         if (data.codigo == 'C'){
           this.estados = "Casado"
-          console.log("gola")
         }
         else{
           this.estados = "Soltero"
@@ -115,32 +130,51 @@ export class PerfilComponent implements OnInit {
     this.isDisabled = true;
   }
 
-  guardarCambios(){
+  modificar(){
 
-    
-
-
-   /* this.s_perfil.ajustarUsuario(
-      this.infoUsuario.email, this.infoUsuario.telefono, this.infoUsuario.direccion, this.infoUsuario.nroIdentificacion)
-      .subscribe((data : any) =>{
-    });
-
-
-    if(this.infoUsuario.idTipoUsuario == 1){      
-      this.s_perfil.ajustarPersona(this.infoPersona.nombre, this.infoPersona.apellido).subscribe((data:any) => 
-      {
-        if (data ==true)
-        alert('Cambios guardados');
-      })
+    if (this.infoPersona == null){
+      this.s_perfil.modificar(
+        this.infoComercio.nombreRepresentante,
+        this.infoComercio.apellidoRepresentante,
+        this.infoUsuario.telefono,
+        this.infoUsuario.direccion,
+        this.infoComercio.razonSocial,
+        1
+      ).subscribe(  
+        (data : any) => {
+          alert(data.message);
+        },
+        (err : HttpErrorResponse) =>{
+          alert(err.error);
+        }
+        );  
     }
-    else if (this.infoUsuario.idTipoUsuario == 2) {
-      this.s_perfil.ajustarComercio(this.infoComercio.razonSocial, this.infoComercio.nombreRepresentante, this.infoComercio.apellidoRepresentante)
-      .subscribe((data : any) =>{
-          if (data ==true)
-          alert('Cambios guardados');
-          
-      });}
-       */
+     else {
+       this.s_perfil.modificar(
+         this.infoPersona.nombre,
+         this.infoPersona.apellido,
+         this.infoUsuario.telefono,
+         this.infoUsuario.direccion,
+         "",
+         2
+       ).subscribe(  
+        (data : any) => {
+          alert(data.message);
+        },
+        (err : HttpErrorResponse) =>{
+          alert(err.error);
+        }
+        );  
+     } 
+  }
+
+  guardarCambios(){
+    this.modificar();
+
+    this.s_perfil.refreshInfo
+    .subscribe(() =>{
+      this.consutarInfo();
+    });
       this.cancelar();
   }
 
