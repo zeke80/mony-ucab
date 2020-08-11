@@ -69,7 +69,7 @@ namespace PruebasUnitarias
         public static async Task<HttpResponseMessage> EliminarUsuario(int idUsuario)
         {
             await login(loginTestUser1);
-            return await client.PostAsync(url + "/api/Admin/EliminarUsuario?idUsuario=" + idUsuario, null);
+            return await client.DeleteAsync(url + "/api/Admin/EliminarUsuario?idUsuario=" + idUsuario);
         }
 
         public static async Task<HttpResponseMessage> EstablecerLimiteParametro(dynamic infoParametro)
