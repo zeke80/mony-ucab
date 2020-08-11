@@ -14,11 +14,11 @@ LANGUAGE plpgsql
 AS $BODY$
 DECLARE
 BEGIN
-	IF NOT EXISTS (SELECT * FROM Persona WHERE idUsuario = new.idUsuario) THEN
+	/*IF NOT EXISTS (SELECT * FROM Persona WHERE idUsuario = new.idUsuario) THEN
 		
 		RAISE EXCEPTION 'El usuario no está registrado como persona para poder realizar el registro';
 		RETURN NULL;
-	END IF;
+	END IF;*/
 	IF EXISTS (SELECT * FROM Comercio WHERE razon_social = new.razon_social) THEN
 		
 		RAISE EXCEPTION 'Ya hay un comercio con la misma razón social';

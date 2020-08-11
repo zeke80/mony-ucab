@@ -425,7 +425,7 @@ LANGUAGE plpgsql;
 --[x]
 CREATE OR REPLACE FUNCTION Parametros_Usuario(INT)
 			RETURNS TABLE(	idusuario int, idparametros int, validacion varchar, estatus int,
-							idparametro int,idtipoparametro int,idfrecuencia_parametro int, nombre varchar, estatus_parametro int,
+							idparametro int,idtipoparametro int,idfrecuencia_parametro int, nombre varchar, estatus_parametro int, limite varchar,
 						  	idtipoparametro_tipo_parametro int, descripcion_tipo_parametro varchar, estatus_tipo_parametro int,
 						  	idfrecuencia int, codigo_frecuencia char, descripcion_frecuencia varchar, estatus_frecuencia int) AS $BODY$
 DECLARE
@@ -955,9 +955,9 @@ $$;
 
 --Consulta de usuario familiar
 CREATE OR REPLACE FUNCTION Consultar_Usuario_Familiar(INT)
-												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int,
+												RETURNS TABLE(idusuario int, idtipousuario int, idtipoidentificacion_usuario int, "identity" text, usuario varchar, fecha_registro date, nro_identificacion int, email varchar, telefono varchar, direccion varchar, estatus int, idusuariof int,
 						 	idusuario_persona int, idestadocivil int, nombre_persona varchar, apellido_persona varchar, fecha_nacimiento date,
-						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar,
+						 	idusuario_comercio int, razon_social varchar, nombre_representante varchar, apellido_representante varchar, comision double precision,
 						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
 						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int)
 LANGUAGE plpgsql    
@@ -1167,14 +1167,42 @@ CREATE OR REPLACE FUNCTION Pago_Paypal (BOOLEAN, INT, VARCHAR)
 LANGUAGE plpgsql
 AS $$
 DECLARE
-	
+	id_cuenta_paypal int;
+	response bool;
+	pago_reg Pago%rowtype;
+	reintegro_reg Reintegro%rowtype;
+	monto_reintegro double precision;
+	tipoOperacion int;
 BEGIN
 	--Se realizó un pago
 	IF ($1) THEN
-		UPDATE Pago SET estatus = $3 WHERE idPago = $2;
+		IF EXISTS (SELECT * FROM Pago WHERE Pago.idPago = $2) THEN
+			SELECT * INTO pago_reg FROM Pago WHERE Pago.idPago = $2;
+			SELECT Cuenta.idCuenta INTO id_cuenta_paypal FROM Cuenta JOIN Pago ON Pago.idUsuario_solicitante = Cuenta.idUsuario AND Pago.idPago = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Paypal';
+			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
+				VALUES (pago_reg.idUsuario_Receptor, id_cuenta_paypal, current_date, current_time, pago_reg.monto, $3);
+			UPDATE Pago SET referencia = $3, estatus = 'Consolidado' WHERE idPago = $2;
+			SELECT TipoOperacion.idTipoOperacion into tipoOperacion FROM TipoOperacion WHERE descripcion = 'Recepción de transferencia';
+			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+				VALUES (pago_reg.idUsuario_Receptor, tipoOperacion, pago_reg.monto, current_date, current_time, $3);
+		ELSE
+			RAISE EXCEPTION 'No existe el pago indicado';
+		END IF;
 	--Se realizó un reintegro
 	ELSE
-		UPDATE Reintegro SET estatus = $3 WHERE idReintegro = $2;
+		IF EXISTS (SELECT * FROM Reintegro WHERE Reintegro.idReintegro = $2) THEN
+			SELECT * INTO reintegro_reg FROM Reintegro WHERE Reintegro.idReintegro = $2;
+			SELECT OperacionCuenta.monto + OperacionTarjeta.monto into monto_reintegro FROM OperacionCuenta JOIN OperacionTarjeta ON OperacionTarjeta.referencia = reintegro_reg.referencia  WHERE OperacionCuenta.referencia = reintegro_reg.referencia;
+			SELECT Cuenta.idCuenta INTO id_cuenta_paypal FROM Cuenta JOIN Reintegro ON Reintegro.idUsuario_solicitante = Cuenta.idUsuario AND Reintegro.idReintegro = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Paypal';
+			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
+				VALUES (reintegro_reg.idUsuario_Receptor, id_cuenta_paypal, current_date, current_time,monto_reintegro , $3);
+			UPDATE Reintegro SET referencia = $3, estatus = 'Consolidado' WHERE idReintegro = $2;
+			SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+				VALUES (reintegro_reg.idUsuario_Receptor, tipoOperacion, monto_reintegro, current_date, current_time, $3);
+		ELSE
+			RAISE EXCEPTION 'No existe el reintegro indicado';
+		END IF;
 	END IF;
 	RETURN TRUE;
 END;
@@ -1185,14 +1213,42 @@ CREATE OR REPLACE FUNCTION Pago_Stripe (BOOLEAN, INT, VARCHAR)
 LANGUAGE plpgsql
 AS $$
 DECLARE
-	
+	id_cuenta_stripe int;
+	response bool;
+	pago_reg Pago%rowtype;
+	reintegro_reg Reintegro%rowtype;
+	monto_reintegro double precision;
+	tipoOperacion int;
 BEGIN
 	--Se realizó un pago
 	IF ($1) THEN
-		UPDATE Pago SET estatus = $3 WHERE idPago = $2;
+		IF EXISTS (SELECT * FROM Pago WHERE Pago.idPago = $2) THEN
+			SELECT * INTO pago_reg FROM Pago WHERE Pago.idPago = $2;
+			SELECT Cuenta.idCuenta INTO id_cuenta_stripe FROM Cuenta JOIN Pago ON Pago.idUsuario_solicitante = Cuenta.idUsuario AND Pago.idPago = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Stripe';
+			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
+				VALUES (pago_reg.idUsuario_Receptor, id_cuenta_stripe, current_date, current_time, cast(pago_reg.monto as DECIMAL), $3);
+			UPDATE Pago SET referencia = $3, estatus = 'Consolidado' WHERE idPago = $2;
+			SELECT TipoOperacion.idTipoOperacion into tipoOperacion FROM TipoOperacion WHERE descripcion = 'Recepción de transferencia';
+			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+				VALUES (pago_reg.idUsuario_Receptor, tipoOperacion, cast(pago_reg.monto as DECIMAL), current_date, current_time, $3);
+		ELSE
+			RAISE EXCEPTION 'No existe el pago indicado';
+		END IF;
 	--Se realizó un reintegro
 	ELSE
-		UPDATE Reintegro SET estatus = $3 WHERE idReintegro = $2;
+		IF EXISTS (SELECT * FROM Reintegro WHERE Reintegro.idReintegro = $2) THEN
+			SELECT * INTO reintegro_reg FROM Reintegro WHERE Reintegro.idReintegro = $2;
+			SELECT OperacionCuenta.monto + OperacionTarjeta.monto FROM OperacionCuenta into monto_reintegro JOIN OperacionTarjeta ON OperacionTarjeta.referencia = reintegro_reg.referencia  WHERE OperacionCuenta.referencia = reintegro_reg.referencia;
+			SELECT Cuenta.idCuenta INTO id_cuenta_stripe FROM Cuenta JOIN Reintegro ON Reintegro.idUsuario_solicitante = Cuenta.idUsuario AND Reintegro.idReintegro = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Stripe';
+			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
+				VALUES (reintegro_reg.idUsuario_Receptor, id_cuenta_stripe, current_date, current_time, cast(monto_reintegro as DECIMAL) , $3);
+			UPDATE Reintegro SET referencia = $3, estatus = 'Consolidado' WHERE idReintegro = $2;
+			SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
+			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
+				VALUES (reintegro_reg.idUsuario_Receptor, tipoOperacion, cast(monto_reintegro as DECIMAL), current_date, current_time, $3);
+		ELSE
+			RAISE EXCEPTION 'No existe el reintegro indicado';
+		END IF;
 	END IF;
 	RETURN TRUE;
 END;
