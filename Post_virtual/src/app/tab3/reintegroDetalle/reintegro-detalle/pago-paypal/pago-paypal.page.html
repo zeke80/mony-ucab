@@ -1,15 +1,25 @@
-<ion-header>
+<ion-header  [translucent]="true">
   <ion-toolbar>
-    <ion-title>Paypal</ion-title>
+  <ion-buttons slot="start">
+    <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+</ion-buttons>
+
+    <ion-title>
+      <ion-item>
+      <h1 class="ion-text-center" color="dark"><strong>PayPal</strong></h1>
+      <ion-icon name="cash-outline" color="dark"></ion-icon>
+    </ion-item>
+      </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="fondo">
   <ion-card>
     <ion-card-header>
         <ion-row>
             <ion-col>
-                <p class="ion-text-center"><ion-icon name="wallet-outline" color="dark" class="icon" size="large"></ion-icon></p>
+              <p class="ion-text-center"><img src="./assets/imagenes/logo-paypal.svg" width="70px" height="70px" ></p>
             </ion-col>
         </ion-row>
     </ion-card-header>
@@ -17,7 +27,7 @@
       
         <form  (submit)="onSubmit()">
 
-          <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Costo antes de impuestos:</h1></ion-text></strong>
+          <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Monto (sin impuestos):</h1></ion-text></strong>
           <ion-text color="dark"> <h2 class="ion-text-center" >$ {{costo}}</h2></ion-text>
             <ion-item>
                 <strong><ion-label position="fixed">Estado: </ion-label></strong>
@@ -45,10 +55,11 @@
         </ion-item>
              
             <ion-button  (click)="onSubmit()" fill="solid"  expand="block" color="success">
-              PayPal <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+              Enviar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
           </ion-button>
         </form>
 
     </ion-card-contend>
   </ion-card>
+  </div>
 </ion-content>
