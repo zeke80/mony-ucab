@@ -61,7 +61,7 @@ namespace Comunes.Comun
             }
             catch (InvalidCastException ex)
             {
-                this.codigo = '';
+                this.codigo = 'c';
             }
             try
             {
