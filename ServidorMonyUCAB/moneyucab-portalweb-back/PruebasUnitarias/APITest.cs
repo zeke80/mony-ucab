@@ -198,49 +198,49 @@ namespace PruebasUnitarias
             return await client.GetAsync(url + "/api/dashboard/EstadosCiviles");
         }
 
-        public static async Task<HttpResponseMessage> TiposTarjetas(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> TiposTarjetas()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/TiposTarjetas");
         }
 
-        public static async Task<HttpResponseMessage> Bancos(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> Bancos()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/Bancos");
         }
 
-        public static async Task<HttpResponseMessage> TiposCuentas(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> TiposCuentas()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/TiposCuentas");
         }
 
-        public static async Task<HttpResponseMessage> TiposParametros(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> TiposParametros()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/TiposParametros");
         }
         
-        public static async Task<HttpResponseMessage> Frecuencias(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> Frecuencias()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/Frecuencias");
         }
 
         // error desonocido en peticion de parametros
-        public static async Task<HttpResponseMessage> Parametros(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> Parametros()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/Parametros");
         }
-        public static async Task<HttpResponseMessage> TiposOperaciones(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> TiposOperaciones()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/TiposOperaciones");
         }
 
-        public static async Task<HttpResponseMessage> TiposIdentificaciones(InfoLogin loginTestUser1)
+        public static async Task<HttpResponseMessage> TiposIdentificaciones()
         {
             await login(loginTestUser1);
             return await client.GetAsync(url + "/api/dashboard/TiposIdentificaciones");
