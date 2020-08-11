@@ -90,6 +90,12 @@
           <label>Apellido Representante (*)</label>
           <input type="text" class="form-control" formControlName="apellidoRepresentante">
         </div>
+
+        <div class="form-group col-md-3">
+          <label>Comision</label>
+          <input type="text" class="form-control" formControlName="comision">
+          {{formComercio.get('comision').value}}
+        </div>
       </div>
     </form>
   </div>

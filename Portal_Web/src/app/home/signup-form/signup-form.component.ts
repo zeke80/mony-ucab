@@ -25,7 +25,7 @@ export class SignupFormComponent implements OnInit {
   idTipoUsuario = 1;  
   contrasena = '';
 
-  ano: string;
+  esPersona = true;
 
 
   formPersona = new FormGroup({
@@ -38,7 +38,8 @@ export class SignupFormComponent implements OnInit {
   formComercio = new FormGroup({
     razonSocial : new FormControl('', Validators.required),
     nombreRepresentante : new FormControl ('', [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
-    apellidoRepresentante : new FormControl('', [Validators.pattern(/^([A-Za-z])*$/), Validators.required])
+    apellidoRepresentante : new FormControl('', [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
+    comision : new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*\.?[0-9]*$/)])
   });
 
   formUsuario = new FormGroup({
@@ -62,6 +63,8 @@ export class SignupFormComponent implements OnInit {
     this.showUsuario = true;
     this.showCards = false;
     this.showComercio = false;
+
+    this.idTipoUsuario = 1;
   }
 
   toggleComercio(){
@@ -69,6 +72,8 @@ export class SignupFormComponent implements OnInit {
     this.showUsuario = true;
     this.showCards = false;
     this.showPersona = false;
+
+    this.idTipoUsuario = 2;
   }
 
   registrarPersona(){
@@ -95,7 +100,7 @@ export class SignupFormComponent implements OnInit {
         parseInt(this.datePipe.transform(Date.now(),'dd'),10))
     .subscribe(
       (res: any)=>{
-        console.log(res);
+        alert(res.message);
         this.router.navigate(['/login']);
       },
       (err : HttpErrorResponse) =>{
@@ -111,6 +116,8 @@ export class SignupFormComponent implements OnInit {
 
   registarComercio(){
     this.contrasena = this.formUsuario.get('contra').value;
+    console.log('hola');
+
     this.s_signup.registrarComercio(
       this.formUsuario.get('usuario').value,
       this.contrasena,
@@ -118,23 +125,29 @@ export class SignupFormComponent implements OnInit {
       this.formUsuario.get('telefono').value,
       this.formUsuario.get('direccion').value,
       parseInt(this.formUsuario.get('numeroId').value,10),
-      1,
+      parseInt(this.formUsuario.get('tipoId').value,10),
       this.formComercio.get('razonSocial').value,
-      this.formComercio.get('nombreRepresentante').value,
-      this.formComercio.get('apellidoRepresentante').value
-      ).subscribe((data: any)=>{
-      },
-      (err : HttpErrorResponse) =>{
-        if (err.status == 400){
-          alert("Datos duplicados. Intente nuevamente")
-        }
-        else if(err.status == 200){
-          alert("Comercio creado")
-        }
-        else {
-          alert("Error inesperado. Intente de nuevo")
-        }
-      });
+      this.formPersona.get('apellido').value,
+      this.formPersona.get('nombre').value,
+      parseFloat(this.formComercio.get('comision').value),
+      parseInt(this.datePipe.transform(Date.now(),'yyyy'),10),
+      parseInt(this.datePipe.transform(Date.now(),'MM'),10),
+      parseInt(this.datePipe.transform(Date.now(),'dd'),10)
+      )
+  .subscribe(
+    (res: any)=>{
+      alert(res.message);
+      this.router.navigate(['/login']);
+    },
+    (err : HttpErrorResponse) =>{
+      if (err.status >= 400){
+        alert(err.error.error);
+      }
+      else {
+        alert("Error inesperado. Vuelva a intentar")
+      }
+    }
+  );
   }
 
   enviar(){
@@ -143,6 +156,7 @@ export class SignupFormComponent implements OnInit {
     }
     else{
       this.registarComercio();
+      
     }
   }
 

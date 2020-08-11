@@ -18,21 +18,32 @@ export class SignupService {
     idTipoId : number,
     razonSocial : string,
     nombre : string,
-    apellido: string
+    apellido: string, 
+    comision : number,
+    anoRegistro : number,
+    mesRegistro : number,
+    diaRegistro : number
   ){
-    let url = "http://monyucab.somee.com/api/Usuario/registrarComercio";
+    let url = "http://monyucab.somee.com/api/authentication/register";
     
-    let body ={
+    let body = {
       "usuario" : usuario,
-      "contrasena" : contra,
-      "razonSocial" : email,
-      "nombre" : telefono,
-      "apellido" : direccion,
-      "comision" : numIdentificacion,
-      "password" : idTipoId,
-
-    }
-
+      "razonSocial" : razonSocial,
+      "email": email,
+      "nombre" : nombre,
+      "apellido" : apellido,
+      "comision" : comision,
+      "password" : contra,
+      "anoRegistro":anoRegistro,
+      "mesRegistro":mesRegistro,
+      "diaRegistro":diaRegistro,
+      "nroIdentificacion": numIdentificacion,
+      "idTipoIdentificacion": idTipoId,
+      "telefono": telefono,
+      "direccion": direccion,
+      "estatus": 1,
+      "comercio": true
+  }
     return this.http.post(url, body);
   }
 
