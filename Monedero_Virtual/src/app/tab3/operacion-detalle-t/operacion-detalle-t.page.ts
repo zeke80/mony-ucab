@@ -26,6 +26,11 @@ export class OperacionDetalleTPage implements OnInit {
   idusuarioRealizador: number;
   aux: boolean = true;
   fecha: any;
+  tarjetas = [];
+  monto: number;
+  referencia:string;
+  getValue: any;
+  getValue1: any;
 
   constructor(
     public _operacionServices: OperacionService,
@@ -39,37 +44,75 @@ export class OperacionDetalleTPage implements OnInit {
    }
 
   ngOnInit() {
-    this._activatedRoute.paramMap.subscribe(paramMap => {
-      const recipeID = paramMap.get('operacionID');
-      let id: number = +recipeID;
-      this.operacion = this._operacionServices.getoperacionTarjeta(id);
-    });
+    // this._activatedRoute.paramMap.subscribe(paramMap => {
+    //   const recipeID = paramMap.get('operacionID');
+    //   let id: number = +recipeID;
+    //   this.operacion = this._operacionServices.getoperacionTarjeta(id);
+    // });
+    this.getValue= this._activatedRoute.snapshot.paramMap.get("idTarjeta")
+    this.getValue1= this._activatedRoute.snapshot.paramMap.get("idOperacionTarjeta")
+    console.log("Params ", this._activatedRoute.snapshot.paramMap.get("idTarjeta"))
+    console.log("Params ", this._activatedRoute.snapshot.paramMap.get("idOperacionTarjeta"))
+
+
     this.usuario = this._usuarioServices.getUsuario();
-    this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
-    .subscribe((data: any) => {
-      this.userR = data.usuario;
-      this.idreceptor = data.idusuario;
-    });
-    this._tarjetaServices.infoTarjeta(this.operacion.idtarjeta)
-        .subscribe((data: any) => {
-          console.log(data);
-          this.nrotarjeta = data.numero;
-          this.idusuarioRealizador = data.idusuario;
-          this._usuarioServices.inforUsurio(this.idusuarioRealizador)
-              .subscribe((data: any) => {
-                this.userS = data.usuario;
-              });
-        });
-    this.fecha = this.operacion.fecha.split('T', 1 );
-    this._personaServices.getPersona(this.operacion.idUsuarioReceptor)
-    .subscribe((data: any) => {
-      if (data) {
-        this.aux = false;
-      }
-      else {
-        this.aux = true;
-      }
-    });
+    let routeUrl = this.router.url;
+    //console.log(routeUrl);
+    let routeSplit = routeUrl.split('/')
+
+    let separator = routeUrl[3].split(';')
+    console.log(routeUrl[3])
+    //console.log(routeSplit);
+
+  
+    // this._operacionServices.getoperacionesTarjeta(1).subscribe(operaciones => {
+    //   console.log('Operaciones ', operaciones['length']);
+    //   for (let i = 0; i < operaciones['length']; i++) {
+    //     const element = operaciones[i];
+    //     if (element['idOperacionTarjeta'] === Number(routeSplit[4]))
+    //     {
+    //       // this._tarjetaServices.obtenerTarjetas(this.usuario.idUsuario).subscribe(
+    //       //   (data: any) => {
+    //       //     //if ()
+    //       //     this.nrotarjeta = data.numero
+    //       //     console.log(data)
+    //       //   }
+    //       // );
+    //       console.log(element)
+    //       this.fecha = element['fecha'];
+    //       this.referencia = element['referencia'];
+    //       this.monto = element['monto'];
+    //     }
+    //   }
+    // })
+    // console.log(routeSplit[4]);
+    // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
+    // .subscribe((data: any) => {
+    //   this.userR = data.usuario;
+    //   this.idreceptor = data.idusuario;
+    // });
+
+  
+    // this._tarjetaServices.infoTarjeta(this.operacion.idtarjeta)
+    //     .subscribe((data: any) => {
+    //       console.log(data);
+    //       this.nrotarjeta = data.numero;
+    //       this.idusuarioRealizador = data.idusuario;
+    //       this._usuarioServices.inforUsurio(this.idusuarioRealizador)
+    //           .subscribe((data: any) => {
+    //             this.userS = data.usuario;
+    //           });
+    //     });
+    // this.fecha = this.operacion.fecha.split('T', 1 );
+    // this._personaServices.getPersona(this.operacion.idUsuarioReceptor)
+    // .subscribe((data: any) => {
+    //   if (data) {
+    //     this.aux = false;
+    //   }
+    //   else {
+    //     this.aux = true;
+    //   }
+    // });
 
   }
 
