@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button defaulHref="/tabs/cuenta"></ion-back-button>
         </ion-buttons>
-        <ion-title>Realizar pago</ion-title>
+        <ion-title>Realizar Cobro</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -16,14 +16,14 @@
             <ion-card-header>
                 <ion-row>
                     <ion-col>
-                        <h1>Especificaciones del pago</h1>
+                        <h1>Especificaciones del Cobro</h1>
                     </ion-col>
                 </ion-row>
             </ion-card-header>
             <ion-card-contend>
                 <form #f='ngForm' (ngSubmit)="realizarSolicitud( f )">
                     <ion-item>
-                        <ion-label position="floating"><strong>Usuario Receptor: </strong></ion-label>
+                        <ion-label position="floating"><strong>E-mail del usuario a cobrar: </strong></ion-label>
                         <ion-input [ngModel]="user" name="user"></ion-input>
                     </ion-item>
                     <ion-item>
