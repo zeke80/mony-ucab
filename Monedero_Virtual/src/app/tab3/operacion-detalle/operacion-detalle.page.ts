@@ -28,7 +28,6 @@ export class OperacionDetallePage implements OnInit {
   referencia: string;
   monto: number;
 
-
   constructor(
     public _operacionServices: OperacionService,
     public _activatedRoute: ActivatedRoute,
@@ -41,29 +40,30 @@ export class OperacionDetallePage implements OnInit {
 
   ngOnInit() {
 
-    //   this._activatedRoute.paramMap.subscribe(paramMap => {
-    //   const recipeID = paramMap.get('operacionID');
-    //   let id: number = +recipeID;
-    //   this.operacion = this._operacionServices.getoperacionCuenta(id);
-    // });
+      this._activatedRoute.paramMap.subscribe(paramMap => {
+      const recipeID = paramMap.get('monedero');
+      let id: number = +recipeID;
+      this.operacion = this._operacionServices.getoperacionCuenta(id);
+    });
+    
     this.usuario = this._usuarioServices.getUsuario();
-    let routeUrl = this.router.url;
-    console.log(routeUrl);
-    let routeSplit = routeUrl.split('/')
-    console.log(routeSplit);
-    this._operacionServices.getoperacionesCuenta(10).subscribe(operaciones => {
-      console.log('Operaciones ', operaciones['length']);
-      for (let i = 0; i < operaciones['length']; i++) {
-        const element = operaciones[i];
-        if (element['idOperacionCuenta'] === Number(routeSplit[4]))
-        {
-          console.log(element)
-          this.fecha = element['fecha'];
-          this.referencia = element['referencia'];
-          this.monto = element['monto'];
+
+    this._cuentaServices.obtenerCuenta(this.usuario.idUsuario).subscribe((data:any) =>{
+        console.log(data.length)
+
+        for (let i = 0; i < data.length; i++) {
+          const element = data[i];
+          console.log(element['_idCuenta'])
+          console.log(this.operacion.idCuenta)
+          if( element['_idCuenta'] === this.operacion.idCuenta){
+          this.nroCuenta = element['numero'];
+          }
         }
-      }
-    })
+       console.log(this.nroCuenta)
+    });
+        
+    //});
+
     // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
     //     .subscribe((data: any) => {
     //       this.user = data.usuario;
@@ -101,6 +101,12 @@ export class OperacionDetallePage implements OnInit {
   }
 
   async reintegroS() {
+    var body = {
+      idUsuarioReceptor : this.usuario.idUsuario,
+      idMedioPaga : 1, 
+      monto : this.operacion.monto,
+      idOperacion : this.operacion.idOperacionCuenta
+    }
     const alertElement = await this.alert.create({
       header: '¿Esta seguro que solicitar reintegro?',
       message: 'Va a solicitar el reintegro de esta operación',
@@ -108,7 +114,8 @@ export class OperacionDetallePage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this._operacionServices.SolicitarReintegro(this.operacion.referencia)
+            console.log(body);
+            this._operacionServices.SolicitarReintegroC(body)
                 .subscribe((data: any) => {
                   this.router.navigate(['/tabs/operaciones']);
                 });
