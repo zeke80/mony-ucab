@@ -92,19 +92,16 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let ocuentas of operaciones"
-                        [routerLink]="['/tabs/operaciones', ocuentas.idOperacionCuenta]">
-                        <!--<ion-footer *ngIf=" ocuentas.idCuenta === 1 || ocuentas.idCuenta === 2" no-border>-->
+                    <ion-item *ngFor="let ocuenta of ocuentas" [routerLink]="['/tabs/operaciones', ocuenta.idOperacionCuenta]" >
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
                             <h1>
-                                $ - {{ocuentas.monto}}
+                                $ - {{ocuenta.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{ocuentas.fecha.day}}/{{ocuentas.fecha.month}}/{{ocuentas.fecha.year}}
+                                Fecha: {{ocuenta.fecha.day}}/{{ocuenta.fecha.month}}/{{ocuenta.fecha.year}}
                             </h2>
                         </ion-label>
-                        <!--</ion-footer> -->
                     </ion-item>
                 </ion-list>
             </ion-card-contend>
@@ -115,15 +112,17 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <!-- [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idOperacionTarjeta]" -->
-                    <ion-item *ngFor="let tarjeta of otarjetas" (click)="test($event, tarjeta)">
+                    <!-- -->
+                    <!--  " -->
+                    <!-- (click)="tarjetasdetail($event, otarjeta)  -->
+                    <ion-item *ngFor="let otarjeta of otarjetas" [routerLink]="['/tabs/operaciones/tarjeta', otarjeta.idOperacionTarjeta] ">
                             <ion-icon slot="start" name="reader-outline"></ion-icon>
                             <ion-label>
                                 <h1>
-                                    $ +{{tarjeta.monto}}
+                                    $ +{{otarjeta.monto}}
                                 </h1>
                                 <h2>
-                                    Fecha: {{tarjeta.fecha.day}}/{{tarjeta.fecha.month}}/{{tarjeta.fecha.year}}
+                                    Fecha: {{otarjeta.fecha.day}}/{{otarjeta.fecha.month}}/{{otarjeta.fecha.year}}
                                 </h2>
                             </ion-label>
                     </ion-item>

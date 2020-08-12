@@ -6,9 +6,6 @@ import { UsuarioService } from '../servicios/usuario/usuario.service';
 import { CuentaService } from '../servicios/cuenta/cuenta.service';
 import { TarjetaService } from '../servicios/tarjeta/tarjeta.service';
 import { Platform, NavController, NavParams } from '@ionic/angular';
-//import {  } from 'ionic-angular';
-//import {  } from 'ionic-angular';
-//import { type } from 'os';
 
 @Component({
   selector: 'app-tab3',
@@ -53,7 +50,7 @@ export class Tab3Page implements OnInit{
     this.reintegros = this._operacionServices.getreintegrosVacio();
    
     if(this.aux){
-    this.getAccountsAndLoadOperations();
+    //this.getAccountsAndLoadOperations();
     this.loadMonederoperations();
     //this.getTargetsAndLoadTargetOperations();
     this.loadTargetOperations();
@@ -93,16 +90,11 @@ export class Tab3Page implements OnInit{
                  console.log("Error en subscribe")
                 });
             }); 
+            console.log("operaciones Tarjetas:",this.otarjetas);
+            this._operacionServices.guardarTarjetas(this.otarjetas);
           });
     }
-
-    public test(event , otarjeta ){
-      // this.navCtrl. push(page2,{
-      // item:item
-      // });
-      this.router.navigate(['/tabs/operaciones/tarjeta/', { idTarjeta: otarjeta['idTarjeta'], idOperacionTarjeta: otarjeta['idOperacionTarjeta']}])
-    } // pasar informacion de una page a otra
-
+    
     loadAccountsOperations(){
       this.cuentas = [];
       this.ocuentas = [];
@@ -117,23 +109,24 @@ export class Tab3Page implements OnInit{
             });
           });
           console.log("Operaciones Cuentas: ",this.ocuentas);
+          this._operacionServices.guardarCuentas(this.ocuentas);
       });
-    }
-    
-    getAccountsAndLoadOperations(){
-      this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
-      .toPromise().then((data: any) => {
-        this.cuentas = data;
-      }).then(()=>this.loadOperations());
-    }
+    } // EN ESPERA HASTA QUE SE SUBA EL ARREGLO DEL JSON AL SERVER
 
-    loadOperations(){
-      for(let cuenta of this.cuentas){
-        this._operacionServices.getoperacionesCuenta(cuenta._idCuenta)
-        .subscribe((data: any) => {
-        this.operaciones=data ;
-        this._operacionServices.guardarCuentas(this.operaciones);
-        });
-      }
-    }
+    // getAccountsAndLoadOperations(){
+    //   this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+    //   .toPromise().then((data: any) => {
+    //     this.cuentas = data;
+    //   }).then(()=>this.loadOperations());
+    // }
+
+    // loadOperations(){
+    //   for(let cuenta of this.cuentas){
+    //     this._operacionServices.getoperacionesCuenta(cuenta._idCuenta)
+    //     .subscribe((data: any) => {
+    //     this.operaciones=data ;
+    //     this._operacionServices.guardarCuentas(this.operaciones);
+    //     });
+    //   }
+    // }
 }

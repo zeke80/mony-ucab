@@ -12,8 +12,8 @@ export class OperacionService {
 
   operacionesCuenta: OperacionCuenta[] = [
     {
-      idoperacioncuenta: 0,
-      idcuenta: 0,
+      idOperacionCuenta: 0,
+      idCuenta: 0,
       idUsuarioReceptor: 0,
       fecha: '',
       hora: '',
@@ -34,9 +34,9 @@ export class OperacionService {
   ];
   operacionesTarjeta: OperacionTarjeta[] = [
     {
-      idoperaciontarjeta: 0,
+      idOperacionTarjeta: 0,
       idUsuarioReceptor: 0,
-      idtarjeta: 0,
+      idTarjeta: 0,
       fecha: '',
       hora: '',
       monto: 0,
@@ -129,10 +129,11 @@ export class OperacionService {
   }
 
 
-  getoperacionCuenta(operacionID: number){
+  getoperacionCuenta(monedero: number){
+    console.log(this.operacionesCuenta)
     return {
       ...this.operacionesCuenta.find(operacion => {
-        return operacion.idoperacioncuenta === operacionID;
+        return operacion.idOperacionCuenta === monedero;
       })
     };
   }
@@ -148,7 +149,7 @@ export class OperacionService {
   getoperacionTarjeta(operacionID: number){
     return {
       ...this.operacionesTarjeta.find(operacion => {
-        return operacion.idoperaciontarjeta === operacionID;
+        return operacion.idOperacionTarjeta === operacionID;
       })
     };
   }
@@ -171,8 +172,18 @@ export class OperacionService {
   //   return this.http.post(url, data);
   // }
 
+  //Nuevo Back
+
   SolicitarReintegroM(body){
      var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroMonedero', body, {headers: tokenHeader});
   }
+  SolicitarReintegroT(body){
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+   return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroTarjeta', body, {headers: tokenHeader});
+ }
+ SolicitarReintegroC(body){
+  var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+ return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroCuenta', body, {headers: tokenHeader});
+}
 }

@@ -45,4 +45,11 @@ export class TarjetaService {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.get('http://monyucab.somee.com/api/dashboard/Tarjetas?IdUsuario=' + usuarioID, {headers: tokenHeader});
   }
+  gettarjeta(operacionID: number){
+    return {
+      ...this.tarjetas.find(operacion => {
+        return operacion.idTarjeta === operacionID;
+      })
+    };
+  }
 }
