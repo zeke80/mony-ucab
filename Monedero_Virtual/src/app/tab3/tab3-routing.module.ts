@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./operacion-detalle/operacion-detalle.module').then( m => m.OperacionDetallePageModule)
   },
   {
-    path: 'operacion-detalle-m/:monedero',
+    path: 'operacion-detalle-m',
     loadChildren: () => import('./operacion-detalle-m/operacion-detalle-m.module').then( m => m.OperacionDetalleMPageModule)
   },
   {
