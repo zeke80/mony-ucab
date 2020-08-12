@@ -7,7 +7,6 @@ import { CuentaService } from '../../servicios/cuenta/cuenta.service';
 import { Usuario } from '../../models/usuario.model';
 import { AlertController } from '@ionic/angular';
 import { PersonaService } from '../../servicios/persona/persona.service';
-import { element } from 'protractor';
 
 
 @Component({
@@ -27,7 +26,6 @@ export class OperacionDetalleMPage implements OnInit {
   referencia: string;
   description: string;
   monto: number;
-  idoperacionm:number;
 
   constructor(
     public _activatedRoute: ActivatedRoute,
@@ -57,25 +55,40 @@ export class OperacionDetalleMPage implements OnInit {
           this.idtipooperacion = element['infoAdicional']['tipoOperacion']['idTipoOperacion'];
           this.fecha = element['fecha'];
           this.referencia = element['referencia'];
-          
           this.description = element['infoAdicional']['tipoOperacion']['descripcion'];
-          this.idoperacionm = element['idOperacionMonedero'];
           if (element['infoAdicional']['operacionCuenta'] !== null && element['infoAdicional']['operacionTarjeta'] === null)
           {
             console.log("Tarjeta null");
             this.monto = element['infoAdicional']['operacionCuenta']['monto'];
-            this.idreceptor = element['infoAdicional']['operacionCuenta']['idUsuarioReceptor']
-            
           }
           else if (element['infoAdicional']['operacionCuenta'] === null && element['infoAdicional']['operacionTarjeta'] !== null)
           {
             console.log("Cuenta null");
             this.monto = element['infoAdicional']['operacionTarjeta']['monto'];
-            this.idreceptor = element['infoAdicional']['operacionTarjeta']['idUsuarioReceptor']
           }
+            
+          // console.log(element['infoAdicional']['operacionTarjeta']['monto']);
+          // console.log(this.recargat);
         }
       }
     })
+
+    // this.usuario = this._usuarioServices.getUsuario();
+    // this._usuarioServices.inforUsurio(this.operacion.idusuario)
+    // .subscribe((data: any) => {
+    //   this.user = data.usuario;
+    //   this.idreceptor = data.idusuario;
+    // });
+    // this.fecha = this.operacion.fecha.split('T', 1 );
+    // this._personaServices.getPersona(this.operacion.idusuario)
+    // .subscribe((data: any) => {
+    //   // if (data) {
+    //   //   this.aux = false;
+    //   // }
+    //   // else {
+    //   //   this.aux = true;
+    //   // }
+    // });
   }
 
   SolicitarReintegro() {
@@ -83,12 +96,6 @@ export class OperacionDetalleMPage implements OnInit {
   }
 
   async reintegroS() {
-    var body = {
-      idUsuarioReceptor : this.idreceptor,
-      idMedioPaga : 1,
-      monto : this.monto,
-      idOperacion : this.idoperacionm
-    }
     const alertElement = await this.alert.create({
       header: '¿Esta seguro que solicitar reintegro?',
       message: 'Va a solicitar el reintegro de esta operación',
@@ -96,8 +103,7 @@ export class OperacionDetalleMPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            console.log(body);
-            this._operacionServices.SolicitarReintegroM(body)
+            this._operacionServices.SolicitarReintegro(this.operacion.referencia )
                 .subscribe((data: any) => {
                   this.router.navigate(['/tabs/operaciones']);
                 });
