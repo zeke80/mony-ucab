@@ -1,6 +1,6 @@
 export class OperacionCuenta {
-    idoperacioncuenta: number;
-    idcuenta: number;
+    idOperacionCuenta: number;
+    idCuenta: number;
     idUsuarioReceptor: number;
     fecha: string;
     hora: string;

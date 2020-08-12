@@ -5,6 +5,7 @@ import { Usuario } from '../models/usuario.model';
 import { UsuarioService } from '../servicios/usuario/usuario.service';
 import { CuentaService } from '../servicios/cuenta/cuenta.service';
 import { TarjetaService } from '../servicios/tarjeta/tarjeta.service';
+import { Platform, NavController, NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -14,12 +15,16 @@ import { TarjetaService } from '../servicios/tarjeta/tarjeta.service';
 export class Tab3Page implements OnInit{
 
   cuentas = [];
+  ocuentas = [];
   operaciones = [];
   tarjetas = [];
+  otarjetas = [];
   operacionesTarjeta = [];
   monederos = [];
   reintegros = [];
   usuario: Usuario
+  public navParams = new NavParams();
+  aux = false;
 
   constructor(
     public _tarjetaService: TarjetaService,
@@ -28,40 +33,30 @@ export class Tab3Page implements OnInit{
     public router: Router,
     public _usuarioServices: UsuarioService,
     private _activatedRoute: ActivatedRoute,
+    public navCtrl: NavController
 
   ) {
     this._activatedRoute.paramMap.subscribe(params => {
       this.ngOnInit();
   });
   }
+  
 
   ngOnInit(){
-    this.operaciones = this._operacionServices.getoperacionesCuentaVacio();
-    this.tarjetas = this._operacionServices.getoperacionesTarjetaVacio();
-    this.monederos = this._operacionServices.getoperacionesMonederoVacio();
-    this.reintegros = this._operacionServices.getreintegrosVacio();
     this.usuario = this._usuarioServices.getUsuario();
-    this.getAccountsAndLoadOperations();
+    //this.operaciones = this._operacionServices.getoperacionesCuentaVacio();
+  
+    //this.monederos = this._operacionServices.getoperacionesMonederoVacio();
+    this.reintegros = this._operacionServices.getreintegrosVacio();
+   
+    if(this.aux){
+    //this.getAccountsAndLoadOperations();
     this.loadMonederoperations();
-    this.getTargetsAndLoadTargetOperations();
+    //this.getTargetsAndLoadTargetOperations();
+    this.loadTargetOperations();
+    this.loadAccountsOperations();
     }
-
-    loadTargetOperations(){
-      this.tarjetas.forEach((tarjeta)=>{
-        this._operacionServices.getoperacionesTarjeta(tarjeta.idTarjeta)
-        .toPromise().then((data:any)=>{
-          this.operacionesTarjeta = data
-        }  )
-        .catch(()=>console.log('Usurio no posee tarjetas.'));
-      });
-    }
-
-    getTargetsAndLoadTargetOperations(){
-      console.log(this.usuario.idUsuario);
-      this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
-      .toPromise().then((data: any) => {
-        this.tarjetas = data;
-        }).then(()=>this.loadTargetOperations());
+    this.aux=true;
     }
 
     loadMonederoperations(){
@@ -69,8 +64,7 @@ export class Tab3Page implements OnInit{
       .toPromise().then((data: any )=>{
         this.monederos = data;
       }).then(()=>this.cleanMonederoOperations());
-    }
-
+    } //carga de operaciones monedero
     isNotClosingOperation(monedero){
       return monedero.infoAdicional.tipoOperacion.idTipoOperacion !== 4;
     }
@@ -79,20 +73,60 @@ export class Tab3Page implements OnInit{
       this.monederos = this.monederos.filter(this.isNotClosingOperation);
     }
 
-    getAccountsAndLoadOperations(){
-      this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
-      .toPromise().then((data: any) => {
-        this.cuentas = data;
-      }).then(()=>this.loadOperations());
+    loadTargetOperations(){
+      this.tarjetas = [];
+      this.otarjetas = [];
+      this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
+          .subscribe((data: any) => {
+            this.tarjetas = data;
+            this.tarjetas.forEach((tarjeta)=>{
+              this._operacionServices.getoperacionesTarjeta(tarjeta.idTarjeta).subscribe(
+                (data: any) => { 
+                  for (let opp of data) {
+                    this.otarjetas.push(opp);
+                  }   
+                },
+                error => {
+                 console.log("Error en subscribe")
+                });
+            }); 
+            console.log("operaciones Tarjetas:",this.otarjetas);
+            this._operacionServices.guardarTarjetas(this.otarjetas);
+          });
     }
+    
+    loadAccountsOperations(){
+      this.cuentas = [];
+      this.ocuentas = [];
+      this._cuentaServices.obtenerCuenta(this.usuario.idUsuario).subscribe((data:any) =>{
+          this.cuentas = data;
+          console.log("cuentas",this.cuentas);
+          this.cuentas.forEach((cuenta)=>{
+            this._operacionServices.getoperacionesCuenta(cuenta._idCuenta).subscribe((data:any) =>{
+            for (let opp of data){
+              this.ocuentas.push(opp);
+            }
+            });
+          });
+          console.log("Operaciones Cuentas: ",this.ocuentas);
+          this._operacionServices.guardarCuentas(this.ocuentas);
+      });
+    } // EN ESPERA HASTA QUE SE SUBA EL ARREGLO DEL JSON AL SERVER
 
-    loadOperations(){
-      for(let cuenta of this.cuentas){
-        this._operacionServices.getoperacionesCuenta(cuenta._idCuenta)
-        .subscribe((data: any) => {
-        this.operaciones=data ;
-        this._operacionServices.guardarCuentas(this.operaciones);
-        });
-      }
-    }
+    // getAccountsAndLoadOperations(){
+    //   this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
+    //   .toPromise().then((data: any) => {
+    //     this.cuentas = data;
+    //   }).then(()=>this.loadOperations());
+    // }
+
+    // loadOperations(){
+    //   for(let cuenta of this.cuentas){
+    //     this._operacionServices.getoperacionesCuenta(cuenta._idCuenta)
+    //     .subscribe((data: any) => {
+    //     this.operaciones=data ;
+    //     this._operacionServices.guardarCuentas(this.operaciones);
+    //     });
+    //   }
+    // }
 }

@@ -92,16 +92,14 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let operacion of operaciones"
-                        [routerLink]="['/tabs/operaciones', operacion.idOperacionCuenta]">
+                    <ion-item *ngFor="let ocuenta of ocuentas" [routerLink]="['/tabs/operaciones', ocuenta.idOperacionCuenta]" >
                         <ion-icon slot="start" name="reader-outline"></ion-icon>
                         <ion-label>
-
                             <h1>
-                                $ - {{operacion.monto}}
+                                $ - {{ocuenta.monto}}
                             </h1>
                             <h2>
-                                Fecha: {{operacion.fecha.day}}/{{operacion.fecha.month}}/{{operacion.fecha.year}}
+                                Fecha: {{ocuenta.fecha.day}}/{{ocuenta.fecha.month}}/{{ocuenta.fecha.year}}
                             </h2>
                         </ion-label>
                     </ion-item>
@@ -114,18 +112,19 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-list>
-                    <ion-item *ngFor="let tarjeta of operacionesTarjeta"
-                        [routerLink]="['/tabs/operaciones/tarjeta', tarjeta.idOperacionTarjeta]">
-                        <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <ion-label>
-                            <h1>
-                                $ +{{tarjeta.monto}}
-                            </h1>
-                            <h2>
-                                Fecha: {{tarjeta.fecha.day}}/{{tarjeta.fecha.month}}/{{tarjeta.fecha.year}}
-                            </h2>
-                        </ion-label>
-
+                    <!-- -->
+                    <!--  " -->
+                    <!-- (click)="tarjetasdetail($event, otarjeta)  -->
+                    <ion-item *ngFor="let otarjeta of otarjetas" [routerLink]="['/tabs/operaciones/tarjeta', otarjeta.idOperacionTarjeta] ">
+                            <ion-icon slot="start" name="reader-outline"></ion-icon>
+                            <ion-label>
+                                <h1>
+                                    $ +{{otarjeta.monto}}
+                                </h1>
+                                <h2>
+                                    Fecha: {{otarjeta.fecha.day}}/{{otarjeta.fecha.month}}/{{otarjeta.fecha.year}}
+                                </h2>
+                            </ion-label>
                     </ion-item>
                 </ion-list>
             </ion-card-contend>

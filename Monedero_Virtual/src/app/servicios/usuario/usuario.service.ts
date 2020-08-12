@@ -49,15 +49,15 @@ export class UsuarioService {
     this.usuario[0] = usuarioC;
   }
 
-  inforUsurio(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/infoUsuario';
+  // inforUsurio(idusuario: number) {
+  //   let url: string = 'http://monyucab.somee.com/api/Usuario/infoUsuario';
 
-    let data = {
-      "id" : idusuario
-    };
+  //   let data = {
+  //     "id" : idusuario
+  //   };
 
-    return this.http.post(url, data);
-  }
+  //   return this.http.post(url, data);
+  // }
 
   ajustarUsurio(idusuario: number, user:string, di:number, correo:string, telefono:string, direccion:string) {
     let url: string = 'http://monyucab.somee.com/api/Usuario/ajustarUsuario';
@@ -84,7 +84,13 @@ export class UsuarioService {
     return this.http.post(url, data);
   }
 
-  // nuevo back
+
+ // nuevo back
+  
+  inforUsurio(idusuario: number) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Usuario/infoUsuario' + idusuario, {headers: tokenHeader});
+  }
 
   getUserInfo(username){
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});

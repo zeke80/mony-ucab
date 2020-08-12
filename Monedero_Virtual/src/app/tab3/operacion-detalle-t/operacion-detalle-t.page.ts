@@ -9,6 +9,7 @@ import { AlertController } from '@ionic/angular';
 import { PersonaService } from '../../servicios/persona/persona.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TarjetaService } from '../../servicios/tarjeta/tarjeta.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-operacion-detalle-t',
@@ -26,6 +27,9 @@ export class OperacionDetalleTPage implements OnInit {
   idusuarioRealizador: number;
   aux: boolean = true;
   fecha: any;
+  tarjetas = [];
+  monto: number;
+  referencia:string;
 
   constructor(
     public _operacionServices: OperacionService,
@@ -44,32 +48,48 @@ export class OperacionDetalleTPage implements OnInit {
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getoperacionTarjeta(id);
     });
+    console.log(this.operacion);
+
     this.usuario = this._usuarioServices.getUsuario();
-    this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
-    .subscribe((data: any) => {
-      this.userR = data.usuario;
-      this.idreceptor = data.idusuario;
-    });
-    this._tarjetaServices.infoTarjeta(this.operacion.idtarjeta)
-        .subscribe((data: any) => {
-          console.log(data);
-          this.nrotarjeta = data.numero;
-          this.idusuarioRealizador = data.idusuario;
-          this._usuarioServices.inforUsurio(this.idusuarioRealizador)
-              .subscribe((data: any) => {
-                this.userS = data.usuario;
-              });
-        });
-    this.fecha = this.operacion.fecha.split('T', 1 );
-    this._personaServices.getPersona(this.operacion.idUsuarioReceptor)
-    .subscribe((data: any) => {
-      if (data) {
-        this.aux = false;
-      }
-      else {
-        this.aux = true;
-      }
-    });
+    
+    this._tarjetaServices.obtenerTarjetas(this.usuario.idUsuario).subscribe((data:any) =>{
+        for (let i = 0; i < data.length; i++) {
+          const element = data[i];
+          if( element['idTarjeta'] === this.operacion.idTarjeta){
+          this.nrotarjeta = element['numero'];
+          }
+        }
+       console.log(this.nrotarjeta)
+    })
+   
+    // console.log(routeSplit[4]);
+    // this._usuarioServices.inforUsurio(this.operacion.idUsuarioReceptor)
+    // .subscribe((data: any) => {
+    //   this.userR = data.usuario;
+    //   this.idreceptor = data.idusuario;
+    // });
+
+  
+    // this._tarjetaServices.infoTarjeta(this.operacion.idtarjeta)
+    //     .subscribe((data: any) => {
+    //       console.log(data);
+    //       this.nrotarjeta = data.numero;
+    //       this.idusuarioRealizador = data.idusuario;
+    //       this._usuarioServices.inforUsurio(this.idusuarioRealizador)
+    //           .subscribe((data: any) => {
+    //             this.userS = data.usuario;
+    //           });
+    //     });
+    // this.fecha = this.operacion.fecha.split('T', 1 );
+    // this._personaServices.getPersona(this.operacion.idUsuarioReceptor)
+    // .subscribe((data: any) => {
+    //   if (data) {
+    //     this.aux = false;
+    //   }
+    //   else {
+    //     this.aux = true;
+    //   }
+    // });
 
   }
 
@@ -78,6 +98,12 @@ export class OperacionDetalleTPage implements OnInit {
   }
 
   async reintegroS() {
+    var body = {
+      idUsuarioReceptor : this.usuario.idUsuario,
+      idMedioPaga : 1, 
+      monto : this.operacion.monto,
+      idOperacion : this.operacion.idOperacionTarjeta
+    }
     const alertElement = await this.alert.create({
       header: '¿Esta seguro que solicitar reintegro?',
       message: 'Va a solicitar el reintegro de esta operación',
@@ -85,7 +111,7 @@ export class OperacionDetalleTPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            this._operacionServices.SolicitarReintegro(this.operacion.referencia )
+            this._operacionServices.SolicitarReintegroT(body)
                 .subscribe((data: any) => {
                   this.router.navigate(['/tabs/operaciones']);
                 });
