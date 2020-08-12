@@ -19,6 +19,7 @@ export class PagosSinSolPage implements OnInit {
   usuario: Usuario;
   show = true;
 
+  hijo: number;
 
   constructor(
     public _activatedRoute: ActivatedRoute,
@@ -33,16 +34,26 @@ export class PagosSinSolPage implements OnInit {
 
   ngOnInit() {
     this.usuario = this._usuarioServices.getUsuario();
+    this.hijo = this._usuarioServices.getHijo();
   }
 
   realizarSolicitud(f: NgForm) {
     this.show = false;
+    var body;
 
-    var body = {
-      idUsuarioSolicitante: this.usuario.idUsuario,
-      emailPagador: f.value.user,
-      monto: f.value.monto,
-    };
+    if (this.hijo != 0 ) {
+      body = {
+        idUsuarioSolicitante: this.hijo,
+        emailPagador: f.value.user,
+        monto: f.value.monto,
+      };
+    } else {
+      body = {
+        idUsuarioSolicitante: this.usuario.idUsuario,
+        emailPagador: f.value.user,
+        monto: f.value.monto,
+      };
+    }
 
     this._pagoServices.realizarCobro(body)
         .subscribe((data: any) => {

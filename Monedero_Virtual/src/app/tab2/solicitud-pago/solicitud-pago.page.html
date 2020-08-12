@@ -42,14 +42,16 @@
                 <h2 class="ion-text-center">Metodo de pago</h2>
             </ion-card-contend>
         </ion-card>
+        <div *ngIf="!restHijo">
+            <ion-button (click)="boolTarjeta()" color="primary" fill="solid" expand="block">
+                Tarjeta
+            </ion-button>
 
-        <ion-button (click)="boolTarjeta()" color="primary" fill="solid" expand="block">
-            Tarjeta
-        </ion-button>
+            <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
+                Cuenta
+            </ion-button>
+        </div>
 
-        <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
-            Cuenta
-        </ion-button>
 
         <ion-button (click)="pagarMonedero()" color="primary" fill="solid" expand="block">
             <div *ngIf="showM">
@@ -57,12 +59,16 @@
             </div>
             <ion-spinner *ngIf="!showM" name="circles"></ion-spinner>
         </ion-button>
-        <ion-button (click)="pagarPaypal()" color="primary" fill="solid" expand="block">
-            Paypal
-        </ion-button>
-        <ion-button (click)="boolStripe()" color="primary" fill="solid" expand="block">
-            Stripe
-        </ion-button>
+
+        <div *ngIf="!restHijo">
+            <ion-button (click)="pagarPaypal()" color="primary" fill="solid" expand="block">
+                Paypal
+            </ion-button>
+            <ion-button (click)="boolStripe()" color="primary" fill="solid" expand="block">
+                Stripe
+            </ion-button>
+        </div>
+
 
         <br>
         <ion-item *ngIf="auxT">

@@ -23,10 +23,12 @@
             </ion-card-header>
 
         </ion-card>
+
+        <ion-button (click)="solicitudPago()" color="warning" fill="solid" expand="full">
+            Realizar solicitud de cobro
+        </ion-button>
+
         <div *ngIf="!restHijo">
-            <ion-button (click)="solicitudPago()" color="warning" fill="solid" expand="full">
-                Realizar solicitud de cobro
-            </ion-button>
 
             <ion-button (click)="recarga()" color="warning" fill="solid" expand="full">
                 Recarga monedero
@@ -61,42 +63,46 @@
             </ion-card-contend>
         </ion-card>
 
-        <ion-card>
-            <ion-card-header>
-                <h2>Cuentas registradas del usuario</h2>
-            </ion-card-header>
-            <ion-card-contend>
-                <ion-list>
-                    <ion-item *ngFor="let cuenta of cuentas">
-                        <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <ion-label>
-                            <h2>
-                                {{cuenta.infoAdicional._tipoCuenta.descripcion}} {{cuenta.infoAdicional._banco.nombre}}
-                            </h2>
-                            <strong>{{cuenta._numero}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-list>
-            </ion-card-contend>
-        </ion-card>
-        <ion-card>
-            <ion-card-header>
-                <h2>Tarjetas registradas del usuario</h2>
-            </ion-card-header>
-            <ion-card-contend>
-                <ion-list>
-                    <ion-item *ngFor="let tarjeta of tarjetas">
-                        <ion-icon slot="start" name="reader-outline"></ion-icon>
-                        <ion-label>
-                            <h2>
-                                {{tarjeta.infoAdicional.tipoTarjeta.descripcion}} {{tarjeta.infoAdicional.banco.nombre}}
-                            </h2>
-                            <strong>{{tarjeta.numero}}</strong>
-                        </ion-label>
-                    </ion-item>
-                </ion-list>
-            </ion-card-contend>
-        </ion-card>
+        <div *ngIf="!restHijo">
+            <ion-card>
+                <ion-card-header>
+                    <h2>Cuentas registradas del usuario</h2>
+                </ion-card-header>
+                <ion-card-contend>
+                    <ion-list>
+                        <ion-item *ngFor="let cuenta of cuentas">
+                            <ion-icon slot="start" name="reader-outline"></ion-icon>
+                            <ion-label>
+                                <h2>
+                                    {{cuenta.infoAdicional._tipoCuenta.descripcion}} {{cuenta.infoAdicional._banco.nombre}}
+                                </h2>
+                                <strong>{{cuenta._numero}}</strong>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-contend>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <h2>Tarjetas registradas del usuario</h2>
+                </ion-card-header>
+                <ion-card-contend>
+                    <ion-list>
+                        <ion-item *ngFor="let tarjeta of tarjetas">
+                            <ion-icon slot="start" name="reader-outline"></ion-icon>
+                            <ion-label>
+                                <h2>
+                                    {{tarjeta.infoAdicional.tipoTarjeta.descripcion}} {{tarjeta.infoAdicional.banco.nombre}}
+                                </h2>
+                                <strong>{{tarjeta.numero}}</strong>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-contend>
+            </ion-card>
+        </div>
+
+
         <br>
         <br>
         <br>

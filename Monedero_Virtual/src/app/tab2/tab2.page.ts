@@ -48,25 +48,13 @@ export class Tab2Page implements OnInit{
       let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
           data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
           data.result.direccion, data.result.estatus);
+
       this._usuarioService.guardarUsuario(usuario);
 
       this._usuarioService.guardarHijo(data.result.idUsuarioF);
       this.hijo = this._usuarioService.getHijo();
-      
-      if (this.hijo != 0 ){
-        this.restHijo = true;
-      }
-      else {
-        this.restHijo = false;
-      }
-      console.log(this.restHijo);
 
       this.usuario = this._usuarioService.getUsuario();
-
-      this._usuarioService.getSaldo(this.usuario.idUsuario)
-          .subscribe((data: any) => {
-            this.saldo = data;
-          });
 
       this._tarjetaService.obtenerTarjetas(this.usuario.idUsuario)
           .subscribe((data: any) => {
@@ -77,11 +65,31 @@ export class Tab2Page implements OnInit{
           .subscribe((data: any) => {
             this.cuentas = data;
           });
-      this._pagoServices.obtenerSolicitudes(this.usuario.idUsuario)
+      if (this.hijo != 0 ){
+        this.restHijo = true;
+        this._usuarioService.getSaldo(this.hijo)
           .subscribe((data: any) => {
-            this.pagos = data;
-            this._pagoServices.guardarPago(this.pagos);
+            this.saldo = data;
           });
+
+        this._pagoServices.obtenerSolicitudes(this.hijo)
+        .subscribe((data: any) => {
+          this.pagos = data;
+          this._pagoServices.guardarPago(this.pagos);
+        });
+      }
+      else {
+        this.restHijo = false;
+        this._usuarioService.getSaldo(this.usuario.idUsuario)
+          .subscribe((data: any) => {
+            this.saldo = data;
+          });
+        this._pagoServices.obtenerSolicitudes(this.usuario.idUsuario)
+        .subscribe((data: any) => {
+          this.pagos = data;
+          this._pagoServices.guardarPago(this.pagos);
+        });
+        }
     });
 
   }

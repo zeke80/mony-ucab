@@ -35,6 +35,9 @@ export class SolicitudPagoPage implements OnInit {
   saldo: number;
   id: number;
 
+  hijo: number;
+  restHijo = false;
+
   constructor(
     public _activatedRoute: ActivatedRoute,
     public _pagoServices: PagoService,
@@ -54,6 +57,7 @@ export class SolicitudPagoPage implements OnInit {
     });
 
     this.usuario = this._usuarioServices.getUsuario();
+    this.hijo = this._usuarioServices.getHijo();
     this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
         .subscribe((data: any) =>  {
           this.metodoPagoC = data;
@@ -62,10 +66,19 @@ export class SolicitudPagoPage implements OnInit {
         .subscribe((data: any) => {
           this.metodoPagoT = data;
         });
-    this._usuarioServices.getSaldo(this.usuario.idUsuario)
-        .subscribe((data:any) => {
-          this.saldo = data;
-        });
+
+    if (this.hijo != 0 ) {
+      this.restHijo = true;
+      this._usuarioServices.getSaldo(this.hijo)
+          .subscribe((data: any) => {
+            this.saldo = data;
+          });
+    } else {
+      this._usuarioServices.getSaldo(this.usuario.idUsuario)
+      .subscribe((data:any) => {
+        this.saldo = data;
+      });
+    }
 
   }
 
@@ -136,18 +149,28 @@ export class SolicitudPagoPage implements OnInit {
 
   pagarMonedero() {
     this.showM = false;
+
     let cant: number = + this.operacion.monto;
     if (cant > this.saldo) {
       this.AlertSaldo();
       return;
     }
-
-    var body = {
-      idUsuarioReceptor: this.operacion.idUsuarioSolicitante,
-      idMedioPaga: this.usuario.idUsuario,
-      monto: cant,
-      idOperacion: this.operacion.idPago
-    };
+    var body;
+    if (this.hijo != 0 ) {
+      body = {
+        idUsuarioReceptor: this.operacion.idUsuarioReceptor,
+        idMedioPaga: this.hijo,
+        monto: cant,
+        idOperacion: this.operacion.idPago
+      };
+    } else {
+      body = {
+        idUsuarioReceptor: this.operacion.idUsuarioReceptor,
+        idMedioPaga: this.usuario.idUsuario,
+        monto: cant,
+        idOperacion: this.operacion.idPago
+      };
+    }
 
     this._pagoServices.realizarPagoMonedero(body)
         .subscribe((data:any) => {
