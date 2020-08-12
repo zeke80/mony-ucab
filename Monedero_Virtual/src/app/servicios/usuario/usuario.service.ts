@@ -24,6 +24,8 @@ export class UsuarioService {
     }
   ];
 
+  esHijo: number;
+
   constructor(
     public http: HttpClient
   ) { }
@@ -106,5 +108,13 @@ export class UsuarioService {
   recuperarContrasena(body) {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.post('http://monyucab.somee.com/api/authentication/ForgotPasswordEmail', body, {headers: tokenHeader});
+  }
+
+  guardarHijo(id) {
+    this.esHijo = id;
+  }
+
+  getHijo(){
+    return this.esHijo;
   }
 }

@@ -22,7 +22,8 @@ export class Tab2Page implements OnInit{
   saldo = 0;
   usuario: Usuario;
   user: string;
-
+  hijo: number;
+  restHijo = false;
   constructor(
     public _cuentaServices: CuentaService,
     public _tarjetaService: TarjetaService,
@@ -43,10 +44,23 @@ export class Tab2Page implements OnInit{
     this._usuarioService.getUserInfo(this.user)
     .subscribe((data: any) => {
       this._logiServices.login();
+
       let usuario = new Usuario(data.result.idUsuario, data.result.idTipoUsuario, data.tipoIdentificacion.idTipoIdentificacion,
           data.result.usuario, data.result.fechaRegistro, data.result.nroIdentificacion, data.result.email, data.result.telefono,
           data.result.direccion, data.result.estatus);
       this._usuarioService.guardarUsuario(usuario);
+
+      this._usuarioService.guardarHijo(data.result.idUsuarioF);
+      this.hijo = this._usuarioService.getHijo();
+      
+      if (this.hijo != 0 ){
+        this.restHijo = true;
+      }
+      else {
+        this.restHijo = false;
+      }
+      console.log(this.restHijo);
+
       this.usuario = this._usuarioService.getUsuario();
 
       this._usuarioService.getSaldo(this.usuario.idUsuario)
