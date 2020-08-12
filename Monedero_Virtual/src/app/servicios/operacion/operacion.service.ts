@@ -161,14 +161,18 @@ export class OperacionService {
     };
   }
 
-  SolicitarReintegro(ref: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/solicitarReintegro';
+  // SolicitarReintegro(ref: number) {
+  //   let url: string = 'http://monyucab.somee.com/api/Usuario/solicitarReintegro';
 
-    let data = {
-      "referencia": ref
-    };
+  //   let data = {
+  //     "referencia": ref
+  //   };
 
-    return this.http.post(url, data);
+  //   return this.http.post(url, data);
+  // }
+
+  SolicitarReintegroM(body){
+     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroMonedero', body, {headers: tokenHeader});
   }
-
 }
