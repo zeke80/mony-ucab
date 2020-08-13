@@ -1,5 +1,6 @@
-
 import { Component, OnInit } from '@angular/core';
+
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 
 import { Usuario } from './../../models/usuario.model';
 import { Persona } from './../../models/persona.model';
@@ -14,6 +15,18 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
+
+
+  formComercio = new FormGroup({
+    razonSocial : new FormControl({value: '', disabled: true}, Validators.required)
+  });
+
+  formUsuario = new FormGroup({
+    nombre : new FormControl( {value: '', disabled: true} , [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
+    apellido : new FormControl ({ disabled: true},[Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
+    telefono : new FormControl ({ disabled: true}, [Validators.pattern(/^[0-9]*$/), Validators.required]),
+    direccion : new FormControl ({ disabled: true}, Validators.required)
+  }); 
 
   infoPersona : Persona ={
     estadoCivil : 0,
@@ -43,9 +56,8 @@ export class PerfilComponent implements OnInit {
 
   estadoCivil = '';
   tipoIdentificacion = '';
-  idEstadoCivil = 0;
+  idEstadoCivil;
 
-  estados;
 
   isDisabled : boolean = true;
 
@@ -60,38 +72,42 @@ export class PerfilComponent implements OnInit {
     ;
   }
 
-  mostrarPersona(data : any){
-    if ( data.estadoCivil.codigo == 'C'){
-      this.estadoCivil = "Casado"
+  codigosAStringEstados(data : any){
+    if (data.codigo == 'C'){
+      return "Casado";
     }
     else{
-      this.estadoCivil = "Soltero"
+      return "Soltero";
     }
-    this.idEstadoCivil == data.estadoCivil.idEstadoCivil;
-    this.infoPersona.nombre = data.persona.nombre;
-    this.infoPersona.apellido = data.persona.apellido;
+  }
+  mostrarPersona(data : any){
+    
+    this.estadoCivil = this.codigosAStringEstados(data.estadoCivil);
+    this.idEstadoCivil = data.estadoCivil.idEstadoCivil;
     this.infoPersona.fechaNacimiento = this.fechaNacimientoString(data.persona.fechaNacimiento);
     this.infoUsuario.email = data.result.email;
-    this.infoUsuario.telefono = data.result.telefono;
-    this.infoUsuario.direccion = data.result.direccion;
     this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
     this.tipoIdentificacion = data.tipoIdentificacion.codigo;
+    this.formUsuario.get('nombre').patchValue(data.persona.nombre);
+    this.formUsuario.get('apellido').patchValue(data.persona.apellido);
+    this.formUsuario.get('telefono').patchValue(data.result.telefono);
+    this.formUsuario.get('direccion').patchValue(data.result.direccion);
 
   }
 
   mostrarComercio(data : any){
-    console.log('mostrar comercio')
-    this.infoPersona.nombre = data.persona.nombre;
-    this.infoPersona.apellido = data.persona.apellido;
     this.infoUsuario.email = data.result.email;
-    this.infoUsuario.telefono = data.result.telefono;
-    this.infoUsuario.direccion = data.result.direccion;
     this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
-    this.infoComercio.nombreRepresentante = data.comercio.nombreRepresentante;
-    this.infoComercio.apellidoRepresentante = data.comercio.apellidoRepresentante;
+    this.formUsuario.get('nombre').patchValue(data.comercio.nombreRepresentante);
+    this.formUsuario.get('apellido').patchValue(data.comercio.apellidoRepresentante);
+    this.formUsuario.get('telefono').patchValue(data.result.telefono);
+    this.formUsuario.get('direccion').patchValue(data.result.direccion);
+    this.formComercio.get('razonSocial').patchValue(data.comercio.razonSocial);
 
   }
+
   consutarInfo(){
+    this.formUsuario.disable();
     this.s_perfil.consultar().subscribe(
       (data : any) => {
         localStorage.setItem('id', data.result.idUsuario);  
@@ -105,25 +121,13 @@ export class PerfilComponent implements OnInit {
         }
       }
     );
-
       
     this.infoComercio = null;
   }
 
   editar(){
     this.isDisabled = false;
-
-    this.s_perfil.consultarEstadosCiviles().subscribe(
-      (data : any) => {
-        if (data.codigo == 'C'){
-          this.estados = "Casado"
-        }
-        else{
-          this.estados = "Soltero"
-        }
-      }
-    );
-
+    this.formUsuario.enable();
   }
 
   cancelar(){
@@ -134,12 +138,12 @@ export class PerfilComponent implements OnInit {
 
     if (this.infoPersona == null){
       this.s_perfil.modificar(
-        this.infoComercio.nombreRepresentante,
-        this.infoComercio.apellidoRepresentante,
-        this.infoUsuario.telefono,
-        this.infoUsuario.direccion,
-        this.infoComercio.razonSocial,
-        1
+        this.formUsuario.get('nombre').value,
+        this.formUsuario.get('apellido').value,
+        this.formUsuario.get('telefono').value,
+        this.formUsuario.get('direccion').value,
+        this.formComercio.get('razonSocial').value,
+        parseInt(this.idEstadoCivil,10)
       ).subscribe(  
         (data : any) => {
           alert(data.message);
@@ -151,12 +155,12 @@ export class PerfilComponent implements OnInit {
     }
      else {
        this.s_perfil.modificar(
-         this.infoPersona.nombre,
-         this.infoPersona.apellido,
-         this.infoUsuario.telefono,
-         this.infoUsuario.direccion,
+        this.formUsuario.get('nombre').value,
+        this.formUsuario.get('apellido').value,
+        this.formUsuario.get('telefono').value,
+        this.formUsuario.get('direccion').value,
          "",
-         2
+        parseInt(this.idEstadoCivil,10)
        ).subscribe(  
         (data : any) => {
           alert(data.message);

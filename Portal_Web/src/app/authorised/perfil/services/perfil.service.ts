@@ -21,7 +21,8 @@ export class PerfilService {
   consultar(){
 
     
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTEvMjAyMCAyOjM4OjM5IEFNIiwibmJmIjoxNTk3MTM4NzE5LCJleHAiOjE1OTcxNDE0MTksImlhdCI6MTU5NzEzODcxOX0.cmJqOvd_pth8tZCH9GXlSkPSYYMoOX7ubq3UZGANRCw"});
+    
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
     let param = new HttpParams().set('Usuario', 'maria');
     let url ="http://monyucab.somee.com/api/dashboard/InformacionPersona";
 
@@ -31,7 +32,8 @@ export class PerfilService {
 
   consultarEstadosCiviles(){
     let url = "http://monyucab.somee.com/api/dashboard/EstadosCiviles";
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTEvMjAyMCAyOjM4OjM5IEFNIiwibmJmIjoxNTk3MTM4NzE5LCJleHAiOjE1OTcxNDE0MTksImlhdCI6MTU5NzEzODcxOX0.cmJqOvd_pth8tZCH9GXlSkPSYYMoOX7ubq3UZGANRCw"});
+   
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
     return this.http.get(url, {headers : header});
   }
 
@@ -55,10 +57,8 @@ export class PerfilService {
     "idEstadoCivil": idEstadoCivil,
     "idUsuario": id
     }
-
     
-    
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTEvMjAyMCAyOjM4OjM5IEFNIiwibmJmIjoxNTk3MTM4NzE5LCJleHAiOjE1OTcxNDE0MTksImlhdCI6MTU5NzEzODcxOX0.cmJqOvd_pth8tZCH9GXlSkPSYYMoOX7ubq3UZGANRCw"});
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
     return this.http.post(url,body, {headers : header})
     .pipe(
       tap(() => {

@@ -51,18 +51,16 @@
             <tr>
                 <th>REF</th>
                 <th>Fecha</th>
-                <th>Hora (24h)</th>
                 <th>Monto (Bs.)</th>
                 <th>Tipo operación</th>
                 <th>Estatus</th>
             </tr>
             <tr *ngFor = "let movimiento of movimientosCuenta">
                 <td>{{movimiento.referencia}}</td>
-                <td>{{movimiento.fecha.split('T',1)}}</td>
-                <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
+                <td>{{fechaToString(movimiento.fecha)}}</td>
                 <td>{{movimiento.monto}}</td>
-                <td>Cuenta</td>
-                <td>Procesada</td>
+                <td>Cobro Activo</td>
+                <td>{{movimiento.estatus}}</td>
             </tr>
 
             <tr *ngFor = "let movimiento of movimientosTarjeta">
@@ -70,8 +68,7 @@
                 <td>{{movimiento.fecha.split('T',1)}}</td>
                 <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
                 <td>{{movimiento.monto}}</td>
-                <td>Tarjeta</td>
-                <td>Procesada</td>
+
             </tr>
 
             <tr *ngFor = "let movimiento of movimientosMonedero">
@@ -79,8 +76,7 @@
                 <td>{{movimiento.fecha.split('T',1)}}</td>
                 <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
                 <td>{{movimiento.monto}}</td>
-                <td>Monedero</td>
-                <td>Procesada</td>
+ 
             </tr>
         </thead>
     </table>

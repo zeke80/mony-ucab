@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { MovimientosService } from './services/movimientos.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -22,9 +23,23 @@ export class TablaMovimientosComponent implements OnInit {
   constructor(public s_movimientos : MovimientosService) { }
 
   ngOnInit(): void {
-    this.consultarTodo();
+    this.s_movimientos.consultarCobros().subscribe(
+      (data : any) => {
+        this.movimientosCuenta = data;
+        console.log(this.movimientosCuenta);
+      },
+      (err : HttpErrorResponse) => {
+        alert(err);
+      }
+    )
   }
 
+  fechaToString(fecha : any){    
+    return fecha.year.toString() + '-' + fecha.month.toString() + '-' + fecha.day.toString();
+    ;
+  }
+
+  
   filtrar(){
     if ((this.fecha1 != null) && (this.fecha2 != null)){
       if (this.opcion == "tarjeta"){
