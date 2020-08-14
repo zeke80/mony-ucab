@@ -71,7 +71,8 @@ VALUES ('Monto Pago', 1),
 DELETE FROM TipoUsuario CASCADE;
 ALTER SEQUENCE TipoUsuario_idTipoUsuario_seq RESTART WITH 1;
 INSERT INTO TipoUsuario (Descripcion, estatus)
-VALUES ('Normal', 1);
+VALUES ('Normal', 1),
+('Admin', 2);
 
 DELETE FROM Frecuencia CASCADE;
 ALTER SEQUENCE Frecuencia_idFrecuencia_seq RESTART WITH 1;
@@ -167,11 +168,16 @@ ALTER SEQUENCE Aplicacion_idAplicacion_seq RESTART WITH 1;
 INSERT INTO Aplicacion (nombre, descripcion, estatus)
 VALUES ('Monedero', 'Medio para pagos rápidos', 1),
 ('Post Virtual', 'Medio para cobros por empresa', 1),
-('Portal WEB', 'Combinación de Monedero y Post Virtual', 1);
+('Portal WEB', 'Combinación de Monedero y Post Virtual', 1),
+('Admin', 'Combinación de Monedero y Post Virtual', 1);
 
 DELETE FROM OpcionMenu CASCADE;
 ALTER SEQUENCE OpcionMenu_idOpcionMenu_seq RESTART WITH 1;
---INSERT INTO OpcionMenu (idAplicacion, nombre, descripcion, url, posicion, estatus)
+INSERT INTO OpcionMenu (idAplicacion, nombre, descripcion, url, posicion, estatus)
+VALUES (4, 'Consulta Usuarios', 'Se obtiene un listado de información de usuarios a través de un query', '/api/Admin/ConsultaUsuarios', 1, 1),
+(4, 'Eliminar Usuario', 'Se realiza la eliminación de un usuario', '/api/Admin/EliminarUsuario', 1, 1),
+(4, 'Establecer Limite Parametro', 'Se establece un límite para un parámetro de uso por los usuarios', '/api/Admin/EstablecerLimiteParametro', 1, 1),
+(4, 'Establecer Comision', 'Se establece la comisión de recompensa para un usuario comercio', '/api/Admin/EstablecerComision', 1, 1);
 
 DELETE FROM TipoIdentificacion CASCADE;
 ALTER SEQUENCE Tipoidentificacion_idTipoIdentificacion_seq RESTART WITH 1;

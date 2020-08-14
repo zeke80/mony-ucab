@@ -448,10 +448,10 @@ CREATE OR REPLACE FUNCTION Informacion_persona(VARCHAR)
 						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int) AS $BODY$
 DECLARE
 BEGIN
-	RETURN QUERY SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
+	RETURN QUERY SELECT * FROM Usuario LEFT JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
 										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
-										JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
-										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil
+										LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
+										LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil
 										WHERE Usuario.email = $1 OR Usuario.usuario = $1;
 END
 $BODY$
@@ -1251,5 +1251,15 @@ BEGIN
 		END IF;
 	END IF;
 	RETURN TRUE;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION Opciones_Menu(INT, INT)
+												RETURNS TABLE(idOpcionMenu int, idAplicacion int, nombre varchar, descripcion varchar, url varchar, posicion int, estatus int)
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	RETURN QUERY SELECT A.* FROM OpcionMenu A JOIN Usuario_OpcionMenu B ON B.idUsuario = $1 AND A.idOpcionMenu = B.idOpcionMenu WHERE A.idAplicacion = $2;
 END;
 $$;
