@@ -4,7 +4,7 @@
     <h2>Iniciar Sesión</h2>
   </div>
     <form class="form-signin">
-    <input type="text" #usuario="ngModel" class="form-control" placeholder="Usuario" name="user" [(ngModel)] ="user" required>
+    <input type="email" #usuario="ngModel" class="form-control" placeholder="Correo electrónico" name="user" [(ngModel)] ="user" required>
     <span *ngIf="usuario.invalid && usuario.touched" class="error">Campo obligatorio</span>
 
     <input type="password" #password = "ngModel" class="form-control" placeholder="Contraseña" name="contra" [(ngModel)] ="contra" required>

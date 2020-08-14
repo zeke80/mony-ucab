@@ -14,14 +14,14 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  loginPersona(user: string, contrasena: string) {
+  loginPersona(email: string, contrasena: string) {
     let url = this.baseURI + "Authentication/Login";
-    return this.http.post(url, {usuario: user, email: '', password: contrasena, comercio: false});
+    return this.http.post(url, {usuario: '', email: email, password: contrasena, comercio: false});
   }
 
-  loginComercio(user: string, contrasena: string){
+  loginComercio(email: string, contrasena: string){
     let url = this.baseURI + "Authentication/Login";
-    return this.http.post(url, {usuario: user, email: '', password: contrasena, comercio: true});
+    return this.http.post(url, {usuario: '', email: email, password: contrasena, comercio: true});
   }
 
   getUserInfo(username){
