@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import {HttpErrorResponse} from '@angular/common/http'; 
+import { HttpErrorResponse } from '@angular/common/http'; 
 
 @Component({
   selector: 'app-login-form',
@@ -10,20 +10,23 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  user: String;
-  contra :String;
+
+  user: string;
+  contra: string;
 
   constructor(public service: LoginService, public router: Router) { }
 
   ngOnInit(): void {
+
   }
 
-  ingresarPersona(){
-    this.service.loginPersona(this.user,this.contra)
+  ingresarPersona() {
+    this.service.loginPersona(this.user, this.contra)
     .subscribe(
       (data: any) => {
           this.service.login();
-          this.service.guardarUsuario(data.idusuario, data.idtipousuario, data.idtipoidentificacion, data.usuario);
+          this.service.guardarUsuario(data);
+          this.getUserInfo();
           this.router.navigate(['/dashboard']);
     },
       (error : HttpErrorResponse) => {
@@ -37,11 +40,11 @@ export class LoginFormComponent implements OnInit {
     );
   }
 
-  ingresarComercio(){
-    this.service.loginComercio(this.user,this.contra)
+  ingresarComercio() {
+    this.service.loginComercio(this.user, this.contra)
     .subscribe(
       (data: any) => {
-          this.service.guardarUsuario(data.idusuario, data.idtipousuario, data.idtipoidentificacion, data.usuario);
+          this.service.guardarUsuario(data);
           this.service.login();
           this.router.navigate(['/dashboard']);
     },
@@ -55,4 +58,16 @@ export class LoginFormComponent implements OnInit {
       }
     );
   }
+
+  getUserInfo() {
+    this.service.getUserInfo(localStorage.getItem('username')).subscribe(
+      (data:any) => {
+        localStorage.setItem('userIntID', data.result.idUsuario);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
 }
