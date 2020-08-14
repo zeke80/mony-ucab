@@ -29,16 +29,16 @@ export class SignupFormComponent implements OnInit {
 
 
   formPersona = new FormGroup({
-    nombre : new FormControl('', [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
-    apellido : new FormControl ('',[Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
+    nombre : new FormControl ('', Validators.required),
+    apellido : new FormControl ('', Validators.required),
     fechaNac : new FormControl ('', Validators.required),
     estadoCivil : new FormControl ('', Validators.required)
   });
 
   formComercio = new FormGroup({
     razonSocial : new FormControl('', Validators.required),
-    nombreRepresentante : new FormControl ('', [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
-    apellidoRepresentante : new FormControl('', [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
+    nombreRepresentante : new FormControl ('', Validators.required),
+    apellidoRepresentante : new FormControl('', Validators.required),
     comision : new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*\.?[0-9]*$/)])
   });
 

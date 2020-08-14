@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Globals } from 'src/app/common/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import { Injectable } from '@angular/core';
 export class SignupService {
 
   constructor(private http : HttpClient) { }
+
+  readonly baseURI = Globals.API_URL;
 
   registrarComercio(
     usuario : string,
@@ -24,7 +27,7 @@ export class SignupService {
     mesRegistro : number,
     diaRegistro : number
   ){
-    let url = "http://monyucab.somee.com/api/authentication/register";
+    let url = this.baseURI + "Authentication/register";
     
     let body = {
       "usuario" : usuario,
@@ -70,7 +73,7 @@ export class SignupService {
 
   ){
 
-    let url = "http://monyucab.somee.com/api/authentication/register";
+    let url = this.baseURI + "Authentication/register";
 
     let body2 = {
       "usuario": usuario,

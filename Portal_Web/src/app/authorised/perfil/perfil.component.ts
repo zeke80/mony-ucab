@@ -22,8 +22,8 @@ export class PerfilComponent implements OnInit {
   });
 
   formUsuario = new FormGroup({
-    nombre : new FormControl( {value: '', disabled: true} , [Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
-    apellido : new FormControl ({ disabled: true},[Validators.pattern(/^([A-Za-z])*$/), Validators.required]),
+    nombre : new FormControl( {value: '', disabled: true} , Validators.required),
+    apellido : new FormControl ({ disabled: true}, Validators.required),
     telefono : new FormControl ({ disabled: true}, [Validators.pattern(/^[0-9]*$/), Validators.required]),
     direccion : new FormControl ({ disabled: true}, Validators.required)
   }); 
@@ -35,7 +35,7 @@ export class PerfilComponent implements OnInit {
     fechaNacimiento : ''
   };
 
-  infoComercio : Comercio ={
+  infoComercio : Comercio = {
     razonSocial : '',
     nombreRepresentante : '',
     apellidoRepresentante : ''
@@ -80,8 +80,8 @@ export class PerfilComponent implements OnInit {
       return "Soltero";
     }
   }
+  
   mostrarPersona(data : any){
-    
     this.estadoCivil = this.codigosAStringEstados(data.estadoCivil);
     this.idEstadoCivil = data.estadoCivil.idEstadoCivil;
     this.infoPersona.fechaNacimiento = this.fechaNacimientoString(data.persona.fechaNacimiento);
@@ -92,24 +92,24 @@ export class PerfilComponent implements OnInit {
     this.formUsuario.get('apellido').patchValue(data.persona.apellido);
     this.formUsuario.get('telefono').patchValue(data.result.telefono);
     this.formUsuario.get('direccion').patchValue(data.result.direccion);
-
   }
 
   mostrarComercio(data : any){
     this.infoUsuario.email = data.result.email;
     this.infoUsuario.nroIdentificacion = data.result.nroIdentificacion;
+    this.tipoIdentificacion = data.tipoIdentificacion.codigo;
     this.formUsuario.get('nombre').patchValue(data.comercio.nombreRepresentante);
     this.formUsuario.get('apellido').patchValue(data.comercio.apellidoRepresentante);
     this.formUsuario.get('telefono').patchValue(data.result.telefono);
     this.formUsuario.get('direccion').patchValue(data.result.direccion);
     this.formComercio.get('razonSocial').patchValue(data.comercio.razonSocial);
-
   }
 
   consutarInfo(){
     this.formUsuario.disable();
     this.s_perfil.consultar().subscribe(
       (data : any) => {
+        console.log(data);
         localStorage.setItem('id', data.result.idUsuario);  
         if (data.comercio.razonSocial == ""){
           this.mostrarPersona(data);
@@ -135,7 +135,6 @@ export class PerfilComponent implements OnInit {
   }
 
   modificar(){
-
     if (this.infoPersona == null){
       this.s_perfil.modificar(
         this.formUsuario.get('nombre').value,
@@ -143,7 +142,7 @@ export class PerfilComponent implements OnInit {
         this.formUsuario.get('telefono').value,
         this.formUsuario.get('direccion').value,
         this.formComercio.get('razonSocial').value,
-        parseInt(this.idEstadoCivil,10)
+        parseInt(this.idEstadoCivil, 10)
       ).subscribe(  
         (data : any) => {
           alert(data.message);

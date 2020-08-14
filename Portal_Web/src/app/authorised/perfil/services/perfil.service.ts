@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Globals } from 'src/app/common/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +13,25 @@ export class PerfilService {
   
   constructor(private http : HttpClient) {}
 
-  private _refresh =new Subject<void>();
+  private _refresh = new Subject<void>();
+  readonly baseURI = Globals.API_URL;
 
   get refreshInfo(){
     return this._refresh;
   }
 
   consultar(){
-
-    
-    
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
-    let param = new HttpParams().set('Usuario', 'maria');
-    let url ="http://monyucab.somee.com/api/dashboard/InformacionPersona";
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')}); 
+    let param = new HttpParams().set('Usuario', localStorage.getItem('username'));
+    let url = this.baseURI + "Dashboard/InformacionPersona";
 
     return this.http.get(url, {params : param, headers : header});
-
   }
 
-  consultarEstadosCiviles(){
-    let url = "http://monyucab.somee.com/api/dashboard/EstadosCiviles";
-   
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
+  consultarEstadosCiviles(){  
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')}); 
+    let url = this.baseURI + "Dashboard/EstadosCiviles";
+    
     return this.http.get(url, {headers : header});
   }
 
@@ -44,9 +42,10 @@ export class PerfilService {
     razonSocial : string,
     idEstadoCivil : number
     ){
-    let url = "http://monyucab.somee.com/api/authentication/modification";
 
-    let id = parseInt(localStorage.getItem('id'),10);
+    let url = this.baseURI + "Authentication/modification";
+
+    let id = parseInt(localStorage.getItem('userIntID'), 10);
 
     let body = {
     "nombre": nombre,
@@ -58,7 +57,7 @@ export class PerfilService {
     "idUsuario": id
     }
     
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')}); 
     return this.http.post(url,body, {headers : header})
     .pipe(
       tap(() => {
