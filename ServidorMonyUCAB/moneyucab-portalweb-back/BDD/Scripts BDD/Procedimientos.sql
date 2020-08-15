@@ -1040,6 +1040,7 @@ BEGIN
 END;
 $$;
 
+
 --Definir porcentaje de comisión
 CREATE OR REPLACE FUNCTION Establecer_Comision(INT, DOUBLE PRECISION)
 			RETURNS BOOLEAN
@@ -1051,6 +1052,7 @@ BEGIN
 			RAISE EXCEPTION 'No existe tal comercio';
 	END IF;
 	UPDATE Comercio SET comision = $2 WHERE idUsuario = $1;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1061,7 +1063,7 @@ AS $$
 DECLARE
 BEGIN
 	IF NOT EXISTS (SELECT * FROM Parametro WHERE Parametro.idParametro = $1) THEN
-			RAISE EXCEPTION 'No existe tal comercio';
+			RAISE EXCEPTION 'No existe tal parametro';
 	END IF;
 	UPDATE Parametro SET limite = $2 WHERE idParametro = $1;
 	RETURN TRUE;
