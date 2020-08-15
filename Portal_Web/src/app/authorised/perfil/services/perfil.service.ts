@@ -22,7 +22,7 @@ export class PerfilService {
 
   consultar(){
     let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')}); 
-    let param = new HttpParams().set('Usuario', localStorage.getItem('username'));
+    let param = new HttpParams().set('Usuario', localStorage.getItem('email'));
     let url = this.baseURI + "Dashboard/InformacionPersona";
 
     return this.http.get(url, {params : param, headers : header});

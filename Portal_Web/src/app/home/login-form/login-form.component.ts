@@ -43,8 +43,9 @@ export class LoginFormComponent implements OnInit {
     this.service.loginComercio(this.user, this.contra)
     .subscribe(
       (data: any) => {
-          this.service.guardarUsuario(data);
           this.service.login();
+          this.service.guardarUsuario(data); 
+          this.getUserInfo(); 
           this.router.navigate(['/dashboard']);
     },
       (error : HttpErrorResponse) => {

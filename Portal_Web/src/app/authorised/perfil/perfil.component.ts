@@ -23,9 +23,9 @@ export class PerfilComponent implements OnInit {
 
   formUsuario = new FormGroup({
     nombre : new FormControl( {value: '', disabled: true} , Validators.required),
-    apellido : new FormControl ({ disabled: true}, Validators.required),
-    telefono : new FormControl ({ disabled: true}, [Validators.pattern(/^[0-9]*$/), Validators.required]),
-    direccion : new FormControl ({ disabled: true}, Validators.required)
+    apellido : new FormControl ({value: '', disabled: true}, Validators.required),
+    telefono : new FormControl ({value: '', disabled: true}, [Validators.pattern(/^[0-9]*$/), Validators.required]),
+    direccion : new FormControl ({value: '', disabled: true}, Validators.required)
   }); 
 
   infoPersona : Persona ={
@@ -109,11 +109,9 @@ export class PerfilComponent implements OnInit {
     this.formUsuario.disable();
     this.s_perfil.consultar().subscribe(
       (data : any) => {
-        console.log(data);
-        localStorage.setItem('id', data.result.idUsuario);  
         if (data.comercio.razonSocial == ""){
-          this.mostrarPersona(data);
           this.infoComercio = null;
+          this.mostrarPersona(data);
         }
         else{
           this.infoPersona = null;
@@ -121,27 +119,28 @@ export class PerfilComponent implements OnInit {
         }
       }
     );
-      
-    this.infoComercio = null;
   }
 
   editar(){
     this.isDisabled = false;
     this.formUsuario.enable();
+    this.formComercio.enable();
   }
 
   cancelar(){
     this.isDisabled = true;
+    this.formUsuario.disable();
+    this.formComercio.disable();
   }
 
   modificar(){
-    if (this.infoPersona == null){
+    if (this.infoComercio == null){
       this.s_perfil.modificar(
         this.formUsuario.get('nombre').value,
         this.formUsuario.get('apellido').value,
         this.formUsuario.get('telefono').value,
         this.formUsuario.get('direccion').value,
-        this.formComercio.get('razonSocial').value,
+        "",
         parseInt(this.idEstadoCivil, 10)
       ).subscribe(  
         (data : any) => {
@@ -158,8 +157,8 @@ export class PerfilComponent implements OnInit {
         this.formUsuario.get('apellido').value,
         this.formUsuario.get('telefono').value,
         this.formUsuario.get('direccion').value,
-         "",
-        parseInt(this.idEstadoCivil,10)
+        this.formComercio.get('razonSocial').value,
+        0
        ).subscribe(  
         (data : any) => {
           alert(data.message);

@@ -23,7 +23,7 @@
                 </div>
                 
                 <div [formGroup]="formComercio">
-                    <div *ngIf = "infoComercio != null">
+                    <div *ngIf = "infoPersona == null">
                         <div class="form-row">
                             <div class="col-md-12">
                                 <label ><h4>Razón Social</h4></label>
@@ -94,7 +94,7 @@
                 <hr>
                 
                 <div [formGroup]="formUsuario">
-                    <div *ngIf = "infoComercio != null">
+                    <div *ngIf = "infoPersona == null">
                         <label ><h3>Representantes</h3></label>
                         <div class="form-row">
                             <div class="col-md-6">
