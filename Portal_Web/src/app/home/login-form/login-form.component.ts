@@ -28,12 +28,13 @@ export class LoginFormComponent implements OnInit {
           this.service.guardarUsuario(data);
           this.getUserInfo();
     },
-      (error : HttpErrorResponse) => {
-        if (error.status == 404){
-          alert("Usuario no encontrado.")
+      (err : HttpErrorResponse) => {
+        
+        if (err.status >= 400){
+          alert(err.error.error);
         }
-        else{
-          alert("Ha ocurrido un error. Intente de nuevo")
+        else {
+          alert("Error inesperado. Vuelva a intentar")
         }
       }
     );
@@ -48,12 +49,12 @@ export class LoginFormComponent implements OnInit {
           this.getUserInfo(); 
           this.router.navigate(['/dashboard']);
     },
-      (error : HttpErrorResponse) => {
-        if (error.status == 404){
-          alert("Usuario no encontrado.")
+      (err : HttpErrorResponse) => {        
+        if (err.status >= 400){
+          alert(err.error.error);
         }
-        else{
-          alert("Ha ocurrido un error. Intente de nuevo")
+        else {
+          alert("Error inesperado. Vuelva a intentar")
         }
       }
     );

@@ -19,31 +19,9 @@ export class ProductosComponent implements OnInit {
   constructor(public s_producto : ProductosService, public s_cuenta : AgregarCuentaService, public s_tarjeta : AgregarTarjetaService) { }
 
   ngOnInit(): void {
-    this.consultarCuenta();
-    this.consultarTarjeta();
-
-      
-      this.interval = setInterval(() => { 
-        this.consultarCuenta();
-        this.consultarTarjeta();
-      }, 5000);
   }
 
 
-  consultarCuenta(){
-    this.s_producto.consultarCuenta().subscribe((data : any )=>{
-      this.cuentas = data;
-    });;
-  }
-
-  
-  consultarTarjeta(){
-    this.s_producto.consultarTarjeta().subscribe(data =>{
-      this.tarjetas = data;
-      this.obtenerTipo();
-      this.obtenerBanco();
-    });
-  }
 
   obtenerTipo(){
     if (this.tarjetas.idtipotarjeta == 1){
