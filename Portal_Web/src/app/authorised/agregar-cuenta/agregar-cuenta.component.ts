@@ -9,25 +9,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgregarCuentaComponent implements OnInit {
 
-  nombre = '';
-  numero = null;
-  descripcion = '';
+  numero : number  = null;
+  idTipoCuenta;
+  bancoId : number  = null;
+  bancos : any;
 
   constructor(public s_cuenta :AgregarCuentaService) { }
 
   ngOnInit(): void {
+    this.getBancos();
   }
 
-  agregarCuenta(){
-    this.s_cuenta.agregarCuenta(this.nombre, this.numero, this.descripcion).subscribe(
-      (data: any) =>{
+  getBancos(){
+    this.s_cuenta.consultarBanco().subscribe(
+      data => {
+        this.bancos = data;
       },
       (err : HttpErrorResponse) =>{
         if (err.status == 400){
           alert("Error en los datos")
         }
-        else if(err.status == 200){
-          alert("Cuenta agregada")
+        else {
+          alert ("Error inesperado. Intente de nuevo")
+        }
+      }
+
+    );
+  }
+
+  agregarCuenta(){
+    var id = parseInt(this.idTipoCuenta,10);
+    this.s_cuenta.agregarCuenta(this.numero, id , this.bancoId).subscribe(
+      (data: any) =>{
+        alert(data.message);
+      },
+      (err : HttpErrorResponse) =>{
+        if (err.status == 400){
+          alert("Error en los datos")
         }
         else {
           alert ("Error inesperado. Intente de nuevo")

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { AgregarTarjetaService } from './services/agregar-tarjeta.service';
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-agregar-tarjeta',
@@ -14,53 +15,42 @@ export class AgregarTarjetaComponent implements OnInit {
   cvc = null;
   tipo = '';
   banco = '';
+  bancos : any ;
 
-  constructor(public s_tarjeta : AgregarTarjetaService) { }
+  constructor(public s_tarjeta : AgregarTarjetaService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.getBancos(); 
   }
 
-  antesEnviar(){
-    if (parseInt(this.tipo, 10) == 1){
-      this.tipo = 'DEBITO'
-    }
-    else if (parseInt(this.tipo, 10) == 1){
-      this.tipo = 'CREDITO'
-    }
 
-    if(parseInt(this.banco) == 1){
-      this.banco = 'MERCANTIL';
-    }
-    else if( parseInt(this.banco) == 2) {
-      this.banco = 'BOD';
-    }
-    else if( parseInt(this.banco) == 3) {
-      this.banco ='BANCO DE VENEZUELA';
-    }
-    else if( parseInt(this.banco) == 4) {
-      this.banco ='BANCARIBE';
-      
-    }
-     else if( parseInt(this.banco) == 5) {
-      this.banco = 'BANCO PLAZA';
-    }
-    else if( parseInt(this.banco) == 6) {
-      this.banco = 'BANCO BICENTENARIO';
-    }
+  getBancos(){
+    this.s_tarjeta.consultarBanco().subscribe(
+      data => {
+        this.bancos = data;
+      },
+      (err : HttpErrorResponse) =>{
+        console.log(err);
+      }
+
+    );
   }
 
   agregarTarjeta(){
-    this.antesEnviar();
-    this.s_tarjeta.agregarTarjeta(parseInt(this.numero,10), this.fecha_vencimiento, parseInt(this.cvc,10), 
-    this.tipo, this.banco).subscribe(
+    this.s_tarjeta.agregarTarjeta(parseInt(this.tipo,10), 
+                                  parseInt(this.banco,10), 
+                                  parseInt(this.numero,10),
+                                  parseInt(this.datePipe.transform(this.fecha_vencimiento,'yyyy'), 10),
+                                  parseInt(this.datePipe.transform(this.fecha_vencimiento,'MM'), 10),
+                                  parseInt(this.datePipe.transform(this.fecha_vencimiento,'dd'), 10),
+                                  parseInt(this.cvc,10)
+                                  ).subscribe(
       (data : any) =>{
+        alert("Tarjeta Agregada");
       },
       (err : HttpErrorResponse) => {
         if (err.status == 400){
           alert ("Datos incorrectos. Vuelva a intentar")
-        }
-        else if (err.status == 200){
-          alert("Tarjeta Agregada")
         }
         else {
           alert ("Error inesperado. Vuelva a intentar")

@@ -10,20 +10,4 @@ export class ProductosService {
 
   constructor( private http: HttpClient) { }
 
-  consultarCuenta(){
-    let url = "http://monyucab.somee.com/api/Usuario/infoCuentas";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-
-    return this.http.post(url, {'id' : id});
-  }
-
-  consultarTarjeta(){
-    let url = "http://monyucab.somee.com/api/Usuario/infoTarjetas";
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-
-    return this.http.post(url, {'id' : id});
-
-  }
 }
