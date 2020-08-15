@@ -10,6 +10,7 @@ using moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples;
 using moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO;
 using moneyucab_portalweb_back.EntitiesForm;
 using Excepciones;
+using PayPal.Api;
 
 namespace moneyucab_portalweb_back.Controllers
 {
@@ -78,6 +79,61 @@ namespace moneyucab_portalweb_back.Controllers
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
 
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("RecargaPaypal")]
+        public async Task<Object> Recarga_Monedero_Paypal([FromBody] TransferenciaExternaPayPal Formulario) //No estoy claro de si aca se usa [frombody] o [fromform]
+        {
+            try
+            {
+                await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 1).Ejecutar();
+                Payment payment = await FabricaComandos.Fabricar_Cmd_Crear_Pago_Paypal("", "sale", Formulario.payment).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Recarga_Monedero_Cuenta(Formulario.idUsuarioReceptor, Formulario.idMedioPaga, Formulario.monto).Ejecutar();
+                return Ok(payment);
+
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("RecargaExitosaPaypal")]
+        public async Task<Object> Recarga_Exitosa_Paypal([FromBody] EjecuciónPagoExternoRecarga Formulario)
+        {
+            try
+            {
+                Payment pago = await FabricaComandos.Fabricar_Cmd_Ejecutar_Pago_Paypal(Formulario.idPago, Formulario.idUsuarioPagante).Ejecutar();
+                var result = await FabricaComandos.Fabricar_Cmd_Recarga_Monedero_Cuenta(Formulario.idUsuario, Formulario.idCuenta, Formulario.monto).Ejecutar();
+                return pago;
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+            finally
+            {
+                try
+                {
+                    await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 0).Ejecutar();
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
 
         [HttpPost]

@@ -772,7 +772,7 @@ BEGIN
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionCuenta(idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 			VALUES ($1, $2, current_date, current_time, $3, referenciaValid);
-		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Tarjeta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
+		SELECT Usuario.idUsuario INTO idUsuario_Pagante FROM Usuario JOIN Cuenta ON Cuenta.idUsuario = Usuario.idUsuario AND Cuenta.idCuenta = $2;
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, $3, current_date, current_time, referenciaValid);
 		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (8, $1, CURRENT_DATE, CURRENT_TIME, 'Recepcion de recarga ' || $2 ||' '|| $3, '');
@@ -964,10 +964,10 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
+	RETURN QUERY SELECT * FROM Usuario LEFT JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
 										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
-										JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
-										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuario = $1;
+										LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
+										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuarioF = $1;
 END;
 $$;
 
@@ -1040,17 +1040,33 @@ BEGIN
 END;
 $$;
 
+
 --Definir porcentaje de comisión
-CREATE OR REPLACE FUNCTION Establecer_Comisión(INT, DOUBLE PRECISION)
+CREATE OR REPLACE FUNCTION Establecer_Comision(INT, DOUBLE PRECISION)
 			RETURNS BOOLEAN
 LANGUAGE plpgsql    
 AS $$
 DECLARE
 BEGIN
-	IF NOT EXISTS (SELECT * FROM Comercio WHERE Comercio.idComercio = $1) THEN
+	IF NOT EXISTS (SELECT * FROM Comercio WHERE Comercio.idUsuario = $1) THEN
 			RAISE EXCEPTION 'No existe tal comercio';
 	END IF;
-	UPDATE Comercio SET comision = $2 WHERE idComercio = $1;
+	UPDATE Comercio SET comision = $2 WHERE idUsuario = $1;
+	RETURN TRUE;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION establecer_limite_parametro(integer, text)
+			RETURNS BOOLEAN
+LANGUAGE plpgsql    
+AS $$
+DECLARE
+BEGIN
+	IF NOT EXISTS (SELECT * FROM Parametro WHERE Parametro.idParametro = $1) THEN
+			RAISE EXCEPTION 'No existe tal parametro';
+	END IF;
+	UPDATE Parametro SET limite = $2 WHERE idParametro = $1;
+	RETURN TRUE;
 END;
 $$;
 
@@ -1063,6 +1079,9 @@ DECLARE
 	referenciaValid varchar;
 	tipoOperacion int;
 BEGIN
+		IF (NOT EXISTS (SELECT * FROM Comercio WHERE Comercio.idUsuario = $1)) THEN
+			RAISE EXCEPTION 'No existe tal comercio';
+		END IF;
 		referenciaValid:= ($1 || '' || current_date || '' || current_time || '' ||$2);
 		--Cuando se ejecuta el procedimiento de pago, se debe tener un numero de referencia por parte del e-commerce, por eso se cambia la referencia
 		INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
@@ -1184,7 +1203,7 @@ BEGIN
 			UPDATE Pago SET referencia = $3, estatus = 'Consolidado' WHERE idPago = $2;
 			SELECT TipoOperacion.idTipoOperacion into tipoOperacion FROM TipoOperacion WHERE descripcion = 'Recepción de transferencia';
 			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
-				VALUES (pago_reg.idUsuario_Receptor, tipoOperacion, pago_reg.monto, current_date, current_time, $3);
+				VALUES (pago_reg.idUsuario_Receptor, tipoOperacion, cast(pago_reg.monto as DOUBLE PRECISION), current_date, current_time, $3);
 		ELSE
 			RAISE EXCEPTION 'No existe el pago indicado';
 		END IF;
@@ -1199,7 +1218,7 @@ BEGIN
 			UPDATE Reintegro SET referencia = $3, estatus = 'Consolidado' WHERE idReintegro = $2;
 			SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
 			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
-				VALUES (reintegro_reg.idUsuario_Receptor, tipoOperacion, monto_reintegro, current_date, current_time, $3);
+				VALUES (reintegro_reg.idUsuario_Receptor, tipoOperacion, cast(monto_reintegro as DOUBLE PRECISION), current_date, current_time, $3);
 		ELSE
 			RAISE EXCEPTION 'No existe el reintegro indicado';
 		END IF;
@@ -1254,12 +1273,12 @@ BEGIN
 END;
 $$;
 
-CREATE OR REPLACE FUNCTION Opciones_Menu(INT, INT)
+CREATE OR REPLACE FUNCTION Opciones_Menu(INT)
 												RETURNS TABLE(idOpcionMenu int, idAplicacion int, nombre varchar, descripcion varchar, url varchar, posicion int, estatus int)
 LANGUAGE plpgsql    
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY SELECT A.* FROM OpcionMenu A JOIN Usuario_OpcionMenu B ON B.idUsuario = $1 AND A.idOpcionMenu = B.idOpcionMenu WHERE A.idAplicacion = $2;
+	RETURN QUERY SELECT A.* FROM OpcionMenu A JOIN Usuario_OpcionMenu B ON B.idUsuario = $1 AND A.idOpcionMenu = B.idOpcionMenu;
 END;
 $$;

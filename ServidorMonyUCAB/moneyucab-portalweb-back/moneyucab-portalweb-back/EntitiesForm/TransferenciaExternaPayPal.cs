@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace moneyucab_portalweb_back.EntitiesForm
 {
-	public class TransferenciaExternaPayPal
+	public class TransferenciaExternaPayPal : Transferencia
 	{
 		public bool reg { get; set; }
-		public int idOperacion { get; set; }
 		public Payment payment { get; set; }
 	}
 }

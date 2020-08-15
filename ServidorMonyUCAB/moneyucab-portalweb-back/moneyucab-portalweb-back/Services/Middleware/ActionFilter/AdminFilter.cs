@@ -21,7 +21,7 @@ namespace moneyucab_portalweb_back.Services.Middleware.ActionFilter
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var remoteIp = context.HttpContext.Connection.RemoteIpAddress;
+            /*var remoteIp = context.HttpContext.Connection.RemoteIpAddress;
 
             string[] ip = _safelist.Split(';');
 
@@ -53,7 +53,7 @@ namespace moneyucab_portalweb_back.Services.Middleware.ActionFilter
                 return;
             }
 
-            base.OnActionExecuting(context);
+            base.OnActionExecuting(context);*/
         }
     }
 }
