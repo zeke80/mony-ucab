@@ -25,11 +25,15 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena()
         {
-            Task<HttpResponseMessage> res = APITest.ChangePassword(new {
-                idUsuario = 1,
-                resetPasswordToken = "pas12", 
-                newPassword = "pass123"
-            });
+            dynamic infoCambiarContrasena = new
+            {
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ChangePassword(infoCambiarContrasena);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -37,12 +41,15 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.ChangePassword(new
+            dynamic infoCambiarContrasena = new
             {
-                idUsuario = 404,
-                resetPasswordToken = "pas12",
-                newPassword = "pass123"
-            });
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ChangePassword(infoCambiarContrasena);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -50,12 +57,15 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena_UsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.ChangePassword(new
+            dynamic infoCambiarContrasena = new
             {
-                idUsuario = -1,
-                resetPasswordToken = "pas12",
-                newPassword = "pass123"
-            });
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ChangePassword(infoCambiarContrasena);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

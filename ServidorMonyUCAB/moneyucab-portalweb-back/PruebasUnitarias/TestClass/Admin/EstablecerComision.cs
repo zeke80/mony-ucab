@@ -25,7 +25,14 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerComision(new {idComercio =  1,comision = 1});
+            dynamic infoComision = new {
+                idComercio =  1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.EstablecerComision(infoComision);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,7 +40,15 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision_invalidoComercioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = 404, comision = 1 });
+            dynamic infoComision = new
+            {
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.EstablecerComision(infoComision);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -41,7 +56,15 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision_UsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = -1, comision = 1 });
+            dynamic infoComision = new
+            {
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.EstablecerComision(infoComision);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

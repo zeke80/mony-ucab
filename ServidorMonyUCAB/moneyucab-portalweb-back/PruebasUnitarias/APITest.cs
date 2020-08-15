@@ -63,7 +63,7 @@ namespace PruebasUnitarias
         public static async Task<HttpResponseMessage> ConsultaUsuarios(string query)
         {
             await login(loginTestUser1);
-            return await client.PostAsync(url + "/api/Admin/ConsultaUsuarios?query=" + query, null);
+            return await client.GetAsync(url + "/api/Admin/ConsultaUsuarios?query=" + query);
         }
 
         public static async Task<HttpResponseMessage> EliminarUsuario(int idUsuario)
