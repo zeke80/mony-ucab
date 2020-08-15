@@ -27,7 +27,6 @@ export class LoginFormComponent implements OnInit {
           this.service.login();
           this.service.guardarUsuario(data);
           this.getUserInfo();
-          this.router.navigate(['/dashboard']);
     },
       (error : HttpErrorResponse) => {
         if (error.status == 404){
@@ -63,6 +62,7 @@ export class LoginFormComponent implements OnInit {
     this.service.getUserInfo(localStorage.getItem('username')).subscribe(
       (data:any) => {
         localStorage.setItem('userIntID', data.result.idUsuario);
+        this.router.navigate(['/dashboard']);
       },
       error => {
         console.log(error);

@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Globals } from 'src/app/common/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +11,13 @@ export class InicioService {
   
   constructor(private http : HttpClient) { }
 
-  consultarSaldo(){
-    let url = "http://monyucab.somee.com/api/Usuario/saldo"
+  readonly baseURI = Globals.API_URL;
 
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
+  consultarSaldo(userIntID: string){
+    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idusuario', userIntID);
+    let url = this.baseURI + "Monedero/Consultar";
 
-    return this.http.post(url, {'id' : id});
-
+    return this.http.get(url, {params : param, headers : header});
   }
 }

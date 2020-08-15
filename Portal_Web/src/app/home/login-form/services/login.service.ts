@@ -39,8 +39,7 @@ export class LoginService {
         localStorage.setItem('token', data.result.token);
         localStorage.setItem('userID', data.result.userID);
         localStorage.setItem('username', data.result.username);
-        localStorage.setItem('email', data.result.email);
-     
+        localStorage.setItem('email', data.result.email);     
   }
 
   isLogged(){

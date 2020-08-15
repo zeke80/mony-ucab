@@ -156,7 +156,6 @@ export class SignupFormComponent implements OnInit {
     }
     else{
       this.registarComercio();
-      
     }
   }
 
