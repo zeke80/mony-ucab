@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-item>
+      <h2 class="ion-text-center" color="dark"><strong>Confirmacion de Pago</strong></h2>
+      <ion-icon name="checkmark-circle-outline" color="dark"></ion-icon>
+  </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+  <div class="fondo">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p class="ion-text-center"><img src="./assets/imagenes/logo-stripe.svg" width="150px" height="150px" ></p>
+    <br>
+  <from>
+  <ion-button  (click)="ejecutarPagoPaypal()" color="success" fill="solid" size="large" expand="block">
+    Confirmar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+  </ion-button>
+  
+  <ion-button  (click)="cancelarPagoPaypal()" color="danger" fill="solid" size="large" expand="block">
+    Cancelar <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+  </ion-button>
+</from>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+</ion-content>

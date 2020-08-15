@@ -77,7 +77,7 @@ pagoPaypal(){
 }
 
 pagoStripe(){
-  this.router.navigate(['tabs/operaciones/pago']);
+  this.router.navigate(['tabs/operaciones/reintegro-detalle/pago-stripe']);
 }
 
 async successToast(color : string, mensaje : string) {

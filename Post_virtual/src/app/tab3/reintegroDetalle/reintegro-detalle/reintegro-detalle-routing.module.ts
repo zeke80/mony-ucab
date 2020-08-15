@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'pago-paypal',
     loadChildren: () => import('./pago-paypal/pago-paypal.module').then( m => m.PagoPaypalPageModule)
+  },  {
+    path: 'pago-stripe',
+    loadChildren: () => import('./pago-stripe/pago-stripe.module').then( m => m.PagoStripePageModule)
   }
+
 ];
 
 @NgModule({
