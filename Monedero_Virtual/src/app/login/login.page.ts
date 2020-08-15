@@ -53,6 +53,12 @@ ingresar( f: NgForm ) {
               this.show = true;
               this.router.navigate(['/tabs/cuenta']);
             });
+      },
+      error => {
+        if (error.status === 400) {
+          this.show = true;
+          this.AlertaError();
+        }
       });
 
 }

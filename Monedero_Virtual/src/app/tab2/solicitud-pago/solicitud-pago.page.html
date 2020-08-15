@@ -62,10 +62,16 @@
 
         <div *ngIf="!restHijo">
             <ion-button (click)="pagarPaypal()" color="primary" fill="solid" expand="block">
-                Paypal
+                <div *ngIf="showP">
+                    Paypal
+                </div>
+                <ion-spinner *ngIf="!showP" name="circles"></ion-spinner>
             </ion-button>
             <ion-button (click)="boolStripe()" color="primary" fill="solid" expand="block">
-                Stripe
+                <div *ngIf="showT">
+                    Stripe
+                </div>
+                <ion-spinner *ngIf="!showT" name="circles"></ion-spinner>
             </ion-button>
         </div>
 

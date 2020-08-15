@@ -24,6 +24,8 @@ export class SolicitudPagoPage implements OnInit {
   auxS = false;
   show = true;
   showM = true;
+  showP = true;
+  showT = true;
 
 
   metodoPagoC = [];
@@ -181,7 +183,7 @@ export class SolicitudPagoPage implements OnInit {
   }
 
   pagarPaypal() {
-    this.show = false;
+    this.showP = false;
     var bodyl = {
       reg:true,
       idOperacion: this.id,
@@ -245,15 +247,16 @@ export class SolicitudPagoPage implements OnInit {
     };
     this._pagoServices.pagoPaypal(bodyl)
         .subscribe((data: any) => {
-          console.log(data.links[1].href);
-          window.location.href = data.links[1].href;
-          this.show = true;
+          console.log(data);
+          // window.location.href = data.links[1].href;
+          this.showP = true;
         });
 
 
   }
 
   pagarStripe(email) {
+    this.showT = false;
     let cant: number = + this.operacion.monto;
 
     var body = {
@@ -269,6 +272,7 @@ export class SolicitudPagoPage implements OnInit {
     this._pagoServices.pagoStripe(body)
         .subscribe((data: any) => {
           this.router.navigate(['/tabs/cuenta']);
+          this.showT = true;
         });
 
   }
@@ -281,28 +285,13 @@ export class SolicitudPagoPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
+            this.showM = true;
           }
         },
 
       ]
     });
 
-    await alertElement.present();
-
-  }
-
-  async AlertaError() {
-    const alertElement = await this.alert.create({
-      header: 'Error en pago',
-      message: 'El saldo no es suficiente',
-      buttons: [
-        {
-          text: 'Aceptar',
-          handler: () => {
-          }
-        },
-      ]
-    });
     await alertElement.present();
 
   }

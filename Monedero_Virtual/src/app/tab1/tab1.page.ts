@@ -16,6 +16,7 @@ export class Tab1Page implements OnInit {
 
   usuario: Usuario;
   persona: Persona;
+  show = true;
 
   constructor(
     public _usuarioServices: UsuarioService,
@@ -39,6 +40,7 @@ export class Tab1Page implements OnInit {
   }
 
   modificarUsuario( f: NgForm){
+    this.show = false;
 
     var body = {
       nombre: f.value.nombre,
@@ -65,6 +67,7 @@ export class Tab1Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
+            this.show = true;
           }
         },
       ]
@@ -82,6 +85,7 @@ export class Tab1Page implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
+            this.show = true;
           }
         },
       ]

@@ -68,7 +68,10 @@
 
 
                     <ion-button type="submit" fill="solid" expand="full">
-                        Guardar
+                        <div *ngIf="show">
+                            Guardar
+                        </div>
+                        <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
                     </ion-button>
                 </form>
 
