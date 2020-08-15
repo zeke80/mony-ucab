@@ -1,5 +1,6 @@
 ﻿using Comunes.Comun;
 using DAO;
+using Excepciones.Excepciones_Especificas;
 using Microsoft.AspNetCore.Identity;
 using moneyucab_portalweb_back.EntitiesForm;
 using System;
@@ -30,6 +31,14 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 		async public Task<bool> Ejecutar()
 		{
 			var usuario = await this._userManager.FindByNameAsync(this._usuario);
+			if (usuario == null)
+            {
+				usuario = await this._userManager.FindByEmailAsync(this._usuario);
+				if(usuario == null)
+                {
+					UsuarioExistenteException.UsuarioNoExistente();
+				}
+            }
 			await this._userManager.DeleteAsync(usuario);
 			DAOBase dao = FabricaDAO.CrearDaoBase();
 			return dao.EliminarUsuario(this._idUsuario);

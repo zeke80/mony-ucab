@@ -810,7 +810,6 @@ CREATE TABLE IF NOT EXISTS Public.Reintegro (
         ON DELETE CASCADE
 );
 
-
 -- -----------------------------------------------------
 -- Table Public.Pago
 -- -----------------------------------------------------
