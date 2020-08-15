@@ -463,6 +463,7 @@ namespace moneyucab_portalweb_back.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("ConsultaUsuariosF")]
         //Post: /api/Authentication/Register
         public async Task<Object> ConsultarUsuariosF([FromQuery] int idUsuario)
@@ -470,6 +471,28 @@ namespace moneyucab_portalweb_back.Controllers
             try
             {
                 return await FabricaComandos.Fabricar_Cmd_Consultar_Usuarios_Familiares(idUsuario).Ejecutar();
+            }
+            catch (MoneyUcabException ex)
+            {
+                //Debe controlarse un error dentro de la plataforma
+                //Se realiza bad request respondiendo con el objeto obtenido
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("OpcionesMenu")]
+        //Post: /api/Authentication/Register
+        public async Task<Object> OpcionesMenu([FromQuery] int idUsuario)
+        {
+            try
+            {
+                return await FabricaComandos.Fabricar_Cmd_Consultar_Opciones_Menu(idUsuario).Ejecutar();
             }
             catch (MoneyUcabException ex)
             {

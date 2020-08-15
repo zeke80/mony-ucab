@@ -404,5 +404,10 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Ejecutar_Pago_Paypal(IdPago, IdUsuarioPagante);
         }
+
+        public static Comando_Consultar_Opciones_Menu Fabricar_Cmd_Consultar_Opciones_Menu(int IdUsuario)
+        {
+            return new Comando_Consultar_Opciones_Menu(IdUsuario);
+        }
     }
 }

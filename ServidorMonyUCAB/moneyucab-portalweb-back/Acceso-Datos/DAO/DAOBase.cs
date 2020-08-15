@@ -209,6 +209,48 @@ namespace DAO
             return null;
         }
 
+        public List<ComOpcionMenu> OpcionesMenu(int IdUsuario)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM Opciones_Menu(@IdUsuario);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("IdUsuario", IdUsuario));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComOpcionMenu> OpcionesMenu = new List<ComOpcionMenu>();
+                ComOpcionMenu row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComOpcionMenu();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    OpcionesMenu.Add(row);
+                }
+                return OpcionesMenu;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
         public List<ComTipoParametro> TiposParametros()
         {
             try

@@ -138,6 +138,7 @@
     <Compile Include="Comun\ComCuenta.cs" />
     <Compile Include="Comun\ComEstadoCivil.cs" />
     <Compile Include="Comun\ComFrecuencia.cs" />
+    <Compile Include="Comun\ComOpcionMenu.cs" />
     <Compile Include="Comun\ComUsuarioParametro.cs" />
     <Compile Include="Comun\ComOperacionMonedero.cs" />
     <Compile Include="Comun\ComOperacionCuenta.cs" />

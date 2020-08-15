@@ -590,8 +590,8 @@ DROP TABLE IF EXISTS Public.OpcionMenu ;
 CREATE TABLE IF NOT EXISTS Public.OpcionMenu (
   idOpcionMenu SERIAL,
   idAplicacion INT NOT NULL,
-  nombre VARCHAR(45) NOT NULL,
-  descripcion VARCHAR(45) NOT NULL,
+  nombre VARCHAR(100) NOT NULL,
+  descripcion VARCHAR(200) NOT NULL,
   url VARCHAR(200) NOT NULL,
   posicion INT NOT NULL,
   estatus INT NOT NULL,
