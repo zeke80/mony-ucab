@@ -14,7 +14,7 @@ export class SideNavComponent implements OnInit {
   constructor(public sideNavService: AuthorisedSideNavService) { }
 
   ngOnInit(): void {
-  }
 
+  }
 
 }

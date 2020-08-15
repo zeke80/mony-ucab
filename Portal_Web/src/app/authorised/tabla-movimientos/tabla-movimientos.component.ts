@@ -58,7 +58,6 @@ export class TablaMovimientosComponent implements OnInit {
       }
       else if (this.opcion == "monedero"){
         this.consultarSoloMonedero();
-  
       }
       else if (this.opcion == "cuenta"){
         this.consultarSoloCuenta();

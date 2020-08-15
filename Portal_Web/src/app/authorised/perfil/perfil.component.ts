@@ -58,7 +58,6 @@ export class PerfilComponent implements OnInit {
   tipoIdentificacion = '';
   idEstadoCivil;
 
-
   isDisabled : boolean = true;
 
   constructor(public s_perfil : PerfilService) { }

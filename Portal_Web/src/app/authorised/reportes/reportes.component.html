@@ -1,25 +1,27 @@
-<div class="col d-flex justify-content-center">  
-    <div class="card-columns d-flex">
-        <div class="card border-success mr-3">
-            <div class="card-header bg-transparent border-success">Cantidad de opeaciones realizadas</div>
-        <div class="card-body">
-            <p class="card-text">
-                <span>Pagos: 8</span>
-                <br>
-                <span>Recargas: 8</span>
-                <br>
-                <span>Reintegros: 8</span>
-                <br>
-                <span>Cobros: 8</span>
-                <br>
-            </p>
-            </div>
-        </div>
-        <div class="card border-success mb-3">
-            <div class="card-header bg-transparent border-success">Cobros Pendientes</div>
+<div *ngIf = "s_reportes.show">
+    <div class="col d-flex justify-content-center">  
+        <div class="card-columns d-flex">
+            <div class="card border-success mr-3">
+                <div class="card-header bg-transparent border-success">Cantidad de opeaciones realizadas</div>
             <div class="card-body">
-            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text">
+                    <span>Pagos: 8</span>
+                    <br>
+                    <span>Recargas: 8</span>
+                    <br>
+                    <span>Reintegros: 8</span>
+                    <br>
+                    <span>Cobros: 8</span>
+                    <br>
+                </p>
+                </div>
             </div>
-        </div>
-    </div> 
+            <div class="card border-success mb-3">
+                <div class="card-header bg-transparent border-success">Cobros Pendientes</div>
+                <div class="card-body">
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                </div>
+            </div>
+        </div> 
+    </div>
 </div>

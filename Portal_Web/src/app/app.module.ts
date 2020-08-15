@@ -13,6 +13,9 @@ import { PerfilService } from './authorised/perfil/services/perfil.service';
 import { ConfiguracionesService } from './authorised/configuraciones/services/configuraciones.service';
 import { InicioService } from './authorised/pantalla-inicio/services/inicio.service';
 import { RecuperarContrasenaService } from './home/recuperar-contrasena/services/recuperar-contrasena.service';
+import { AdminUsuariosService } from './authorised/admin-usuarios/services/admin-usuarios.service';
+import { ReportesService } from './authorised/reportes/services/reportes.service';
+import { GrupoFamiliarService } from './authorised/grupo-familiar/services/grupo-familiar.service';
 
 import { LoginGuard } from './guard/login.guard';
 
@@ -36,6 +39,8 @@ import { AgregarCuentaComponent } from './authorised/agregar-cuenta/agregar-cuen
 import { PantallaInicioComponent } from './authorised/pantalla-inicio/pantalla-inicio.component';
 import { RecuperarContrasenaComponent } from './home/recuperar-contrasena/recuperar-contrasena.component';
 import { ReportesComponent } from './authorised/reportes/reportes.component';
+import { AdminUsuariosComponent } from './authorised/admin-usuarios/admin-usuarios.component';
+import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-familiar.component';
 
 
 @NgModule({
@@ -58,7 +63,9 @@ import { ReportesComponent } from './authorised/reportes/reportes.component';
     AgregarCuentaComponent,
     PantallaInicioComponent,
     RecuperarContrasenaComponent,
-    ReportesComponent
+    ReportesComponent,
+    AdminUsuariosComponent,
+    GrupoFamiliarComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +94,10 @@ import { ReportesComponent } from './authorised/reportes/reportes.component';
     RecuperarContrasenaService,
     DatePipe,
     ProductosComponent, 
-    LoginGuard
+    LoginGuard,
+    AdminUsuariosService,
+    ReportesService,
+    GrupoFamiliarService
   ],
   bootstrap: [AppComponent]
 })
