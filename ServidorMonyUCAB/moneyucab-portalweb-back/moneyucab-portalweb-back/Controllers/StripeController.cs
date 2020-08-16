@@ -56,5 +56,26 @@ namespace moneyucab_portalweb_back.Controllers
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
         }
+
+        /*[HttpPost]
+        [Authorize]
+        [Route("ReintegroStripe")]
+        public async Task<Object> ReintegroStripe([FromBody] ChargeForm model)
+        {
+            try
+            {
+                ChargeForm payment = await FabricaComandos.Fabricar_Cmd_Stripe_Payouts(model.monto, model.emailReceptor, model.descripcion, model.reg, model.idOperacion).Ejecutar();
+                await FabricaComandos.Fabricar_Cmd_Pago_Stripe(model.reg, model.idOperacion, payment.id).Ejecutar();
+                return payment;
+            }
+            catch (MoneyUcabException ex)
+            {
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }*/
+        }
     }
 }

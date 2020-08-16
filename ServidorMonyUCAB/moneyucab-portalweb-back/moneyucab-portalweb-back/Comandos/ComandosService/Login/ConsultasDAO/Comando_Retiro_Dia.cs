@@ -8,21 +8,20 @@ using System.Threading.Tasks;
 
 namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 {
-    public class Comando_RetiroRango
+    public class Comando_Retiro_Dia
     {
-		private string _date;
-		private string _date2;
+		private string _DD;
 
-		public Comando_RetiroRango(string fecha, string fecha2)
+		public Comando_Retiro_Dia(string fecha)
 		{
-			this._date = fecha;
-			this._date2 = fecha2;
+			this._DD = fecha;
+			
 		}
 
-			async public Task<List<ComOperacionMonedero>> Ejecutar()
+		async public Task<List<ComOperacionMonedero>> Ejecutar()
 		{
 			DAOBase dao = FabricaDAO.CrearDaoBase();
-			return dao.RetiroRango(this._date,this._date2);
+			return dao.retiro_dia(this._DD);
 		}
 	}
 }
