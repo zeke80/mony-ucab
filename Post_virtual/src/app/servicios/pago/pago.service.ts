@@ -228,6 +228,6 @@ export class PagoService {
   cancelarPagoPaypal(body){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
-    return this.http.post('http://localhost:49683/api/Transfer/realizarcobro',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/Paypal/PagoCancelado',body, {headers: header});
   }
 }
