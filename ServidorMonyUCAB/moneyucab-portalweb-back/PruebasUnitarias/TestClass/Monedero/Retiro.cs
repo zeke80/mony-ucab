@@ -15,14 +15,15 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void retiro()
         {
-            dynamic infoUsuario = new
+            dynamic recarga = new
             {
-                
+                idUsuarioReceptor = 1,
+                idMedioPaga = 1,
+                monto = 1,
+                idOperacion = 1
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.RecargaMonederoCuenta(infoUsuario);
-            }).Wait();
+            res = APITest.Retiro(recarga);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -30,29 +31,33 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void retiro_idUsuarioReceptorInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic recarga = new
             {
-                idUsuarioReceptor = "qere",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Retiro(recarga);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void retiro_idMedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic recarga = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "qwewrf",
-                monto = 100,
+                idUsuarioReceptor = 1,
+                idMedioPaga = -1,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Retiro(recarga);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             {
                 idUsuarioReceptor = 1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
             };
             Task<HttpResponseMessage> res = null;
@@ -49,42 +49,10 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 17,
+                idUsuarioReceptor = 1,
                 idMedioPaga = -1,
                 monto = 100,
                 idOperacion = 1
-            };
-            Task<HttpResponseMessage> res = null;
-            res = APITest.RealizarPagoCuenta(infoPagoCuenta);
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        /*[TestMethod]
-        public void realizarPagoCuenta_montoInvalido()
-        {
-            dynamic infoPagoCuenta = new
-            {
-                idUsuarioReceptor = 17,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = 1
-            };
-            Task<HttpResponseMessage> res = null;
-            res = APITest.RealizarPagoCuenta(infoPagoCuenta);
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }*/
-
-        [TestMethod]
-        public void realizarPagoCuenta_idOperacionInvalido()
-        {
-            dynamic infoPagoCuenta = new
-            {
-                idUsuarioReceptor = 17,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = -1
             };
             Task<HttpResponseMessage> res = null;
             res = APITest.RealizarPagoCuenta(infoPagoCuenta);
@@ -97,7 +65,7 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 16,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
                 monto = 100000000,
                 idOperacion = 1

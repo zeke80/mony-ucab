@@ -26,29 +26,31 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroFamiliar()
         {
-            Task<HttpResponseMessage> res = APITest.RegisterFamiliar(new 
+            dynamic persona = new
             {
-               Usuario = "TestUserF",
-               Email = "testuserf@gmail.com",
-               Password = "testuserf",
-               IdTipoUsuario =  1,
-               IdTipoIdentificacion = 1,
-               IdEstadoCivil = 1,
-               AnoRegistro = 2020,
-               MesRegistro = 1,
-               DiaRegistro = 1,
-               NroIdentificacion =  1,
-               Telefono = "TelfTestUserF",
-               Direccion = "DirTestUserF",
-               Estatus =  1,
-               Comercio =  false,
-               Nombre = "NomTestUserF",
-               Apellido = "ApeTestUserF",
-               AnoNacimiento =  1998,
-               MesNacimiento =  5,
-               DiaNacimiento = 30,
-               RazonSocial = "RazTestUserF"
-            });
+                Usuario = "TestUserF",
+                Email = "testuserf@gmail.com",
+                Password = "testuserf",
+                IdTipoUsuario = 1,
+                IdTipoIdentificacion = 1,
+                IdEstadoCivil = 1,
+                AnoRegistro = 2020,
+                MesRegistro = 1,
+                DiaRegistro = 1,
+                NroIdentificacion = 1,
+                Telefono = "TelfTestUserF",
+                Direccion = "DirTestUserF",
+                Estatus = 1,
+                Comercio = false,
+                Nombre = "NomTestUserF",
+                Apellido = "ApeTestUserF",
+                AnoNacimiento = 1998,
+                MesNacimiento = 5,
+                DiaNacimiento = 30,
+                RazonSocial = "RazTestUserF"
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RegisterFamiliar(persona);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }

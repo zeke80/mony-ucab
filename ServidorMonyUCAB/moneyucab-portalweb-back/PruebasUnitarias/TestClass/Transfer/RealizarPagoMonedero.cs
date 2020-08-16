@@ -15,85 +15,65 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void realizarPagoMonedero()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoCuenta(new
+            dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 2,
+                idUsuarioReceptor = 1,
+                idMedioPaga = 1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoMonedero(infoPagoCuenta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void realizarPagoMonedero_idUsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoCuenta(new
+            dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = "",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoMonedero(infoPagoCuenta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarPagoMonedero_idMedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoCuenta(new
+            dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "",
+                idUsuarioReceptor = 1,
+                idMedioPaga = -1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void realizarPagoMonedero_montoInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoCuenta(new
-            {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = "",
-                idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void realizarPagoMonedero_idOperacionInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoCuenta(new
-            {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoMonedero(infoPagoCuenta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarPagoMonedero_MontoExcediendoSaldo()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoCuenta(new
+            dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
-                monto = 10000000,
-                idOperacion = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+                monto = 100000000,
+                idOperacion = 1
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoMonedero(infoPagoCuenta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

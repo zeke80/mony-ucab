@@ -25,15 +25,14 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena()
         {
-            dynamic infoCambiarContrasena = new
+            dynamic infoParametro = new
             {
-                idComercio = 1,
-                comision = 1,
+                idUsuario = 1,
+                resetPasswordToken = "",
+                newPassword = "PassTestUser1"
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ChangePassword(infoCambiarContrasena);
-            }).Wait();
+            res = APITest.ChangePassword(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -41,31 +40,14 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena_invalidoUsuarioNoRegistrado()
         {
-            dynamic infoCambiarContrasena = new
+            dynamic infoParametro = new
             {
-                idComercio = 1,
-                comision = 1,
+                idUsuario = -1,
+                resetPasswordToken = "",
+                newPassword = "PassTestUser1"
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ChangePassword(infoCambiarContrasena);
-            }).Wait();
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void cambiarContrasena_UsuarioInvalido()
-        {
-            dynamic infoCambiarContrasena = new
-            {
-                idComercio = 1,
-                comision = 1,
-            };
-            Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ChangePassword(infoCambiarContrasena);
-            }).Wait();
+            res = APITest.ChangePassword(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

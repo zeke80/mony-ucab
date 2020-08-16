@@ -25,12 +25,14 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void restablecerContrasena()
         {
-            Task<HttpResponseMessage> res = APITest.ResetPassword(new
+            dynamic infoRestablecerContrasena = new
             {
                 idUsuario = 1,
-                resetPasswordToken = "testuser",
-                newPassword = "testuser"
-            });
+                resetPasswordToken = "",
+                newPassword = "PassTestUser1"
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ResetPassword(infoRestablecerContrasena);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -38,27 +40,16 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void restablecerContrasena_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.ResetPassword(new
-            {
-                idUsuario = 404,
-                resetPasswordToken = "testuser",
-                newPassword = "testuser"
-            });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void restablecerContrasena_UsuarioInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.ResetPassword(new
+            dynamic infoRestablecerContrasena = new
             {
                 idUsuario = -1,
-                resetPasswordToken = "testuser",
-                newPassword = "testuser"
-            });
+                resetPasswordToken = "",
+                newPassword = "PassTestUser1"
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ResetPassword(infoRestablecerContrasena);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
     }
 }

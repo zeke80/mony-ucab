@@ -15,7 +15,7 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void recarga_saldo_cuenta()
         {
-            dynamic infoLogin = new
+            dynamic info = new
             {
                 idUsuarioReceptor = 1,
                 idMedioPaga = 1,
@@ -23,7 +23,7 @@ namespace PruebasUnitarias.TestClass.Monedero
                 idOperacion = 1
             };
             Task<HttpResponseMessage> res = null;
-            res = APITest.RecargaMonederoCuenta(infoLogin);
+            res = APITest.RecargaMonederoCuenta(info);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -31,29 +31,33 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void recarga_saldo_cuenta_UsuarioReceptorInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic info = new
             {
-                idUsuarioReceptor = "qere",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RecargaMonederoCuenta(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void recarga_saldo_cuenta_MedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic info = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "qwewrf",
-                monto = 100,
+                idUsuarioReceptor = 1,
+                idMedioPaga = -1,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RecargaMonederoCuenta(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

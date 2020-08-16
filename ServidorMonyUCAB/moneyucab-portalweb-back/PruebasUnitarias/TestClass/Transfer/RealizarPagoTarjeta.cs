@@ -15,71 +15,65 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void realizarPagoTarjeta()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoTarjeta(new
+            dynamic infoPagoTarjeta = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoTarjeta(infoPagoTarjeta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void realizarPagoTarjeta_idUsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoTarjeta(new
+            dynamic infoPagoTarjeta = new
             {
-                idUsuarioReceptor = "",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoTarjeta(infoPagoTarjeta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarPagoTarjeta_idMedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoTarjeta(new
+            dynamic infoPagoTarjeta = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "",
+                idUsuarioReceptor = 1,
+                idMedioPaga = -1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoTarjeta(infoPagoTarjeta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarPagoTarjeta_montoInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoTarjeta(new
+            dynamic infoPagoTarjeta = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
-                monto = "",
+                monto = 10000000000,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void realizarPagoTarjeta_idOperacionInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RealizarPagoTarjeta(new
-            {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarPagoTarjeta(infoPagoTarjeta);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
     }
 }

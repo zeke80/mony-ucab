@@ -25,7 +25,7 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta()
         {
-            Task<HttpResponseMessage> res = APITest.tarjeta(new
+            dynamic tarjeta = new
             {
                 idUsuario = 1,
                 idTipoTarjeta = 1,
@@ -36,7 +36,9 @@ namespace PruebasUnitarias.TestClass.Billetera
                 dia = 30,
                 cvc = 1550,
                 estatus = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.tarjeta(tarjeta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -44,9 +46,9 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.tarjeta(new
+            dynamic tarjeta = new
             {
-                idUsuario = 404,
+                idUsuario = -1,
                 idTipoTarjeta = 1,
                 idBanco = 1,
                 numero = 1,
@@ -55,7 +57,9 @@ namespace PruebasUnitarias.TestClass.Billetera
                 dia = 30,
                 cvc = 1550,
                 estatus = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.tarjeta(tarjeta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -63,10 +67,10 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta_invalidoTipoTarjetaNoRegistrada()
         {
-            Task<HttpResponseMessage> res = APITest.tarjeta(new
+            dynamic tarjeta = new
             {
                 idUsuario = 1,
-                idTipoTarjeta = 404,
+                idTipoTarjeta = -1,
                 idBanco = 1,
                 numero = 1,
                 ano = 2021,
@@ -74,7 +78,9 @@ namespace PruebasUnitarias.TestClass.Billetera
                 dia = 30,
                 cvc = 1550,
                 estatus = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.tarjeta(tarjeta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -82,18 +88,20 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta_invalidoBancoNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.tarjeta(new
+            dynamic tarjeta = new
             {
                 idUsuario = 1,
                 idTipoTarjeta = 1,
-                idBanco = 404,
+                idBanco = -1,
                 numero = 1,
                 ano = 2021,
                 mes = 5,
                 dia = 30,
                 cvc = 1550,
                 estatus = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.tarjeta(tarjeta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

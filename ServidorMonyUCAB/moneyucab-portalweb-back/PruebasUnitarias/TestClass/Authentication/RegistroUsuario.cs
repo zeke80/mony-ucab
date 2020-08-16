@@ -28,9 +28,9 @@ namespace PruebasUnitarias
         {
             dynamic infoUsuario = new
             {
-                usuario = "TestUser3",
-                email = "testuser3@gmail.com",
-                password = "PassTestUser3",
+                usuario = "TestUser4",
+                email = "testuser4@gmail.com",
+                password = "PassTestUser4",
                 idTipoUsuario = 3,
                 idTipoIdentificacion = 1,
                 idEstadoCivil = 1,
@@ -50,9 +50,7 @@ namespace PruebasUnitarias
                 razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.register(infoUsuario);
-            }).Wait();
+            res = APITest.register(infoUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -62,9 +60,9 @@ namespace PruebasUnitarias
         {
             dynamic infoUsuario = new
             {
-                usuario = "TestUser1",
-                email = "testuser3@gmail.com",
-                password = "PassTestUser3",
+                usuario = "TestUser4",
+                email = "testuser5@gmail.com",
+                password = "PassTestUser5",
                 idTipoUsuario = 3,
                 idTipoIdentificacion = 1,
                 idEstadoCivil = 1,
@@ -84,11 +82,9 @@ namespace PruebasUnitarias
                 razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.register(infoUsuario);
-            }).Wait();
+            res = APITest.register(infoUsuario);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -96,9 +92,9 @@ namespace PruebasUnitarias
         {
             dynamic infoUsuario = new
             {
-                usuario = "TestUser3",
-                email = "testuser1@gmail.com",
-                password = "PassTestUser3",
+                usuario = "TestUser5",
+                email = "testuser4@gmail.com",
+                password = "PassTestUser5",
                 idTipoUsuario = 3,
                 idTipoIdentificacion = 1,
                 idEstadoCivil = 1,
@@ -118,11 +114,9 @@ namespace PruebasUnitarias
                 razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.register(infoUsuario);
-            }).Wait();
+            res = APITest.register(infoUsuario);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

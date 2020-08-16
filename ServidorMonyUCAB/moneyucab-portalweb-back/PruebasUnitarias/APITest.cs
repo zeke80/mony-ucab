@@ -360,7 +360,7 @@ namespace PruebasUnitarias
             Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/monedero/RecargaMonederoCuenta", data); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> Retiro(dynamic recarga, InfoLogin loginTestUser1)
+        public static Task<HttpResponseMessage> Retiro(dynamic recarga)
         {
             login(loginTestUser1);
             var data = serializarObjetoJson(recarga);

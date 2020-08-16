@@ -57,20 +57,5 @@ namespace PruebasUnitarias.TestClass.Transfer
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
-
-        /*[TestMethod]
-        public void realizarCobro_montoInvalido()
-        {
-            dynamic infoCobro = new
-            {
-                idUsuarioSolicitante = 1,
-                emailPagador = "testuser2@gmail.com",
-                monto = 100
-            };
-            Task<HttpResponseMessage> res = null;
-            res = APITest.RealizarCobro(infoCobro);
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }*/
     }
 }

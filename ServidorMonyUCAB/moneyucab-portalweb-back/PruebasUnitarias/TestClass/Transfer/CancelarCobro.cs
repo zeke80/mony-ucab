@@ -15,18 +15,20 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void cancelarCobro()
         {
-            /*int idUsuario = 1;
+            int idCobro = 1;
             Task<HttpResponseMessage> res = null;
-            res = APITest.CancelarCobro(idUsuario, solicitante);
+            res = APITest.CancelarCobro(idCobro);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);*/
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         public void cancelarCobro_idCobroInvalidp()
         {
-            Task<HttpResponseMessage> res = APITest.CancelarCobro(404);
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            int idCobro = -1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.CancelarCobro(idCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

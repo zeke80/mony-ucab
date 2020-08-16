@@ -25,15 +25,17 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroComercio()
         {
-            Task<HttpResponseMessage> res = APITest.RegisterComercio(new
+            dynamic correo = new
             {
-                usuario = "TestUser",
+                usuario = "TestUser1",
                 idUsuario = 1,
-                razonSocial = "RazTestUser",
-                nombre = "NomTestUser",
-                apellido = "ApeTestUser",
+                razonSocial = "RazTestUser1",
+                nombre = "NomTestUser1",
+                apellido = "ApeTestUser1",
                 comision = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RegisterComercio(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -41,15 +43,17 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroComercio_InvalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.RegisterComercio(new
+            dynamic correo = new
             {
-                usuario = "TestUser",
-                idUsuario = 404,
-                razonSocial = "RazTestUser",
-                nombre = "NomTestUser",
-                apellido = "ApeTestUser",
+                usuario = "TestUser1",
+                idUsuario = -1,
+                razonSocial = "RazTestUser1",
+                nombre = "NomTestUser1",
+                apellido = "ApeTestUser1",
                 comision = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RegisterComercio(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -57,31 +61,17 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroComercio_InvalidoUsuarioNoRegistradoXUserName()
         {
-            Task<HttpResponseMessage> res = APITest.RegisterComercio(new
+            dynamic correo = new
             {
                 usuario = "",
                 idUsuario = 1,
-                razonSocial = "RazTestUser",
-                nombre = "NomTestUser",
-                apellido = "ApeTestUser",
+                razonSocial = "RazTestUser1",
+                nombre = "NomTestUser1",
+                apellido = "ApeTestUser1",
                 comision = 1
-            });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void registroComercio_UsuarioInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RegisterComercio(new
-            {
-                usuario = "TestUser",
-                idUsuario = -1,
-                razonSocial = "RazTestUser",
-                nombre = "NomTestUser",
-                apellido = "ApeTestUser",
-                comision = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RegisterComercio(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

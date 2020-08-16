@@ -31,9 +31,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 confirmationToken = ""
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
-            }).Wait();
+            res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -43,29 +41,11 @@ namespace PruebasUnitarias.TestClass.Authentication
         {
             dynamic infoConfirmacionCorreo = new
             {
-                idUsuario = 1,
+                idUsuario = -1,
                 confirmationToken = ""
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
-            }).Wait();
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void confirmarCorreo_UsuarioInvalido()
-        {
-            dynamic infoConfirmacionCorreo = new
-            {
-                idUsuario = 1,
-                confirmationToken = ""
-            };
-            Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
-            }).Wait();
+            res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -79,9 +59,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 confirmationToken = ""
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
-            }).Wait();
+            res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

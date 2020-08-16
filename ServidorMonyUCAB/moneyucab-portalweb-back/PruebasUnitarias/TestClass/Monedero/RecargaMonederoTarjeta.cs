@@ -16,43 +16,49 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void recarga_saldo_tarjeta()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoTarjeta(new
+            dynamic info = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RecargaMonederoTarjeta(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void recarga_saldo_tarjeta_UsuarioReceptorInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoTarjeta(new
+            dynamic info = new
             {
-                idUsuarioReceptor = "qere",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RecargaMonederoTarjeta(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void recarga_saldo_tarjeta_MedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoTarjeta(new
+            dynamic info = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "qwewrf",
-                monto = 100,
+                idUsuarioReceptor = 1,
+                idMedioPaga = -1,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RecargaMonederoTarjeta(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
     }
