@@ -72,4 +72,10 @@ export class CierrePage implements OnInit {
 
   }*/
 
+
+  
+  ionViewWillEnter(){
+    this.setCierre();
+  }
+
 }

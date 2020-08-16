@@ -147,6 +147,28 @@ export class Tab3Page implements OnInit{
     await alert.present();
   }
 
+  ionViewWillEnter(){
+    
+    this.reintegroService.reintegrosActivos().subscribe(
+      (data: any) =>{
+        this.reintegrosActivos = data;
+        console.log(this.reintegrosActivos);
+      }
+    );
 
+    this.reintegroService.reintegrosCancelados().subscribe(
+      (data: any) =>{
+        this.reintegrosCancelados = data;
+        console.log(this.reintegrosCancelados);
+      }
+    );
+
+    this.reintegroService.reintegrosExitosos().subscribe(
+      (data: any) =>{
+        this.reintegrosExitosos = data;
+        console.log(this.reintegrosExitosos);
+      }
+    );
+  }
 
 }

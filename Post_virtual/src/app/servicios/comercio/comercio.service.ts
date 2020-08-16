@@ -52,15 +52,9 @@ export class ComercioService {
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
     let param = new HttpParams().set('IdUsuario', IdUsuario);
+    let url = "http://localhost:49683/api/HistorialOperaciones/EjecutarCierre";
 
-
-    const options = {
-      headers: header,
-      params: param
-    };
-
-    console.log(options);
-    return this.http.get('http://localhost:80/api/HistorialOperaciones/EjecutarCierre',null, options)
+    return this.http.get(url, {params: param, headers: header});
   }
 
 
