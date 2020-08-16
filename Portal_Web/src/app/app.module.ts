@@ -41,6 +41,8 @@ import { RecuperarContrasenaComponent } from './home/recuperar-contrasena/recupe
 import { ReportesComponent } from './authorised/reportes/reportes.component';
 import { AdminUsuariosComponent } from './authorised/admin-usuarios/admin-usuarios.component';
 import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-familiar.component';
+import { RetirarFormComponent } from './authorised/retirar-form/retirar-form.component';
+import { RetirarService } from './authorised/retirar-form/services/retirar.service';
 
 
 @NgModule({
@@ -65,7 +67,8 @@ import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-famili
     RecuperarContrasenaComponent,
     ReportesComponent,
     AdminUsuariosComponent,
-    GrupoFamiliarComponent
+    GrupoFamiliarComponent,
+    RetirarFormComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +100,8 @@ import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-famili
     LoginGuard,
     AdminUsuariosService,
     ReportesService,
-    GrupoFamiliarService
+    GrupoFamiliarService,
+    RetirarService
   ],
   bootstrap: [AppComponent]
 })
