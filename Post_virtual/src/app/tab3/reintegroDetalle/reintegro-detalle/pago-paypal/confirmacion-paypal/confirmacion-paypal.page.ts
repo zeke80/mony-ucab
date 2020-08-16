@@ -40,6 +40,7 @@ export class ConfirmacionPaypalPage implements OnInit {
       }
     ); 
     this.successToast('success', 'reintegro realizado satisfactoriamente');
+  
     this.router.navigate(['/tabs/cuenta']); 
   }
 

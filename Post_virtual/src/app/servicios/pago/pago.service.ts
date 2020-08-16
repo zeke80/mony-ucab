@@ -208,7 +208,11 @@ export class PagoService {
       body.payment.transactions[0].item_list.shipping_address.line2 = localStorage.getItem('direccion2');
       body.payment.transactions[0].item_list.shipping_address.postal_code = localStorage.getItem('codPost');
       body.payment.transactions[0].item_list.shipping_address.phone = localStorage.getItem('telfPaypal');
-      body.payment.transactions[0].invoice_number = localStorage.getItem('idReintegroDetalle');
+      
+      /*var num3 = parseInt(localStorage.getItem('idReintegroDetalle'));
+      num3 = num3 + 100;*/
+      
+      body.payment.transactions[0].invoice_number = '100' + localStorage.getItem('idReintegroDetalle');
       console.log(body);
 
     return this.http.post('http://localhost:49683/api/Paypal/CrearPago',body, {headers: header});

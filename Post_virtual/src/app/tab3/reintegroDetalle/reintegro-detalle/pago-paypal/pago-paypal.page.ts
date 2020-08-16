@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { PagoService } from 'src/app/servicios/pago/pago.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ReintegroService } from 'src/app/servicios/reintegro/reintegro.service';
 
 @Component({
   selector: 'app-pago-paypal',
@@ -98,7 +99,8 @@ export class PagoPaypalPage implements OnInit {
         private formModulo: FormsModule,
         private alert: AlertController,
         private pagoService:PagoService,
-        private inAppBrowser:InAppBrowser
+        private inAppBrowser:InAppBrowser,
+        private reintegroService:ReintegroService
         ) { }
 
   setDetalle(){
@@ -153,6 +155,8 @@ export class PagoPaypalPage implements OnInit {
         }
       ]
     });
+    
+
     await alert.present();
   }
 
