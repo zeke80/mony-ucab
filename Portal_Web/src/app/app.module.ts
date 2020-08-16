@@ -101,7 +101,7 @@ import { EditUserService } from './authorised/edit-user/services/edit-user.servi
       { path: 'login', component: LoginFormComponent },
       { path: 'dashboard', component: LayoutComponent, canActivate : [LoginGuard] },
       { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent },
-      { path: 'reset-password', component: ResetPasswordComponent }
+      { path: 'api/pw-reset/:userID/:resetPasswordToken', component: ResetPasswordComponent }
     ])
   ],
   providers: [

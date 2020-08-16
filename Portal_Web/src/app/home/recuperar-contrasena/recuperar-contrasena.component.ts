@@ -21,8 +21,8 @@ export class RecuperarContrasenaComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  recuperarContrasena(email : string){
-    this.s_contrasena.recuperContrasena(email.toLocaleUpperCase())
+  recuperarContrasena(){
+    this.s_contrasena.recuperContrasena(this.recuperarContrasenaFormulario.get('correo').value)
     .subscribe((data: any) =>{
       alert('Correo enviado');
     } );
