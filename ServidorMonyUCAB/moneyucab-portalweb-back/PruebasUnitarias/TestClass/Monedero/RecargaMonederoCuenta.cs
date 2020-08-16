@@ -17,8 +17,8 @@ namespace PruebasUnitarias.TestClass.Monedero
         {
             dynamic info = new
             {
-                idUsuarioReceptor = 1,
-                idMedioPaga = 1,
+                idUsuarioReceptor = 13,
+                idMedioPaga = 47,
                 monto = 100,
                 idOperacion = 1
             };
@@ -34,7 +34,7 @@ namespace PruebasUnitarias.TestClass.Monedero
             dynamic info = new
             {
                 idUsuarioReceptor = -1,
-                idMedioPaga = 1,
+                idMedioPaga = 47,
                 monto = 1,
                 idOperacion = 1
             };
@@ -49,7 +49,7 @@ namespace PruebasUnitarias.TestClass.Monedero
         {
             dynamic info = new
             {
-                idUsuarioReceptor = 1,
+                idUsuarioReceptor = 13,
                 idMedioPaga = -1,
                 monto = 1,
                 idOperacion = 1

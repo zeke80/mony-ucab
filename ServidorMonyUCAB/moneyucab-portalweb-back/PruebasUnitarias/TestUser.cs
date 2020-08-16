@@ -15,8 +15,8 @@ namespace PruebasUnitarias
 
         public TestUser(int userId, int idTipoUsuario)
         {
-            listaCuentas = new List<Cuenta>();
-            listaTarjetas = new List<Tarjeta>();
+            /*listaCuentas = new List<Cuenta>();
+            listaTarjetas = new List<Tarjeta>();*/
             infoUser = new Persona
             {
                 usuario = "TestUser1",
@@ -61,10 +61,10 @@ namespace PruebasUnitarias
             infoUser.idusuario = res.Result.Content.result.userID;
         }
 
-        public List<Cuenta> getCuentas()
+        /*public List<Cuenta> getCuentas()
         {
             var listaCuentas = new List<Cuenta>();
             
-        }
+        }*/
     }
 }

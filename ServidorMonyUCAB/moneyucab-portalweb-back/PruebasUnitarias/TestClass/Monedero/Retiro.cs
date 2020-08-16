@@ -17,8 +17,8 @@ namespace PruebasUnitarias.TestClass.Monedero
         {
             dynamic recarga = new
             {
-                idUsuarioReceptor = 1,
-                idMedioPaga = 1,
+                idUsuarioReceptor = 13,
+                idMedioPaga = 47,
                 monto = 1,
                 idOperacion = 1
             };

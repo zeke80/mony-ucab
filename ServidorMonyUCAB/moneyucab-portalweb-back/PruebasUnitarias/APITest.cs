@@ -18,9 +18,9 @@ namespace PruebasUnitarias
         static string url = "http://monyucab.somee.com";
         static dynamic loginTestUser1 = new
         {
-            username = "TestUser1",
-            email = "testuser1@gmail.com",
-            password = "PassTestUser1",
+            username = "TestUser13",
+            email = "TestUser13@gmail.com",
+            password = "TestUser13",
             comercio = false,
         };
         /*static InfoLogin loginTestUser2 = new InfoLogin
