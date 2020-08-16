@@ -949,7 +949,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
+	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil ' || $1);
 END;
 $$;
 
@@ -967,7 +967,7 @@ BEGIN
 	RETURN QUERY SELECT * FROM Usuario LEFT JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
 										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
 										LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
-										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuarioF = $1;
+										LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuarioF = $1;
 END;
 $$;
 
@@ -985,7 +985,7 @@ BEGIN
 	SELECT Usuario.idEntity  into id_entity FROM Usuario WHERE Usuario.idUsuario = $1;
 	SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Monedero';
 	UPDATE Usuario SET estatus = 3 WHERE idUsuario = $1;
-	UPDATE "AspNetUsers" SET lockoutEnd = date '2001-09-28' WHERE "Id" = id_entity;
+	UPDATE "AspNetUsers" SET lockoutEnd = date '2099-09-28' WHERE "Id" = id_entity;
 	DELETE FROM Cuenta WHERE Cuenta.idTipoCuenta = tipo_cuenta and Cuenta.idUsuario = $1;
 	INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (29, $1, CURRENT_DATE, CURRENT_TIME, 'Eliminacion de usuario: ' || $1, '');
 	RETURN TRUE;
