@@ -7,6 +7,7 @@ import { Reintegro } from '../models/reintegro.model';
 import { ToastController, LoadingController, AlertController } from '@ionic/angular';
 import { ReintegroService } from '../servicios/reintegro/reintegro.service';
 import { TarjetaService } from '../servicios/tarjeta/tarjeta.service';
+import { ComercioService } from '../servicios/comercio/comercio.service';
 
 
 @Component({
@@ -38,15 +39,33 @@ export class Tab3Page implements OnInit{
     private alertController: AlertController,
     private reintegroService: ReintegroService,
     public alert: AlertController,
-    private tarjetaService: TarjetaService) { }
+    private tarjetaService: TarjetaService,
+    private comercioService: ComercioService) { }
 
     solicitudPago(){
       this.router.navigate(['tabs/operaciones/pago'])
     }
 
     cierre(){
+      this.comercioService.realizarCierre(localStorage.getItem('idUsuario')).subscribe(
+
+        (data: any) =>
+    {
+      
+      localStorage.setItem('idOperacionMonedero',data.idOperacionMonedero);
+      localStorage.setItem('monto',data.monto);
+      localStorage.setItem('day',data.fecha.day);
+      localStorage.setItem('month',data.fecha.month);
+      localStorage.setItem('year',data.fecha.year);
+      localStorage.setItem('referencia',data.referencia);
+      
+      },
+      err => {
+        console.log(err.message);
+      }
+      );
       this.router.navigate(['tabs/operaciones/cierre'])
-      //this.router.navigate(['tabs/operaciones/reintegro-detalle']);
+     
     }
 
   ngOnInit(){

@@ -16,6 +16,13 @@ export class CierrePage implements OnInit {
   pagos = [];
   usuario: Usuario;
 
+  idOperacion = "";
+  monto = "";
+  day = "";
+  month = "";
+  year = "";
+  referencia = "";
+
   constructor(
     public _usuarioService: UsuarioService,
     public _pagoServices: PagoService,
@@ -23,7 +30,19 @@ export class CierrePage implements OnInit {
     public alert: AlertController
   ) { }
 
+  setCierre(){
+    this.idOperacion = localStorage.getItem('idOperacionMonedero');
+    this.monto = localStorage.getItem('monto');
+    this.day = localStorage.getItem('day');
+    this.month = localStorage.getItem('month');
+    this.year = localStorage.getItem('year');
+    this.referencia = localStorage.getItem('referencia');
+  }
+
   ngOnInit() {
+
+ this.setCierre();
+
  /*this.usuario = this._usuarioService.getUsuario();
     this.pagos = this._pagoServices.getVacio();
     this._operacionServices.cierre(this.usuario.idUsuario)

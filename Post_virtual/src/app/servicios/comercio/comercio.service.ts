@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Comercio } from '../../models/comercio.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +47,23 @@ export class ComercioService {
 
     return this.http.post(url, data);
   }
+
+  realizarCierre(IdUsuario){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+
+    let param = new HttpParams().set('IdUsuario', IdUsuario);
+
+
+    const options = {
+      headers: header,
+      params: param
+    };
+
+    console.log(options);
+    return this.http.get('http://localhost:80/api/HistorialOperaciones/EjecutarCierre',null, options)
+  }
+
+
 }
+
+
