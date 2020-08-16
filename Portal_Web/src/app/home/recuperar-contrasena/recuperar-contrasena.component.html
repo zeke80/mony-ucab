@@ -1,26 +1,15 @@
 <body>
     <br>
     <div class="section-title" data-aos="fade-up">
-        <h2>Recuperar Contraseña</h2>
-      </div>
+      <h2>Recuperar Contraseña</h2>
+    </div>
 
-      <form class="form-signin" [formGroup]="recuperarContrasenaFormulario">
-        <label>Correo electrónico</label>
-        <input type="text" class="form-control" formControlName="correo" placeholder="Correo electrónico" #email required>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" (click) = "recuperarContrasena(email)"  [disabled] ="recuperarContrasenaFormulario.invalid">
-            Recuperar Contraseña</button>
-      </form>
+    <form class="form-signin" [formGroup]="recuperarContrasenaFormulario">
+      <label>Correo electrónico</label>
+      <input type="text" class="form-control" formControlName="correo" placeholder="Correo electrónico" #email required>
+      <br>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click) = "recuperarContrasena(email)"  [disabled] ="recuperarContrasenaFormulario.invalid">Recuperar Contraseña</button>
+    </form>
     <br>
-      <form class="form-signin contra" [formGroup]="contrasenaNueva">
-        <label>Nueva Contraseña</label>
-        <input type="password" class="form-control" formControlName="contra1" placeholder="Nueva Contraseña" required>
-        <label>Repetir Contraseña</label>
-        <input type="password" class="form-control" formControlName="contra2" placeholder="Repetir Contraseña" required>
-        <span>Mínimo 8 caracteres debe incluir una mayúscula, un número e incluir algo de estos #?!@$%^&*-</span>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" (click) = "compararContrasenas()" [disabled] ="contrasenaNueva.invalid">
-            Recuperar Contraseña</button>
-      </form>
 </body>
 

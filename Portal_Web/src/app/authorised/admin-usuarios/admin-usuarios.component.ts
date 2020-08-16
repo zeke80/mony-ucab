@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminUsuariosService } from './services/admin-usuarios.service';
+import { EditUserService } from '../edit-user/services/edit-user.service';
 
 @Component({
   selector: 'app-admin-usuarios',
@@ -11,11 +12,18 @@ export class AdminUsuariosComponent implements OnInit {
   usuarios : Array<any>;
 
   constructor(
-    public s_admin_usuarios : AdminUsuariosService
+    public s_admin_usuarios : AdminUsuariosService,
+    public s_edit_user : EditUserService
   ) { }
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+  showForm(userEmail) {
+    this.s_edit_user.show = true;
+    this.s_admin_usuarios.show = false;
+    this.s_edit_user.editUsuario(userEmail);
   }
 
   getUsers() {
@@ -34,12 +42,14 @@ export class AdminUsuariosComponent implements OnInit {
     this.s_admin_usuarios.deleteUsuarios(usuario, idUsuario).subscribe(
       (data : any) => {
         console.log(data);
-        this.getUsers();
+        this.s_admin_usuarios.refreshInfo.subscribe(() => {
+          this.getUsers();
+        });
       },
       (err) => {
         alert(err);
       }
-    )
+    );
   }
 
 }

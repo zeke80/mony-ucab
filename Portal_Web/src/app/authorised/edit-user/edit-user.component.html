@@ -1,0 +1,122 @@
+<div *ngIf = "s_edit_user.show">
+    
+    <h1 class="display-4">Editar Usuario</h1>
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div [formGroup]="formUsuario">
+                    <div *ngIf = "infoPersona != null">   
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="nombre"><h4>Nombre</h4></label>
+                                <input type="text" class="form-control" formControlName="nombre">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellido"><h4>Apellido</h4></label>
+                                <input type="text" class="form-control" formControlName="apellido">
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                
+                <div [formGroup]="formComercio">
+                    <div *ngIf = "infoPersona == null">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <label ><h4>Razón Social</h4></label>
+                                <input type="text" class="form-control" formControlName="razonSocial">    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+                <div class="form-row">
+                    <div class="col-md-1">
+                        <label><h4>Tipo</h4></label>
+                        <select class="form-control" disabled>
+                            <option>{{tipoIdentificacion}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label><h4>Nro. Identificación</h4></label>
+                        <label><h4> </h4></label>
+                        <input type="text" class="form-control"  value = {{infoUsuario.nroIdentificacion}} disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label ><h4>Correo Electrónico</h4></label>
+                        <input type="text" class="form-control" value={{infoUsuario.email}}  disabled>
+                    </div>
+                </div>
+                <br>
+
+                <div *ngIf = "infoPersona != null"> 
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label ><h4>Fecha Nacimiento</h4></label>
+                            <input type="date" class="form-control" [value]="infoPersona.fechaNacimiento | date:'yyyy-MM-dd' " disabled>
+                        </div>
+                        <div class="col-md-6">
+                            <label><h4>Estado Civil</h4></label>
+                            <select class="form-control" [disabled] = "isDisabled" [(ngModel)]="idEstadoCivil">
+                                <option value="1">Casado</option>
+                                <option value="2">Soltero</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <br>
+                </div>
+
+                <div [formGroup]="formUsuario">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label><h4>Teléfono</h4></label>
+                            <input type="text" class="form-control" formControlName="telefono">
+                        </div>
+                    </div>
+                    <br>
+    
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <label ><h4>Dirección</h4></label>
+                            <input type="text" class="form-control" formControlName="direccion">
+                        </div>
+                    </div>
+                </div>
+                
+                <br>
+
+                <hr>
+                
+                <div [formGroup]="formUsuario">
+                    <div *ngIf = "infoPersona == null">
+                        <label ><h3>Representantes</h3></label>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label ><h4>Nombre</h4></label>
+                                <input type="text" class="form-control"  formControlName="nombre">
+                            </div>
+                            <div class="col-md-6">
+                                <label><h4>Apellido</h4></label>
+                                <input type="text" class="form-control" formControlName="apellido">
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xl-12">
+                        <button class="btn btn-primary float-right" type="submit" (click) ="editar()" [disabled] = "!isDisabled" *ngIf = "isDisabled">Editar</button>
+                        <button type="button" class="btn btn-success float-right mr-2" *ngIf = "!isDisabled" [disabled] = "(formUsuario.invalid) || (formComercio.invalid && formUsuario.invalid)" (click) = "guardarCambios()">Guardar</button>
+                        <button type="button" class="btn btn-danger float-right mr-2" (click) ="cancelar()" *ngIf = "!isDisabled">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

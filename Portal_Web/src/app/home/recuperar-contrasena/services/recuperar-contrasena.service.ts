@@ -12,7 +12,7 @@ export class RecuperarContrasenaService {
   readonly baseURI = Globals.API_URL;
 
   recuperContrasena(email : string){
-    let url = this.baseURI + "Authentication/ResetPassword";
+    let url = this.baseURI + "Authentication/ForgotPasswordEmail";
     return this.http.post(url, {email : email});
   }
 

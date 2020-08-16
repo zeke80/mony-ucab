@@ -16,13 +16,6 @@ export class RecuperarContrasenaComponent implements OnInit {
   })
   email = '';
 
-  contrasenaNueva = new FormGroup({
-    contra1 : new FormControl('', [Validators.pattern(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}/),
-    Validators.required]),
-    contra2 : new FormControl('', [Validators.pattern(/(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}/),
-    Validators.required])
-  })
-
   constructor(private s_contrasena : RecuperarContrasenaService) { }
 
   ngOnInit(): void {
@@ -33,12 +26,6 @@ export class RecuperarContrasenaComponent implements OnInit {
     .subscribe((data: any) =>{
       alert('Correo enviado');
     } );
-  }
-
-  compararContrasenas(){
-    if (this.contrasenaNueva.get('contra1').value != this.contrasenaNueva.get('contra2').value){
-      alert("Contraseñas no coinciden")
-    }
   }
 
 }

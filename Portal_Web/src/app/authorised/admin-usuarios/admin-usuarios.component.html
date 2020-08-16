@@ -21,7 +21,7 @@
                   <td>{{usuario.nroIdentificacion}}</td>
                   <td>{{usuario.email}}</td>
                   <td>
-                    <button type="button" class="btn btn-info">
+                    <button type="button" class="btn btn-info" (click)="showForm(usuario.email)">
                       <i class="fa fa-edit fa-2x"></i>
                     </button>
                     <button type="button" class="btn btn-danger" (click)="deleteUsers(usuario.usuario, usuario.idUsuario)">

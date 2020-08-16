@@ -43,6 +43,8 @@ import { AdminUsuariosComponent } from './authorised/admin-usuarios/admin-usuari
 import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-familiar.component';
 import { AddFamiliarComponent } from './authorised/add-familiar/add-familiar.component';
 import { AddFamiliarService } from './authorised/add-familiar/services/add-familiar.service';
+import { EditUserComponent } from './authorised/edit-user/edit-user.component';
+import { ResetPasswordComponent } from './authorised/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -68,7 +70,9 @@ import { AddFamiliarService } from './authorised/add-familiar/services/add-famil
     ReportesComponent,
     AdminUsuariosComponent,
     GrupoFamiliarComponent,
-    AddFamiliarComponent
+    AddFamiliarComponent,
+    EditUserComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

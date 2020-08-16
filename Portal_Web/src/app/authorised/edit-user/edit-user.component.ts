@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-
-import { FormControl, Validators, FormGroup } from '@angular/forms';
-
-import { Usuario } from './../../models/usuario.model';
-import { Persona } from './../../models/persona.model';
-import { Comercio } from './../../models/comercio.model';
-
-import { PerfilService } from './services/perfil.service';
+import { Usuario } from 'src/app/models/usuario.model';
+import { Comercio } from 'src/app/models/comercio.model';
+import { Persona } from 'src/app/models/persona.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
+import { EditUserService } from './services/edit-user.service';
 
 @Component({
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.css']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.css']
 })
-export class PerfilComponent implements OnInit {
+export class EditUserComponent implements OnInit {
+
+  user : any;
 
   formComercio = new FormGroup({
     razonSocial : new FormControl({value: '', disabled: true}, Validators.required)
@@ -27,7 +26,7 @@ export class PerfilComponent implements OnInit {
     direccion : new FormControl ({value: '', disabled: true}, Validators.required)
   }); 
 
-  infoPersona : Persona ={
+  infoPersona : Persona = {
     estadoCivil : 0,
     nombre : '',
     apellido : '',
@@ -59,7 +58,7 @@ export class PerfilComponent implements OnInit {
 
   isDisabled : boolean = true;
 
-  constructor(public s_perfil : PerfilService) { }
+  constructor(public s_edit_user : EditUserService) { }
 
   ngOnInit(): void {
     this.consutarInfo();
@@ -105,15 +104,16 @@ export class PerfilComponent implements OnInit {
 
   consutarInfo(){
     this.formUsuario.disable();
-    this.s_perfil.consultar().subscribe(
+    this.s_edit_user.currentUserData.subscribe(
       (data : any) => {
-        if (data.comercio.razonSocial == ""){
+        this.user = data;
+        if (this.user.comercio.razonSocial == ""){
           this.infoComercio = null;
-          this.mostrarPersona(data);
+          this.mostrarPersona(this.user);
         }
         else{
           this.infoPersona = null;
-          this.mostrarComercio(data);
+          this.mostrarComercio(this.user);
         }
       }
     );
@@ -133,7 +133,7 @@ export class PerfilComponent implements OnInit {
 
   modificar(){
     if (this.infoComercio == null){
-      this.s_perfil.modificar(
+      this.s_edit_user.modificar(
         this.formUsuario.get('nombre').value,
         this.formUsuario.get('apellido').value,
         this.formUsuario.get('telefono').value,
@@ -150,7 +150,7 @@ export class PerfilComponent implements OnInit {
         );  
     }
      else {
-       this.s_perfil.modificar(
+       this.s_edit_user.modificar(
         this.formUsuario.get('nombre').value,
         this.formUsuario.get('apellido').value,
         this.formUsuario.get('telefono').value,
@@ -171,7 +171,7 @@ export class PerfilComponent implements OnInit {
   guardarCambios(){
     this.modificar();
 
-    this.s_perfil.refreshInfo
+    this.s_edit_user.refreshInfo
     .subscribe(() =>{
       this.consutarInfo();
     });
