@@ -25,7 +25,7 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void modificarUsuario()
         {
-            Task<HttpResponseMessage> res = APITest.modification(new
+            dynamic infoModificacionUsuario = new
             {
                 nombre = "NomTestUser",
                 apellido = "ApeTestUser",
@@ -34,7 +34,11 @@ namespace PruebasUnitarias.TestClass.Authentication
                 razonSocial = "RazTestUser",
                 idEstadoCivil = 1,
                 idUsuario = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.modification(infoModificacionUsuario);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -42,7 +46,7 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void modificarUsuario_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.modification(new
+            dynamic infoModificacionUsuario = new
             {
                 nombre = "NomTestUser",
                 apellido = "ApeTestUser",
@@ -51,24 +55,11 @@ namespace PruebasUnitarias.TestClass.Authentication
                 razonSocial = "RazTestUser",
                 idEstadoCivil = 1,
                 idUsuario = 404
-            });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void modificarUsuario_UsuarioInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.modification(new
-            {
-                nombre = "NomTestUser",
-                apellido = "ApeTestUser",
-                telefono = "TelfTestUser",
-                direccion = "DirTestUser",
-                razonSocial = "RazTestUser",
-                idEstadoCivil = 1,
-                idUsuario = -1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.modification(infoModificacionUsuario);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -76,7 +67,7 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void modificarUsuario_InvalidoEstadoCivilNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.modification(new
+            dynamic infoModificacionUsuario = new
             {
                 nombre = "NomTestUser",
                 apellido = "ApeTestUser",
@@ -85,24 +76,11 @@ namespace PruebasUnitarias.TestClass.Authentication
                 razonSocial = "RazTestUser",
                 idEstadoCivil = 404,
                 idUsuario = 1
-            });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void modificarUsuario_EstadoCivilInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.modification(new
-            {
-                nombre = "NomTestUser",
-                apellido = "ApeTestUser",
-                telefono = "TelfTestUser",
-                direccion = "DirTestUser",
-                razonSocial = "RazTestUser",
-                idEstadoCivil = -1,
-                idUsuario = 1
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.modification(infoModificacionUsuario);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

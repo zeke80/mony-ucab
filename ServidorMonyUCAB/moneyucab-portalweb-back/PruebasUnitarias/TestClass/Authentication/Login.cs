@@ -35,9 +35,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 comercio = false,
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.login(infoLogin);
-            }).Wait();
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);          
         }
@@ -71,9 +69,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 comercio = false,
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.login(infoLogin);
-            }).Wait();
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

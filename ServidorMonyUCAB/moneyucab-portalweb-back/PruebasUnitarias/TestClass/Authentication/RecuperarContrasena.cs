@@ -25,7 +25,13 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void recuperarContrasena()
         {
-            Task<HttpResponseMessage> res = APITest.ForgotPasswordEmail("testuser@gmail.com");
+            dynamic correo = new { 
+                email = "testuser1@gmail.com", 
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ForgotPasswordEmail(correo);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,7 +39,14 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void recuperarContrasena_EmailInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.ForgotPasswordEmail("");
+            dynamic correo = new
+            {
+                email = "",
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.ForgotPasswordEmail(correo);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

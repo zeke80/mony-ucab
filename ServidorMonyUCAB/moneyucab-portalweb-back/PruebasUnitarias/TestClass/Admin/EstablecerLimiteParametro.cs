@@ -25,7 +25,15 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerLimiteParametro()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new {idParametro = 1,limite = ""});
+            dynamic infoParametro = new
+            {
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.EstablecerLimiteParametro(infoParametro);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,7 +41,15 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerLimiteParametro_invalidoParametroNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new { idParametro = 404, limite = "" });
+            dynamic infoParametro = new
+            {
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.EstablecerLimiteParametro(infoParametro);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -41,7 +57,15 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerLimiteParametro_ParametroInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new { idParametro = -1, limite = "" });
+            dynamic infoParametro = new
+            {
+                idComercio = 1,
+                comision = 1,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.EstablecerLimiteParametro(infoParametro);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
