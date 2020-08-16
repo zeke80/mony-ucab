@@ -41,8 +41,13 @@ import { RecuperarContrasenaComponent } from './home/recuperar-contrasena/recupe
 import { ReportesComponent } from './authorised/reportes/reportes.component';
 import { AdminUsuariosComponent } from './authorised/admin-usuarios/admin-usuarios.component';
 import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-familiar.component';
+<<<<<<< HEAD
 import { RetirarFormComponent } from './authorised/retirar-form/retirar-form.component';
 import { RetirarService } from './authorised/retirar-form/services/retirar.service';
+=======
+import { AddFamiliarComponent } from './authorised/add-familiar/add-familiar.component';
+import { AddFamiliarService } from './authorised/add-familiar/services/add-familiar.service';
+>>>>>>> 09dd193595002975d54b198f956c8b0b2f5024e2
 
 
 @NgModule({
@@ -68,7 +73,11 @@ import { RetirarService } from './authorised/retirar-form/services/retirar.servi
     ReportesComponent,
     AdminUsuariosComponent,
     GrupoFamiliarComponent,
+<<<<<<< HEAD
     RetirarFormComponent
+=======
+    AddFamiliarComponent
+>>>>>>> 09dd193595002975d54b198f956c8b0b2f5024e2
   ],
   imports: [
     BrowserModule,
@@ -101,7 +110,11 @@ import { RetirarService } from './authorised/retirar-form/services/retirar.servi
     AdminUsuariosService,
     ReportesService,
     GrupoFamiliarService,
+<<<<<<< HEAD
     RetirarService
+=======
+    AddFamiliarService
+>>>>>>> 09dd193595002975d54b198f956c8b0b2f5024e2
   ],
   bootstrap: [AppComponent]
 })
