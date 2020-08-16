@@ -15,15 +15,16 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void retiro()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic infoUsuario = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+                
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.RecargaMonederoCuenta(infoUsuario);
+            }).Wait();
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]

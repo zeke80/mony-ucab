@@ -28,9 +28,7 @@ namespace PruebasUnitarias
         {
             string infoPersona = "TestUser1";
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.InformacionPersona(infoPersona);
-            }).Wait();
+            res = APITest.InformacionPersona(infoPersona);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -40,9 +38,7 @@ namespace PruebasUnitarias
         {
             string infoPersona = "";
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.InformacionPersona(infoPersona);
-            }).Wait();
+            res = APITest.InformacionPersona(infoPersona);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

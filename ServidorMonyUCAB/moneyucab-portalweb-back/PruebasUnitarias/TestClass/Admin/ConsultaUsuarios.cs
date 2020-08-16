@@ -27,9 +27,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
             string query = "WHERE idUsuario=1";
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ConsultaUsuarios(query);
-            }).Wait();
+            res = APITest.ConsultaUsuarios(query);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -39,9 +37,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
             string query = "";
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ConsultaUsuarios(query);
-            }).Wait();
+            res = APITest.ConsultaUsuarios(query);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
