@@ -799,7 +799,7 @@ DECLARE
 	op_limit_tarjeta int;
 	comision double precision;
 BEGIN
-		SELECT Comercio.comision FROM Comercio into comision JOIN Usuario ON Usuario.idUsuario = Comercio.idUsuario WHERE Usuario.idUsuario = $1;
+		SELECT coalesce(Comercio.comision, 1) FROM Comercio into comision JOIN Usuario ON Usuario.idUsuario = Comercio.idUsuario WHERE Usuario.idUsuario = $1;
 		referenciaValid:= ($1 || '' || current_date || '' || current_time || '');
 		FOR Tarjeta IN Tarjetas LOOP
 			INSERT INTO OperacionTarjeta (idUsuarioReceptor, idTarjeta, fecha, hora, monto, referencia)
@@ -820,7 +820,7 @@ BEGIN
 		SELECT SUM(COALESCE(OperacionTarjeta.monto,0)) FROM OperacionTarjeta INTO Totalizacion_Tarjeta WHERE OperacionTarjeta.idOperacionTarjeta > COALESCE(op_limit_tarjeta,0) AND OperacionTarjeta.idUsuarioReceptor = $1;
 		INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
 			VALUES ($1, tipoOperacion, COALESCE((Totalizacion_Cuenta + Totalizacion_Tarjeta)*comision/100, 0), current_date, current_time, referenciaValid);
-		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (25, $1, CURRENT_DATE, CURRENT_TIME, 'Cierre Total: ' || (Totalizacion_Cuenta + Totalizacion_Tarjeta)*comision/100, '');
+		INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (25, $1, CURRENT_DATE, CURRENT_TIME, 'Cierre Total: ' || coalesce((Totalizacion_Cuenta + Totalizacion_Tarjeta)*comision/100, 0), '');
 		RETURN QUERY SELECT * FROM OperacionesMonedero JOIN TipoOperacion ON TipoOperacion.idTipoOperacion = OperacionesMonedero.idTipoOperacion
 													WHERE OperacionesMonedero.referencia = referenciaValid ORDER BY OperacionesMonedero.fecha DESC;
 END;
@@ -949,7 +949,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil ' || $1);
+	RETURN QUERY execute format('SELECT * FROM Usuario LEFT JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil ' || $1);
 END;
 $$;
 
@@ -1182,7 +1182,6 @@ BEGIN
 	END IF;
 	RETURN TRUE;
 END;
-$$;
 
 CREATE OR REPLACE FUNCTION Pago_Paypal (BOOLEAN, INT, VARCHAR)
 			RETURNS BOOLEAN
@@ -1202,7 +1201,7 @@ BEGIN
 			SELECT * INTO pago_reg FROM Pago WHERE Pago.idPago = $2;
 			SELECT Cuenta.idCuenta INTO id_cuenta_paypal FROM Cuenta JOIN Pago ON Pago.idUsuario_solicitante = Cuenta.idUsuario AND Pago.idPago = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Paypal';
 			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
-				VALUES (pago_reg.idUsuario_Receptor, id_cuenta_paypal, current_date, current_time, pago_reg.monto, $3);
+				VALUES (pago_reg.idUsuario_Receptor, id_cuenta_paypal, current_date, current_time, cast(pago_reg.monto as DOUBLE PRECISION), $3);
 			UPDATE Pago SET referencia = $3, estatus = 'Consolidado' WHERE idPago = $2;
 			SELECT TipoOperacion.idTipoOperacion into tipoOperacion FROM TipoOperacion WHERE descripcion = 'Recepción de transferencia';
 			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
@@ -1248,11 +1247,11 @@ BEGIN
 			SELECT * INTO pago_reg FROM Pago WHERE Pago.idPago = $2;
 			SELECT Cuenta.idCuenta INTO id_cuenta_stripe FROM Cuenta JOIN Pago ON Pago.idUsuario_solicitante = Cuenta.idUsuario AND Pago.idPago = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Stripe';
 			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
-				VALUES (pago_reg.idUsuario_Receptor, id_cuenta_stripe, current_date, current_time, cast(pago_reg.monto as DECIMAL), $3);
+				VALUES (pago_reg.idUsuario_Receptor, id_cuenta_stripe, current_date, current_time, cast(pago_reg.monto as DOUBLE PRECISION), $3);
 			UPDATE Pago SET referencia = $3, estatus = 'Consolidado' WHERE idPago = $2;
 			SELECT TipoOperacion.idTipoOperacion into tipoOperacion FROM TipoOperacion WHERE descripcion = 'Recepción de transferencia';
 			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
-				VALUES (pago_reg.idUsuario_Receptor, tipoOperacion, cast(pago_reg.monto as DECIMAL), current_date, current_time, $3);
+				VALUES (pago_reg.idUsuario_Receptor, tipoOperacion, cast(pago_reg.monto as DOUBLE PRECISION), current_date, current_time, $3);
 		ELSE
 			RAISE EXCEPTION 'No existe el pago indicado';
 		END IF;

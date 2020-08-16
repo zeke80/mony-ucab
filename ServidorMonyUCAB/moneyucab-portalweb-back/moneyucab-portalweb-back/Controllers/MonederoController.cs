@@ -88,11 +88,8 @@ namespace moneyucab_portalweb_back.Controllers
         {
             try
             {
-                await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 1).Ejecutar();
                 Payment payment = await FabricaComandos.Fabricar_Cmd_Crear_Pago_Paypal("", "sale", Formulario.payment).Ejecutar();
-                var result = await FabricaComandos.Fabricar_Cmd_Recarga_Monedero_Cuenta(Formulario.idUsuarioReceptor, Formulario.idMedioPaga, Formulario.monto).Ejecutar();
                 return Ok(payment);
-
             }
             catch (MoneyUcabException ex)
             {
@@ -123,16 +120,6 @@ namespace moneyucab_portalweb_back.Controllers
             catch (Exception ex)
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }
-            finally
-            {
-                try
-                {
-                    await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 0).Ejecutar();
-                }
-                catch (Exception ex)
-                {
-                }
             }
         }
 

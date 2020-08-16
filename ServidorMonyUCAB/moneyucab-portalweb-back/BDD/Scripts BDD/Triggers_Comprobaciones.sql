@@ -450,8 +450,8 @@ AS $BODY$
 DECLARE
 	
 BEGIN
-	IF NOT EXISTS (SELECT * FROM OperacionCuenta WHERE referencia = new.referencia) AND  
-		NOT EXISTS (SELECT * FROM OperacionTarjeta WHERE referencia = new.referencia) AND new.estatus = 'Consolidado' THEN
+	IF (NOT EXISTS (SELECT * FROM OperacionCuenta WHERE referencia = new.referencia) AND  
+		NOT EXISTS (SELECT * FROM OperacionTarjeta WHERE referencia = new.referencia) ) AND new.estatus = 'Consolidado' THEN
 		
 		RAISE EXCEPTION 'No hay referencia indicada para una operación';
 		RETURN NULL;
@@ -474,3 +474,27 @@ CREATE TRIGGER validar_PagoT
 BEFORE INSERT
    ON Pago
        FOR EACH ROW EXECUTE PROCEDURE validar_Pago();
+	   
+--//////////////////////////////////////////////////////////////////////
+--Trigger de parámetros validación.
+DROP TRIGGER IF EXISTS validar_ParametroT ON Usuario_Parametro CASCADE;
+CREATE OR REPLACE FUNCTION validar_Parametro()
+										RETURNS trigger
+LANGUAGE plpgsql
+AS $BODY$
+DECLARE
+	
+BEGIN
+	IF (new.validacion == '') THEN
+		RAISE EXCEPTION 'Validación de parámetro inválido';
+		RETURN NULL;
+	END IF;
+	RETURN NEW;
+END;
+$BODY$;
+
+CREATE TRIGGER validar_ParametroT
+BEFORE INSERT
+   ON Usuario_Parametro
+       FOR EACH ROW EXECUTE PROCEDURE validar_Parametro();
+

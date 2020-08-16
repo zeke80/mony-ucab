@@ -84,8 +84,7 @@ namespace Excepciones
         /// <param name="Ex">Establece la excepción desconocida dentro de la lógica y que representa una problemática a nivel del servidor.</param>
         public static Object ResponseErrorDesconocido(Exception Ex)
         {
-            var stackTrace = new { stackTrace = Ex.StackTrace };
-            return new { error = "Error desconocido. Comunicarse con el administrador e informar.", codigo = 0 , stackTrace};
+            return new { error = "Error desconocido. Comunicarse con el administrador e informar.", codigo = 0 , Ex.Message , Ex.StackTrace };
         }
     }
 }

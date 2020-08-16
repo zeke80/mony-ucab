@@ -33,21 +33,25 @@ namespace moneyucab_portalweb_back.Controllers
             }
             catch (MoneyUcabException ex)
             {
+                try
+                {
+                    await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 0).Ejecutar();
+                }
+                catch (Exception ex2)
+                {
+                }
                 return BadRequest(ex.Response());
             }
             catch (Exception ex)
-            {
-                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }
-            finally
             {
                 try
                 {
                     await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 0).Ejecutar();
                 }
-                catch (Exception ex)
+                catch (Exception ex2)
                 {
                 }
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
         }
 
@@ -84,21 +88,25 @@ namespace moneyucab_portalweb_back.Controllers
             }
             catch (MoneyUcabException ex)
             {
+                try
+                {
+                    await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 0).Ejecutar();
+                }
+                catch (Exception ex2)
+                {
+                }
                 return BadRequest(ex.Response());
             }
             catch (Exception ex)
-            {
-                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }
-            finally
             {
                 try
                 {
                     await FabricaComandos.Fabricar_Cmd_Cambio_Status(Formulario.reg, Formulario.idOperacion, 0).Ejecutar();
                 }
-                catch (Exception ex)
+                catch (Exception ex2)
                 {
                 }
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
         }
     }
