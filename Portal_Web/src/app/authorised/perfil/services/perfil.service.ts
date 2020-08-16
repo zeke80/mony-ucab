@@ -11,6 +11,7 @@ export class PerfilService {
 
   show = false;
   username = localStorage.getItem('username');
+  email = localStorage.getItem('email');
   
   constructor(private http : HttpClient) {}
 
@@ -23,7 +24,7 @@ export class PerfilService {
 
   consultar(){
     let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')}); 
-    let param = new HttpParams().set('Usuario', this.username);
+    let param = new HttpParams().set('Usuario', this.email);
     let url = this.baseURI + "Dashboard/InformacionPersona";
 
     return this.http.get(url, {params : param, headers : header});
