@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Billetera
 {
     [TestClass]
-    class EliminarCuenta
+    public class EliminarCuenta
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,7 +25,9 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void eliminarCuenta()
         {
-            Task<HttpResponseMessage> res = APITest.EliminarCuenta(1);
+            int CuentaId = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EliminarCuenta(CuentaId);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,15 +35,9 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void eliminarCuenta_invalidoCuentaNoRegistrada()
         {
-            Task<HttpResponseMessage> res = APITest.EliminarCuenta(404);
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void eliminarCuenta_CuentaInvalida()
-        {
-            Task<HttpResponseMessage> res = APITest.EliminarCuenta(-1);
+            int CuentaId = -1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EliminarCuenta(CuentaId);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace PruebasUnitarias.TestClass.Authentication
 {
-    [TestClass]
-    class CambiarContrasena
+    //[TestClass]
+    public class CambiarContrasena
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,11 +25,14 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena()
         {
-            Task<HttpResponseMessage> res = APITest.ChangePassword(new {
+            dynamic infoParametro = new
+            {
                 idUsuario = 1,
-                resetPasswordToken = "pas12", 
-                newPassword = "pass123"
-            });
+                resetPasswordToken = "",
+                newPassword = "PassTestUser1"
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ChangePassword(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -37,25 +40,14 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void cambiarContrasena_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.ChangePassword(new
-            {
-                idUsuario = 404,
-                resetPasswordToken = "pas12",
-                newPassword = "pass123"
-            });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void cambiarContrasena_UsuarioInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.ChangePassword(new
+            dynamic infoParametro = new
             {
                 idUsuario = -1,
-                resetPasswordToken = "pas12",
-                newPassword = "pass123"
-            });
+                resetPasswordToken = "",
+                newPassword = "PassTestUser1"
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ChangePassword(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

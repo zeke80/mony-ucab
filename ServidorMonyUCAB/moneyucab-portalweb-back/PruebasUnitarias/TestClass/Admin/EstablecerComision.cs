@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Admin
 {
     [TestClass]
-    class EstablecerComision
+    public class EstablecerComision
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,7 +25,10 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerComision(new {idComercio =  1,comision = 1});
+            int idComercio = 1;
+            int comision = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerComision(idComercio, comision);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,15 +36,10 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision_invalidoComercioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = 404, comision = 1 });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void establecerComision_UsuarioInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.EstablecerComision(new { idComercio = -1, comision = 1 });
+            int idComercio = -1;
+            int comision = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerComision(idComercio, comision);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

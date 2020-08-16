@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comun\ComBanco.cs" />
+    <Compile Include="Comun\ComBitacora.cs" />
     <Compile Include="Comun\ComComercio.cs" />
     <Compile Include="Comun\ComCuenta.cs" />
     <Compile Include="Comun\ComEstadoCivil.cs" />

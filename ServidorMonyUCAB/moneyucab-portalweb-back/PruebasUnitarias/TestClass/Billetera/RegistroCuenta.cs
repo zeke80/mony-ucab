@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Billetera
 {
     [TestClass]
-    class RegistroCuenta
+    public class RegistroCuenta
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,13 +25,18 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroCuenta()
         {
-            Task<HttpResponseMessage> res = APITest.Cuenta(new
+            int CuentaId = 1;
+            APITest.EliminarCuenta(CuentaId);
+
+            dynamic cuenta = new
             {
                 idUsuario = 1,
                 idTipoCuenta = 1,
                 idBanco = 1,
-                numero = "NumCuentaTestUser"
-            });
+                numero = "666"
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Cuenta(cuenta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }

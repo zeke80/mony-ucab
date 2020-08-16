@@ -6,12 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class Login
+    public class Login
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,42 +26,50 @@ namespace PruebasUnitarias.TestClass.Authentication
 
         [TestMethod]
         public void login()
-        {
-            Task<HttpResponseMessage> res = APITest.login(new InfoLogin
+        {            
+            dynamic infoLogin= new
             {
-                UserName = "TestUser",
-                Email = "testuser@gmail.com",
-                Password = "passtestuser",
-                Comercio = false,
-            });
+                username = "TestUser1",
+                email = "testuser1@gmail.com",
+                password = "PassTestUser1",
+                comercio = false,
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);
+            Assert.IsTrue(status == HttpStatusCode.OK);          
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void login_UserNameInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.login(new InfoLogin
+            dynamic infoLogin = new
             {
-                UserName = "",
-                Email = "testuser@gmail.com",
-                Password = "passtestuser",
-                Comercio = false,
-            });
+                username = "",
+                email = "testuser1@gmail.com",
+                password = "PassTestUser1",
+                comercio = false,
+            };
+            Task<HttpResponseMessage> res = null;
+            Task.Run(() => {
+                res = APITest.login(infoLogin);
+            }).Wait();
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
+        }*/
 
         [TestMethod]
         public void login_EmailInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.login(new InfoLogin
+            dynamic infoLogin = new
             {
-                UserName = "TestUser",
-                Email = "",
-                Password = "passtestuser",
-                Comercio = false,
-            });
+                username = "TestUser1",
+                email = "",
+                password = "PassTestUser1",
+                comercio = false,
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -68,13 +77,15 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void login_PasswordInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.login(new InfoLogin
+            dynamic infoLogin = new
             {
-                UserName = "TestUser",
-                Email = "testuser@gmail.com",
-                Password = "",
-                Comercio = false,
-            });
+                username = "TestUser1",
+                email = "testuser1@gmail.com",
+                password = "",
+                comercio = false,
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -82,13 +93,15 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void login_ComercioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.login(new InfoLogin
+            dynamic infoLogin = new
             {
-                UserName = "TestUser",
-                Email = "testuser@gmail.com",
-                Password = "passtestuser",
-                Comercio = true,
-            });
+                username = "TestUser2",
+                email = "testuser2@gmail.com",
+                password = "PassTestUser2",
+                comercio = true,
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

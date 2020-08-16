@@ -58,9 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APITest.cs" />
+    <Compile Include="Modelos\Cuenta.cs" />
     <Compile Include="Modelos\InfoLogin.cs" />
     <Compile Include="Modelos\Persona.cs" />
-    <Compile Include="Modelos\RecargaSaldoUsuario.cs" />
+    <Compile Include="Modelos\Tarjeta.cs" />
     <Compile Include="TestClass\Admin\ConsultaUsuarios.cs" />
     <Compile Include="TestClass\Admin\EliminarUsuario.cs" />
     <Compile Include="TestClass\Admin\EstablecerComision.cs" />
@@ -119,7 +120,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

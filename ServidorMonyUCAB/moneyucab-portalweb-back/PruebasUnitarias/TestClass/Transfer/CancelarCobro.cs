@@ -1,23 +1,34 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using PruebasUnitarias.Modelos;
 
 namespace PruebasUnitarias.TestClass.Transfer
 {
     [TestClass]
-    class CancelarCobro
+    public class CancelarCobro
     {
-        [TestInitialize]
-        public void TestInitialize()
+        [TestMethod]
+        public void cancelarCobro()
         {
+            int idCobro = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.CancelarCobro(idCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
-        [TestCleanup]
-        public void TestCleanup()
+        public void cancelarCobro_idCobroInvalidp()
         {
+            int idCobro = -1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.CancelarCobro(idCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

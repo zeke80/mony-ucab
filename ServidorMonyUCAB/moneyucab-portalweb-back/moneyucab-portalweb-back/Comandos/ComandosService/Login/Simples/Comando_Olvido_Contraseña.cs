@@ -15,7 +15,7 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples
         private UserManager<Usuario> _userManager;
         private ForgotPasswordModel _model;
         private readonly ApplicationSettings _appSettings;
-        private readonly string _clientBaseURI = "http://monyucab.somee.com/api/";
+        private readonly string _clientBaseURI = "http://monyucabportal.herokuapp.com/";
         private IEmailSender _emailSender;
 
         public Comando_Olvido_Contraseña(UserManager<Usuario> UserManager, ForgotPasswordModel Model, ApplicationSettings AppSettings, IEmailSender EmailSender)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Authentication
 {
     [TestClass]
-    class RecuperarContrasena
+    public class RecuperarContrasena
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,7 +25,11 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void recuperarContrasena()
         {
-            Task<HttpResponseMessage> res = APITest.ForgotPasswordEmail("testuser@gmail.com");
+            dynamic correo = new { 
+                email = "testuser1@gmail.com", 
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ForgotPasswordEmail(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,7 +37,12 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void recuperarContrasena_EmailInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.ForgotPasswordEmail("");
+            dynamic correo = new
+            {
+                email = "",
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ForgotPasswordEmail(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

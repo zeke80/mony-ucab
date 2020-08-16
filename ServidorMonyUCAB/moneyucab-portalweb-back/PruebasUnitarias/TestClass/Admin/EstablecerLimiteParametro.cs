@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace PruebasUnitarias.TestClass.Admin
 {
     [TestClass]
-    class EstablecerLimiteParametro
+    public class EstablecerLimiteParametro
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,7 +25,13 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerLimiteParametro()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new {idParametro = 1,limite = ""});
+            dynamic infoParametro = new
+            {
+                idParametro = 1,
+                limite = "100",
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerLimiteParametro(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -33,15 +39,13 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerLimiteParametro_invalidoParametroNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new { idParametro = 404, limite = "" });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void establecerLimiteParametro_ParametroInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.EstablecerLimiteParametro(new { idParametro = -1, limite = "" });
+            dynamic infoParametro = new
+            {
+                idParametro = -1,
+                limite = "100",
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerLimiteParametro(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

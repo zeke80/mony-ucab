@@ -1,23 +1,26 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
+using PruebasUnitarias.Modelos;
 
 namespace PruebasUnitarias.TestClass.Historial_Operaciones
 {
     [TestClass]
-    class HistorialOperacionesTarjeta
+    public class HistorialOperacionesTarjeta
     {
-        [TestInitialize]
-        public void TestInitialize()
+        [TestMethod]
+        public void historialOperacionTarjeta()
         {
+            int TarjetaId = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.HistorialOperacionesTarjeta(TarjetaId);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
-        [TestCleanup]
-        public void TestCleanup()
-        {
-        }
     }
 }

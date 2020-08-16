@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace PruebasUnitarias.TestClass.Authentication
 {
-    [TestClass]
-    class ConfirmarCorreo
+    //[TestClass]
+    public class ConfirmarCorreo
     {
         [TestInitialize]
         public void TestInitialize()
@@ -25,11 +25,13 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void confirmarCorreo()
         {
-            Task<HttpResponseMessage> res = APITest.ConfirmedEmail(new
+            dynamic infoConfirmacionCorreo = new
             {
                 idUsuario = 1,
                 confirmationToken = ""
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -37,23 +39,13 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void confirmarCorreo_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.ConfirmedEmail(new
-            {
-                idUsuario = 404,
-                confirmationToken = ""
-            });
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void confirmarCorreo_UsuarioInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.ConfirmedEmail(new
+            dynamic infoConfirmacionCorreo = new
             {
                 idUsuario = -1,
                 confirmationToken = ""
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -61,11 +53,13 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void confirmarCorreo_TokenInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.ConfirmedEmail(new
+            dynamic infoConfirmacionCorreo = new
             {
                 idUsuario = 1,
                 confirmationToken = ""
-            });
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.ConfirmedEmail(infoConfirmacionCorreo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
