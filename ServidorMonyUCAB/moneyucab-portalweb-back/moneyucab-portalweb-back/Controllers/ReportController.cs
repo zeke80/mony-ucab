@@ -64,13 +64,13 @@ namespace moneyucab_portalweb_back.Controllers
         /*[HttpPost]
         [Authorize]
         [Route("RetiroRango")]
-    
-        public async Task<Object> RetiroRango([FromBody]RangoFechas rangoFechas )
+
+        public async Task<Object> RetiroRango([FromBody] RangoFechas rangoFechas)
         {
 
             try
             {
-                object lista= await FabricaComandos.Fabricar_Cmd_RetiroRango(rangoFechas.fecha1, rangoFechas.fecha2).Ejecutar();
+                object lista = await FabricaComandos.Fabricar_Cmd_RetiroRango(rangoFechas.fecha1, rangoFechas.fecha2).Ejecutar();
                 return lista;
             }
             catch (MoneyUcabException ex)
@@ -200,7 +200,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-       /* [HttpPost]
+       /*[HttpPost]
         [Authorize]
         [Route("RetiroDia")]
 
