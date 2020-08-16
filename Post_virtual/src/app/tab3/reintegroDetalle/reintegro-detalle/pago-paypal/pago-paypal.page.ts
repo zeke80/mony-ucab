@@ -12,6 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 })
 export class PagoPaypalPage implements OnInit {
   
+  accountId = '';
   paypalForm = { 
     "reg":false, 
     "idOperacion": 0, 
@@ -90,6 +91,8 @@ export class PagoPaypalPage implements OnInit {
 
  url: string;
 
+ webPageUrl='';
+
   constructor(
         private router: Router, 
         private formModulo: FormsModule,
@@ -124,6 +127,7 @@ export class PagoPaypalPage implements OnInit {
           text: 'Aceptar',
           handler: () => {
             //console.log(this.paypalForm);
+            localStorage.setItem('accountId',this.accountId);
             localStorage.setItem('ciudadPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.city);
             localStorage.setItem('estadoPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.state);
             localStorage.setItem('direccion1',this.paypalForm.payment.transactions[0].item_list.shipping_address.line1);
@@ -134,8 +138,10 @@ export class PagoPaypalPage implements OnInit {
             .subscribe(
               (data: any) =>
               {
-                //console.log(data.links[1].href);
-               // data.links[1].href
+               //console.log(data.links[1].href);
+               console.log(data);
+               localStorage.setItem('approvalUrl', data.links[1].href);
+               localStorage.setItem('payId', data.id);
                 this.detallePaypal(data); 
               },
               err =>{
@@ -152,11 +158,14 @@ export class PagoPaypalPage implements OnInit {
 
   
   async openWebPage(url){
-    const browser = this.inAppBrowser.create(url, '_system')
+    this.webPageUrl = url;
+    const browser = this.inAppBrowser.create(this.webPageUrl, '_system');
+    
   }
 
   async detallePaypal(data){
     await this.openWebPage(data.links[1].href);//pasar al localstorage los valores de data
+    console.log(this.webPageUrl);
     await this.router.navigate(['tabs/operaciones/reintegro-detalle/pago-paypal/confirmacion-paypal']);//placeholder confirmacion-paypal
   }
 

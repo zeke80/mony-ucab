@@ -29,6 +29,10 @@
 
           <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Monto (sin impuestos):</h1></ion-text></strong>
           <ion-text color="dark"> <h2 class="ion-text-center" >$ {{costo}}</h2></ion-text>
+          <ion-item>
+            <strong><ion-label position="fixed">Account ID: </ion-label></strong>
+            <ion-input [(ngModel)]="accountId" name="user0"></ion-input>
+          </ion-item>
             <ion-item>
                 <strong><ion-label position="fixed">Estado: </ion-label></strong>
                 <ion-input [(ngModel)]="paypalForm.payment.transactions[0].item_list.shipping_address.state" name="user1"></ion-input>
