@@ -56,8 +56,8 @@ namespace moneyucab_portalweb_back.Controllers
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
         }
-
-        /*[HttpPost]
+       
+        [HttpPost]
         [Authorize]
         [Route("ReintegroStripe")]
         public async Task<Object> ReintegroStripe([FromBody] ChargeForm model)
@@ -75,7 +75,7 @@ namespace moneyucab_portalweb_back.Controllers
             catch (Exception ex)
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }*/
+            }
         }
     }
 }
