@@ -37,6 +37,13 @@
         <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
             Cuenta
         </ion-button>
+
+        <ion-button (click)="pagarPaypal( input.value )" color="primary" fill="solid" expand="block">
+            <div *ngIf="showP">
+                Paypal
+            </div>
+            <ion-spinner *ngIf="!showP" name="circles"></ion-spinner>
+        </ion-button>
         <br>
         <ion-item *ngIf="auxT">
             <ion-label>Escoja una tarjeta</ion-label>

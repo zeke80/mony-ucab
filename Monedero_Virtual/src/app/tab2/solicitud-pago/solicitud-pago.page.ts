@@ -182,74 +182,93 @@ export class SolicitudPagoPage implements OnInit {
 
   }
 
+  getRandom() {
+    return Math.random();
+  }
+
   pagarPaypal() {
+
     this.showP = false;
+    let x = this.getRandom() * 10000;
+
     var bodyl = {
-      reg:true,
+      reg: true,
       idOperacion: this.id,
-      payment:{
-    intent: "sale",
-    payer: {
-      payment_method: "paypal"
-    },
-    transactions: [
-      {
-        amount: {
-          total: this.operacion.monto,
-          currency: "USD",
-          details: {
-            subtotal: this.operacion.monto,
-            tax: "0",
-            shipping: "0",
-            handling_fee: "0",
-            shipping_discount: "0",
-            insurance: "0"
-          }
-        },
-        description: "The payment transaction description.",
-        custom: "EBAY_EMS_90048630024435",
-        invoice_number: "48787589673",
-        payment_options: {
-          allowed_payment_method: "INSTANT_FUNDING_SOURCE"
-        },
-        soft_descriptor: "ECHI5786786",
-        item_list: {
-          items: [
-            {
-              name: "transacción",
-              description: "",
-              quantity: "1",
-              price: this.operacion.monto,
+      payment: {
+      intent: "sale",
+      payer: {
+        payment_method: "paypal"
+      },
+      transactions: [
+        {
+          amount: {
+            total: this.operacion.monto,
+            currency: "USD",
+            details: {
+              subtotal: this.operacion.monto,
               tax: "0",
-              sku: "0",
-              currency: "USD"
+              shipping: "0",
+              handling_fee: "0",
+              shipping_discount: "0",
+              insurance: "0"
             }
-          ],
-          shipping_address: {
-            recipient_name: "Brian Robinson",
-            line1: "4th Floor",
-            line2: "Unit #34",
-            city: "San Jose",
-            country_code: "US",
-            postal_code: "95131",
-            phone: "011862212345678",
-            state: "CA"
+          },
+          description: "The payment transaction description.",
+          custom: "EBAY_EMS_90048630024435",
+          invoice_number: "55984746848723478" + Math.round(x),
+          payment_options: {
+            allowed_payment_method: "INSTANT_FUNDING_SOURCE"
+          },
+          soft_descriptor: "ECHI5786786",
+          item_list: {
+            items: [
+              {
+                name: "transacción",
+                description: "",
+                quantity: "1",
+                price: this.operacion.monto,
+                tax: "0",
+                sku: "0",
+                currency: "USD"
+              }
+            ],
+            shipping_address: {
+              recipient_name: "Brian Robinson",
+              line1: "4th Floor",
+              line2: "Unit #34",
+              city: "San Jose",
+              country_code: "US",
+              postal_code: "95131",
+              phone: "011862212345678",
+              state: "CA"
+            }
           }
         }
+      ],
+      note_to_payer: "Contact us for any questions on your order.",
+      redirect_urls: {
+        return_url: "http://localhost:8100/tabs/cuenta",
+        cancel_url: "http://localhost:8100/tabs/cuenta"
       }
-    ],
-    note_to_payer: "Contact us for any questions on your order.",
-    redirect_urls: {
-      return_url: "http://localhost:8100/tabs/cuenta",
-      cancel_url: "http://localhost:8100/tabs/cuenta/solicitudPago/43"+ this.id
     }
-  }
     };
+
     this._pagoServices.pagoPaypal(bodyl)
         .subscribe((data: any) => {
-          console.log(data);
-          // window.location.href = data.links[1].href;
+          var body = {
+            reg: true,
+            idOperacion: this.id,
+            idPago: data.id,
+            idUsuarioPagante: "HVX2KU8G4ZUFW"
+          };
+
+          localStorage.setItem('idPaga', data.id.toString());
+          localStorage.setItem('idOperacion', this.id.toString());
+          localStorage.setItem('aprovar', 'true');
+
+          window.location.href = data.links[1].href;
           this.showP = true;
+
         });
 
 

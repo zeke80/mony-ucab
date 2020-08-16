@@ -9,6 +9,9 @@ export class PagoService {
 
   saldo: number;
 
+  paypal = {};
+  ejecucion = false;
+
   public pagos: Pago[] = [
     {
       idPago: 1,
@@ -193,9 +196,26 @@ export class PagoService {
     return this.http.post('http://monyucab.somee.com/api/Paypal/CrearPago', body, {headers: tokenHeader});
   }
 
+  concretarPaypal(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Paypal/PagoExitoso', body, {headers: tokenHeader});
+  }
+
+  recargaPaypal(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Monedero/RecargaPaypal', body, {headers: tokenHeader});
+  }
+
+  concretarRecargaPaypal(body) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.post('http://monyucab.somee.com/api/Monedero/RecargaExitosaPaypal', body, {headers: tokenHeader});
+  }
+
   pagoStripe(body) {
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
     return this.http.post('http://monyucab.somee.com/api/Stripe/CrearPago', body, {headers: tokenHeader});
   }
+
+
 
 }

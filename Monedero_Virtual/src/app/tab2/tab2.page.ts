@@ -24,6 +24,9 @@ export class Tab2Page implements OnInit{
   user: string;
   hijo: number;
   restHijo = false;
+  ejecucion = '';
+  recargaPaypal: string;
+
   constructor(
     public _cuentaServices: CuentaService,
     public _tarjetaService: TarjetaService,
@@ -64,7 +67,42 @@ export class Tab2Page implements OnInit{
       this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
           .subscribe((data: any) => {
             this.cuentas = data;
+
+            console.log(data);
+
+            let idCuentaP: number;
+
+            this.recargaPaypal = localStorage.getItem('recarga');
+
+            console.log();
+
+            if (this.recargaPaypal === 'true') {
+
+              this.cuentas.forEach((cuenta) => {
+                if (cuenta._numero === this.usuario.usuario+'PAYPAL') {
+
+                  idCuentaP = cuenta._idCuenta
+                }
+
+              });
+
+              var bodyR = {
+                idUsuario: this.usuario.idUsuario,
+                idCuenta: idCuentaP,
+                monto: parseInt(localStorage.getItem('monto')),
+                idPago: localStorage.getItem('idPaga') ,
+                idUsuarioPagante: "HVX2KU8G4ZUFW"
+              };
+              this._pagoServices.concretarRecargaPaypal(bodyR)
+                  .subscribe((data:any) => {
+                    console.log
+                    console.log('no paso nada');
+                  });
+              localStorage.setItem('recarga', 'false');
+
+            }
           });
+
       if (this.hijo != 0 ){
         this.restHijo = true;
         this._usuarioService.getSaldo(this.hijo)
@@ -91,7 +129,23 @@ export class Tab2Page implements OnInit{
         });
         }
     });
+    this.ejecucion = localStorage.getItem('aprovar');
+    if (this.ejecucion === 'true'){
+      var body = {
+        reg: true,
+        idOperacion: parseInt(localStorage.getItem('idOperacion')),
+        idPago: localStorage.getItem('idPaga') ,
+        idUsuarioPagante: "HVX2KU8G4ZUFW"
+      };
+      localStorage.setItem('aprovar', 'false');
+      this._pagoServices.concretarPaypal(body)
+          .subscribe((data:any) => {
+            console.log(data);
+            console.log('no dio error mano');
+          });
+    }
 
+    
   }
 
   solicitudPago() {

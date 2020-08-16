@@ -21,6 +21,7 @@ export class RecargaPage implements OnInit {
   auxT = false;
   auxC = false;
   show = true;
+  showP = true;
 
   metodoPagoC = [];
   metodoPagoT = [];
@@ -108,6 +109,96 @@ export class RecargaPage implements OnInit {
           this.router.navigate(['/tabs/cuenta']);
         });
 
+  }
+
+  pagarPaypal(montoIn: number) {
+
+    this.showP = false;
+
+    let x = this.getRandom() * 10000;
+
+    var bodyl = {
+      reg: true,
+      idOperacion: 0,
+      payment: {
+      intent: "sale",
+      payer: {
+        payment_method: "paypal"
+      },
+      transactions: [
+        {
+          amount: {
+            total: montoIn.toString(),
+            currency: "USD",
+            details: {
+              subtotal: montoIn.toString(),
+              tax: "0",
+              shipping: "0",
+              handling_fee: "0",
+              shipping_discount: "0",
+              insurance: "0"
+            }
+          },
+          description: "The payment transaction description.",
+          custom: "EBAY_EMS_90048630024435",
+          invoice_number: "55984746848723478" + Math.round(x),
+          payment_options: {
+            allowed_payment_method: "INSTANT_FUNDING_SOURCE"
+          },
+          soft_descriptor: "ECHI5786786",
+          item_list: {
+            items: [
+              {
+                name: "transacción",
+                description: "",
+                quantity: "1",
+                price: montoIn,
+                tax: "0",
+                sku: "0",
+                currency: "USD"
+              }
+            ],
+            shipping_address: {
+              recipient_name: "Brian Robinson",
+              line1: "4th Floor",
+              line2: "Unit #34",
+              city: "San Jose",
+              country_code: "US",
+              postal_code: "95131",
+              phone: "011862212345678",
+              state: "CA"
+            }
+          }
+        }
+      ],
+      note_to_payer: "Contact us for any questions on your order.",
+      redirect_urls: {
+        return_url: "http://localhost:8100/tabs/cuenta",
+        cancel_url: "http://localhost:8100/tabs/cuenta"
+      }
+    }
+    };
+
+    console.log(bodyl);
+
+    this._pagoServices.recargaPaypal(bodyl)
+        .subscribe((data: any) => {
+
+          localStorage.setItem('idPaga', data.id.toString());
+          localStorage.setItem('recarga', 'true');
+          localStorage.setItem('monto', montoIn.toString());
+          console.log(data.links[1].href);
+
+          window.location.href = data.links[1].href;
+          this.showP = true;
+
+        });
+
+
+  }
+
+  getRandom() {
+    return Math.random();
   }
 
   async AlertServer() {

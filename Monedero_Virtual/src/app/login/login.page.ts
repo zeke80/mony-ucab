@@ -27,6 +27,10 @@ ngOnInit() {
 }
 
 ingresar( f: NgForm ) {
+  
+  localStorage.setItem('aprovar', 'false');
+  localStorage.setItem('recarga', 'false');
+
   this.show = false;
 
   let userM: string = f.value.user.toUpperCase();
