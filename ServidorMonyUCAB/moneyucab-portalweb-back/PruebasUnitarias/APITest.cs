@@ -79,11 +79,10 @@ namespace PruebasUnitarias
             Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/Admin/EstablecerLimiteParametro", data); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> EstablecerComision(dynamic infoComision)
+        public static Task<HttpResponseMessage> EstablecerComision(int idComercio, int comision)
         {
             login(loginTestUser1);
-            var data = serializarObjetoJson(infoComision);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/Admin/EstablecerComision", data); }).Wait(); return res;
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/Admin/EstablecerComision?idComercio=" + idComercio + "&comision=" + comision, null); }).Wait(); return res;
         }
 
         ////////////////////////////////////////////////////////////Authentication////////////////////////////////////////////////////////////

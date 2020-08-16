@@ -25,14 +25,10 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision()
         {
-            dynamic infoComision = new {
-                idComercio =  1,
-                comision = 1,
-            };
+            int idComercio = 1;
+            int comision = 1;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EstablecerComision(infoComision);
-            }).Wait();
+            res = APITest.EstablecerComision(idComercio, comision);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -40,31 +36,10 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void establecerComision_invalidoComercioNoRegistrado()
         {
-            dynamic infoComision = new
-            {
-                idComercio = 1,
-                comision = 1,
-            };
+            int idComercio = -1;
+            int comision = 1;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EstablecerComision(infoComision);
-            }).Wait();
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void establecerComision_UsuarioInvalido()
-        {
-            dynamic infoComision = new
-            {
-                idComercio = 1,
-                comision = 1,
-            };
-            Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EstablecerComision(infoComision);
-            }).Wait();
+            res = APITest.EstablecerComision(idComercio, comision);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

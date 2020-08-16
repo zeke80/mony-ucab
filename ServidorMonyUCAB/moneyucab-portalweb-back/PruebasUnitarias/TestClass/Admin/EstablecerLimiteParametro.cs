@@ -27,13 +27,11 @@ namespace PruebasUnitarias.TestClass.Admin
         {
             dynamic infoParametro = new
             {
-                idComercio = 1,
-                comision = 1,
+                idParametro = 1,
+                limite = "100",
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EstablecerLimiteParametro(infoParametro);
-            }).Wait();
+            res = APITest.EstablecerLimiteParametro(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -43,29 +41,11 @@ namespace PruebasUnitarias.TestClass.Admin
         {
             dynamic infoParametro = new
             {
-                idComercio = 1,
-                comision = 1,
+                idParametro = -1,
+                limite = "100",
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EstablecerLimiteParametro(infoParametro);
-            }).Wait();
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void establecerLimiteParametro_ParametroInvalido()
-        {
-            dynamic infoParametro = new
-            {
-                idComercio = 1,
-                comision = 1,
-            };
-            Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EstablecerLimiteParametro(infoParametro);
-            }).Wait();
+            res = APITest.EstablecerLimiteParametro(infoParametro);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

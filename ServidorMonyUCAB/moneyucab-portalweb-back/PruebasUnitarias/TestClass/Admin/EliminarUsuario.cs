@@ -27,9 +27,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
             int idUsuario = 3;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EliminarUsuario(idUsuario);
-            }).Wait();
+            res = APITest.EliminarUsuario(idUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -39,9 +37,7 @@ namespace PruebasUnitarias.TestClass.Admin
         {
             int idUsuario = 0;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.EliminarUsuario(idUsuario);
-            }).Wait();
+            res = APITest.EliminarUsuario(idUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
