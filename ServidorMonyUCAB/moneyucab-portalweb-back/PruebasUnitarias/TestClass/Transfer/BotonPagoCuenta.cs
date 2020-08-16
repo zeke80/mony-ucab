@@ -15,15 +15,11 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void botonPagoCuenta()
         {
-            Task<HttpResponseMessage> res = APITest.BotonPagoCuenta(new
-            {
-                idUsuario = 2,
-                idMedioPaga = 1,
-                monto = 100,
-                usuarioDestino = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            int idusuario = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.BotonPagoCuenta(idusuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]

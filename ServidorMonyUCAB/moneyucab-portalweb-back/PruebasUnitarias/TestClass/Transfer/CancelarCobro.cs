@@ -15,9 +15,11 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void cancelarCobro()
         {
-            Task<HttpResponseMessage> res = APITest.CancelarCobro(1);
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            /*int idUsuario = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.CancelarCobro(idUsuario, solicitante);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);*/
         }
 
         public void cancelarCobro_idCobroInvalidp()

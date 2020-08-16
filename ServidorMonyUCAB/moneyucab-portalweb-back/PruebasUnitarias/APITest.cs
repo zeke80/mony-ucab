@@ -87,7 +87,7 @@ namespace PruebasUnitarias
 
         ////////////////////////////////////////////////////////////Authentication////////////////////////////////////////////////////////////
 
-        public static Task<HttpResponseMessage> register(Persona persona)
+        public static Task<HttpResponseMessage> register(dynamic persona)
         {
             login(loginTestUser1);
             var data = serializarObjetoJson(persona);
@@ -101,7 +101,7 @@ namespace PruebasUnitarias
             Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/authentication/RegisterComercio", data); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> RegisterFamiliar(Persona persona)
+        public static Task<HttpResponseMessage> RegisterFamiliar(dynamic persona)
         {
             login(loginTestUser1);
             var data = serializarObjetoJson(persona);
@@ -340,10 +340,10 @@ namespace PruebasUnitarias
 
         //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////
 
-        public static Task<HttpResponseMessage> Consultar(dynamic id)
+        public static Task<HttpResponseMessage> Consultar(int idusuario)
         {
             login(loginTestUser1);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/monedero/Consultar?idUsuario=" + id); }).Wait(); return res;
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/monedero/Consultar?idUsuario=" + idusuario); }).Wait(); return res;
         }
 
         public static Task<HttpResponseMessage> RecargaMonederoTarjeta(dynamic info)

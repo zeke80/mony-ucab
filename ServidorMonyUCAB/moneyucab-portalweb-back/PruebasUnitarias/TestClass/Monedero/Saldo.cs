@@ -22,23 +22,21 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void saldo()
         {
-            Task<HttpResponseMessage> res = APITest.Consultar(new 
-            {
-                idUsuario = 2
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            int idusuario = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Consultar(idusuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void saldo_idUsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.Consultar(new
-            {
-                idUsuario = "egreg"
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            int idusuario = -1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Consultar(idusuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
     }

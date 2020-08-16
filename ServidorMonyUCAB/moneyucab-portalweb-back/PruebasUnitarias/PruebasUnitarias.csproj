@@ -58,8 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APITest.cs" />
+    <Compile Include="Modelos\Cuenta.cs" />
     <Compile Include="Modelos\InfoLogin.cs" />
     <Compile Include="Modelos\Persona.cs" />
+    <Compile Include="Modelos\Tarjeta.cs" />
     <Compile Include="TestClass\Admin\ConsultaUsuarios.cs" />
     <Compile Include="TestClass\Admin\EliminarUsuario.cs" />
     <Compile Include="TestClass\Admin\EstablecerComision.cs" />

@@ -16,53 +16,61 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void realizarCobro()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic infoCobro = new
             {
-                idUsuarioSolicitante = 2,
-                emailPagador = "testuser@gmail.com",
-                monto = 100,
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+                idUsuarioSolicitante = 1,
+                emailPagador = "testuser2@gmail.com",
+                monto = 100
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarCobro(infoCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void realizarCobro_userInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic infoCobro = new
             {
-                idUsuarioSolicitante = "edwqd",
-                emailPagador = "testuser@gmail.com",
-                monto = 100,
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+                idUsuarioSolicitante = -1,
+                emailPagador = "testuser2@gmail.com",
+                monto = 100
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarCobro(infoCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarCobro_emailInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic infoCobro = new
             {
-                idUsuarioSolicitante = 2,
+                idUsuarioSolicitante = 1,
                 emailPagador = "",
-                monto = 100,
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+                monto = 100
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarCobro(infoCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void realizarCobro_montoInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic infoCobro = new
             {
-                idUsuarioSolicitante = 2,
-                emailPagador = "testuser@gmail.com",
-                monto = "",
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
+                idUsuarioSolicitante = 1,
+                emailPagador = "testuser2@gmail.com",
+                monto = 100
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarCobro(infoCobro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
+        }*/
     }
 }

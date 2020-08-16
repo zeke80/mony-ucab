@@ -15,15 +15,17 @@ namespace PruebasUnitarias.TestClass.Monedero
         [TestMethod]
         public void recarga_saldo_cuenta()
         {
-            Task<HttpResponseMessage> res = APITest.RecargaMonederoCuenta(new
+            dynamic infoLogin = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
                 monto = 100,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RecargaMonederoCuenta(infoLogin);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]

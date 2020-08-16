@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PruebasUnitarias.TestClass.Authentication
 {
-    [TestClass]
+    //[TestClass]
     public class ConfirmarCorreo
     {
         [TestInitialize]

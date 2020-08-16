@@ -11,70 +11,60 @@ namespace PruebasUnitarias
     class TestUser
     {
         Persona infoUser;
-        int userId;
-        InfoLogin infoLogin;
+        string token;
 
         public TestUser(int userId, int idTipoUsuario)
         {
-            this.userId = userId;
+            listaCuentas = new List<Cuenta>();
+            listaTarjetas = new List<Tarjeta>();
             infoUser = new Persona
             {
-                Usuario = "testuser1" + userId,
-                Email = "testuser1" + userId + "@gmail.com",
-                Password = "testuser1",
-                IdTipoUsuario = 3,
-                IdTipoIdentificacion = 1,
-                IdEstadoCivil = 1,
-                AnoRegistro = DateTime.Now.Year,
-                MesRegistro = DateTime.Now.Month,
-                DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = 2222,
-                Telefono = "testuser1",
-                Direccion = "testuser1",
-                Estatus = 1,
-                Comercio = false,
-                Nombre = "testuser1",
-                Apellido = "testuser1",
-                AnoNacimiento = 2000,
-                MesNacimiento = 1,
-                DiaNacimiento = 1,
-                RazonSocial = "testuser1",
+                usuario = "TestUser1",
+                email = "testuser1@gmail.com",
+                password = "PassTestUser1",
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = 1,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = "",
             };
+        }
 
-            infoLogin = new InfoLogin
+        public dynamic getInfoLogin()
+        {
+            dynamic infoLogin = new
             {
-                UserName = infoUser.Usuario,
-                Email = infoUser.Email,
-                Password = infoUser.Password,
-                Comercio = infoUser.Comercio,
+                infoUser.usuario,
+                infoUser.email,
+                infoUser.password,
+                infoUser.comercio,
             };
-        }
-
-        public string getUsername()
-        {
-            return infoUser.Usuario;
-        }
-
-        public InfoLogin getInfoLogin()
-        {
             return infoLogin;
         }
 
-        public async Task<HttpResponseMessage> registrar()
+        public void login()
         {
-            return await APITest.register(infoUser);
+            dynamic res = APITest.login(getInfoLogin());
+            token = res.Result.Content.result.token;
+            infoUser.idusuario = res.Result.Content.result.userID;
         }
 
-        public async void login()
+        public List<Cuenta> getCuentas()
         {
-            await APITest.login(infoLogin);
-        }
-
-        public async void eliminar()
-        {
-            /*dynamic infoPerosona = await APITest.InformacionPersona(infoUser.Usuario,infoLogin);
-            int idUsuario = infoPerosona.result.idUsuario;
-            await APITest.EliminarUsuario(idUsuario);*/
+            var listaCuentas = new List<Cuenta>();
+            
         }
     }
 }

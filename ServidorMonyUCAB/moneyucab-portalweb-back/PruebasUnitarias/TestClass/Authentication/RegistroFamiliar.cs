@@ -26,7 +26,7 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroFamiliar()
         {
-            Task<HttpResponseMessage> res = APITest.RegisterFamiliar(new Persona
+            Task<HttpResponseMessage> res = APITest.RegisterFamiliar(new 
             {
                Usuario = "TestUserF",
                Email = "testuserf@gmail.com",

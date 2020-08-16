@@ -15,57 +15,49 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void establecerParametro()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerParametro(new
+            dynamic infoParametro = new
             {
-                idUsuario = 2,
+                idUsuario = 1,
                 idParametro = 1,
                 validacion = "",
                 estatus = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerParametro(infoParametro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void establecerParametro_idUsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerParametro(new
+            dynamic infoParametro = new
             {
-                idUsuario = 404,
+                idUsuario = -1,
                 idParametro = 1,
                 validacion = "",
                 estatus = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerParametro(infoParametro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void establecerParametro_idParametroInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.EstablecerParametro(new
+            dynamic infoParametro = new
             {
-                idUsuario = 2,
-                idParametro = 400,
+                idUsuario = 1,
+                idParametro = -1,
                 validacion = "",
                 estatus = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void establecerParametro_estatusInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.EstablecerParametro(new
-            {
-                idUsuario = 2,
-                idParametro = 1,
-                validacion = 100,
-                estatus = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EstablecerParametro(infoParametro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }
