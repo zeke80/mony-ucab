@@ -47,7 +47,6 @@ export class LoginFormComponent implements OnInit {
           this.service.login();
           this.service.guardarUsuario(data); 
           this.getUserInfo(); 
-          this.router.navigate(['/dashboard']);
     },
       (err : HttpErrorResponse) => {        
         if (err.status >= 400){
