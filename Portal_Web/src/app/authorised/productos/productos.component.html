@@ -16,7 +16,7 @@
                 <div class="col-4">
                     <span><i class="fas fa-credit-card"></i></span>  
                     <span style="font-weight: bold;"> Tipo: </span>
-                    <span>{{tipo}}</span>
+                    <span>{{tarjeta.infoAdicional.tipoTarjeta.descripcion}}</span>
                 </div>
                 <div class="col-6">
                     <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Numero de tarjeta: </span>
@@ -29,12 +29,12 @@
                 </div>
                 <div class="row">
                     <div class="col-4">
-                        <span style="font-weight: bold;"><i class="fas fa-landmark"></i> Banco: </span>
-                        <span>{{tarjeta.idbanco}}</span>
+                        <span style="font-weight: bold;"><i class="fas fa-university"></i> Banco: </span>
+                        <span>{{tarjeta.infoAdicional.banco.nombre}}</span>
                     </div>
                     <div class="col-4">
                         <span style="font-weight: bold;"><i class="far fa-calendar-alt"></i> Fecha de vencimiento: </span>
-                        <span>{{tarjeta.fecha_vencimiento.split('T',1)}}</span>
+                        <span>{{tarjeta.fechaVencimiento.day}} - {{tarjeta.fechaVencimiento.month}}- {{tarjeta.fechaVencimiento.year}}</span>
                     </div>
                 </div>
                 <hr>
@@ -58,11 +58,15 @@
                 <div class="row">
                 <div class="col">
                     <span style="font-weight: bold;"><i class="fas fa-credit-card"></i> Tipo: </span>
-                    <span>{{cuenta.idtipocuenta}}</span>
+                    <span>{{cuenta.infoAdicional._tipoCuenta.descripcion}}</span>
                 </div>
                 <div class="col">
-                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Numero de cuenta: </span>
-                    <span>{{cuenta.numero}}</span>
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Cuenta: </span>
+                    <span>{{cuenta._numero}}</span>
+                </div>
+                <div class="col">
+                    <span style="font-weight: bold;"><i class="fas fa-university"></i> Banco: </span>
+                    <span>{{cuenta.infoAdicional._banco.nombre}}</span>
                 </div>
                 </div>   
                 <hr>
