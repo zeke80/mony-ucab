@@ -9,22 +9,23 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
                   <th scope="col">Usuario</th>
-                  <th scope="col">Identificación</th>
+                  <th scope="col">ID Number</th>
                   <th scope="col">Email</th>
                   <th scope="col">Opciones</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Tal</td>
-                  <td>Tal</td>
-                  <td>Tal</td>
-                  <td>Tal</td>
+                <tr *ngFor="let usuario of usuarios">
+                  <td>{{usuario.usuario}}</td>
+                  <td>{{usuario.nroIdentificacion}}</td>
+                  <td>{{usuario.email}}</td>
                   <td>
-                    <button type="button" class="btn btn-danger">
-                      <i class="fa fa-ban fa-2x"></i>
+                    <button type="button" class="btn btn-info">
+                      <i class="fa fa-edit fa-2x"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="deleteUsers(usuario.usuario, usuario.idUsuario)">
+                      <i class="fa fa-trash fa-2x"></i>
                     </button>
                   </td>
                 </tr>
