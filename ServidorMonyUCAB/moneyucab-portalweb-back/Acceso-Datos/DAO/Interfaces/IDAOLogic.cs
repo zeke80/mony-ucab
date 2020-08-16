@@ -33,6 +33,18 @@ namespace DAO.Interfaces
         List<ComTipoTarjeta> TiposTarjeta();
 
         /// <summary>
+        /// Realiza la consulta de las opciones menu del usuario.
+        /// </summary>
+        /// <param name="IdUsuario">Id del usuario al que se realizará consulta.</param>
+        /// <returns>
+        /// Entrega la lista de las opciones menu para el usuario.
+        /// </returns>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComOpcionMenu> OpcionesMenu(int IdUsuario);
+
+        /// <summary>
         /// Realiza la consulta con base de datos de los bancos disponibles en la lógica de negocio.
         /// </summary>
         /// <returns>

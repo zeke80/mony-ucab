@@ -30,8 +30,10 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples
 
         async public Task<Object> Ejecutar()
         {
-            // Se crea el objeto del usuario a registrar
-            var usuario = new Usuario()
+            try
+            {
+                // Se crea el objeto del usuario a registrar
+                var usuario = new Usuario()
             {
                 UserName = _userModel.usuario,
                 Email = _userModel.email,
@@ -41,15 +43,7 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples
             var result = await _userManager.CreateAsync(usuario, _userModel.password);
 
             //Se debe ingresar en este punto la validación DAO con el sistema propio y no con Identity
-            try
-            {
                 await FabricaComandos.Fabricar_Cmd_Registro_Usuario_DAO(_userModel).Ejecutar();
-            }
-            catch(Exception ex)
-            {
-                await _userManager.DeleteAsync(usuario);
-                throw ex;
-            }
             //-------------------------------------------------------
 
             // Se genera el codigo para confirmar el email del usuario recien creado
@@ -85,6 +79,16 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples
             _emailSender.SendEmailAsync(emailDetails);
 
             return result;
+            }
+            catch (Exception ex)
+            {
+                var user = await _userManager.FindByEmailAsync(_userModel.email);
+                if (user != null)
+                {
+                    await _userManager.DeleteAsync(user);
+                }
+                throw ex;
+            }
         }
 
     }

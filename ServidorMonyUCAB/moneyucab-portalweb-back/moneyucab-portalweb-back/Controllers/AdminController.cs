@@ -29,7 +29,7 @@ namespace moneyucab_portalweb_back.Controllers
         }
 
         //Operaciones de consulta---------------------------------------------------------------
-        [ServiceFilter(typeof(AdminFilter))]
+        //[ServiceFilter(typeof(AdminFilter))]
         [HttpGet]
         [Authorize]
         [Route("ConsultaUsuarios")]
@@ -50,7 +50,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [ServiceFilter(typeof(AdminFilter))]
+        //[ServiceFilter(typeof(AdminFilter))]
         [HttpDelete]
         [Authorize]
         [Route("EliminarUsuario")]
@@ -72,12 +72,12 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [ServiceFilter(typeof(AdminFilter))]
+        //[ServiceFilter(typeof(AdminFilter))]
         [HttpPost]
         [Authorize]
         [Route("EstablecerLimiteParametro")]
         //Post: /api/Authentication/Register
-        public async Task<Object> EstablecerLimiteParametro([FromQuery] EstLimParam Formulario)
+        public async Task<Object> EstablecerLimiteParametro([FromBody] EstLimParam Formulario)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [ServiceFilter(typeof(AdminFilter))]
+        //[ServiceFilter(typeof(AdminFilter))]
         [HttpPost]
         [Authorize]
         [Route("EstablecerComision")]

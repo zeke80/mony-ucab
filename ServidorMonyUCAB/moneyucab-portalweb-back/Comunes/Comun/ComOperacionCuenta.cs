@@ -43,8 +43,8 @@ namespace Comunes.Comun
         public void LlenadoDataNpgsql(NpgsqlDataReader Data)
         {
             this.idOperacionCuenta = Data.GetInt32(0 + offset);
-            this.idUsuarioReceptor = Data.GetInt32(1 + offset);
-            this.idCuenta = Data.GetInt32(2 + offset);
+            this.idUsuarioReceptor = Data.GetInt32(2 + offset);
+            this.idCuenta = Data.GetInt32(1 + offset);
             this.fecha = Data.GetDate(3 + offset);
             //this._hora = data.GetString(4 + _offset);
             this.monto = Data.GetDouble(5 + offset);

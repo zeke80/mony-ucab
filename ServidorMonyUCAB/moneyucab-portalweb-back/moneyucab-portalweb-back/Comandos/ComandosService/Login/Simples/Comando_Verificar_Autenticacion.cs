@@ -41,9 +41,11 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.Simples
                     AutenticacionAppException.UsuarioInvalidoApp();
                 }
             }
-            if (!await FabricaComandos.Fabricar_Cmd_Persona_Usuario(_model.email).Ejecutar())
-            {
-                AutenticacionAppException.UsuarioInvalidoApp();
+            else { 
+                if (!await FabricaComandos.Fabricar_Cmd_Persona_Usuario(_model.email).Ejecutar())
+                {
+                    AutenticacionAppException.UsuarioInvalidoApp();
+                }
             }
             return true;
         }

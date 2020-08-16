@@ -1,6 +1,7 @@
 ﻿using Excepciones;
 using Npgsql;
 using NpgsqlTypes;
+using System;
 
 namespace Comunes.Comun
 {
@@ -64,11 +65,39 @@ namespace Comunes.Comun
 
         public void LlenadoDataNpgsql(NpgsqlDataReader Data)
         {
-            this.nombre = Data.GetString(0 + offset);
-            this.apellido = Data.GetString(1 + offset);
-            this.fechaNacimiento = Data.GetDate(2 + offset);
-            this.estadoCivil.offset = 26;
-            this.estadoCivil.LlenadoDataNpgsql(Data);
-        }
+            try
+            {
+                this.nombre = Data.GetString(0 + offset);
+            } 
+            catch(InvalidCastException ex)
+            {
+                this.nombre = "";
+            }
+            try
+            {
+                this.apellido = Data.GetString(1 + offset);
+            } 
+            catch(InvalidCastException ex)
+            {
+                this.apellido = "";
+            }
+            try
+            {
+                this.fechaNacimiento = Data.GetDate(2 + offset);
+            } 
+            catch(InvalidCastException ex)
+            {
+                this.fechaNacimiento = NpgsqlDate.Now;
+            }
+            try
+            {
+                this.estadoCivil.offset = 26;
+                this.estadoCivil.LlenadoDataNpgsql(Data);
+            } 
+            catch(InvalidCastException ex)
+            {
+                this.estadoCivil = null;
+            }
+}
     }
 }
