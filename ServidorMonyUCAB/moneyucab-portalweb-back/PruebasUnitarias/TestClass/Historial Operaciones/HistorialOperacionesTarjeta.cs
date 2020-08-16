@@ -15,9 +15,11 @@ namespace PruebasUnitarias.TestClass.Historial_Operaciones
         [TestMethod]
         public void historialOperacionTarjeta()
         {
-            Task<HttpResponseMessage> res = APITest.HistorialOperacionesTarjeta(1);
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            int TarjetaId = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.HistorialOperacionesTarjeta(TarjetaId);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
     }

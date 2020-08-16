@@ -15,23 +15,21 @@ namespace PruebasUnitarias.TestClass.Historial_Operaciones
         [TestMethod]
         public void ejecutarCierre()
         {
-            Task<HttpResponseMessage> res = APITest.EjecutarCierre(new
-            {
-                TarjetaID = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            int IdUsuario = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EjecutarCierre(IdUsuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
-        public void ejecutarCierre_idInvalido()
+        public void ejecutarCierre_idUsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.EjecutarCierre(new
-            {
-                TarjetaID = "efsrdt"
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            int IdUsuario = -1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EjecutarCierre(IdUsuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

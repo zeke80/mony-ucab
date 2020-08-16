@@ -25,25 +25,21 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void eliminarCuenta()
         {
-           /* Task<HttpResponseMessage> res = APITest.EliminarCuenta(1);
+            int CuentaId = 1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EliminarCuenta(CuentaId);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);*/
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void eliminarCuenta_invalidoCuentaNoRegistrada()
         {
-            /*Task<HttpResponseMessage> res = APITest.EliminarCuenta(404);
+            int CuentaId = -1;
+            Task<HttpResponseMessage> res = null;
+            res = APITest.EliminarCuenta(CuentaId);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);*/
-        }
-
-        [TestMethod]
-        public void eliminarCuenta_CuentaInvalida()
-        {
-            /*Task<HttpResponseMessage> res = APITest.EliminarCuenta(-1);
-            var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.BadRequest);*/
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

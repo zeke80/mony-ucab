@@ -129,7 +129,7 @@ namespace PruebasUnitarias
             Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/authentication/ConfirmedEmail", data); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> ForgotPasswordEmail(string correo)
+        public static Task<HttpResponseMessage> ForgotPasswordEmail(dynamic correo)
         {
             login(loginTestUser1);
             var data = serializarObjetoJson(correo);
@@ -173,12 +173,11 @@ namespace PruebasUnitarias
             Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/Billetera/tarjeta", data); }).Wait(); return res;
         }
 
-       /* public static Task<HttpResponseMessage> EliminarCuenta(int CuentaId)
+        public static Task<HttpResponseMessage> EliminarCuenta(int CuentaId)
         {
             login(loginTestUser1);
-            var data = serializarObjetoJson(Cuentaid); }).Wait(); return res;
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.DeleteAsync(url + "/api/Billetera/EliminarCuenta?CuentaId=" + Cuentaid); }).Wait(); return res;
-        }*/
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.DeleteAsync(url + "/api/Billetera/EliminarCuenta?CuentaId=" + CuentaId); }).Wait(); return res;
+        }
 
         public static Task<HttpResponseMessage> EliminarTarjeta(int TarjetaId)
         {
@@ -309,34 +308,34 @@ namespace PruebasUnitarias
         {
             login(loginTestUser1);
             var data = serializarObjetoJson(idUsuario);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.PostAsync(url + "/api/dashboard/ConsultaUsuariosF", data); }).Wait();
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/dashboard/ConsultaUsuariosF"); }).Wait();
             return res;
         }
 
         //////////////////////////////Historial Operaciones//////////////////////
 
-        public static Task<HttpResponseMessage> HistorialOperacionesTarjeta(dynamic id)
+        public static Task<HttpResponseMessage> HistorialOperacionesTarjeta(int TarjetaId)
         {
             login(loginTestUser1);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=" + id); }).Wait(); return res;
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=" + TarjetaId); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> HistorialOperacionesCuenta(int id)
+        public static Task<HttpResponseMessage> HistorialOperacionesCuenta(int CuentaId)
         {
             login(loginTestUser1);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=" + id); }).Wait(); return res;
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=" + CuentaId); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> HistorialOperacionesMonedero(int id)
+        public static Task<HttpResponseMessage> HistorialOperacionesMonedero(int UsuarioId)
         {
             login(loginTestUser1);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=" + id); }).Wait(); return res;
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=" + UsuarioId); }).Wait(); return res;
         }
 
-        public static Task<HttpResponseMessage> EjecutarCierre(dynamic id)
+        public static Task<HttpResponseMessage> EjecutarCierre(int IdUsuario)
         {
             login(loginTestUser1);
-            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?idUsuario=" + id); }).Wait(); return res;
+            Task<HttpResponseMessage> res = null; Task.Run(() => { res = client.GetAsync(url + "/api/HistorialOperaciones/EjecutarCierre?idUsuario=" + IdUsuario); }).Wait(); return res;
         }
 
         //////////////////////////////////////////////////////////////Monedero/////////////////////////////////////////////////////////////

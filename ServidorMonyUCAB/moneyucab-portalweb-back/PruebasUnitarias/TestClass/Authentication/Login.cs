@@ -85,9 +85,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 comercio = false,
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.login(infoLogin);
-            }).Wait();
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -97,15 +95,13 @@ namespace PruebasUnitarias.TestClass.Authentication
         {
             dynamic infoLogin = new
             {
-                username = "TestUser1",
-                email = "testuser1@gmail.com",
-                password = "PassTestUser1",
+                username = "TestUser2",
+                email = "testuser2@gmail.com",
+                password = "PassTestUser2",
                 comercio = true,
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.login(infoLogin);
-            }).Wait();
+            res = APITest.login(infoLogin);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

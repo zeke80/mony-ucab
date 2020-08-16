@@ -27,9 +27,7 @@ namespace PruebasUnitarias.TestClass.Dashboard.Consultas_Usuario
         {
             int idUsuario = 1;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ParametrosUsuario(idUsuario);
-            }).Wait();
+            res = APITest.ParametrosUsuario(idUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }

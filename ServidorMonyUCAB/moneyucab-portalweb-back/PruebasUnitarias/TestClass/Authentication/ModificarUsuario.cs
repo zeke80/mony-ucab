@@ -36,9 +36,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 idUsuario = 1
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.modification(infoModificacionUsuario);
-            }).Wait();
+            res = APITest.modification(infoModificacionUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -54,12 +52,10 @@ namespace PruebasUnitarias.TestClass.Authentication
                 direccion = "DirTestUser",
                 razonSocial = "RazTestUser",
                 idEstadoCivil = 1,
-                idUsuario = 404
+                idUsuario = -1
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.modification(infoModificacionUsuario);
-            }).Wait();
+            res = APITest.modification(infoModificacionUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -74,13 +70,11 @@ namespace PruebasUnitarias.TestClass.Authentication
                 telefono = "TelfTestUser",
                 direccion = "DirTestUser",
                 razonSocial = "RazTestUser",
-                idEstadoCivil = 404,
+                idEstadoCivil = -1,
                 idUsuario = 1
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.modification(infoModificacionUsuario);
-            }).Wait();
+            res = APITest.modification(infoModificacionUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

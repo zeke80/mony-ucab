@@ -27,9 +27,7 @@ namespace PruebasUnitarias
         {
             int idUsuario = 1;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ReintegrosCancelados(idUsuario);
-            }).Wait();
+            res = APITest.ReintegrosCancelados(idUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }

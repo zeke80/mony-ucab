@@ -29,9 +29,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 email = "testuser1@gmail.com", 
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ForgotPasswordEmail(correo);
-            }).Wait();
+            res = APITest.ForgotPasswordEmail(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
@@ -44,9 +42,7 @@ namespace PruebasUnitarias.TestClass.Authentication
                 email = "",
             };
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ForgotPasswordEmail(correo);
-            }).Wait();
+            res = APITest.ForgotPasswordEmail(correo);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

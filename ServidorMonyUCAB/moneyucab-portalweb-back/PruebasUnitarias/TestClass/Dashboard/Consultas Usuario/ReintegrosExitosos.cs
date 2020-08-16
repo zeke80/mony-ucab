@@ -12,44 +12,10 @@ namespace PruebasUnitarias
     [TestClass]
     public class ReintegrosExitosos
     {
-        Persona registroAdmin1;
-        InfoLogin loginAdmin1;
 
         [TestInitialize]
         public void TestInitialize()
-        {
-            registroAdmin1 = new Persona
-            {
-                Usuario = "admin1",
-                Email = "admin1@gmail.com",
-                Password = "admin1",
-                IdTipoUsuario = 3,
-                IdTipoIdentificacion = 1,
-                IdEstadoCivil = 1,
-                AnoRegistro = DateTime.Now.Year,
-                MesRegistro = DateTime.Now.Month,
-                DiaRegistro = DateTime.Now.Day,
-                NroIdentificacion = 1,
-                Telefono = "admin1",
-                Direccion = "admin1",
-                Estatus = 1,
-                Comercio = false,
-                Nombre = "admin1",
-                Apellido = "admin1",
-                AnoNacimiento = 2000,
-                MesNacimiento = 1,
-                DiaNacimiento = 1,
-                RazonSocial = "admin1",
-            };
-
-            loginAdmin1 = new InfoLogin()
-            {
-                UserName = registroAdmin1.Usuario,
-                Email = registroAdmin1.Email,
-                Password = registroAdmin1.Password,
-                Comercio = registroAdmin1.Comercio
-            };
-
+        {        
         }
 
         [TestCleanup]
@@ -62,9 +28,7 @@ namespace PruebasUnitarias
         {
             int idUsuario = 1;
             Task<HttpResponseMessage> res = null;
-            Task.Run(() => {
-                res = APITest.ReintegrosExitosos(idUsuario);
-            }).Wait();
+            res = APITest.ReintegrosExitosos(idUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
