@@ -2666,5 +2666,320 @@ namespace DAO
                 Desconectar();
             }
         }
+
+        public List<ComComercio> ComisionesPorEmpresa()
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM report_comisionesporempresa();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComComercio> listaUsuarios = new List<ComComercio>();
+                ComComercio row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComComercio();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public List<ComBitacora> OperacionesFallidas()
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM report_fallidos();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComBitacora> listaUsuarios = new List<ComBitacora>();
+                ComBitacora row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComBitacora();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public List<ComPago> CobrosPendientes()
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM report_cobros();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComPago> listaUsuarios = new List<ComPago>();
+                ComPago row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComPago();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public List<ComOperacionMonedero> RetiroRango()
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM report_retirorangofechas();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
+                ComOperacionMonedero row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComOperacionMonedero();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public int count_operacionesmonedero(int idTipoOperacion)
+        {
+            int count;
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT count_operacionesmonedero(@idTipoOperacion);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("idtipooperacion", idTipoOperacion));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                lectorTablaSQL.Read();
+                count = lectorTablaSQL.GetInt32(0);
+                return count;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return 0;
+        }
+
+        public int total_operaciones()
+        {
+            int count;
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT total_operaciones();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                lectorTablaSQL.Read();
+                count = lectorTablaSQL.GetInt32(0);
+                return count;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return 0;
+        }
+
+        public int total_comisiones()
+        {
+            int count;
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT total_comisiones();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                lectorTablaSQL.Read();
+                count = lectorTablaSQL.GetInt32(0);
+                return count;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return 0;
+        }
+
+        public int total_cobrospendientes()
+        {
+            int count;
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT total_cobrospendientes();");
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                lectorTablaSQL.Read();
+                count = lectorTablaSQL.GetInt32(0);
+                return count;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return 0;
+        }
+
+
     }
 }

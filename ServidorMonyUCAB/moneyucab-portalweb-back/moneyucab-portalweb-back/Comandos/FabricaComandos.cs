@@ -241,7 +241,7 @@ namespace moneyucab_portalweb_back.Comandos
             return new Comando_Reintegro_Monedero(IdUsuarioReceptor, IdMedioPaga, Monto, IdOperacion);
         }
 
-        public static Comando_Modificacion_Usuario Fabricar_Cmd_Modificar_Usuario(string Nombre, string Apellido, string Telefono, string Direccion, string RazonSocial, int idEstadoCivil,  int IdUsuario)
+        public static Comando_Modificacion_Usuario Fabricar_Cmd_Modificar_Usuario(string Nombre, string Apellido, string Telefono, string Direccion, string RazonSocial, int idEstadoCivil, int IdUsuario)
         {
             return new Comando_Modificacion_Usuario(Nombre, Apellido, Telefono, Direccion, RazonSocial, idEstadoCivil, IdUsuario);
         }
@@ -310,7 +310,7 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Recarga_Monedero_Tarjeta(IdUsuario, IdMedioPaga, Monto);
         }
-        
+
         public static Comando_Cambio_Contraseña Fabricar_Cmd_Cambio_Contraseña(UserManager<Usuario> UserManager, string Usuario, string PasswordActual, string PasswordCambio)
         {
             return new Comando_Cambio_Contraseña(UserManager, Usuario, PasswordActual, PasswordCambio);
@@ -391,7 +391,7 @@ namespace moneyucab_portalweb_back.Comandos
             return new Comando_Pago_Stripe(Reg, IdOperacion, Referencia);
         }
 
-        public static Comando_Crear_Pago_Stripe Fabricar_Cmd_Stripe_Payouts(int amount, string emailReceptor, string descripcion,bool reg, int idOperacion)
+        public static Comando_Crear_Pago_Stripe Fabricar_Cmd_Stripe_Payouts(int amount, string emailReceptor, string descripcion, bool reg, int idOperacion)
         {
             return new Comando_Crear_Pago_Stripe(amount, emailReceptor, descripcion, reg, idOperacion);
         }
@@ -409,5 +409,45 @@ namespace moneyucab_portalweb_back.Comandos
         {
             return new Comando_Consultar_Opciones_Menu(IdUsuario);
         }
+
+        public static Comando_Comisiones_PorEmpresa Fabricar_Cmd_Comisiones_PorEmpresa()
+        {
+            return new Comando_Comisiones_PorEmpresa();
+        }
+
+        public static Comando_Cobros_Pendientes Fabricar_Cmd_Cobros_Pendientes()
+        {
+            return new Comando_Cobros_Pendientes();
+        }
+
+        public static Comando_RetiroRango Fabricar_Cmd_RetiroRando()
+        {
+            return new Comando_RetiroRango();
+        }
+        public static Comando_Count_OperacionesM Fabricar_Cmd_Count_OperacionesM(int Idtipooperacion)
+        {
+            return new Comando_Count_OperacionesM(Idtipooperacion);
+        }
+
+        public static Comando_Total_Operaciones Fabricar_Cmd_Total_Operaciones()
+        {
+            return new Comando_Total_Operaciones();
+        }
+
+        public static Comando_Total_Comisiones Fabricar_Cmd_Total_Comisiones()
+        {
+            return new Comando_Total_Comisiones();
+        }
+
+        public static Comando_Total_CobrosPendientes Fabricar_Cmd_Total_CobrosPendientes()
+        {
+            return new Comando_Total_CobrosPendientes();
+        }
+
+        public static Comando_Operaciones_Fallidas Fabricar_Cmd_Operaciones_Fallidas()
+        {
+            return new Comando_Operaciones_Fallidas();
+        }
+
     }
 }

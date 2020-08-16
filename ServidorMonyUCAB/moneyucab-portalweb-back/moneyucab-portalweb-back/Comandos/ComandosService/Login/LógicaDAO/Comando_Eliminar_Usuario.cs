@@ -39,7 +39,6 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 					UsuarioExistenteException.UsuarioNoExistente();
 				}
             }
-			await this._userManager.DeleteAsync(usuario);
 			DAOBase dao = FabricaDAO.CrearDaoBase();
 			return dao.EliminarUsuario(this._idUsuario);
 		}

@@ -949,7 +949,7 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 BEGIN
-	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil', $1);
+	RETURN QUERY execute format('SELECT * FROM Usuario JOIN Persona ON Persona.idUsuario = Usuario.idUsuario LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil ' || $1);
 END;
 $$;
 
@@ -967,7 +967,7 @@ BEGIN
 	RETURN QUERY SELECT * FROM Usuario LEFT JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
 										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
 										LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
-										JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuarioF = $1;
+										LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil WHERE Usuario.idUsuarioF = $1;
 END;
 $$;
 
@@ -977,12 +977,15 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
 	tipo_cuenta int;
+	id_entity text;
 BEGIN
 	IF NOT EXISTS (SELECT * FROM Usuario WHERE Usuario.idUsuario = $1) THEN
 			RAISE EXCEPTION 'No existe tal usuario';
 	END IF;
+	SELECT Usuario.idEntity  into id_entity FROM Usuario WHERE Usuario.idUsuario = $1;
 	SELECT idTipoCuenta FROM TipoCuenta into tipo_cuenta WHERE TipoCuenta.descripcion = 'Monedero';
 	UPDATE Usuario SET estatus = 3 WHERE idUsuario = $1;
+	UPDATE "AspNetUsers" SET lockoutEnd = date '2099-09-28' WHERE "Id" = id_entity;
 	DELETE FROM Cuenta WHERE Cuenta.idTipoCuenta = tipo_cuenta and Cuenta.idUsuario = $1;
 	INSERT INTO Bitacora (idEvento, idUsuario, fecha, hora, datos_operacion, causa_error) VALUES (29, $1, CURRENT_DATE, CURRENT_TIME, 'Eliminacion de usuario: ' || $1, '');
 	RETURN TRUE;
@@ -1211,10 +1214,10 @@ BEGIN
 	ELSE
 		IF EXISTS (SELECT * FROM Reintegro WHERE Reintegro.idReintegro = $2) THEN
 			SELECT * INTO reintegro_reg FROM Reintegro WHERE Reintegro.idReintegro = $2;
-			SELECT OperacionCuenta.monto + OperacionTarjeta.monto into monto_reintegro FROM OperacionCuenta JOIN OperacionTarjeta ON OperacionTarjeta.referencia = reintegro_reg.referencia  WHERE OperacionCuenta.referencia = reintegro_reg.referencia;
+			SELECT coalesce(OperacionCuenta.monto,0) + coalesce(OperacionTarjeta.monto,0) into monto_reintegro FROM OperacionCuenta LEFT JOIN OperacionTarjeta ON OperacionTarjeta.referencia = reintegro_reg.referencia  WHERE OperacionCuenta.referencia = reintegro_reg.referencia;
 			SELECT Cuenta.idCuenta INTO id_cuenta_paypal FROM Cuenta JOIN Reintegro ON Reintegro.idUsuario_solicitante = Cuenta.idUsuario AND Reintegro.idReintegro = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Paypal';
 			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
-				VALUES (reintegro_reg.idUsuario_Receptor, id_cuenta_paypal, current_date, current_time,monto_reintegro , $3);
+				VALUES (reintegro_reg.idUsuario_Receptor, id_cuenta_paypal, current_date, current_time, monto_reintegro , $3);
 			UPDATE Reintegro SET referencia = $3, estatus = 'Consolidado' WHERE idReintegro = $2;
 			SELECT TipoOperacion.idTipoOperacion FROM TipoOperacion into tipoOperacion WHERE descripcion = 'Recepción de transferencia';
 			INSERT INTO OperacionesMonedero (idUsuario, idTipoOperacion, monto, fecha, hora, referencia)
@@ -1257,7 +1260,7 @@ BEGIN
 	ELSE
 		IF EXISTS (SELECT * FROM Reintegro WHERE Reintegro.idReintegro = $2) THEN
 			SELECT * INTO reintegro_reg FROM Reintegro WHERE Reintegro.idReintegro = $2;
-			SELECT OperacionCuenta.monto + OperacionTarjeta.monto FROM OperacionCuenta into monto_reintegro JOIN OperacionTarjeta ON OperacionTarjeta.referencia = reintegro_reg.referencia  WHERE OperacionCuenta.referencia = reintegro_reg.referencia;
+			SELECT coalesce(OperacionCuenta.monto,0) + coalesce(OperacionTarjeta.monto,0) FROM OperacionCuenta into monto_reintegro LEFT JOIN OperacionTarjeta ON OperacionTarjeta.referencia = reintegro_reg.referencia  WHERE OperacionCuenta.referencia = reintegro_reg.referencia;
 			SELECT Cuenta.idCuenta INTO id_cuenta_stripe FROM Cuenta JOIN Reintegro ON Reintegro.idUsuario_solicitante = Cuenta.idUsuario AND Reintegro.idReintegro = $2 JOIN TipoCuenta ON TipoCuenta.idTipoCuenta = Cuenta.idTipoCuenta AND TipoCuenta.descripcion = 'Stripe';
 			INSERT INTO OperacionCuenta (idUsuarioReceptor, idCuenta, fecha, hora, monto, referencia)
 				VALUES (reintegro_reg.idUsuario_Receptor, id_cuenta_stripe, current_date, current_time, cast(monto_reintegro as DECIMAL) , $3);
