@@ -692,5 +692,77 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
         void PagoStripe(bool Reg, int IdOperacion, string Referencia);
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComComercio> ComisionesPorEmpresa ();
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComPago> CobrosPendientes();
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        List<ComOperacionMonedero> RetiroRango();
+
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        List<ComBitacora> OperacionesFallidas();
+
+
+        /// <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+        int count_operacionesmonedero(int a);
+
+        // <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        int total_operaciones();
+
+        // <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        int total_comisiones();
+
+        // <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        int total_cobrospendientes();
+
+
     }
 }
