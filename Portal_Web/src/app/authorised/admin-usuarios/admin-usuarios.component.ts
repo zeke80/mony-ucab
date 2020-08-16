@@ -17,12 +17,17 @@ export class AdminUsuariosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.s_admin_usuarios.refreshNeeded$.subscribe(() => {
+      this.getUsers();
+      }
+    );
     this.getUsers();
   }
 
   showForm(userEmail) {
     this.s_edit_user.show = true;
     this.s_admin_usuarios.show = false;
+    this.s_edit_user.userEmail = userEmail;
     this.s_edit_user.editUsuario(userEmail);
   }
 
@@ -42,9 +47,7 @@ export class AdminUsuariosComponent implements OnInit {
     this.s_admin_usuarios.deleteUsuarios(usuario, idUsuario).subscribe(
       (data : any) => {
         console.log(data);
-        this.s_admin_usuarios.refreshInfo.subscribe(() => {
-          this.getUsers();
-        });
+        alert('El usuario ha sido desvinculado');
       },
       (err) => {
         alert(err);

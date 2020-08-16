@@ -11,25 +11,29 @@ export class EditUserService {
   
   show = false;
   username = localStorage.getItem('username');
-  
-  private messageSource = new BehaviorSubject({});
-  currentUserData = this.messageSource.asObservable();
+  userEmail = localStorage.getItem('email');;
   
   constructor(private http : HttpClient) {}
 
-  private _refresh = new Subject<void>();
+  private _refreshNeeded$ = new Subject<void>();
   readonly baseURI = Globals.API_URL;
 
-  get refreshInfo() {
-    return this._refresh;
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
   }
 
   editUsuario(userEmail){
+    this.userEmail = userEmail;
     let header = new HttpHeaders ({'Authorization' : 'Bearer ' + localStorage.getItem('token')}); 
     let param = new HttpParams().set('Usuario', userEmail);
     let url = this.baseURI + "Dashboard/InformacionPersona";
 
-    this.messageSource.next(this.http.get(url, {params : param, headers : header}));
+    return this.http.get(url, {params : param, headers : header})
+    .pipe(
+      tap(() => {
+        this._refreshNeeded$.next();
+      })
+    );
   }
 
   consultarEstadosCiviles(){  
@@ -65,7 +69,7 @@ export class EditUserService {
     return this.http.post(url,body, {headers : header})
     .pipe(
       tap(() => {
-        this._refresh.next();
+        this._refreshNeeded$.next();
       })
     );
   }

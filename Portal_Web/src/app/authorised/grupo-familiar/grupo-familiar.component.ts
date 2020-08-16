@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { GrupoFamiliarService } from './services/grupo-familiar.service';
-import { PerfilService } from '../perfil/services/perfil.service';
+import { EditUserService } from '../edit-user/services/edit-user.service';
 
 @Component({
   selector: 'app-grupo-familiar',
@@ -14,7 +14,7 @@ export class GrupoFamiliarComponent implements OnInit {
 
   constructor(
     public s_grupo_familiar : GrupoFamiliarService,
-    public s_perfil : PerfilService
+    public s_edit_user : EditUserService
   ) { }
 
   ngOnInit(): void {
@@ -37,12 +37,13 @@ export class GrupoFamiliarComponent implements OnInit {
 
   }
 
-  editFamiliar(usuario) {
-    console.log(usuario);
-    this.s_perfil.show = true;
-    this.s_perfil.refreshInfo;
+  editFamiliar(userEmail) {
+    console.log(userEmail);
+    this.s_edit_user.show = true;
     this.s_grupo_familiar.show = false;
-    this.s_perfil.username = usuario;
+
+    this.s_edit_user.userEmail = userEmail;
+    this.s_edit_user.editUsuario(userEmail);
   }
 
 }

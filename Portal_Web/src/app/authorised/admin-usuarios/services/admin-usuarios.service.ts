@@ -11,12 +11,12 @@ export class AdminUsuariosService {
 
   show: boolean = false;
   readonly baseURI = Globals.API_URL;
-  private _refresh = new Subject<void>();
+  private _refreshNeeded$ = new Subject<void>();
   
   constructor(private http : HttpClient) { }
 
-  get refreshInfo() {
-    return this._refresh;
+  get refreshNeeded$() {
+    return this._refreshNeeded$;
   }
 
   consultarUsuarios() {
@@ -35,7 +35,7 @@ export class AdminUsuariosService {
     return this.http.delete(url, {params : param, headers : header})
           .pipe(
             tap(() => {
-              this._refresh.next();
+              this._refreshNeeded$.next();
             })
           );
   }

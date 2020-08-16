@@ -61,6 +61,12 @@ export class EditUserComponent implements OnInit {
   constructor(public s_edit_user : EditUserService) { }
 
   ngOnInit(): void {
+    
+    this.s_edit_user.refreshNeeded$.subscribe(() => {
+      this.consutarInfo();
+      }
+    );
+    
     this.consutarInfo();
   }
 
@@ -102,9 +108,9 @@ export class EditUserComponent implements OnInit {
     this.formComercio.get('razonSocial').patchValue(data.comercio.razonSocial);
   }
 
-  consutarInfo(){
-    this.formUsuario.disable();
-    this.s_edit_user.currentUserData.subscribe(
+  consutarInfo() {
+    //this.formUsuario.disable();
+    this.s_edit_user.editUsuario(this.s_edit_user.userEmail).subscribe(
       (data : any) => {
         this.user = data;
         if (this.user.comercio.razonSocial == ""){
@@ -171,11 +177,13 @@ export class EditUserComponent implements OnInit {
   guardarCambios(){
     this.modificar();
 
-    this.s_edit_user.refreshInfo
+    this.s_edit_user.refreshNeeded$
     .subscribe(() =>{
       this.consutarInfo();
     });
-      this.cancelar();
+
+    this.consutarInfo();
+    this.cancelar();
   }
 
 }
