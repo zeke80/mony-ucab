@@ -1,0 +1,20 @@
+<div *ngIf="s_limite.show">
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Establecer Limite</h2>
+    </div>
+
+    <div class="form-signin">   
+
+        <label>Tipo de limite</label>
+        <select class="form-control" [(ngModel)]="idParametro">
+            <option *ngFor="let p of parametros" [ngValue] =" p.idParametro">{{p.nombre}}</option>
+        </select>
+
+        <label>Limite</label>
+        <input type="text" class = "form-control" placeholder="Limite" [(ngModel)]="limite">
+
+        <br>
+        <button type="button" class="btn btn-primary">Establecer Limite</button>
+    </div>
+</div>

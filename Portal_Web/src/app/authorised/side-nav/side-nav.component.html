@@ -34,12 +34,20 @@
       </li>
 
       <li class="nav-item">
+        <p (click) = "sideNavService.toggleRetirar()"><i class="fas fa-money-check-alt"title="Retirar"></i> Retirar</p>
+      </li>
+
+      <li class="nav-item">
         <p (click) = "sideNavService.toggleUsuarios()"><i class="fas fa-users fa-1x" title="Usuarios"></i> Usuarios</p>
       </li>
+
+      <app-opciones-admin></app-opciones-admin>
 
       <li class="nav-item">
         <p (click) = "sideNavService.logout()" ><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</p>
       </li>
+
+      
     </ul>
 
     

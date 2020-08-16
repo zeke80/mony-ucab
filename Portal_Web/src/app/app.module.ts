@@ -16,6 +16,8 @@ import { RecuperarContrasenaService } from './home/recuperar-contrasena/services
 import { AdminUsuariosService } from './authorised/admin-usuarios/services/admin-usuarios.service';
 import { ReportesService } from './authorised/reportes/services/reportes.service';
 import { GrupoFamiliarService } from './authorised/grupo-familiar/services/grupo-familiar.service';
+import { EstablecerLimiteService } from './authorised/establecer-limite/services/establecer-limite.service';
+import { EstablecerComisionService } from './authorised/establecer-comision/services/establecer-comision.service';
 
 import { LoginGuard } from './guard/login.guard';
 
@@ -41,10 +43,17 @@ import { RecuperarContrasenaComponent } from './home/recuperar-contrasena/recupe
 import { ReportesComponent } from './authorised/reportes/reportes.component';
 import { AdminUsuariosComponent } from './authorised/admin-usuarios/admin-usuarios.component';
 import { GrupoFamiliarComponent } from './authorised/grupo-familiar/grupo-familiar.component';
+import { RetirarFormComponent } from './authorised/retirar-form/retirar-form.component';
+import { RetirarService } from './authorised/retirar-form/services/retirar.service';
 import { AddFamiliarComponent } from './authorised/add-familiar/add-familiar.component';
 import { AddFamiliarService } from './authorised/add-familiar/services/add-familiar.service';
 import { EditUserComponent } from './authorised/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './authorised/reset-password/reset-password.component';
+import { OpcionesAdminComponent } from './authorised/opciones-admin/opciones-admin.component';
+import { EstablecerLimiteComponent } from './authorised/establecer-limite/establecer-limite.component';
+import { EstablecerComisionComponent } from './authorised/establecer-comision/establecer-comision.component';
+import { ResetPasswordService } from './authorised/reset-password/services/reset-password.service';
+import { EditUserService } from './authorised/edit-user/services/edit-user.service';
 
 
 @NgModule({
@@ -72,7 +81,12 @@ import { ResetPasswordComponent } from './authorised/reset-password/reset-passwo
     GrupoFamiliarComponent,
     AddFamiliarComponent,
     EditUserComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    RetirarFormComponent,
+    AddFamiliarComponent,
+    OpcionesAdminComponent,
+    EstablecerLimiteComponent,
+    EstablecerComisionComponent
   ],
   imports: [
     BrowserModule,
@@ -86,8 +100,8 @@ import { ResetPasswordComponent } from './authorised/reset-password/reset-passwo
       { path: 'sign-up', component: SignupFormComponent },
       { path: 'login', component: LoginFormComponent },
       { path: 'dashboard', component: LayoutComponent, canActivate : [LoginGuard] },
-      { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent }
-      
+      { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent },
+      { path: 'reset-password', component: ResetPasswordComponent }
     ])
   ],
   providers: [
@@ -105,7 +119,12 @@ import { ResetPasswordComponent } from './authorised/reset-password/reset-passwo
     AdminUsuariosService,
     ReportesService,
     GrupoFamiliarService,
-    AddFamiliarService
+    RetirarService,
+    AddFamiliarService,
+    EstablecerComisionService,
+    EstablecerLimiteService,
+    ResetPasswordService,
+    EditUserService
   ],
   bootstrap: [AppComponent]
 })

@@ -11,17 +11,4 @@ export class ConfiguracionesService {
   constructor( private http : HttpClient) { 
   }
 
-  cambiarContra( vieja : string,  nueva : string){
-    let url = "http://monyucab.somee.com/api/Usuario/ActualizarPass";
-
-    let usuario = localStorage.getItem('usuario').toLocaleUpperCase();
-
-    let body = {
-      "usuario": usuario,
-      "viejacontra" : vieja,
-      "nuevacontra" : nueva
-    };
-
-    return this.http.post(url, body);
-  }
 }

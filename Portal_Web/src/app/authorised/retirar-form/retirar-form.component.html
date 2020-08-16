@@ -1,0 +1,26 @@
+<div *ngIf="s_retirar.show">
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Retirar</h2>
+    </div>
+    <div class="form-signin">
+        <div class="form-group col-md-12">
+            <br>
+            <span>Saldo Disponible {{saldo}} Bs.</span>
+            <br>
+            <br>
+            <label>Seleccione Cuenta</label>
+            <select class="form-control" [(ngModel)]="idCuenta">
+                <option *ngFor="let cuenta of cuentas"[ngValue] = "cuenta._idCuenta">
+                    {{cuenta.infoAdicional._banco.nombre}} -
+                    {{cuenta._numero}} -
+                    {{cuenta.infoAdicional._tipoCuenta.descripcion}}
+                </option>
+            </select>
+            <label>Monto</label>
+            <input type="text" class = "form-control" placeholder="Monto a Retirar" [(ngModel)]="monto" >
+            <br>
+            <button type="submit" class="btn btn-primary" (click) = "onClickRetirar()">Retirar</button>
+        </div> 
+    </div>
+</div>

@@ -1,3 +1,6 @@
+import { EstablecerLimiteService } from './../../establecer-limite/services/establecer-limite.service';
+import { EstablecerComisionService } from './../../establecer-comision/services/establecer-comision.service';
+import { RetirarService } from './../../retirar-form/services/retirar.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -34,7 +37,10 @@ export class AuthorisedSideNavService {
     private c_producto : ProductosComponent,
     private router : Router,
     private location: Location,
-    private s_login : LoginService
+    private s_login : LoginService,
+    private s_retirar : RetirarService,
+    private s_comision : EstablecerComisionService,
+    private s_limite : EstablecerLimiteService
     ) { }
  
   toggleSideNav(): void {
@@ -44,7 +50,10 @@ export class AuthorisedSideNavService {
   toggleMovimientos() {
     this.s_movimientos.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
     this.s_grupo_familiar.show = false;
+    this.s_retirar.show = false;
     this.s_reportes.show = false;
     this.s_admin_usuarios.show = false;
     this.s_bloquear.show = false;
@@ -58,7 +67,10 @@ export class AuthorisedSideNavService {
   toggleBloquear() {
     this.s_bloquear.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
     this.s_admin_usuarios.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_movimientos.show = false;
@@ -73,7 +85,10 @@ export class AuthorisedSideNavService {
     this.s_perfil.username = localStorage.getItem('username');
     this.s_perfil.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
     this.s_admin_usuarios.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_movimientos.show = false;
@@ -87,7 +102,10 @@ export class AuthorisedSideNavService {
   toggleInicio() {
     this.s_inicio.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
     this.s_admin_usuarios.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_movimientos.show = false;
@@ -101,7 +119,10 @@ export class AuthorisedSideNavService {
   toggleConfiguraciones() {
     this.s_configuraciones.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
     this.s_admin_usuarios.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_movimientos.show = false;
@@ -115,7 +136,10 @@ export class AuthorisedSideNavService {
   toogleProductos() {
     this.s_productos.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
     this.s_admin_usuarios.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_configuraciones.show = false;
@@ -124,11 +148,15 @@ export class AuthorisedSideNavService {
     this.s_perfil.show = false;
     this.s_inicio.show = false;
     this.c_producto.ocultarAgregar();
+    this.c_producto.ngOnInit();
   }
 
   toggleUsuarios() {
     this.s_admin_usuarios.show = true;
-
+    
+    this.s_limite.show = false;
+    this.s_comision.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_bloquear.show = false;
@@ -143,6 +171,9 @@ export class AuthorisedSideNavService {
   toggleReportes() {
     this.s_reportes.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
+    this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
     this.s_admin_usuarios.show = false;
     this.s_bloquear.show = false;
@@ -157,6 +188,27 @@ export class AuthorisedSideNavService {
   toggleGrupoFamiliar() {
     this.s_grupo_familiar.show = true;
 
+    this.s_limite.show = false;
+    this.s_comision.show = false;
+    this.s_reportes.show = false;
+    this.s_retirar.show = false;
+    this.s_admin_usuarios.show = false;
+    this.s_bloquear.show = false;
+    this.s_movimientos.show = false;
+    this.s_perfil.show = false;
+    this.s_configuraciones.show = false;
+    this.s_productos.show = false;
+    this.s_inicio.show = false;
+    this.c_producto.ocultarProductos();
+  }
+
+  toggleRetirar(){
+    this.s_retirar.show = true;
+
+    
+    this.s_limite.show = false;
+    this.s_comision.show = false;
+    this.s_grupo_familiar.show = false;
     this.s_reportes.show = false;
     this.s_admin_usuarios.show = false;
     this.s_bloquear.show = false;
@@ -166,6 +218,44 @@ export class AuthorisedSideNavService {
     this.s_productos.show = false;
     this.s_inicio.show = false;
     this.c_producto.ocultarProductos();
+
+  }
+
+  toggleComision(){
+    this.s_comision.show = true;
+
+    this.s_retirar.show = false;
+    this.s_grupo_familiar.show = false;
+    this.s_reportes.show = false;
+    this.s_admin_usuarios.show = false;
+    this.s_bloquear.show = false;
+    this.s_movimientos.show = false;
+    this.s_perfil.show = false;
+    this.s_configuraciones.show = false;
+    this.s_productos.show = false;
+    this.s_inicio.show = false;
+    this.c_producto.ocultarProductos();
+    this.s_limite.show = false;
+
+  }
+
+  toggleLimite(){
+    this.s_limite.show = true;
+    
+    this.s_comision.show = false;
+    this.s_retirar.show = false;
+    this.s_grupo_familiar.show = false;
+    this.s_reportes.show = false;
+    this.s_admin_usuarios.show = false;
+    this.s_bloquear.show = false;
+    this.s_movimientos.show = false;
+    this.s_perfil.show = false;
+    this.s_configuraciones.show = false;
+    this.s_productos.show = false;
+    this.s_inicio.show = false;
+    this.c_producto.ocultarProductos();
+
+
   }
 
   logout() {
