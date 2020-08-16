@@ -95,13 +95,12 @@ import { EditUserService } from './authorised/edit-user/services/edit-user.servi
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'sign-up', component: SignupFormComponent },
       { path: 'login', component: LoginFormComponent },
       { path: 'dashboard', component: LayoutComponent, canActivate : [LoginGuard] },
       { path: 'recuperar-contrasena', component: RecuperarContrasenaComponent },
-      { path: 'api/pw-reset/:userID/:resetPasswordToken', component: ResetPasswordComponent }
+      { path: 'pw-reset/:userID/:resetPasswordToken', component: ResetPasswordComponent }
     ])
   ],
   providers: [
