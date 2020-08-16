@@ -16,6 +16,8 @@ import { RecuperarContrasenaService } from './home/recuperar-contrasena/services
 import { AdminUsuariosService } from './authorised/admin-usuarios/services/admin-usuarios.service';
 import { ReportesService } from './authorised/reportes/services/reportes.service';
 import { GrupoFamiliarService } from './authorised/grupo-familiar/services/grupo-familiar.service';
+import { EstablecerLimiteService } from './authorised/establecer-limite/services/establecer-limite.service';
+import { EstablecerComisionService } from './authorised/establecer-comision/services/establecer-comision.service';
 
 import { LoginGuard } from './guard/login.guard';
 
@@ -45,6 +47,9 @@ import { RetirarFormComponent } from './authorised/retirar-form/retirar-form.com
 import { RetirarService } from './authorised/retirar-form/services/retirar.service';
 import { AddFamiliarComponent } from './authorised/add-familiar/add-familiar.component';
 import { AddFamiliarService } from './authorised/add-familiar/services/add-familiar.service';
+import { OpcionesAdminComponent } from './authorised/opciones-admin/opciones-admin.component';
+import { EstablecerLimiteComponent } from './authorised/establecer-limite/establecer-limite.component';
+import { EstablecerComisionComponent } from './authorised/establecer-comision/establecer-comision.component';
 
 
 @NgModule({
@@ -71,7 +76,10 @@ import { AddFamiliarService } from './authorised/add-familiar/services/add-famil
     AdminUsuariosComponent,
     GrupoFamiliarComponent,
     RetirarFormComponent,
-    AddFamiliarComponent
+    AddFamiliarComponent,
+    OpcionesAdminComponent,
+    EstablecerLimiteComponent,
+    EstablecerComisionComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +113,9 @@ import { AddFamiliarService } from './authorised/add-familiar/services/add-famil
     ReportesService,
     GrupoFamiliarService,
     RetirarService,
-    AddFamiliarService
+    AddFamiliarService,
+    EstablecerComisionService,
+    EstablecerLimiteService
   ],
   bootstrap: [AppComponent]
 })
