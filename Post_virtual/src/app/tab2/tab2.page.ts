@@ -145,6 +145,79 @@ export class Tab2Page implements OnInit {
     await alertElement.present();
 
   }
+  
+//OPCION 1 DE REFRESH
+   /*onRefresh(){
+    this._usuarioService.getDatosUsuario()
+    .subscribe(
+    (data: any) =>
+    {
+      
+      localStorage.setItem('idUsuario', data.result.idUsuario);
+      localStorage.setItem('usuario', data.result.usuario);
+      localStorage.setItem('nombreU', data.persona.nombre);
+      localStorage.setItem('apellido', data.persona.apellido);
+      console.log(localStorage.getItem('idUsuario'));
+      console.log(localStorage.getItem('usuario'));
+      console.log(localStorage.getItem('nombreU'));
+      console.log(localStorage.getItem('apellido'));
+      },
+      err => {
+        console.log(err.message);
+      }
+    )
+
+    this._usuarioService.saldoActual().subscribe(
+      (res: any)=>{
+        this.saldo = res;
+      },
+      (err:any)=>{
+
+      }
+    );
+
+  this._tarjetaService.obtenerTarjetas().subscribe(
+    (res: any)=>{
+      
+      this.tarjetas = res;
+      //console.log(this.tarjetas); 
+    },
+    (err:any)=>{
+      
+    }
+    );
+
+    this._cuentaServices.obtenerCuentas().subscribe(
+      (data: any) =>{
+        //this.banco = data;
+        //localStorage.setItem('idCuentaMonedero',this.banco[0]._idCuenta);
+        //console.log(localStorage.getItem('idCuentaMonedero'));
+        //this.cuentas = data;
+        //console.log(data);
+      }
+    );
+
+    this._pagoServices.cobrosActivos().subscribe(
+      (data: any) =>{
+        this.cobrosActivos = data;
+        //console.log(data);
+      }
+    );
+
+    this._pagoServices.cobrosCancelados().subscribe(
+      (data: any) =>{
+         this.cobrosCancelados= data;
+         
+      }
+    );
+
+    this._pagoServices.cobrosExitosos().subscribe(
+      (data: any) =>{
+         this.cobrosExitosos= data;
+         
+      }
+    );
+  }*/
 
   async onClick(idPago){
   
@@ -183,4 +256,80 @@ export class Tab2Page implements OnInit {
     await alert.present();
   }
 
+  
+  //OPCION 2 DE REFRESH
+
+  ionViewWillEnter(){
+    this._usuarioService.getDatosUsuario()
+    .subscribe(
+    (data: any) =>
+    {
+      
+      localStorage.setItem('idUsuario', data.result.idUsuario);
+      localStorage.setItem('usuario', data.result.usuario);
+      localStorage.setItem('nombreU', data.persona.nombre);
+      localStorage.setItem('apellido', data.persona.apellido);
+      console.log(localStorage.getItem('idUsuario'));
+      console.log(localStorage.getItem('usuario'));
+      console.log(localStorage.getItem('nombreU'));
+      console.log(localStorage.getItem('apellido'));
+      },
+      err => {
+        console.log(err.message);
+      }
+    )
+
+    this._usuarioService.saldoActual().subscribe(
+      (res: any)=>{
+        this.saldo = res;
+      },
+      (err:any)=>{
+
+      }
+    );
+
+  this._tarjetaService.obtenerTarjetas().subscribe(
+    (res: any)=>{
+      
+      this.tarjetas = res;
+      //console.log(this.tarjetas); 
+    },
+    (err:any)=>{
+      
+    }
+    );
+
+    this._cuentaServices.obtenerCuentas().subscribe(
+      (data: any) =>{
+        this.banco = data;
+        localStorage.setItem('idCuentaMonedero',this.banco[0]._idCuenta);
+        //console.log(localStorage.getItem('idCuentaMonedero'));
+        this.cuentas = data;
+        //console.log(data);
+      }
+    );
+
+    this._pagoServices.cobrosActivos().subscribe(
+      (data: any) =>{
+        this.cobrosActivos = data;
+        console.log(data);
+      }
+    );
+
+    this._pagoServices.cobrosCancelados().subscribe(
+      (data: any) =>{
+         this.cobrosCancelados= data;
+         
+      }
+    );
+
+    this._pagoServices.cobrosExitosos().subscribe(
+      (data: any) =>{
+         this.cobrosExitosos= data;
+         
+      }
+    );
+  }
+
+  
 }

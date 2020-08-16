@@ -1,6 +1,10 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-buttons slot="end">
+            <ion-button fill="clear" (click)="onRefresh()">
+                <ion-icon slot="end" color="danger" class="cancelar" name="close-circle-outline" size="large"></ion-icon>
+                <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+            </ion-button>
             <ion-button (click)="logout()" fill="solid" color="tertiary" expand="block">Cerrar sesión</ion-button>
         </ion-buttons>
         <ion-title>
