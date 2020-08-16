@@ -112,7 +112,7 @@ export class SolicitudPagoPage implements OnInit {
     let id: number = + this.tarjeta;
     let cant: number = + this.operacion.monto;
     var body = {
-      idUsuarioReceptor: this.operacion.idUsuarioSolicitante,
+      idUsuarioReceptor: this.operacion.idUsuarioReceptor,
       idMedioPaga: id,
       monto: cant,
       idOperacion: this.operacion.idPago
@@ -134,7 +134,7 @@ export class SolicitudPagoPage implements OnInit {
     let id: number = + this.cuenta;
     let cant: number = + this.operacion.monto;
     var body = {
-      idUsuarioReceptor: this.operacion.idUsuarioSolicitante,
+      idUsuarioReceptor: this.operacion.idUsuarioReceptor,
       idMedioPaga: id,
       monto: cant,
       idOperacion: this.operacion.idPago

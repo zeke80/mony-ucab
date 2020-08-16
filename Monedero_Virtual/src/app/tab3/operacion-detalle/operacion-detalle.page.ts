@@ -56,7 +56,8 @@ export class OperacionDetallePage implements OnInit {
           console.log(element['_idCuenta'])
           console.log(this.operacion.idCuenta)
           if( element['_idCuenta'] === this.operacion.idCuenta){
-          this.nroCuenta = element['numero'];
+          console.log(element);
+          this.nroCuenta = element['_numero'];
           }
         }
        console.log(this.nroCuenta)

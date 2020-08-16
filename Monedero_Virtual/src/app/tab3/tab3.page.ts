@@ -102,11 +102,14 @@ export class Tab3Page implements OnInit{
           this.cuentas = data;
           console.log("cuentas",this.cuentas);
           this.cuentas.forEach((cuenta)=>{
-            this._operacionServices.getoperacionesCuenta(cuenta._idCuenta).subscribe((data:any) =>{
-            for (let opp of data){
+            if(cuenta.infoAdicional._tipoCuenta.idTipoCuenta === 1 || cuenta.infoAdicional._tipoCuenta.idTipoCuenta === 2 ){
+              this._operacionServices.getoperacionesCuenta(cuenta._idCuenta).subscribe((data:any) =>{
+
+              for (let opp of data){
               this.ocuentas.push(opp);
+              }   
+              });
             }
-            });
           });
           console.log("Operaciones Cuentas: ",this.ocuentas);
           this._operacionServices.guardarCuentas(this.ocuentas);
