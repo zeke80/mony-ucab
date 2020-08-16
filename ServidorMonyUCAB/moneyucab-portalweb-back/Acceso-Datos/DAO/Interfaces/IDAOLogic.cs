@@ -1,4 +1,5 @@
 ﻿using Comunes.Comun;
+using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 
@@ -716,7 +717,7 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
 
-        List<ComOperacionMonedero> RetiroRango();
+        List<ComOperacionMonedero> RetiroRango(string fecha, string fecha2);
 
 
         /// <summary>
@@ -762,6 +763,33 @@ namespace DAO.Interfaces
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
 
         int total_cobrospendientes();
+
+        // <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        List<ComOperacionMonedero> retiro_dia(string DD);
+
+        // <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        List<ComOperacionMonedero> retiro_mes(string mes);
+
+        // <summary>
+        /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
+        /// </summary>
+        /// <exception cref="PGSQLException">Tira excepción relacionado a la base de datos.</exception>
+        /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
+        /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
+
+        List<ComOperacionMonedero> retiro_anual(string ano);
 
 
     }
