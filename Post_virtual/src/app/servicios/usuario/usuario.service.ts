@@ -41,25 +41,6 @@ export class UsuarioService {
     idUsuario : [0 , Validators.required]
   });
 
-  /*getUsuario(){
-    return this.usuario[0];
-  }*/
-
-  /*guardarStorage(usuarioC: Usuario, idUsuario: number, idTipoUsuario: number, usuario: string,
-                 fechaRegistro: string, nroIdentificacion: number, email: string, telefono: string, direccion: string ) {
-
-    localStorage.setItem('idUsuario', idUsuario.toString());
-    localStorage.setItem('idTipoUsuario', idTipoUsuario.toString());
-    localStorage.setItem('usuario', usuario);
-    localStorage.setItem('fechaRegistro', fechaRegistro);
-    localStorage.setItem('nroIdentificacion', nroIdentificacion.toString());
-    localStorage.setItem('email', email);
-    localStorage.setItem('telefono', telefono);
-    localStorage.setItem('direccion', direccion);
-
-    this.usuario[0] = usuarioC;
-  }*/
-
   getDatosUsuario(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('Usuario', localStorage.getItem('email'));
@@ -101,41 +82,6 @@ export class UsuarioService {
     };
     return this.http.post('http://localhost:80/api/Authentication/Modification', body , {headers: header});
   }
-
- /* inforUsurio(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/infoUsuario';
-
-    let data = {
-      "id" : idusuario
-    };
-
-    return this.http.post(url, data);
-  }
-
-  ajustarUsurio(idusuario: number, usuario:string, di:number, correo:string, telefono:string, direccion:string) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/ajustarUsuario';
-
-    let data = {
-      "idUsuario" : idusuario,
-      "user" : user,
-      "di" : di,
-      "email": correo,
-      "telf" : telefono,
-      "dir" : direccion
-    };
-
-    return this.http.post(url, data);
-  }
-
-  saldo(idusuario: number) {
-    let url: string = 'http://monyucab.somee.com/api/Usuario/saldo';
-
-    let data = {
-      "id" : idusuario
-    };
-
-    return this.http.post(url, data);
-  }*/
 
 
 }

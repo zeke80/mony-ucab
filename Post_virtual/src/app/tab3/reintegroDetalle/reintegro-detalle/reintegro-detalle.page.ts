@@ -110,7 +110,6 @@ async dangerToast(color : string, mensaje : string) {
 
   ngOnInit() {
     this.setDetalle();
-    //hay que poner el email del usuario, aca hay solo el id del usuario oslicitante
     
   }
 

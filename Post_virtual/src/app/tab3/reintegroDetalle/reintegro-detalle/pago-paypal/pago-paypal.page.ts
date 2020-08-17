@@ -128,7 +128,6 @@ export class PagoPaypalPage implements OnInit {
         {
           text: 'Aceptar',
           handler: () => {
-            //console.log(this.paypalForm);
             localStorage.setItem('accountId',this.accountId);
             localStorage.setItem('ciudadPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.city);
             localStorage.setItem('estadoPaypal',this.paypalForm.payment.transactions[0].item_list.shipping_address.state);
@@ -140,7 +139,6 @@ export class PagoPaypalPage implements OnInit {
             .subscribe(
               (data: any) =>
               {
-               //console.log(data.links[1].href);
                console.log(data);
                localStorage.setItem('approvalUrl', data.links[1].href);
                localStorage.setItem('payId', data.id);

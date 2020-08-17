@@ -147,19 +147,13 @@ export class Tab1Page implements OnInit {
   }
 
   async onSubmit(){
-    //await this.presentLoading();
+
     this._usuarioService.modificarUsaurio(this.user).subscribe(
       (res:any) => {
-       // this.loadingController.dismiss();
-
-        //this.successToast('success', 'Datos modificados satisfactioamente')
-
         this.router.navigate(['/tabs/cuenta']);
         console.log(this.user.estadoCivil.idEstadoCivil)
       },
       err => {
-        //this.loadingController.dismiss();
-        //this.presentToast('danger', 'Ha ocurrido un error al enviar el formulario');
       }
     );
   }

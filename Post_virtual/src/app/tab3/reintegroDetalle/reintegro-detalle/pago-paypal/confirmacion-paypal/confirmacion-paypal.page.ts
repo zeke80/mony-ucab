@@ -18,7 +18,6 @@ export class ConfirmacionPaypalPage implements OnInit {
     ) { }
 
   ejecutarPagoPaypal(){
-    //console.log(localStorage.getItem('payId'));
     var body={
       "reg" : false,
       "idOperacion" : parseInt(localStorage.getItem('idReintegroDetalle')),

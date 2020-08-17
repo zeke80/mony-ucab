@@ -138,8 +138,7 @@ export class PagoService {
 
   crearPagoPaypal(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
-    //console.log(paypalForm);
-
+  
     var body  = { 
       "reg":false, 
       "idOperacion": 1, 
@@ -196,7 +195,7 @@ export class PagoService {
        "note_to_payer": "Contact us for any questions on your order.", 
       "redirect_urls": { "return_url": "http://localhost:8100/tabs/operaciones/reintegro-detalle/pago-paypal/payment-message", 
       "cancel_url": "http://localhost:8100/tabs/operaciones/reintegro-detalle/pago-paypal/payment-message" } } }
-      //console.log(body);
+     
       var num2 = parseInt(localStorage.getItem('idReintegroDetalle'));
       body.idOperacion = num2;
       body.payment.transactions[0].amount.total = localStorage.getItem('montoDetalle');
@@ -209,8 +208,7 @@ export class PagoService {
       body.payment.transactions[0].item_list.shipping_address.postal_code = localStorage.getItem('codPost');
       body.payment.transactions[0].item_list.shipping_address.phone = localStorage.getItem('telfPaypal');
       
-      /*var num3 = parseInt(localStorage.getItem('idReintegroDetalle'));
-      num3 = num3 + 100;*/
+
       
       body.payment.transactions[0].invoice_number = '100' + localStorage.getItem('idReintegroDetalle');
       console.log(body);

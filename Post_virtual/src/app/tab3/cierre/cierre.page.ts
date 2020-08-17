@@ -42,38 +42,8 @@ export class CierrePage implements OnInit {
   ngOnInit() {
 
  this.setCierre();
-
- /*this.usuario = this._usuarioService.getUsuario();
-    this.pagos = this._pagoServices.getVacio();
-    this._operacionServices.cierre(this.usuario.idUsuario)
-        .subscribe((data: any) => {
-          this.pagos = data;
-        },
-        (error: HttpErrorResponse) => {
-            this.AlertServer();
-        });*/
   }
-
-  /*async AlertServer() {
-    const alertElement = await this.alert.create({
-      header: 'Error inesperado',
-      message: 'intentelo mas tarde',
-      buttons: [
-        {
-          text: 'Aceptar',
-          handler: () => {
-          }
-        },
-
-      ]
-    });
-
-    await alertElement.present();
-
-  }*/
-
-
-  
+    
   ionViewWillEnter(){
     this.setCierre();
   }

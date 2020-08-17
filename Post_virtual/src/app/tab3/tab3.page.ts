@@ -129,15 +129,11 @@ export class Tab3Page implements OnInit{
             .subscribe(
               (data: any) =>
               {
-                
-                //this.successToast('success', 'Cobro cancelado satisfactoriamente')
                 console.log(data);
-                //this.router.navigate(['/post']);
+                
               },
               err =>{
                 console.log(err);
-                
-                //this.presentToast('danger', 'Ha ocurrido un error al cancelar el cobro');
               }
             );         
           }
