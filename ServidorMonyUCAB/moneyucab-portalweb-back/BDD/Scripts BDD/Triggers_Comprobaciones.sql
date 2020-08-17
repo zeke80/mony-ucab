@@ -439,7 +439,27 @@ CREATE TRIGGER validar_ReintegroT
 BEFORE INSERT OR UPDATE
    ON Reintegro
        FOR EACH ROW EXECUTE PROCEDURE validar_Reintegro();
-	   
+
+DROP TRIGGER IF EXISTS validar_Reintegro2T ON Reintegro CASCADE;
+CREATE OR REPLACE FUNCTION validar_Reintegro2()
+										RETURNS trigger
+LANGUAGE plpgsql
+AS $BODY$
+DECLARE
+	
+BEGIN
+	IF EXISTS ( SELECT * FROM Reintegro WHERE Reintegro.referencia = new.referencia and (Reintegro.estatus <> 'Cancelado')) THEN
+		RAISE EXCEPTION 'Ya se solicitó reintegro de dicho pago';
+		RETURN NULL;
+	END IF;
+	RETURN NEW;
+END;
+$BODY$;
+
+CREATE TRIGGER validar_Reintegro2T
+BEFORE INSERT
+   ON Reintegro
+       FOR EACH ROW EXECUTE PROCEDURE validar_Reintegro2();
 --//////////////////////////////////////////////////////////////////////////////
 --Validación de Pago
 DROP TRIGGER IF EXISTS validar_PagoT ON Pago CASCADE;
@@ -485,7 +505,7 @@ AS $BODY$
 DECLARE
 	
 BEGIN
-	IF (new.validacion == '') THEN
+	IF (new.validacion = '') THEN
 		RAISE EXCEPTION 'Validación de parámetro inválido';
 		RETURN NULL;
 	END IF;

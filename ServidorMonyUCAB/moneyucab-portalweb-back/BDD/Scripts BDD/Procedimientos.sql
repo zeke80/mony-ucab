@@ -447,12 +447,19 @@ CREATE OR REPLACE FUNCTION Informacion_persona(VARCHAR)
 						 	idtipoidentificacion int, codigo char, descripcion_tipo_identificacion varchar, estatus_tipo_identificacion int,
 						 	idestadocivil_ec int, descripcion_ec varchar, codigo_ec char, estatus_ec int) AS $BODY$
 DECLARE
+	id_usuario int;
 BEGIN
+	BEGIN 
+		SELECT cast($1 as int) INTO id_usuario;
+	EXCEPTION
+		WHEN Others THEN
+			SELECT 0 into id_usuario;
+	END;
 	RETURN QUERY SELECT * FROM Usuario LEFT JOIN Persona ON Persona.idUsuario = Usuario.idUsuario
 										LEFT JOIN Comercio ON Comercio.idUsuario = Usuario.idUsuario 
 										LEFT JOIN TipoIdentificacion ON TipoIdentificacion.idTipoIdentificacion = Usuario.idTipoIdentificacion
 										LEFT JOIN EstadoCivil ON EstadoCivil.idEstadoCivil = Persona.idEstadoCivil
-										WHERE Usuario.email = $1 OR Usuario.usuario = $1;
+										WHERE Usuario.email = $1 OR Usuario.usuario = $1 OR Usuario.idusuario = id_usuario;
 END
 $BODY$
 LANGUAGE plpgsql;
@@ -1040,9 +1047,9 @@ AS $$
 DECLARE
 BEGIN
 	UPDATE Parametro SET límite = $2 WHERE idParametro = $1;
+	RETURN TRUE;
 END;
 $$;
-
 
 --Definir porcentaje de comisión
 CREATE OR REPLACE FUNCTION Establecer_Comision(INT, DOUBLE PRECISION)
@@ -1182,6 +1189,7 @@ BEGIN
 	END IF;
 	RETURN TRUE;
 END;
+$$;
 
 CREATE OR REPLACE FUNCTION Pago_Paypal (BOOLEAN, INT, VARCHAR)
 			RETURNS BOOLEAN

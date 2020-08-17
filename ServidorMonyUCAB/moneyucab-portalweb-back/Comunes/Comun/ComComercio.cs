@@ -94,6 +94,14 @@ namespace Comunes.Comun
             {
                 this.apellidoRepresentante = "";
             }
+            try
+            {
+                this.comision = Data.GetDouble(3 + offset);
+            }
+            catch (InvalidCastException ex)
+            {
+                this.comision = 1;
+            }
         }
     }
 }
