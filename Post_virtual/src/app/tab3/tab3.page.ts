@@ -70,7 +70,7 @@ export class Tab3Page implements OnInit{
 
   ngOnInit(){
 
- 
+ /*
 
     this.reintegroService.reintegrosActivos().subscribe(
       (data: any) =>{
@@ -91,7 +91,7 @@ export class Tab3Page implements OnInit{
         this.reintegrosExitosos = data;
         console.log(this.reintegrosExitosos);
       }
-    );
+    );*/
 
   }
 

@@ -47,6 +47,6 @@ export class TarjetaService {
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('IdUsuario', localStorage.getItem('idUsuario'));
 
-    return this.http.get('http://localhost:49683/api/Dashboard/Tarjetas', {params: param, headers: header})
+    return this.http.get('http://monyucab.somee.com/api/Dashboard/Tarjetas', {params: param, headers: header})
   }
 }
