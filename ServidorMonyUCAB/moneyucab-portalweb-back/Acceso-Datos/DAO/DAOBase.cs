@@ -3,6 +3,7 @@ using DAO.Interfaces;
 using Excepciones;
 using Excepciones.Excepciones_Especificas;
 using Npgsql;
+using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 
@@ -2793,7 +2794,7 @@ namespace DAO
             return null;
         }
 
-        public List<ComOperacionMonedero> RetiroRango()
+        public List<ComOperacionMonedero> RetiroRango(string fecha1, string fecha2)
         {
             try
             {
@@ -2801,7 +2802,9 @@ namespace DAO
 
                 comandoSQL = conector.CreateCommand();
 
-                comandoSQL.CommandText = string.Format("SELECT * FROM report_retirorangofechas();");
+                comandoSQL.CommandText = string.Format("SELECT * FROM retiro_rangofecha(@fecha1,@fecha2);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("fecha1", fecha1));
+                comandoSQL.Parameters.Add(new NpgsqlParameter("fecha2", fecha2));
                 lectorTablaSQL = comandoSQL.ExecuteReader();
                 List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
                 ComOperacionMonedero row;
@@ -2980,6 +2983,133 @@ namespace DAO
             return 0;
         }
 
+        public List<ComOperacionMonedero> retiro_dia(string DD)
+        {
+            try
+            {
+                Conectar();
 
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM retiro_dia(@DD);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("DD", DD));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
+                ComOperacionMonedero row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComOperacionMonedero();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public List<ComOperacionMonedero> retiro_mes(string mes)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM retiro_mes(@mes);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("mes", mes));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
+                ComOperacionMonedero row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComOperacionMonedero();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
+
+        public List<ComOperacionMonedero> retiro_anual(string ano)
+        {
+            try
+            {
+                Conectar();
+
+                comandoSQL = conector.CreateCommand();
+
+                comandoSQL.CommandText = string.Format("SELECT * FROM retiro_anual(@ano);");
+                comandoSQL.Parameters.Add(new NpgsqlParameter("ano", ano));
+                lectorTablaSQL = comandoSQL.ExecuteReader();
+                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
+                ComOperacionMonedero row;
+                while (lectorTablaSQL.Read())
+                {
+                    row = new ComOperacionMonedero();
+                    row.LlenadoDataNpgsql(lectorTablaSQL);
+                    listaUsuarios.Add(row);
+                }
+                return listaUsuarios;
+            }
+            catch (MoneyUcabException ex)
+            {
+                throw ex;
+            }
+            catch (NpgsqlException ex)
+            {
+                Desconectar();
+                PGSQLException.ProcesamientoException(ex);
+            }
+            catch (Exception ex)
+            {
+                //log.Error("Error en la conexion a base de datos", ex);
+                Desconectar();
+                throw new MoneyUcabException(ex, "Error Desconocido", 1);
+            }
+            finally
+            {
+                Desconectar();
+            }
+            return null;
+        }
     }
 }
