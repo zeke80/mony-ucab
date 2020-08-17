@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { GrupoFamiliarService } from './services/grupo-familiar.service';
 import { EditUserService } from '../edit-user/services/edit-user.service';
+import { AddFamiliarService } from '../add-familiar/services/add-familiar.service';
 
 @Component({
   selector: 'app-grupo-familiar',
@@ -14,7 +15,8 @@ export class GrupoFamiliarComponent implements OnInit {
 
   constructor(
     public s_grupo_familiar : GrupoFamiliarService,
-    public s_edit_user : EditUserService
+    public s_edit_user : EditUserService,
+    public s_add_familiar : AddFamiliarService
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +36,8 @@ export class GrupoFamiliarComponent implements OnInit {
   }
 
   addFamiliar() {
-
+    this.s_add_familiar.show = true;
+    this.s_grupo_familiar.show = false;
   }
 
   editFamiliar(userEmail) {

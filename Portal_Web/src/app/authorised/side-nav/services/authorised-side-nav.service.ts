@@ -18,6 +18,7 @@ import { AdminUsuariosService } from '../../admin-usuarios/services/admin-usuari
 import { ReportesService } from '../../reportes/services/reportes.service';
 import { GrupoFamiliarService } from '../../grupo-familiar/services/grupo-familiar.service';
 import { EditUserService } from '../../edit-user/services/edit-user.service';
+import { AddFamiliarService } from '../../add-familiar/services/add-familiar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,8 @@ export class AuthorisedSideNavService {
     private s_retirar : RetirarService,
     private s_comision : EstablecerComisionService,
     private s_limite : EstablecerLimiteService,
-    private s_edit_user : EditUserService
+    private s_edit_user : EditUserService,
+    private s_add_familiar : AddFamiliarService
     ) { }
  
   toggleSideNav(): void {
@@ -52,6 +54,7 @@ export class AuthorisedSideNavService {
   toggleMovimientos() {
     this.s_movimientos.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -70,6 +73,7 @@ export class AuthorisedSideNavService {
   toggleBloquear() {
     this.s_bloquear.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -89,6 +93,7 @@ export class AuthorisedSideNavService {
     this.s_perfil.username = localStorage.getItem('username');
     this.s_perfil.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -107,6 +112,7 @@ export class AuthorisedSideNavService {
   toggleInicio() {
     this.s_inicio.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -125,6 +131,7 @@ export class AuthorisedSideNavService {
   toggleConfiguraciones() {
     this.s_configuraciones.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -143,6 +150,7 @@ export class AuthorisedSideNavService {
   toogleProductos() {
     this.s_productos.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -162,6 +170,7 @@ export class AuthorisedSideNavService {
   toggleUsuarios() {
     this.s_admin_usuarios.show = true;
     
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -180,6 +189,7 @@ export class AuthorisedSideNavService {
   toggleReportes() {
     this.s_reportes.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -198,6 +208,7 @@ export class AuthorisedSideNavService {
   toggleGrupoFamiliar() {
     this.s_grupo_familiar.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -216,6 +227,7 @@ export class AuthorisedSideNavService {
   toggleRetirar(){
     this.s_retirar.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_limite.show = false;
     this.s_comision.show = false;
@@ -235,6 +247,7 @@ export class AuthorisedSideNavService {
   toggleComision(){
     this.s_comision.show = true;
 
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_retirar.show = false;
     this.s_grupo_familiar.show = false;
@@ -254,6 +267,7 @@ export class AuthorisedSideNavService {
   toggleLimite(){
     this.s_limite.show = true;
     
+    this.s_add_familiar.show = false;
     this.s_edit_user.show = false;
     this.s_comision.show = false;
     this.s_retirar.show = false;
@@ -267,8 +281,6 @@ export class AuthorisedSideNavService {
     this.s_productos.show = false;
     this.s_inicio.show = false;
     this.c_producto.ocultarProductos();
-
-
   }
 
   logout() {
