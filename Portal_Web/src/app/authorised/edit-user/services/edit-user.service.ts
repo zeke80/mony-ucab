@@ -29,11 +29,6 @@ export class EditUserService {
     let url = this.baseURI + "Dashboard/InformacionPersona";
 
     return this.http.get(url, {params : param, headers : header})
-    .pipe(
-      tap(() => {
-        this._refreshNeeded$.next();
-      })
-    );
   }
 
   consultarEstadosCiviles(){  
