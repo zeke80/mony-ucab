@@ -22,6 +22,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
+        [TestMethod]
         public void cancelarCobro_idCobroInvalidp()
         {
             int idCobro = -1;

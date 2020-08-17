@@ -15,40 +15,52 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void solicitarReintegro()
         {
-            Task<HttpResponseMessage> res = APITest.SolicitarReintegro(new
+            Random ran = new Random();
+            int ranNum = ran.Next(100,100000);
+            dynamic infoReintegro = new
             {
-                idUsuarioSolicitante = 2,
-                emailPagador = "testuser1@gmail.com",
-                referencia = "1",
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+                idUsuarioSolicitante = 1,
+                emailPagador = "TestUser13@gmail.com",
+                referencia = ranNum.ToString(),
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.SolicitarReintegro(infoReintegro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void solicitarReintegro_userInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.SolicitarReintegro(new
+            Random ran = new Random();
+            int ranNum = ran.Next(100, 100000);
+            dynamic infoReintegro = new
             {
                 idUsuarioSolicitante = -1,
-                emailPagador = "testuser1@gmail.com",
-                referencia = "1",
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+                emailPagador = "TestUser13@gmail.com",
+                referencia = ranNum.ToString(),
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.SolicitarReintegro(infoReintegro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void solicitarReintegro_emailInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.SolicitarReintegro(new
+            Random ran = new Random();
+            int ranNum = ran.Next(100, 100000);
+            dynamic infoReintegro = new
             {
-                idUsuarioSolicitante = 2,
+                idUsuarioSolicitante = 1,
                 emailPagador = "",
-                referencia = "1",
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+                referencia = ranNum.ToString(),
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.SolicitarReintegro(infoReintegro);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

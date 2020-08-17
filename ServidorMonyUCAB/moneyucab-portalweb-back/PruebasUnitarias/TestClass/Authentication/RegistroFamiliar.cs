@@ -26,33 +26,103 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroFamiliar()
         {
-            dynamic persona = new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
+            dynamic infoUsuario = new
             {
-                Usuario = "TestUserF",
-                Email = "testuserf@gmail.com",
-                Password = "testuserf",
-                IdTipoUsuario = 1,
-                IdTipoIdentificacion = 1,
-                IdEstadoCivil = 1,
-                AnoRegistro = 2020,
-                MesRegistro = 1,
-                DiaRegistro = 1,
-                NroIdentificacion = 1,
-                Telefono = "TelfTestUserF",
-                Direccion = "DirTestUserF",
-                Estatus = 1,
-                Comercio = false,
-                Nombre = "NomTestUserF",
-                Apellido = "ApeTestUserF",
-                AnoNacimiento = 1998,
-                MesNacimiento = 5,
-                DiaNacimiento = 30,
-                RazonSocial = "RazTestUserF"
+                usuario = "TestUser1F-" + ranNum,
+                email = "TestUser1F-" + ranNum + "@gmail.com",
+                password = "TestUser1F-" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            res = APITest.RegisterFamiliar(persona);
+            res = APITest.RegisterFamiliar(infoUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
+        }
+
+        [TestMethod]
+        public void registroFamiliar_UsuarioInvalidoYaRegistrado()
+        {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000); ;
+            dynamic infoUsuario = new
+            {
+                usuario = "TestUser1",
+                email = "TestUser1F-" + ranNum + "@gmail.com",
+                password = "TestUser1F-" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.register(infoUsuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
+        }
+
+        [TestMethod]
+        public void registroFamiliar_CorreoInvalidoYaRegistrado()
+        {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000); ;
+            dynamic infoUsuario = new
+            {
+                usuario = "TestUser1F-" + ranNum,
+                email = "TestUser1@gmail.com",
+                password = "TestUser1F-" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.register(infoUsuario);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

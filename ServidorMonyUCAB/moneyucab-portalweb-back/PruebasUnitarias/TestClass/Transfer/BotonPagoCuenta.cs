@@ -9,15 +9,21 @@ using PruebasUnitarias.Modelos;
 
 namespace PruebasUnitarias.TestClass.Transfer
 {
-    [TestClass]
+    //[TestClass]
     public class BotonPagoCuenta
     {
         [TestMethod]
         public void botonPagoCuenta()
         {
-            int idusuario = 1;
+            dynamic info = new
+            {
+                idUsuarioReceptor = 13,
+                idMedioPaga = 47,
+                monto = 1,
+                idOperacion = 1
+            };
             Task<HttpResponseMessage> res = null;
-            res = APITest.BotonPagoCuenta(idusuario);
+            res = APITest.BotonPagoCuenta(info);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }

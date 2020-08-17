@@ -9,7 +9,7 @@ using PruebasUnitarias.Modelos;
 
 namespace PruebasUnitarias.TestClass.Transfer
 {
-    [TestClass]
+    //[TestClass]
     public class EstablecerParametro
     {
         [TestMethod]
@@ -19,7 +19,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             {
                 idUsuario = 1,
                 idParametro = 1,
-                validacion = "",
+                validacion = "1000",
                 estatus = 1
             };
             Task<HttpResponseMessage> res = null;
@@ -35,7 +35,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             {
                 idUsuario = -1,
                 idParametro = 1,
-                validacion = "",
+                validacion = "1000",
                 estatus = 1
             };
             Task<HttpResponseMessage> res = null;
@@ -51,7 +51,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             {
                 idUsuario = 1,
                 idParametro = -1,
-                validacion = "",
+                validacion = "1000",
                 estatus = 1
             };
             Task<HttpResponseMessage> res = null;

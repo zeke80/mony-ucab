@@ -25,12 +25,15 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+
             dynamic tarjeta = new
             {
                 idUsuario = 1,
                 idTipoTarjeta = 1,
                 idBanco = 1,
-                numero = 1,
+                numero = ranNum,
                 ano = 2021,
                 mes = 5,
                 dia = 30,
@@ -46,12 +49,15 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta_invalidoUsuarioNoRegistrado()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+
             dynamic tarjeta = new
             {
                 idUsuario = -1,
                 idTipoTarjeta = 1,
                 idBanco = 1,
-                numero = 1,
+                numero = ranNum,
                 ano = 2021,
                 mes = 5,
                 dia = 30,
@@ -67,12 +73,15 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta_invalidoTipoTarjetaNoRegistrada()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+
             dynamic tarjeta = new
             {
                 idUsuario = 1,
                 idTipoTarjeta = -1,
                 idBanco = 1,
-                numero = 1,
+                numero = ranNum,
                 ano = 2021,
                 mes = 5,
                 dia = 30,
@@ -88,12 +97,15 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroTarjeta_invalidoBancoNoRegistrado()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+
             dynamic tarjeta = new
             {
                 idUsuario = 1,
                 idTipoTarjeta = 1,
                 idBanco = -1,
-                numero = 1,
+                numero = ranNum,
                 ano = 2021,
                 mes = 5,
                 dia = 30,

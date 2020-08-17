@@ -9,12 +9,38 @@ using System.Threading.Tasks;
 
 namespace PruebasUnitarias.TestClass.Admin
 {
-    [TestClass]
+    //[TestClass]
     public class EliminarUsuario
     {
         [TestInitialize]
         public void TestInitialize()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
+            dynamic infoUsuario = new
+            {
+                usuario = "TestUser5000",
+                email = "TestUser5000@gmail.com",
+                password = "TestUser5000",
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = 5000,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
+            };
+            APITest.register(infoUsuario);
         }
 
         [TestCleanup]
@@ -25,7 +51,10 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void eliminarUsuario()
         {
-            int idUsuario = 3;
+            string infoPersona = "TestUser5000";
+            dynamic resp = APITest.InformacionPersona(infoPersona);
+
+            int idUsuario = resp.Result.Content.result.idEntity;
             Task<HttpResponseMessage> res = null;
             res = APITest.EliminarUsuario(idUsuario);
             var status = res.Result.StatusCode;
@@ -35,7 +64,7 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void eliminarUsuario_invalidoNoRegistrado()
         {
-            int idUsuario = 0;
+            int idUsuario = -1;
             Task<HttpResponseMessage> res = null;
             res = APITest.EliminarUsuario(idUsuario);
             var status = res.Result.StatusCode;

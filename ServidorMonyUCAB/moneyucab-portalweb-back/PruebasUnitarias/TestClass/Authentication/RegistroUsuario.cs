@@ -26,18 +26,20 @@ namespace PruebasUnitarias
         [TestMethod]
         public void registrodeUsuario()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
             dynamic infoUsuario = new
             {
-                usuario = "TestUser4",
-                email = "testuser4@gmail.com",
-                password = "PassTestUser4",
+                usuario = "TestUser" + ranNum,
+                email = "TestUser" + ranNum + "@gmail.com",
+                password = "TestUser" + ranNum,
                 idTipoUsuario = 3,
                 idTipoIdentificacion = 1,
                 idEstadoCivil = 1,
                 anoRegistro =2000,
                 mesRegistro =1,
                 diaRegistro =1,
-                nroIdentificacion = 3,
+                nroIdentificacion = ranNum,
                 telefono = "",
                 direccion = "",
                 estatus = 1,
@@ -58,18 +60,20 @@ namespace PruebasUnitarias
         [TestMethod]
         public void registrodeUsuario_UsuarioInvalidoYaRegistrado()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
             dynamic infoUsuario = new
             {
-                usuario = "TestUser4",
-                email = "testuser5@gmail.com",
-                password = "PassTestUser5",
+                usuario = "TestUser1",
+                email = "TestUser" + ranNum + "@gmail.com",
+                password = "TestUser" + ranNum,
                 idTipoUsuario = 3,
                 idTipoIdentificacion = 1,
                 idEstadoCivil = 1,
                 anoRegistro = 2000,
                 mesRegistro = 1,
                 diaRegistro = 1,
-                nroIdentificacion = 3,
+                nroIdentificacion = ranNum,
                 telefono = "",
                 direccion = "",
                 estatus = 1,
@@ -90,18 +94,20 @@ namespace PruebasUnitarias
         [TestMethod]
         public void registrodeUsuario_CorreoInvalidoYaRegistrado()
         {
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
             dynamic infoUsuario = new
             {
-                usuario = "TestUser5",
-                email = "testuser4@gmail.com",
-                password = "PassTestUser5",
+                usuario = "TestUser" + ranNum,
+                email = "TestUser1@gmail.com",
+                password = "TestUser" + ranNum,
                 idTipoUsuario = 3,
                 idTipoIdentificacion = 1,
                 idEstadoCivil = 1,
                 anoRegistro = 2000,
                 mesRegistro = 1,
                 diaRegistro = 1,
-                nroIdentificacion = 3,
+                nroIdentificacion = ranNum,
                 telefono = "",
                 direccion = "",
                 estatus = 1,

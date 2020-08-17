@@ -25,7 +25,7 @@ namespace PruebasUnitarias.TestClass.Admin
         [TestMethod]
         public void consultaUsuarios()
         {
-            string query = "WHERE idUsuario=1";
+            string query = "WHERE Usuario.idUsuario = 1";
             Task<HttpResponseMessage> res = null;
             res = APITest.ConsultaUsuarios(query);
             var status = res.Result.StatusCode;

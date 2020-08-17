@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PruebasUnitarias.TestClass.Authentication
 {
-    [TestClass]
+    //[TestClass]
     public class RegistroComercio
     {
         [TestInitialize]
@@ -25,53 +26,126 @@ namespace PruebasUnitarias.TestClass.Authentication
         [TestMethod]
         public void registroComercio()
         {
-            dynamic correo = new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
+            dynamic infoUsuario = new
             {
-                usuario = "TestUser1",
-                idUsuario = 1,
-                razonSocial = "RazTestUser1",
-                nombre = "NomTestUser1",
-                apellido = "ApeTestUser1",
-                comision = 1
+                usuario = "TestUser" + ranNum,
+                email = "TestUser" + ranNum + "@gmail.com",
+                password = "TestUser" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
+            };
+            APITest.register(infoUsuario);
+
+            dynamic infoComercio = new
+            {
+                usuario = "TestUser" + ranNum,
+                email = "TestUser" + ranNum + "@gmail.com",
+                password = "TestUser" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = false,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            res = APITest.RegisterComercio(correo);
+            res = APITest.register(infoUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
-        public void registroComercio_InvalidoUsuarioNoRegistrado()
+        public void registroComercio_InvalidoUsuarioYaRegistrado()
         {
-            dynamic correo = new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
+            dynamic infoUsuario = new
             {
                 usuario = "TestUser1",
-                idUsuario = -1,
-                razonSocial = "RazTestUser1",
-                nombre = "NomTestUser1",
-                apellido = "ApeTestUser1",
-                comision = 1
+                email = "TestUser" + ranNum + "@gmail.com",
+                password = "TestUser" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = true,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            res = APITest.RegisterComercio(correo);
+            res = APITest.register(infoUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
-        public void registroComercio_InvalidoUsuarioNoRegistradoXUserName()
+        public void registroComercio_InvalidoUsuarioYaRegistradoCorreo()
         {
-            dynamic correo = new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 1000);
+            dynamic infoUsuario = new
             {
-                usuario = "",
-                idUsuario = 1,
-                razonSocial = "RazTestUser1",
-                nombre = "NomTestUser1",
-                apellido = "ApeTestUser1",
-                comision = 1
+                usuario = "TestUser" + ranNum,
+                email = "TestUser1@gmail.com",
+                password = "TestUser" + ranNum,
+                idTipoUsuario = 3,
+                idTipoIdentificacion = 1,
+                idEstadoCivil = 1,
+                anoRegistro = 2000,
+                mesRegistro = 1,
+                diaRegistro = 1,
+                nroIdentificacion = ranNum,
+                telefono = "",
+                direccion = "",
+                estatus = 1,
+                comercio = true,
+                nombre = "",
+                apellido = "",
+                anoNacimiento = 2000,
+                mesNacimiento = 1,
+                diaNacimiento = 1,
+                razonSocial = ""
             };
             Task<HttpResponseMessage> res = null;
-            res = APITest.RegisterComercio(correo);
+            res = APITest.register(infoUsuario);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

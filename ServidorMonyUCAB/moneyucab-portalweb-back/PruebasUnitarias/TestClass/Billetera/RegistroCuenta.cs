@@ -25,15 +25,14 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroCuenta()
         {
-            int CuentaId = 1;
-            APITest.EliminarCuenta(CuentaId);
-
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
             dynamic cuenta = new
             {
                 idUsuario = 1,
                 idTipoCuenta = 1,
                 idBanco = 1,
-                numero = "666"
+                numero = ranNum.ToString()
             };
             Task<HttpResponseMessage> res = null;
             res = APITest.Cuenta(cuenta);
@@ -44,13 +43,17 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroCuenta_invalidoUsuarioNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.Cuenta(new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+            dynamic cuenta = new
             {
-                idUsuario = 404,
+                idUsuario = -1,
                 idTipoCuenta = 1,
                 idBanco = 1,
-                numero = "NumCuentaTestUser"
-            });
+                numero = ranNum.ToString()
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Cuenta(cuenta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -58,13 +61,17 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroCuenta_invalidoTipoCuentaNoRegistrada()
         {
-            Task<HttpResponseMessage> res = APITest.Cuenta(new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+            dynamic cuenta = new
             {
                 idUsuario = 1,
-                idTipoCuenta = 404,
+                idTipoCuenta = -1,
                 idBanco = 1,
-                numero = "NumCuentaTestUser"
-            });
+                numero = ranNum.ToString()
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Cuenta(cuenta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
@@ -72,13 +79,17 @@ namespace PruebasUnitarias.TestClass.Billetera
         [TestMethod]
         public void registroCuenta_invalidoBancoNoRegistrado()
         {
-            Task<HttpResponseMessage> res = APITest.Cuenta(new
+            Random ran = new Random();
+            int ranNum = ran.Next(200, 100000);
+            dynamic cuenta = new
             {
                 idUsuario = 1,
                 idTipoCuenta = 1,
-                idBanco = 404,
-                numero = "NumCuentaTestUser"
-            });
+                idBanco = -1,
+                numero = ranNum.ToString()
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.Cuenta(cuenta);
             var status = res.Result.StatusCode;
             Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }

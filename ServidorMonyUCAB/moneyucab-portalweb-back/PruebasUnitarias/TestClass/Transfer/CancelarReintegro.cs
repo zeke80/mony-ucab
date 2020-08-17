@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using PruebasUnitarias.Modelos;
 namespace PruebasUnitarias.TestClass.Transfer
 {
-    [TestClass]
+    //[TestClass]
     public class CancelarReintegro
     {
         [TestMethod]
@@ -21,6 +21,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
+        [TestMethod]
         public void cancelarReintegro_idCobroInvalidp()
         {
             int idReintegro = -1;

@@ -10,7 +10,7 @@ using PruebasUnitarias.Modelos;
 
 namespace PruebasUnitarias.TestClass.Transfer
 {
-    [TestClass]
+    //[TestClass]
     public class BotonPagoMonedero
     {
         [TestMethod]

@@ -7,10 +7,139 @@
 	},
 	"item": [
 		{
-			"name": "Lógica",
+			"name": "Admin",
 			"item": [
 				{
-					"name": "Registro de Usuario",
+					"name": "Consulta Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "query",
+								"value": "hh",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/Admin/ConsultaUsuarios?query=WHERE Usuario.idUsuario = 1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Admin",
+								"ConsultaUsuarios"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "WHERE Usuario.idUsuario = 1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\" : \"TestUser7\",\r\n    \"idUsuario\" : 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Admin/EliminarUsuario",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Admin",
+								"EliminarUsuario"
+							],
+							"query": [
+								{
+									"key": "idUsuario",
+									"value": "3",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Establecer Limite Parametro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idParametro\" : 2,\r\n    \"limite\" : \"100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Admin/EstablecerLimiteParametro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Admin",
+								"EstablecerLimiteParametro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Establecer Comision",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/Admin/EstablecerComision?idComercio=1&comision=1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Admin",
+								"EstablecerComision"
+							],
+							"query": [
+								{
+									"key": "idComercio",
+									"value": "1"
+								},
+								{
+									"key": "comision",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Registro Usuario",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -31,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\": \"ezez8\",\r\n    \"email\": \"ezequielmonteroz8@gmail.com\",\r\n    \"password\": \"weawística\",\r\n    \"idTipoUsuario\": 1,\r\n    \"idTipoIdentificacion\": 1,\r\n    \"idEstadoCivil\": 1,\r\n    \"anoRegistro\":2020,\r\n    \"mesRegistro\":5,\r\n    \"diaRegistro\":30,\r\n    \"nroIdentificacion\": 26466466,\r\n    \"telefono\": \"04123746609\",\r\n    \"direccion\": \"Candelaria\",\r\n    \"estatus\": 1,\r\n    \"comercio\": false,\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"Faria\",\r\n    \"anoNacimiento\": 1998,\r\n    \"mesNacimiento\": 5,\r\n    \"diaNacimiento\":30,\r\n    \"razonSocial\": \"\"\r\n}",
+							"raw": "{\r\n    \"usuario\": \"TestUser150\",\r\n    \"email\": \"TestUser150@gmail.com\",\r\n    \"password\": \"TestUser150\",\r\n    \"idTipoUsuario\": 3,\r\n    \"idTipoIdentificacion\": 1,\r\n    \"idEstadoCivil\": 1,\r\n    \"anoRegistro\":2000,\r\n    \"mesRegistro\":1,\r\n    \"diaRegistro\":1,\r\n    \"nroIdentificacion\": 150,\r\n    \"telefono\": \"\",\r\n    \"direccion\": \"\",\r\n    \"estatus\": 1,\r\n    \"comercio\": true,\r\n    \"nombre\": \"\",\r\n    \"apellido\": \"\",\r\n    \"anoNacimiento\": 2000,\r\n    \"mesNacimiento\": 1,\r\n    \"diaNacimiento\": 1,\r\n    \"razonSocial\": \"150\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -54,35 +183,13 @@
 					"response": []
 				},
 				{
-					"name": "Olvido Contraseña",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "a01d97a6-44b4-496f-9afb-ef510b0397e1",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "Registro Comercio",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"idUsuario\" : 1,\r\n   \"resetPasswordToken\": \"weawística\",\r\n   \"newPassword\": \"weawística2\"\r\n}",
+							"raw": "{\r\n    \"usuario\":\"TestUser\",\r\n    \"idUsuario\":1,\r\n    \"razonSocial\":\"999999\",\r\n    \"nombre\":\"\",\r\n    \"apellido\":\"\",\r\n    \"comision\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,17 +197,45 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/authentication/ChangePassword",
+							"raw": "{{url}}/api/authentication/RegisterComercio",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"authentication",
-								"ChangePassword"
+								"RegisterComercio"
 							]
 						},
-						"description": "Se realiza una petición post al url:\r\nlocalhost:49683/api/usuario/register\r\n\r\nComprobando que realice el registro del usuario de forma no exitosa."
+						"description": "Se realiza la solicitud de registro de comercio a cierto usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "Register Familiar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\": \"admin1\",\r\n    \"email\": \"admin1@gmail.com\",\r\n    \"password\": \"admin1\",\r\n    \"idTipoUsuario\": 3,\r\n    \"idTipoIdentificacion\": 1,\r\n    \"idEstadoCivil\": 1,\r\n    \"anoRegistro\":2020,\r\n    \"mesRegistro\":5,\r\n    \"diaRegistro\":30,\r\n    \"nroIdentificacion\": 264664665,\r\n    \"telefono\": \"04123746609\",\r\n    \"direccion\": \"Candelaria\",\r\n    \"estatus\": 1,\r\n    \"comercio\": false,\r\n    \"nombre\": \"Pedro\",\r\n    \"apellido\": \"Faria\",\r\n    \"anoNacimiento\": 1998,\r\n    \"mesNacimiento\": 5,\r\n    \"diaNacimiento\":30,\r\n    \"razonSocial\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/RegisterFamiliar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"RegisterFamiliar"
+							]
+						}
 					},
 					"response": []
 				},
@@ -135,7 +270,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"UserName\": \"ezez8\",\r\n    \"Email\": \"ezequielmonteroz8@gmail.com\",\r\n    \"Password\": \"weawística\",\r\n    \"comercio\": false\r\n}",
+							"raw": "{\r\n    \"UserName\": \"TestUser13\",\r\n    \"Email\": \"TestUser13@gmail.com\",\r\n    \"Password\": \"TestUser13\",\r\n    \"comercio\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -158,13 +293,13 @@
 					"response": []
 				},
 				{
-					"name": "Registro Comercio",
+					"name": "Confirmar Correo",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\":\"ezez8\",\r\n    \"idUsuario\":1,\r\n    \"razonSocial\":\"carniceria\",\r\n    \"nombre\":\"Pedro\",\r\n    \"apellido\":\"Faria\",\r\n    \"comision\":1\r\n}",
+							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"confirmationToken\" : \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -172,20 +307,161 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/authentication/RegisterComercio",
+							"raw": "{{url}}/api/authentication/ConfirmedEmail",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"authentication",
-								"RegisterComercio"
+								"ConfirmedEmail"
 							]
-						},
-						"description": "Se realiza la solicitud de registro de comercio a cierto usuario"
+						}
 					},
 					"response": []
 				},
+				{
+					"name": "Recuperar Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"testuser1@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/ForgotPasswordEmail",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"ForgotPasswordEmail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restablecer Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : \"1\",\r\n    \"resetPasswordToken\" : \"pas12\",\r\n    \"newPassword\" : \"pass123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/ResetPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"ResetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cambiar Contraseña",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"resetPasswordToken\" : \"\",\r\n    \"newPassword\" : \"PassTestUser1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/ChangePassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"ChangePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificación Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"NomTestUser\",\r\n    \"apellido\":\"ApeTestUser\",\r\n    \"telefono\":\"TelfTestUser\",\r\n    \"direccion\": \"DirTestUser\",\r\n    \"razonSocial\": \"RazTestUser\",\r\n    \"idEstadoCivil\": 1,\r\n    \"idUsuario\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/authentication/modification",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"authentication",
+								"modification"
+							]
+						},
+						"description": "Se modifican datos del usuario"
+					},
+					"response": []
+				}
+			],
+			"description": "Solicitudes de autenticación",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "53250019-1737-485f-9221-4a71c7cf45be",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d055ae4c-30d1-457f-85ae-59bfebb6e17b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Billetera",
+			"item": [
 				{
 					"name": "Registro Billetera Cuenta",
 					"request": {
@@ -193,7 +469,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\":3,\r\n    \"idTipoCuenta\":3,\r\n    \"idBanco\":1,\r\n    \"numero\":\"666\"\r\n}",
+							"raw": "{\r\n    \"idUsuario\":1,\r\n    \"idTipoCuenta\":1,\r\n    \"idBanco\":1,\r\n    \"numero\":\"48\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -222,7 +498,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\":1,\r\n    \"idTipoTarjeta\":1,\r\n    \"idBanco\":1,\r\n    \"numero\":6394890001016612816,\r\n    \"ano\":2021,\r\n    \"mes\":5,\r\n    \"dia\":30,\r\n    \"cvc\": 1550,\r\n    \"estatus\":1\r\n}",
+							"raw": "{\r\n    \"idUsuario\":13,\r\n    \"idTipoTarjeta\":2,\r\n    \"idBanco\":1,\r\n    \"numero\":14,\r\n    \"ano\":2021,\r\n    \"mes\":5,\r\n    \"dia\":30,\r\n    \"cvc\": 1550,\r\n    \"estatus\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -303,151 +579,15 @@
 						"description": "Se realiza la solicitud de registro de comercio a cierto usuario"
 					},
 					"response": []
-				},
-				{
-					"name": "Modificación Usuario",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"jAVIER\",\r\n    \"apellido\":\"Faria\",\r\n    \"telefono\":\"04123746609\",\r\n    \"direccion\": \"candelaria PUTO\",\r\n    \"razonSocial\": \"Carniceria CA\",\r\n    \"idEstadoCivil\": 1,\r\n    \"idUsuario\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/authentication/modification",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"authentication",
-								"modification"
-							]
-						},
-						"description": "Se modifican datos del usuario"
-					},
-					"response": []
-				},
-				{
-					"name": "Recuperar Contraseña",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\" : \"ezequielmonteroz8@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/authentication/ForgotPasswordEmail",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"authentication",
-								"ForgotPasswordEmail"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Restablecer Contraseña",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\" : \"1\",\r\n    \"resetPasswordToken\" : \"pas12\",\r\n    \"newPassword\" : \"pass123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/authentication/ResetPassword",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"authentication",
-								"ResetPassword"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cambiar Contraseña",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\" : \"1\",\r\n    \"resetPasswordToken\" : \"pas12\",\r\n    \"newPassword\" : \"pass123\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/authentication/ChangePassword",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"authentication",
-								"ChangePassword"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "Solicitudes de autenticación",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "53250019-1737-485f-9221-4a71c7cf45be",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "d055ae4c-30d1-457f-85ae-59bfebb6e17b",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
 				}
 			],
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Consultas",
+			"name": "Dashboard",
 			"item": [
 				{
-					"name": "Consultas GET sencillas",
+					"name": "Consultas Base",
 					"item": [
 						{
 							"name": "EstadosCiviles",
@@ -649,33 +789,11 @@
 							"response": []
 						}
 					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "30a5d8f2-7bd1-45ca-8249-4bfd08f4590f",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "6cee369e-702e-41e0-ad8f-4fd3808eb0ec",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
 					"protocolProfileBehavior": {},
 					"_postman_isSubFolder": true
 				},
 				{
-					"name": "Consultas GET Complejas",
+					"name": "Consultas Usuario",
 					"item": [
 						{
 							"name": "Tarjetas",
@@ -735,7 +853,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/dashboard/ReintegrosActivos?IdUsuario=2&solicitante=0",
+									"raw": "{{url}}/api/dashboard/ReintegrosActivos?IdUsuario=13&solicitante=1",
 									"host": [
 										"{{url}}"
 									],
@@ -747,11 +865,11 @@
 									"query": [
 										{
 											"key": "IdUsuario",
-											"value": "2"
+											"value": "13"
 										},
 										{
 											"key": "solicitante",
-											"value": "0"
+											"value": "1"
 										}
 									]
 								},
@@ -825,7 +943,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/dashboard/CobrosActivos?IdUsuario=2&solicitante=1",
+									"raw": "{{url}}/api/dashboard/CobrosActivos?IdUsuario=1&solicitante=2",
 									"host": [
 										"{{url}}"
 									],
@@ -837,11 +955,11 @@
 									"query": [
 										{
 											"key": "IdUsuario",
-											"value": "2"
+											"value": "1"
 										},
 										{
 											"key": "solicitante",
-											"value": "1"
+											"value": "2"
 										}
 									]
 								},
@@ -915,7 +1033,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/api/dashboard/ParametrosUsuario?UsuarioId=usuario",
+									"raw": "{{url}}/api/dashboard/ParametrosUsuario?IdUsuario=2",
 									"host": [
 										"{{url}}"
 									],
@@ -926,8 +1044,8 @@
 									],
 									"query": [
 										{
-											"key": "UsuarioId",
-											"value": "usuario"
+											"key": "IdUsuario",
+											"value": "2"
 										}
 									]
 								},
@@ -937,11 +1055,18 @@
 						},
 						{
 							"name": "InformacionPersona",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
-									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=ezez8",
+									"raw": "{{url}}/api/dashboard/InformacionPersona?Usuario=TestUser1",
 									"host": [
 										"{{url}}"
 									],
@@ -953,7 +1078,7 @@
 									"query": [
 										{
 											"key": "Usuario",
-											"value": "ezez8"
+											"value": "TestUser1"
 										}
 									]
 								},
@@ -962,127 +1087,35 @@
 							"response": []
 						},
 						{
-							"name": "HistorialOperacionesTarjeta",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"HistorialOperaciones",
-										"HistorialOperacionesTarjeta"
-									],
-									"query": [
-										{
-											"key": "TarjetaId",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+							"name": "Consulta Usuarios Familiares",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
 							},
-							"response": []
-						},
-						{
-							"name": "HistorialOperacionesCuenta",
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"HistorialOperaciones",
-										"HistorialOperacionesCuenta"
-									],
-									"query": [
-										{
-											"key": "CuentaId",
-											"value": "1"
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
 										}
-									]
+									}
 								},
-								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
-							},
-							"response": []
-						},
-						{
-							"name": "HistorialOperacionesMonedero",
-							"request": {
-								"method": "GET",
-								"header": [],
 								"url": {
-									"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=1",
+									"raw": "{{url}}/api/dashboard/ConsultaUsuariosF?idUsuario=1",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"api",
-										"HistorialOperaciones",
-										"HistorialOperacionesMonedero"
+										"dashboard",
+										"ConsultaUsuariosF"
 									],
 									"query": [
 										{
-											"key": "UsuarioId",
-											"value": "1"
-										}
-									]
-								},
-								"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
-							},
-							"response": []
-						},
-						{
-							"name": "Ejecutar Cierre",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/HistorialOperaciones/EjecutarCierre?IdUsuario=2",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"HistorialOperaciones",
-										"EjecutarCierre"
-									],
-									"query": [
-										{
-											"key": "IdUsuario",
-											"value": "2"
-										}
-									]
-								},
-								"description": "Realiza la ejecución de cierre según la persona"
-							},
-							"response": []
-						},
-						{
-							"name": "Saldo",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}/api/monedero/Consultar?idusuario=1",
-									"host": [
-										"{{url}}"
-									],
-									"path": [
-										"api",
-										"monedero",
-										"Consultar"
-									],
-									"query": [
-										{
-											"key": "idusuario",
+											"key": "idUsuario",
 											"value": "1"
 										}
 									]
@@ -1122,8 +1155,143 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Operaciones",
+			"name": "Historial Operaciones",
 			"item": [
+				{
+					"name": "HistorialOperacionesTarjeta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesTarjeta?TarjetaId=13",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"HistorialOperaciones",
+								"HistorialOperacionesTarjeta"
+							],
+							"query": [
+								{
+									"key": "TarjetaId",
+									"value": "13"
+								}
+							]
+						},
+						"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+					},
+					"response": []
+				},
+				{
+					"name": "HistorialOperacionesCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesCuenta?CuentaId=47",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"HistorialOperaciones",
+								"HistorialOperacionesCuenta"
+							],
+							"query": [
+								{
+									"key": "CuentaId",
+									"value": "47"
+								}
+							]
+						},
+						"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+					},
+					"response": []
+				},
+				{
+					"name": "HistorialOperacionesMonedero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/HistorialOperaciones/HistorialOperacionesMonedero?UsuarioId=13",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"HistorialOperaciones",
+								"HistorialOperacionesMonedero"
+							],
+							"query": [
+								{
+									"key": "UsuarioId",
+									"value": "13"
+								}
+							]
+						},
+						"description": "Solicitud de cuentas de un usuario. Parámetro tomado como Query"
+					},
+					"response": []
+				},
+				{
+					"name": "Ejecutar Cierre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/HistorialOperaciones/EjecutarCierre?IdUsuario=13",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"HistorialOperaciones",
+								"EjecutarCierre"
+							],
+							"query": [
+								{
+									"key": "IdUsuario",
+									"value": "13"
+								}
+							]
+						},
+						"description": "Realiza la ejecución de cierre según la persona"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Monedero",
+			"item": [
+				{
+					"name": "Saldo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/monedero/Consultar?idusuario=12",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"monedero",
+								"Consultar"
+							],
+							"query": [
+								{
+									"key": "idusuario",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Recarga Monedero Tarjeta",
 					"request": {
@@ -1131,7 +1299,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioReceptor\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 13,\r\n    \"idMedioPaga\" : 13,\r\n    \"monto\" : 10,\r\n    \"idOperacion\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1159,7 +1327,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioReceptor\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 13,\r\n    \"idMedioPaga\" : 47,\r\n    \"monto\" : 10,\r\n    \"idOperacion\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1181,13 +1349,103 @@
 					"response": []
 				},
 				{
+					"name": "Retiro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/monedero/Retiro",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"monedero",
+								"Retiro"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "886aa42f-86e3-45c9-ac91-89ca128a1532",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba56be16-d29c-4b91-9805-7714df24e44e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Paypal",
+			"item": [
+				{
+					"name": "Crear Pago",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reg\":true,\r\n    \"idOperacion\": 1,\r\n    \"payment\":{\r\n  \"intent\": \"sale\",\r\n  \"payer\": {\r\n    \"payment_method\": \"paypal\"\r\n  },\r\n  \"transactions\": [\r\n    {\r\n      \"amount\": {\r\n        \"total\": \"30.11\",\r\n        \"currency\": \"USD\",\r\n        \"details\": {\r\n          \"subtotal\": \"30.00\",\r\n          \"tax\": \"0.07\",\r\n          \"shipping\": \"0.03\",\r\n          \"handling_fee\": \"1.00\",\r\n          \"shipping_discount\": \"-1.00\",\r\n          \"insurance\": \"0.01\"\r\n        }\r\n      },\r\n      \"description\": \"The payment transaction description.\",\r\n      \"custom\": \"EBAY_EMS_90048630024435\",\r\n      \"invoice_number\": \"11111111111\",\r\n      \"payment_options\": {\r\n        \"allowed_payment_method\": \"INSTANT_FUNDING_SOURCE\"\r\n      },\r\n      \"soft_descriptor\": \"ECHI5786786\",\r\n      \"item_list\": {\r\n        \"items\": [\r\n          {\r\n            \"name\": \"hat\",\r\n            \"description\": \"Brown hat.\",\r\n            \"quantity\": \"5\",\r\n            \"price\": \"3\",\r\n            \"tax\": \"0.01\",\r\n            \"sku\": \"1\",\r\n            \"currency\": \"USD\"\r\n          },\r\n          {\r\n            \"name\": \"handbag\",\r\n            \"description\": \"Black handbag.\",\r\n            \"quantity\": \"1\",\r\n            \"price\": \"15\",\r\n            \"tax\": \"0.02\",\r\n            \"sku\": \"product34\",\r\n            \"currency\": \"USD\"\r\n          }\r\n        ],\r\n        \"shipping_address\": {\r\n          \"recipient_name\": \"Brian Robinson\",\r\n          \"line1\": \"4th Floor\",\r\n          \"line2\": \"Unit #34\",\r\n          \"city\": \"San Jose\",\r\n          \"country_code\": \"US\",\r\n          \"postal_code\": \"95131\",\r\n          \"phone\": \"011862212345678\",\r\n          \"state\": \"CA\"\r\n        }\r\n      }\r\n    }\r\n  ],\r\n  \"note_to_payer\": \"Contact us for any questions on your order.\",\r\n  \"redirect_urls\": {\r\n    \"return_url\": \"https://example.com/return\",\r\n    \"cancel_url\": \"https://example.com/cancel\"\r\n  }\r\n}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Paypal/CrearPago",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Paypal",
+								"CrearPago"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Transfer",
+			"item": [
+				{
 					"name": "Realizar Cobro",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioSolicitante\" : 1,\r\n    \"emailPagador\" : \"\",\r\n    \"monto\" : 100\r\n}",
+							"raw": "{\r\n    \"idUsuarioSolicitante\" : 16,\r\n    \"emailPagador\" : \"testuser2@gmail.com\",\r\n    \"monto\" : 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1215,7 +1473,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioSolicitante\" : 1,\r\n    \"emailPagador\" : \"ezequielmonteroc5@gmail.com\",\r\n    \"referencia\" : \"\"\r\n}",
+							"raw": "{\r\n    \"idUsuarioSolicitante\" : 13,\r\n    \"emailPagador\" : \"testuser1@gmail.com\",\r\n    \"referencia\" : \"5566\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1299,7 +1557,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 1,\r\n    \"idOperacion\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1321,7 +1579,7 @@
 					"response": []
 				},
 				{
-					"name": "Realiza rPago Tarjeta",
+					"name": "Realizar Pago Tarjeta",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1355,7 +1613,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 13,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 1,\r\n    \"idOperacion\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1383,7 +1641,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 1,\r\n    \"idOperacion\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1439,7 +1697,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuarioReceptor\" : 2,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"idOperacion\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuarioReceptor\" : 13,\r\n    \"idMedioPaga\" : 48,\r\n    \"monto\" : 1,\r\n    \"idOperacion\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1467,7 +1725,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"idParametro\" : 1,\r\n    \"validacion\" : \"\",\r\n    \"estatus\" : 1\r\n}",
+							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"idParametro\" : 1,\r\n    \"validacion\" : \"100\",\r\n    \"estatus\" : 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1483,6 +1741,90 @@
 								"api",
 								"Transfer",
 								"EstablecerParametro"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Boton Pago Tarjeta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"usuarioDestino\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/BotonPagoTarjeta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"BotonPagoTarjeta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Boton Pago Cuenta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : 13,\r\n    \"idMedioPaga\" : 47,\r\n    \"monto\" : 1,\r\n    \"usuarioDestino\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/BotonPagoCuenta",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"BotonPagoCuenta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Boton Pago Monedero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idUsuario\" : 1,\r\n    \"idMedioPaga\" : 1,\r\n    \"monto\" : 100,\r\n    \"usuarioDestino\" : 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/Transfer/BotonPagoMonedero",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Transfer",
+								"BotonPagoMonedero"
 							]
 						}
 					},
@@ -1526,7 +1868,7 @@
 	],
 	"variable": [
 		{
-			"id": "7dda370c-25b8-40c2-9912-23bb3a73394e",
+			"id": "1de05636-bd6b-444c-b5b6-9c10603869d4",
 			"key": "url",
 			"value": ""
 		}

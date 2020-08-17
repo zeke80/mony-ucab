@@ -18,7 +18,7 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             dynamic info = new
             {
-                idUsuarioReceptor = 13,
+                idUsuarioReceptor = 1,
                 idMedioPaga = 1,
                 monto = 1,
                 idOperacion = 1
