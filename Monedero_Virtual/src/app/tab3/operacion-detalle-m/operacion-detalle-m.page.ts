@@ -27,6 +27,7 @@ export class OperacionDetalleMPage implements OnInit {
   description: string;
   monto: number;
   idoperacionm:number;
+  mailrecept : any;
 
   constructor(
     public _activatedRoute: ActivatedRoute,
@@ -41,10 +42,14 @@ export class OperacionDetalleMPage implements OnInit {
   ngOnInit() {
     this.usuario = this._usuarioServices.getUsuario();
     let routeUrl = this.router.url;
-    console.log(routeUrl);
     let routeSplit = routeUrl.split('/')
     console.log(routeSplit);
     console.log(routeSplit[4]);
+    // this._activatedRoute.paramMap.subscribe(paramMap => {
+    //   const recipeID = paramMap.get('operacionID');
+    //   let id: number = +recipeID;
+    //   this.operacion = this._operacionServices.getoperacionesMonedero(id);
+    // });
 
     this._operacionServices.getoperacionesMonedero(this.usuario.idUsuario).subscribe(operaciones => {
       console.log('Operaciones ', operaciones['length']);
@@ -72,25 +77,25 @@ export class OperacionDetalleMPage implements OnInit {
           }
         }
       }
+    console.log("este es usuario receptor",this.idreceptor);
     })
-
-    // this.usuario = this._usuarioServices.getUsuario();
-    // this._usuarioServices.inforUsurio(this.operacion.idusuario)
-    // .subscribe((data: any) => {
-    //   this.user = data.usuario;
-    //   this.idreceptor = data.idusuario;
-    // });
-    // this.fecha = this.operacion.fecha.split('T', 1 );
-    // this._personaServices.getPersona(this.operacion.idusuario)
-    // .subscribe((data: any) => {
-    //   // if (data) {
-    //   //   this.aux = false;
-    //   // }
-    //   // else {
-    //   //   this.aux = true;
-    //   // }
-    // });
-  }
+    
+    this._usuarioServices.inforUsurio(this.idreceptor).subscribe((data:any)=>{
+        console.log("ya voy por aqui",data)
+    //     //for (let i = 0; i < data.length; i++) {
+    //    // const element = data[i];
+    //     //console.log(element)
+    //     //if (element['infoAdicional']['operacionCuenta'] !== null)
+    //      // {
+    //         //if( element['infoAdicional']['operacionCuenta']['idCuenta'] === monedero._idCuenta){
+    //           //this.omonederos.push(element);
+    //        // }
+    //       //}
+    //     //}
+    //     console.log(" mail del receptor",data.result.email)
+    //     this.mailrecept = data.result.email;
+    });
+  };
 
   SolicitarReintegro() {
     this.reintegroS();
