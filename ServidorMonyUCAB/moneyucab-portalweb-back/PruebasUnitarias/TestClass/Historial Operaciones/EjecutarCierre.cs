@@ -15,7 +15,7 @@ namespace PruebasUnitarias.TestClass.Historial_Operaciones
         [TestMethod]
         public void ejecutarCierre()
         {
-            int IdUsuario = 1;
+            int IdUsuario = 13;
             Task<HttpResponseMessage> res = null;
             res = APITest.EjecutarCierre(IdUsuario);
             var status = res.Result.StatusCode;

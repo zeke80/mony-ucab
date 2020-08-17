@@ -17,9 +17,9 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             Task<HttpResponseMessage> res = APITest.RealizarReintegroTarjeta(new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 13,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
             });
             var s = res.Result.StatusCode;
@@ -31,9 +31,9 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             Task<HttpResponseMessage> res = APITest.RealizarReintegroTarjeta(new
             {
-                idUsuarioReceptor = "",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
             });
             var s = res.Result.StatusCode;
@@ -45,41 +45,27 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             Task<HttpResponseMessage> res = APITest.RealizarReintegroTarjeta(new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "",
-                monto = 100,
+                idUsuarioReceptor = 13,
+                idMedioPaga = -1,
+                monto = 1,
                 idOperacion = 1
             });
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
         }
 
-        [TestMethod]
+        /*[TestMethod]
         public void realizarReintegroTarjeta_montoInvalido()
         {
             Task<HttpResponseMessage> res = APITest.RealizarReintegroTarjeta(new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 13,
                 idMedioPaga = 1,
-                monto = "",
+                monto = 10000000000000,
                 idOperacion = 1
             });
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void realizarReintegroTarjeta_idOperacionInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroTarjeta(new
-            {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
+        }*/
     }
 }

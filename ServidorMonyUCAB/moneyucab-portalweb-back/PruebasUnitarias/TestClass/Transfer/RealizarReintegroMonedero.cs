@@ -16,85 +16,65 @@ namespace PruebasUnitarias.TestClass.Transfer
         [TestMethod]
         public void realizarReintegroMonedero()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroMonedero(new
+            dynamic info = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 13,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarReintegroMonedero(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.OK);
         }
 
         [TestMethod]
         public void realizarReintegroMonedero_idUsuarioInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroMonedero(new
+            dynamic info = new
             {
-                idUsuarioReceptor = "",
+                idUsuarioReceptor = -1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarReintegroMonedero(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarReintegroMonedero_idMedioPagaInvalido()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroMonedero(new
+            dynamic info = new
             {
-                idUsuarioReceptor = 2,
-                idMedioPaga = "",
-                monto = 100,
+                idUsuarioReceptor = 13,
+                idMedioPaga = -1,
+                monto = 1,
                 idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void realizarReintegroMonedero_montoInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroMonedero(new
-            {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = "",
-                idOperacion = 1
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void realizarReintegroMonedero_idOperacionInvalido()
-        {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroMonedero(new
-            {
-                idUsuarioReceptor = 2,
-                idMedioPaga = 1,
-                monto = 100,
-                idOperacion = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarReintegroMonedero(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
         public void realizarReintegroMonedero_MontoExcediendoSaldo()
         {
-            Task<HttpResponseMessage> res = APITest.RealizarReintegroMonedero(new
+            dynamic info = new
             {
-                idUsuarioReceptor = 2,
+                idUsuarioReceptor = 13,
                 idMedioPaga = 1,
-                monto = 10000000,
-                idOperacion = ""
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
+                monto = 1000000000,
+                idOperacion = 1
+            };
+            Task<HttpResponseMessage> res = null;
+            res = APITest.RealizarReintegroMonedero(info);
+            var status = res.Result.StatusCode;
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }

@@ -17,9 +17,9 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 1,
+                idUsuarioReceptor = 13,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
             };
             Task<HttpResponseMessage> res = null;
@@ -35,7 +35,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             {
                 idUsuarioReceptor = -1,
                 idMedioPaga = 1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
             };
             Task<HttpResponseMessage> res = null;
@@ -49,9 +49,9 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 1,
+                idUsuarioReceptor = 13,
                 idMedioPaga = -1,
-                monto = 100,
+                monto = 1,
                 idOperacion = 1
             };
             Task<HttpResponseMessage> res = null;
@@ -65,7 +65,7 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             dynamic infoPagoCuenta = new
             {
-                idUsuarioReceptor = 1,
+                idUsuarioReceptor = 13,
                 idMedioPaga = 1,
                 monto = 100000000,
                 idOperacion = 1

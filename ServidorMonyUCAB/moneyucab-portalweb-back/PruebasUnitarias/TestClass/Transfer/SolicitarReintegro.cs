@@ -18,8 +18,8 @@ namespace PruebasUnitarias.TestClass.Transfer
             Task<HttpResponseMessage> res = APITest.SolicitarReintegro(new
             {
                 idUsuarioSolicitante = 2,
-                emailPagador = "testuser@gmail.com",
-                referencia = "",
+                emailPagador = "testuser1@gmail.com",
+                referencia = "1",
             });
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.OK);
@@ -30,9 +30,9 @@ namespace PruebasUnitarias.TestClass.Transfer
         {
             Task<HttpResponseMessage> res = APITest.SolicitarReintegro(new
             {
-                idUsuarioSolicitante = "",
-                emailPagador = "testuser@gmail.com",
-                referencia = "",
+                idUsuarioSolicitante = -1,
+                emailPagador = "testuser1@gmail.com",
+                referencia = "1",
             });
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
@@ -45,20 +45,7 @@ namespace PruebasUnitarias.TestClass.Transfer
             {
                 idUsuarioSolicitante = 2,
                 emailPagador = "",
-                referencia = "",
-            });
-            var s = res.Result.StatusCode;
-            Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);
-        }
-
-        [TestMethod]
-        public void solicitarReintegro_referenciaInvalida()
-        {
-            Task<HttpResponseMessage> res = APITest.SolicitarReintegro(new
-            {
-                idUsuarioSolicitante = 2,
-                emailPagador = "testuser@gmail.com",
-                referencia = 1,
+                referencia = "1",
             });
             var s = res.Result.StatusCode;
             Assert.IsTrue(res.Result.StatusCode == HttpStatusCode.BadRequest);

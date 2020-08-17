@@ -17,8 +17,8 @@ namespace PruebasUnitarias.TestClass.Monedero
         {
             dynamic recarga = new
             {
-                idUsuarioReceptor = 13,
-                idMedioPaga = 47,
+                idUsuarioReceptor = 1,
+                idMedioPaga = 1,
                 monto = 1,
                 idOperacion = 1
             };
@@ -41,7 +41,7 @@ namespace PruebasUnitarias.TestClass.Monedero
             Task<HttpResponseMessage> res = null;
             res = APITest.Retiro(recarga);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
 
         [TestMethod]
@@ -57,7 +57,7 @@ namespace PruebasUnitarias.TestClass.Monedero
             Task<HttpResponseMessage> res = null;
             res = APITest.Retiro(recarga);
             var status = res.Result.StatusCode;
-            Assert.IsTrue(status == HttpStatusCode.OK);
+            Assert.IsTrue(status == HttpStatusCode.BadRequest);
         }
     }
 }
