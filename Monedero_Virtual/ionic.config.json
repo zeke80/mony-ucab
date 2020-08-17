@@ -1,0 +1,7 @@
+{
+  "name": "Monedero_Virtual",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

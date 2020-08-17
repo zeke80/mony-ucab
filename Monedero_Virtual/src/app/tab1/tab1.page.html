@@ -1,0 +1,87 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            <h4 class="ion-text-center"><strong>Perfil de la persona</strong></h4>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <div class="contaier-perfil">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <h1>Editar perfil</h1>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-contend>
+                <form #f='ngForm' (ngSubmit)="modificarUsuario( f )">
+                    <ion-item>
+                        <ion-label position="floating"><strong>Fecha de registro:</strong></ion-label>
+                        <br>
+                        <ion-input>{{usuario.fechaRegistro.day}}/{{usuario.fechaRegistro.month}}/{{usuario.fechaRegistro.year}}</ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Fecha de nacimineto:</strong></ion-label>
+                        <br>
+                        <ion-input>{{persona.fecha_nacimiento.day}}/{{persona.fecha_nacimiento.month}}/{{persona.fecha_nacimiento.year}}</ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating"><strong>Usuario: </strong></ion-label>
+                        <ion-input [ngModel]="usuario.usuario" name="user"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating"><strong>Email:</strong></ion-label>
+                        <br>
+                        <ion-input>{{usuario.email}}</ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating"><strong>Nombre:</strong></ion-label>
+                        <ion-input [ngModel]="persona.nombre" name="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Apellido:</strong></ion-label>
+                        <ion-input [ngModel]="persona.apellido" name="apellido"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating"><strong>Numero de identificación:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.nroIdentificacion" name="identificacion"></ion-input>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label position="floating"><strong>Telefono:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.telefono" name="telefono"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating"><strong>Dirección:</strong></ion-label>
+                        <ion-input [ngModel]="usuario.direccion" name="direccion"></ion-input>
+                    </ion-item>
+
+
+
+                    <ion-button type="submit" fill="solid" expand="full">
+                        <div *ngIf="show">
+                            Guardar
+                        </div>
+                        <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
+                    </ion-button>
+                </form>
+
+            </ion-card-contend>
+        </ion-card>
+
+    </div>
+
+
+
+
+
+</ion-content>

@@ -1,0 +1,157 @@
+<ion-header>
+    <ion-toolbar color="secondary">
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/cuenta"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Realizar pago</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+    <div class="contaier-monto">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <h1>Especificaciones del pago</h1>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-item>
+                    <ion-label position="floating"><strong>Email receptor:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{receptor}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Monto:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.monto}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Fecha:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.fecha.day}}/{{operacion.fecha.month}}/{{operacion.fecha.year}}</h4>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="floating"><strong>Estatus:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{operacion.estatus}}</h4>
+                </ion-item>
+
+
+
+                <h2 class="ion-text-center">Metodo de pago</h2>
+            </ion-card-contend>
+        </ion-card>
+        <div *ngIf="!restHijo">
+            <ion-button (click)="boolTarjeta()" color="primary" fill="solid" expand="block">
+                Tarjeta
+            </ion-button>
+
+            <ion-button (click)="boolCuenta()" color="primary" fill="solid" expand="block">
+                Cuenta
+            </ion-button>
+        </div>
+
+
+        <ion-button (click)="pagarMonedero()" color="primary" fill="solid" expand="block">
+            <div *ngIf="showM">
+                Monedero
+            </div>
+            <ion-spinner *ngIf="!showM" name="circles"></ion-spinner>
+        </ion-button>
+
+        <div *ngIf="!restHijo">
+            <ion-button (click)="pagarPaypal()" color="primary" fill="solid" expand="block">
+                <div *ngIf="showP">
+                    Paypal
+                </div>
+                <ion-spinner *ngIf="!showP" name="circles"></ion-spinner>
+            </ion-button>
+            <ion-button (click)="pagarStripe()" color="primary" fill="solid" expand="block">
+                <div *ngIf="showT">
+                    Stripe
+                </div>
+                <ion-spinner *ngIf="!showT" name="circles"></ion-spinner>
+            </ion-button>
+        </div>
+
+
+        <br>
+        <ion-item *ngIf="auxT">
+            <ion-label>Escoja una tarjeta</ion-label>
+            <ion-select [(ngModel)]="tarjeta" (ionChange)="obtenerIDtajeta()">
+                <ion-select-option value="{{metodo.idTarjeta}}" *ngFor="let metodo of metodoPagoT">Nro tarjeta: {{metodo.numero}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <br>
+        <ion-button (click)="pagarTarjeta()" *ngIf="auxT" color="warning" fill="solid" expand="block">
+            <div *ngIf="show">
+                Pagar con tarjeta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
+        </ion-button>
+
+
+
+        <ion-item *ngIf="auxC">
+            <ion-label>Escoja una cuenta</ion-label>
+            <ion-select [(ngModel)]="cuenta" (ionChange)="obtenerIDcuenta()">
+                <ion-select-option value="{{metodo._idCuenta}}" *ngFor="let metodo of metodoPagoC">{{metodo._numero}}</ion-select-option>
+            </ion-select>
+        </ion-item>
+        <br>
+
+        <ion-button (click)="pagarCuenta()" *ngIf="auxC" color="warning" fill="solid" expand="block">
+            <div *ngIf="show">
+                Pagar con cuenta
+            </div>
+            <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
+        </ion-button>
+
+        <!-- <div *ngIf="auxS">
+            <ion-card-contend>
+                <ion-item>
+                    <ion-label position="floating"><strong>Email receptor: </strong></ion-label>
+                    <ion-input #input type="text"></ion-input>
+                </ion-item>
+            </ion-card-contend>
+            <br>
+            <ion-button (click)="pagarStripe(input.value)" *ngIf="auxS" color="warning" fill="solid" expand="block">
+                <div *ngIf="show">
+                    Pagar con Stripe
+                </div>
+                <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
+            </ion-button>
+        </div> -->
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+
+
+
+
+</ion-content>

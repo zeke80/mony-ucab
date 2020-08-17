@@ -1,0 +1,142 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            <h4 class="ion-text-center"><strong>Operaciones</strong></h4>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+
+    <div class="contaier-monto">
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Operaciones del monedero</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let monedero of omonederos"
+                        [routerLink]="['/tabs/operaciones/monedero', monedero.idOperacionMonedero]">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                            <div *ngIf="monedero.infoAdicional.tipoOperacion.idTipoOperacion === 1">
+                                <ion-label>
+                                    <h1>
+                                        $ -{{monedero.infoAdicional.operacionCuenta.monto}}
+                                    </h1>
+                                    <h2>
+                                        Fecha:
+                                        {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
+                                    </h2>
+                                </ion-label>
+                            </div>
+                            <div *ngIf="monedero.infoAdicional.tipoOperacion.idTipoOperacion === 5">
+                                <ion-label>
+                                    <h1>
+                                        $ +{{monedero.infoAdicional.operacionCuenta.monto}}
+                                    </h1>
+                                    <h2>
+                                        Fecha:
+                                        {{monedero.fecha.day}}/{{monedero.fecha.month}}/{{monedero.fecha.year}}
+                                    </h2>
+                                </ion-label>
+                            </div>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Operaciones de cuentas</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let ocuenta of ocuentas" [routerLink]="['/tabs/operaciones', ocuenta.idOperacionCuenta]" >
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            <h1>
+                                $ - {{ocuenta.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{ocuenta.fecha.day}}/{{ocuenta.fecha.month}}/{{ocuenta.fecha.year}}
+                            </h2>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                <h2>Operaciones de tarjetas</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <!-- -->
+                    <!--  " -->
+                    <!-- (click)="tarjetasdetail($event, otarjeta)  -->
+                    <ion-item *ngFor="let otarjeta of otarjetas" [routerLink]="['/tabs/operaciones/tarjeta', otarjeta.idOperacionTarjeta] ">
+                            <ion-icon slot="start" name="reader-outline"></ion-icon>
+                            <ion-label>
+                                <h1>
+                                    $ +{{otarjeta.monto}}
+                                </h1>
+                                <h2>
+                                    Fecha: {{otarjeta.fecha.day}}/{{otarjeta.fecha.month}}/{{otarjeta.fecha.year}}
+                                </h2>
+                            </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <h2>Operaciones de reintegro</h2>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let reintegro of reintegros"
+                        [routerLink]="['/tabs/operaciones/reintegro', reintegro.idReintegro]">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            <h1>
+                                $ {{reintegro.monto}}
+                            </h1>
+                            <h2>
+                                Estatus: {{reintegro.estatus}}
+                            </h2>   
+                            <h2>
+                                Fecha: {{reintegro.fecha.day}}/{{reintegro.fecha.month}}/{{reintegro.fecha.year}}
+                            </h2>
+                        </ion-label>
+
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item *ngFor="let reintegro of reintegrose"
+                        [routerLink]="['/tabs/operaciones/reintegro', reintegro.idReintegro]">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            <h1>
+                                $ {{reintegro.monto}}
+                            </h1>
+                            <h2>
+                                Estatus: {{reintegro.estatus}}
+                            </h2>   
+                            <h2>
+                                Fecha: {{reintegro.fecha.day}}/{{reintegro.fecha.month}}/{{reintegro.fecha.year}}
+                            </h2>
+                        </ion-label>
+
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+    </div>
+
+
+</ion-content>
