@@ -61,7 +61,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        /*[HttpPost]
+        [HttpPost]
         [Authorize]
         [Route("RetiroRango")]
 
@@ -82,7 +82,7 @@ namespace moneyucab_portalweb_back.Controllers
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
-        }*/
+        }
 
         [HttpGet]
         [Authorize]
@@ -200,7 +200,7 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-       /*[HttpPost]
+       [HttpPost]
         [Authorize]
         [Route("RetiroDia")]
 
@@ -268,7 +268,7 @@ namespace moneyucab_portalweb_back.Controllers
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
-        }*/
+        }
 
 
     }

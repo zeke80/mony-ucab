@@ -17,7 +17,7 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 
 		}
 
-		async public Task<List<ComOperacionMonedero>> Ejecutar()
+		async public Task<List<ComRangoFechas>> Ejecutar()
 		{
 			DAOBase dao = FabricaDAO.CrearDaoBase();
 			return dao.retiro_anual(this._ano);

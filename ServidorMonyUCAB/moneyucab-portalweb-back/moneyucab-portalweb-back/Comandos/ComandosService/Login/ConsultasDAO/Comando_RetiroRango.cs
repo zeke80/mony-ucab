@@ -19,7 +19,7 @@ namespace moneyucab_portalweb_back.Comandos.ComandosService.Login.ConsultasDAO
 			this._date2 = fecha2;
 		}
 
-			async public Task<List<ComOperacionMonedero>> Ejecutar()
+			async public Task<List<ComRangoFechas>> Ejecutar()
 		{
 			DAOBase dao = FabricaDAO.CrearDaoBase();
 			return dao.RetiroRango(this._date,this._date2);

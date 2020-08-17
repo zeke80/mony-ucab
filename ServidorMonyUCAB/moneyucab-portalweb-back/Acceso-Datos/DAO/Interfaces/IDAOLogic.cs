@@ -717,7 +717,7 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
 
-        List<ComOperacionMonedero> RetiroRango(string fecha, string fecha2);
+        List<ComRangoFechas> RetiroRango(string fecha, string fecha2);
 
 
         /// <summary>
@@ -771,7 +771,7 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
 
-        List<ComOperacionMonedero> retiro_dia(string DD);
+        List<ComRangoFechas> retiro_dia(string DD);
 
         // <summary>
         /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
@@ -780,7 +780,7 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
 
-        List<ComOperacionMonedero> retiro_mes(string mes);
+        List<ComRangoFechas> retiro_mes(string mes);
 
         // <summary>
         /// Se realiza una consulta de todos los usuarios dentro de la base de datos.
@@ -789,7 +789,7 @@ namespace DAO.Interfaces
         /// <exception cref="MoneyUcabException">Tira excepción relacionado a lógica de negocio que se esté manejando en este punto.</exception>
         /// <exception cref="Exception">Exception para controlar cualquier error inesperado y no controlado por el backend.</exception>
 
-        List<ComOperacionMonedero> retiro_anual(string ano);
+        List<ComRangoFechas> retiro_anual(string ano);
 
 
     }
