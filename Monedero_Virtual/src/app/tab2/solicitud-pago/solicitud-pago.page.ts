@@ -18,6 +18,7 @@ export class SolicitudPagoPage implements OnInit {
   operacion: Pago;
   usuario: Usuario;
   aux: number;
+  receptor: string;
 
   auxT = false;
   auxC = false;
@@ -60,6 +61,10 @@ export class SolicitudPagoPage implements OnInit {
 
     this.usuario = this._usuarioServices.getUsuario();
     this.hijo = this._usuarioServices.getHijo();
+    this._usuarioServices.getUserInfo(this.operacion.idUsuarioReceptor.toString())
+        .subscribe((data:any) => {
+          this.receptor = data.result.email;
+        });
     this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
         .subscribe((data: any) =>  {
           this.metodoPagoC = data;
@@ -274,14 +279,14 @@ export class SolicitudPagoPage implements OnInit {
 
   }
 
-  pagarStripe(email) {
+  pagarStripe() {
     this.showT = false;
     let cant: number = + this.operacion.monto;
 
     var body = {
       monto: cant,
       descripcion: "Prueba Exitosa",
-      emailReceptor: email,
+      emailReceptor: this.receptor,
       reg: true,
       idOperacion: this.id
     };
