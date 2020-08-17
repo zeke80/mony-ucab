@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { OperacionService } from '../servicios/operacion/operacion.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Usuario } from '../models/usuario.model';
@@ -15,12 +15,14 @@ import { Platform, NavController, NavParams } from '@ionic/angular';
 export class Tab3Page implements OnInit{
 
   cuentas = [];
+  cuentasm = [];
   ocuentas = [];
   operaciones = [];
   tarjetas = [];
   otarjetas = [];
   operacionesTarjeta = [];
   monederos = [];
+  omonederos = [];
   reintegros = [];
   usuario: Usuario
   public navParams = new NavParams();
@@ -47,30 +49,44 @@ export class Tab3Page implements OnInit{
     //this.operaciones = this._operacionServices.getoperacionesCuentaVacio();
   
     //this.monederos = this._operacionServices.getoperacionesMonederoVacio();
-    this.reintegros = this._operacionServices.getreintegrosVacio();
+    //this.reintegros = this._operacionServices.getreintegrosVacio();
    
     if(this.aux){
-    //this.getAccountsAndLoadOperations();
-    this.loadMonederoperations();
-    //this.getTargetsAndLoadTargetOperations();
+    this.operacionesmonedero();
     this.loadTargetOperations();
     this.loadAccountsOperations();
+    this.loadReintegrosOperations();
+    // this._operacionServices.obtenerReintegrosActivos(this.usuario.idUsuario).subscribe((data:any)=>{
+    //   //this.reintegros = data;
+    //   console.log(data)
+    // });
     }
     this.aux=true;
     }
 
-    loadMonederoperations(){
-      this._operacionServices.getoperacionesMonedero(this.usuario.idUsuario)
-      .toPromise().then((data: any )=>{
-        this.monederos = data;
-      }).then(()=>this.cleanMonederoOperations());
-    } //carga de operaciones monedero
-    isNotClosingOperation(monedero){
-      return monedero.infoAdicional.tipoOperacion.idTipoOperacion !== 4;
-    }
+    operacionesmonedero(){
+      this.monederos = [];
+      this.omonederos = [];
 
-    cleanMonederoOperations(){
-      this.monederos = this.monederos.filter(this.isNotClosingOperation);
+      this._cuentaServices.obtenerCuenta(this.usuario.idUsuario).subscribe((data:any) =>{
+        this.monederos = data;
+        this.monederos.forEach((monedero)=>{
+          if(monedero.infoAdicional._tipoCuenta.idTipoCuenta === 3){
+            this._operacionServices.getoperacionesMonedero(this.usuario.idUsuario).subscribe((data:any) =>{
+            for (let i = 0; i < data.length; i++) {
+              const element = data[i];
+              if (element['infoAdicional']['operacionCuenta'] !== null)
+              {
+                if( element['infoAdicional']['operacionCuenta']['idCuenta'] === monedero._idCuenta){
+                 this.omonederos.push(element);
+                }
+              }
+            }
+            });
+          }
+        });
+      });
+      
     }
 
     loadTargetOperations(){
@@ -115,7 +131,13 @@ export class Tab3Page implements OnInit{
           this._operacionServices.guardarCuentas(this.ocuentas);
       });
     } // EN ESPERA HASTA QUE SE SUBA EL ARREGLO DEL JSON AL SERVER
-
+    loadReintegrosOperations(){
+      this._operacionServices.obtenerReintegrosActivos(this.usuario.idUsuario).subscribe((data:any)=>{
+        this.reintegros = data;
+        console.log(data)
+        this._operacionServices.guardarReintegros(this.reintegros);
+      });
+    }
     // getAccountsAndLoadOperations(){
     //   this._cuentaServices.obtenerCuenta(this.usuario.idUsuario)
     //   .toPromise().then((data: any) => {
