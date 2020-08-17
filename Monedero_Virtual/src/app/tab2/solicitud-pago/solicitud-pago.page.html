@@ -22,6 +22,11 @@
             </ion-card-header>
             <ion-card-contend>
                 <ion-item>
+                    <ion-label position="floating"><strong>Email receptor:</strong></ion-label>
+                    <br>
+                    <h4 class="ion-text-center">{{receptor}}</h4>
+                </ion-item>
+                <ion-item>
                     <ion-label position="floating"><strong>Monto:</strong></ion-label>
                     <br>
                     <h4 class="ion-text-center">{{operacion.monto}}</h4>
@@ -67,7 +72,7 @@
                 </div>
                 <ion-spinner *ngIf="!showP" name="circles"></ion-spinner>
             </ion-button>
-            <ion-button (click)="boolStripe()" color="primary" fill="solid" expand="block">
+            <ion-button (click)="pagarStripe()" color="primary" fill="solid" expand="block">
                 <div *ngIf="showT">
                     Stripe
                 </div>
@@ -108,7 +113,7 @@
             <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
         </ion-button>
 
-        <div *ngIf="auxS">
+        <!-- <div *ngIf="auxS">
             <ion-card-contend>
                 <ion-item>
                     <ion-label position="floating"><strong>Email receptor: </strong></ion-label>
@@ -122,7 +127,7 @@
                 </div>
                 <ion-spinner *ngIf="!show" name="circles"></ion-spinner>
             </ion-button>
-        </div>
+        </div> -->
 
         <br>
         <br>
