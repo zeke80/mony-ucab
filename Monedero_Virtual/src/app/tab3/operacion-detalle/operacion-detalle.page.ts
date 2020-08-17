@@ -27,6 +27,7 @@ export class OperacionDetallePage implements OnInit {
   idusuarioRealizador: number;
   referencia: string;
   monto: number;
+  correopagador: any;
 
   constructor(
     public _operacionServices: OperacionService,
@@ -47,6 +48,7 @@ export class OperacionDetallePage implements OnInit {
     });
     
     this.usuario = this._usuarioServices.getUsuario();
+
 
     this._cuentaServices.obtenerCuenta(this.usuario.idUsuario).subscribe((data:any) =>{
         console.log(data.length)
@@ -103,10 +105,9 @@ export class OperacionDetallePage implements OnInit {
 
   async reintegroS() {
     var body = {
-      idUsuarioReceptor : this.usuario.idUsuario,
-      idMedioPaga : 1, 
-      monto : this.operacion.monto,
-      idOperacion : this.operacion.idOperacionCuenta
+      idUsuarioSolicitante : this.usuario.idUsuario,
+      emailPagador : this.operacion.monto,
+      referencia : this.operacion.referencia
     }
     const alertElement = await this.alert.create({
       header: '¿Esta seguro que solicitar reintegro?',

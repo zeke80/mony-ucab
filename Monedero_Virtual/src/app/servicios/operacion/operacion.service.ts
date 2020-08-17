@@ -23,8 +23,8 @@ export class OperacionService {
   ];
   operacionesMonedero: OperacionMonedero[] = [
     {
-      idoperacionesmonedero: 0,
-      idusuario: 0,
+      idOperacionMonedero: 0,
+      idUsuario: 0,
       idTipoOperacion: 0,
       monto: 0,
       fecha: '',
@@ -46,12 +46,14 @@ export class OperacionService {
 
   reintegros: Reintegro[] = [
     {
-      idreintegro: 0,
-      idusuario_solicitante: 0,
-      idusuario_receptor: 0,
-      fecha_solicitud: '',
+      idReintegro: 0,
+      idUsuarioSolicitante: 0,
+      idUsuarioReceptor: 0,
+      fecha: '',
       referencia: '',
-      status: ''
+      referencia_reintegro:'',
+      estatus: '',
+      monto:0,
     }
   ];
 
@@ -141,7 +143,7 @@ export class OperacionService {
   getoperacionMonedero(operacionID: number){
     return {
       ...this.operacionesMonedero.find(operacion => {
-        return operacion.idoperacionesmonedero === operacionID;
+        return operacion.idOperacionMonedero === operacionID;
       })
     };
   }
@@ -157,7 +159,7 @@ export class OperacionService {
   getreintegro(operacionID: number){
     return {
       ...this.reintegros.find(operacion => {
-        return operacion.idreintegro === operacionID;
+        return operacion.idReintegro === operacionID;
       })
     };
   }
@@ -173,6 +175,17 @@ export class OperacionService {
   // }
 
   //Nuevo Back
+  
+  obtenerReintegrosActivos(idUser) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.get('http://monyucab.somee.com/api/dashboard/ReintegrosActivos?IdUsuario='+idUser+'&solicitante=1', {headers: tokenHeader});
+  }
+
+  SolicitarReintegro(body){
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+   return this.http.post('http://monyucab.somee.com/api/Transfer/SolicitarReintegro', body, {headers: tokenHeader});
+ }
+
 
   SolicitarReintegroM(body){
      var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
@@ -181,9 +194,9 @@ export class OperacionService {
   SolicitarReintegroT(body){
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
    return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroTarjeta', body, {headers: tokenHeader});
- }
- SolicitarReintegroC(body){
+  }
+  SolicitarReintegroC(body){
   var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
- return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroCuenta', body, {headers: tokenHeader});
-}
+  return this.http.post('http://monyucab.somee.com/api/Transfer/RealizarReintegroCuenta', body, {headers: tokenHeader});
+  }
 }
