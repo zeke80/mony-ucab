@@ -11,6 +11,7 @@ using NpgsqlTypes;
 using System.Collections.Generic;
 using PayPal;
 using PayPal.Api;
+using System.Globalization;
 
 namespace moneyucab_portalweb_back.Comandos
 {
@@ -420,9 +421,9 @@ namespace moneyucab_portalweb_back.Comandos
             return new Comando_Cobros_Pendientes();
         }
 
-        public static Comando_RetiroRango Fabricar_Cmd_RetiroRando()
+        public static Comando_RetiroRango Fabricar_Cmd_RetiroRango(string Fecha1, string Fecha2)
         {
-            return new Comando_RetiroRango();
+            return new Comando_RetiroRango(Fecha1,Fecha2);
         }
         public static Comando_Count_OperacionesM Fabricar_Cmd_Count_OperacionesM(int Idtipooperacion)
         {
@@ -447,6 +448,21 @@ namespace moneyucab_portalweb_back.Comandos
         public static Comando_Operaciones_Fallidas Fabricar_Cmd_Operaciones_Fallidas()
         {
             return new Comando_Operaciones_Fallidas();
+        }
+
+        public static Comando_Retiro_Dia Fabricar_Cmd_Retiro_Dia(string fecha)
+        {
+            return new Comando_Retiro_Dia(fecha);
+        }
+
+        public static Comando_Retiro_Mes Fabricar_Cmd_Retiro_Mes(string mes)
+        {
+            return new Comando_Retiro_Mes(mes);
+        }
+
+        public static Comando_Retiro_Anual Fabricar_Cmd_Retiro_Anual(string ano)
+        {
+            return new Comando_Retiro_Anual(ano);
         }
 
     }

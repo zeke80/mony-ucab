@@ -6,6 +6,8 @@ using Excepciones;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using moneyucab_portalweb_back.Comandos;
+using moneyucab_portalweb_back.EntitiesForm;
+using NpgsqlTypes;
 
 namespace moneyucab_portalweb_back.Controllers
 {
@@ -59,17 +61,17 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [HttpGet]
+        /*[HttpPost]
         [Authorize]
         [Route("RetiroRango")]
-    
-        public async Task<Object> RetipoRango()
+
+        public async Task<Object> RetiroRango([FromBody] RangoFechas rangoFechas)
         {
 
             try
             {
-
-                return Ok(await FabricaComandos.Fabricar_Cmd_RetiroRando().Ejecutar());
+                object lista = await FabricaComandos.Fabricar_Cmd_RetiroRango(rangoFechas.fecha1, rangoFechas.fecha2).Ejecutar();
+                return lista;
             }
             catch (MoneyUcabException ex)
             {
@@ -80,7 +82,7 @@ namespace moneyucab_portalweb_back.Controllers
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
             }
-        }
+        }*/
 
         [HttpGet]
         [Authorize]
@@ -105,41 +107,42 @@ namespace moneyucab_portalweb_back.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         [Route("CountOperaciones")]
 
-        public  int CountOperaciones([FromBody]int idtipo)
+        public object CountOperaciones([FromBody]int idtipo)
         {
-            int result = FabricaComandos.Fabricar_Cmd_Count_OperacionesM(idtipo).Ejecutar();
-            return result;
 
-         /*   try
-            {
 
-            }
-            catch (MoneyUcabException ex)
-            {
-                //Se retorna el badRequest con los datos de la excepción
-                return BadRequest(ex.Response());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }*/
+               try
+               {
+                int result = FabricaComandos.Fabricar_Cmd_Count_OperacionesM(idtipo).Ejecutar();
+                   return result;
+               }
+               catch (MoneyUcabException ex)
+               {
+                   //Se retorna el badRequest con los datos de la excepción
+                   return BadRequest(ex.Response());
+               }
+               catch (Exception ex)
+               {
+                   return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+               }
         }
 
         [HttpGet]
         [Authorize]
         [Route("TotalOperaciones")]
 
-        public int TotalOperaciones()
+        public object TotalOperaciones()
         {
-            int result = FabricaComandos.Fabricar_Cmd_Total_Operaciones().Ejecutar();
-            return result;
-            /*try
+            
+            try
             {
-                
+                int result = FabricaComandos.Fabricar_Cmd_Total_Operaciones().Ejecutar();
+                return result;
+
             }
             catch (MoneyUcabException ex)
             {
@@ -149,44 +152,42 @@ namespace moneyucab_portalweb_back.Controllers
             catch (Exception ex)
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }*/
+            }
         }
 
         [HttpGet]
         [Authorize]
         [Route("TotalComisiones")]
 
-        public int TotalComisiones()
+        public object TotalComisiones()
         {
-            int result = FabricaComandos.Fabricar_Cmd_Total_Comisiones().Ejecutar();
-            return result;
-          /*  try
-            {
-                
-            }
-            catch (MoneyUcabException ex)
-            {
-                //Se retorna el badRequest con los datos de la excepción
-                return BadRequest(ex.Response());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }*/
+
+              try
+              {
+                  int result = FabricaComandos.Fabricar_Cmd_Total_Comisiones().Ejecutar();
+              return result;
+              }
+              catch (MoneyUcabException ex)
+              {
+                  //Se retorna el badRequest con los datos de la excepción
+                  return BadRequest(ex.Response());
+              }
+              catch (Exception ex)
+              {
+                  return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+              }
         }
 
         [HttpGet]
         [Authorize]
         [Route("TotalCobrosPendientes")]
 
-        public int TotalCobrosPendientes()
+        public object TotalCobrosPendientes()
         {
-            int result = FabricaComandos.Fabricar_Cmd_Total_CobrosPendientes().Ejecutar();
-            return result;
-
-            /*try
+            try
             {
-                
+             int result = FabricaComandos.Fabricar_Cmd_Total_CobrosPendientes().Ejecutar();
+            return result;   
             }
             catch (MoneyUcabException ex)
             {
@@ -196,8 +197,78 @@ namespace moneyucab_portalweb_back.Controllers
             catch (Exception ex)
             {
                 return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
-            }*/
+            }
         }
+
+       /*[HttpPost]
+        [Authorize]
+        [Route("RetiroDia")]
+
+        public async Task<Object> RetiroDia([FromBody] string fecha1)
+        {
+
+            try
+            {
+                object lista = await FabricaComandos.Fabricar_Cmd_Retiro_Dia(fecha1).Ejecutar();
+                return lista;
+            }
+            catch (MoneyUcabException ex)
+            {
+                //Se retorna el badRequest con los datos de la excepción
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("RetiroMes")]
+
+        public async Task<Object> RetiroMes([FromBody] string mes)
+        {
+
+            try
+            {
+                object lista = await FabricaComandos.Fabricar_Cmd_Retiro_Mes(mes).Ejecutar();
+                return lista;
+            }
+            catch (MoneyUcabException ex)
+            {
+                //Se retorna el badRequest con los datos de la excepción
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("RetiroAnual")]
+
+        public async Task<Object> RetiroAnual([FromBody] string ano)
+        {
+
+            try
+            {
+
+                object lista = await FabricaComandos.Fabricar_Cmd_Retiro_Anual(ano).Ejecutar();
+                return lista;
+            }
+            catch (MoneyUcabException ex)
+            {
+                //Se retorna el badRequest con los datos de la excepción
+                return BadRequest(ex.Response());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(MoneyUcabException.ResponseErrorDesconocido(ex));
+            }
+        }*/
 
 
     }
