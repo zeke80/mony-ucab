@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { PagoService } from 'src/app/servicios/pago/pago.service';
 import { ReintegroService } from 'src/app/servicios/reintegro/reintegro.service';
 
@@ -16,7 +16,8 @@ export class ConfirmacionStripePage implements OnInit {
     private formModulo: FormsModule,
     private alert: AlertController,
     private pagoService:PagoService,
-    private reintegroService:ReintegroService) { }
+    private reintegroService:ReintegroService,
+    private toastController: ToastController) { }
 
     ejecutarPagoStripe(){
 
@@ -42,14 +43,44 @@ export class ConfirmacionStripePage implements OnInit {
         console.log(err.message);
       }
       );
+      this.successToast('success','Pago por Stripe exitoso!');
       this.router.navigate(['tabs/operaciones']);
     }
 
     cancelarPagoStripe(){
+      this.dangerToast('danger','Pago por stripe cancelado!');
       this.router.navigate(['tabs/operaciones']);
     }
 
   ngOnInit() {
+  }
+
+  async successToast(color : string, mensaje : string) {
+    const success = await this.toastController.create({
+      message: mensaje,
+      color : color,
+      buttons: [ 
+        {
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+    success.present();
+  }
+  
+  async dangerToast(color : string, mensaje : string) {
+    const success = await this.toastController.create({
+      message: mensaje,
+      color : color,
+      buttons: [ 
+        {
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+    success.present();
   }
 
 }

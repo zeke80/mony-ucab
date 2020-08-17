@@ -21,21 +21,21 @@ export class ReintegroService {
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', this.common)
-    return this.http.get('http://localhost:80/api/Dashboard/ReintegrosActivos', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/Dashboard/ReintegrosActivos', {params: param, headers: header})
   }
 
   reintegrosCancelados(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', this.common)
-    return this.http.get('http://localhost:80/api/Dashboard/ReintegrosCancelados', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/Dashboard/ReintegrosCancelados', {params: param, headers: header})
   }
 
   reintegrosExitosos(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', this.common)
-    return this.http.get('http://localhost:80/api/Dashboard/ReintegrosExitosos', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/Dashboard/ReintegrosExitosos', {params: param, headers: header})
   }
 
   cancelarReintegro(IdReintegro){
@@ -57,7 +57,7 @@ export class ReintegroService {
     console.log(options);
 
     return this.http
-    .post('http://localhost:80/api/Transfer/CancelarReintegro',null, options)
+    .post('http://localhost:49683/api/Transfer/CancelarReintegro',null, options)
   }
 
 
@@ -72,7 +72,7 @@ export class ReintegroService {
   }
     
     console.log(body);
-    return this.http.post('http://localhost:80/api/transfer/RealizarReintegromonedero',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/transfer/RealizarReintegromonedero',body, {headers: header});
   }
 
 

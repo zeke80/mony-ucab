@@ -90,21 +90,21 @@ export class PagoService {
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', this.solicitante )
-    return this.http.get('http://localhost:80/api/dashboard/cobrosactivos', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/dashboard/cobrosactivos', {params: param, headers: header})
   }
 
   cobrosCancelados(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', '1')
-    return this.http.get('http://localhost:80/api/dashboard/CobrosCancelados', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/dashboard/CobrosCancelados', {params: param, headers: header})
   }
 
   cobrosExitosos(){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
     let param = new HttpParams().set('idUsuario', localStorage.getItem('idUsuario'))
     .set('solicitante', '1')
-    return this.http.get('http://localhost:80/api/dashboard/CobrosExitosos', {params: param, headers: header})
+    return this.http.get('http://localhost:49683/api/dashboard/CobrosExitosos', {params: param, headers: header})
   }
 
   realizarCobro(cobro: Cobro){
@@ -115,7 +115,7 @@ export class PagoService {
       monto: cobro.monto
     }
     console.log(body);
-    return this.http.post('http://localhost:80/api/Transfer/realizarcobro',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/Transfer/realizarcobro',body, {headers: header});
   }
 
   cancelarCobro(IdCobro){
@@ -133,7 +133,7 @@ export class PagoService {
 
     console.log(options);
 
-    return this.http.post('http://localhost:80/api/Transfer/CancelarCobro',null, options)
+    return this.http.post('http://localhost:49683/api/Transfer/CancelarCobro',null, options)
   }
 
   crearPagoPaypal(){
@@ -210,10 +210,10 @@ export class PagoService {
       
 
       
-      body.payment.transactions[0].invoice_number = '100' + localStorage.getItem('idReintegroDetalle');
+      body.payment.transactions[0].invoice_number = '1000' + localStorage.getItem('idReintegroDetalle');
       console.log(body);
 
-    return this.http.post('http://localhost:80/api/Paypal/CrearPago',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/Paypal/CrearPago',body, {headers: header});
   }
 
 
@@ -224,19 +224,19 @@ export class PagoService {
     
 
 
-    return this.http.post('http://localhost:80/api/Paypal/PagoExitoso',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/Paypal/PagoExitoso',body, {headers: header});
   }
 
   cancelarPagoPaypal(body){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
-    return this.http.post('http://localhost:80/api/Paypal/PagoCancelado',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/Paypal/PagoCancelado',body, {headers: header});
   }
 
 
   ejecutarPagoStripe(body){
     let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
 
-    return this.http.post('http://localhost:80/api/Stripe/CrearPago',body, {headers: header});
+    return this.http.post('http://localhost:49683/api/Stripe/CrearPago',body, {headers: header});
   }
 }
