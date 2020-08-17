@@ -234,4 +234,11 @@ export class PagoService {
 
     return this.http.post('http://localhost:80/api/Paypal/PagoCancelado',body, {headers: header});
   }
+
+
+  ejecutarPagoStripe(body){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+
+    return this.http.post('http://localhost:80/api/Stripe/CrearPago',body, {headers: header});
+  }
 }

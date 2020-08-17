@@ -9,13 +9,33 @@ import { ToastController, LoadingController, AlertController } from '@ionic/angu
 })
 export class PagoStripePage implements OnInit {
 
+  pagoStripe =
+  {"monto":0,
+    "descripcion": "",
+    "emailReceptor": "",
+    "reg":false,
+    "idOperacion": 0}
+
   constructor(private router: Router) { }
 
-  Pago(){
+  onSubmit(){
+
+    localStorage.setItem('descripcionStripe', this.pagoStripe.descripcion);
+    localStorage.setItem('emailStripe', this.pagoStripe.emailReceptor);
     this.router.navigate(['tabs/operaciones/reintegro-detalle/pago-stripe/confirmacion-stripe'])
   }
 
+
+  setPagoStripe(){
+
+   this.pagoStripe.monto = parseInt(localStorage.getItem('montoDetalle'));
+   this.pagoStripe.idOperacion = parseInt(localStorage.getItem('idReintegroDetalle'));
+  }
+
   ngOnInit() {
+
+    this.setPagoStripe();
+    
   }
 
 }

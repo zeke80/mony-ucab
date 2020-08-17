@@ -28,33 +28,17 @@
         <form  (submit)="onSubmit()">
 
           <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Monto (sin impuestos):</h1></ion-text></strong>
-          <ion-text color="dark"> <h2 class="ion-text-center" >$ {{costo}}</h2></ion-text>
+          <ion-text color="dark"> <h2 class="ion-text-center" >$ {{pagoStripe.monto}}</h2></ion-text>
             <ion-item>
-                <strong><ion-label position="fixed">Estado: </ion-label></strong>
-                <ion-input  name="user1"></ion-input>
+                <strong><ion-label position="fixed">E-mail: </ion-label></strong>
+                <ion-input [(ngModel)]="pagoStripe.emailReceptor" name="user1"></ion-input>
             </ion-item>
             <ion-item>
-              <strong><ion-label position="fixed">Ciudad: </ion-label></strong>
-              <ion-input name="user2"></ion-input>
+              <strong><ion-label position="fixed">Descripcion: </ion-label></strong>
+              <ion-input [(ngModel)]="pagoStripe.descripcion" name="user2"></ion-input>
           </ion-item>
-            <ion-item>
-              <strong><ion-label position="fixed">Direccion: </ion-label></strong>
-              <ion-input name="user3"></ion-input>
-          </ion-item>
-          <ion-item>
-            <strong><ion-label position="fixed">Direccion(cont): </ion-label></strong>
-            <ion-input name="user4"></ion-input>
-          </ion-item>
-          <ion-item>
-              <strong><ion-label position="fixed">Cod. Postal: </ion-label></strong>
-              <ion-input  name="user5"  type="number"></ion-input>
-          </ion-item>
-          <ion-item>
-            <strong><ion-label position="fixed">Telefono: </ion-label></strong>
-            <ion-input  name="user6"  type="number"></ion-input>
-        </ion-item>
              
-            <ion-button  (click)="Pago()" fill="solid"  expand="block" color="success">
+            <ion-button  (click)="onSubmit()" fill="solid"  expand="block" color="success">
               Enviar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
           </ion-button>
         </form>
