@@ -24,6 +24,7 @@ export class Tab3Page implements OnInit{
   monederos = [];
   omonederos = [];
   reintegros = [];
+  reintegrose = [];
   usuario: Usuario
   public navParams = new NavParams();
   aux = false;
@@ -46,20 +47,16 @@ export class Tab3Page implements OnInit{
 
   ngOnInit(){
     this.usuario = this._usuarioServices.getUsuario();
-    //this.operaciones = this._operacionServices.getoperacionesCuentaVacio();
+    this.operaciones = this._operacionServices.getoperacionesCuentaVacio();
   
-    //this.monederos = this._operacionServices.getoperacionesMonederoVacio();
-    //this.reintegros = this._operacionServices.getreintegrosVacio();
+    this.monederos = this._operacionServices.getoperacionesMonederoVacio();
+    this.reintegros = this._operacionServices.getreintegrosVacio();
    
     if(this.aux){
     this.operacionesmonedero();
     this.loadTargetOperations();
     this.loadAccountsOperations();
     this.loadReintegrosOperations();
-    // this._operacionServices.obtenerReintegrosActivos(this.usuario.idUsuario).subscribe((data:any)=>{
-    //   //this.reintegros = data;
-    //   console.log(data)
-    // });
     }
     this.aux=true;
     }
@@ -133,9 +130,14 @@ export class Tab3Page implements OnInit{
     } // EN ESPERA HASTA QUE SE SUBA EL ARREGLO DEL JSON AL SERVER
     loadReintegrosOperations(){
       this._operacionServices.obtenerReintegrosActivos(this.usuario.idUsuario).subscribe((data:any)=>{
-        this.reintegros = data;
-        console.log(data)
+      this.reintegros = data;
+        console.log("Reintegros solicitados",this.reintegros)
         this._operacionServices.guardarReintegros(this.reintegros);
+      });
+      this._operacionServices.obtenerReintegrosExitosos(this.usuario.idUsuario).subscribe((data:any)=>{
+        this.reintegrose = data;
+        console.log("reintregros exitosos",this.reintegrose)
+        this._operacionServices.guardarReintegros(this.reintegrose);
       });
     }
     // getAccountsAndLoadOperations(){

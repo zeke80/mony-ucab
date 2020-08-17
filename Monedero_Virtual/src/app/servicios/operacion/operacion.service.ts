@@ -181,6 +181,11 @@ export class OperacionService {
     return this.http.get('http://monyucab.somee.com/api/dashboard/ReintegrosActivos?IdUsuario='+idUser+'&solicitante=1', {headers: tokenHeader});
   }
 
+  obtenerReintegrosExitosos(idUser) {
+    var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
+    return this.http.get('http://monyucab.somee.com/api/dashboard/ReintegrosExitosos?IdUsuario='+idUser+'&solicitante=0', {headers: tokenHeader});
+  }
+
   SolicitarReintegro(body){
     var tokenHeader = new HttpHeaders({'Authorization': 'Bearer ' +  localStorage.getItem('token')});
    return this.http.post('http://monyucab.somee.com/api/Transfer/SolicitarReintegro', body, {headers: tokenHeader});

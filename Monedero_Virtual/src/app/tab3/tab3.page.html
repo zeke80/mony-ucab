@@ -115,6 +115,24 @@
 
                     </ion-item>
                 </ion-list>
+                <ion-list>
+                    <ion-item *ngFor="let reintegro of reintegrose"
+                        [routerLink]="['/tabs/operaciones/reintegro', reintegro.idReintegro]">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        <ion-label>
+                            <h1>
+                                $ {{reintegro.monto}}
+                            </h1>
+                            <h2>
+                                Estatus: {{reintegro.estatus}}
+                            </h2>   
+                            <h2>
+                                Fecha: {{reintegro.fecha.day}}/{{reintegro.fecha.month}}/{{reintegro.fecha.year}}
+                            </h2>
+                        </ion-label>
+
+                    </ion-item>
+                </ion-list>
             </ion-card-contend>
         </ion-card>
 

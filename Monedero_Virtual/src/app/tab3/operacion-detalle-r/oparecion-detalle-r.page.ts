@@ -30,17 +30,20 @@ export class OparecionDetalleRPage implements OnInit {
     this._activatedRoute.paramMap.subscribe(paramMap => {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
+      console.log('ID ' + id);
       this.operacion = this._operacionServices.getreintegro(id);
-      console.log(this.operacion)
-    });
-     this._usuarioServices.getUserInfo(this.operacion.idUsuarioSolicitante)
-         .subscribe((data: any) =>{
-        this.userS = data['result']['email']
-    });
-    this._usuarioServices.getUserInfo(this.operacion.idUsuarioReceptor)
-     .subscribe((data: any) => {
-       this.userR = data['result']['email'];
+      console.log("OPERACION " + this.operacion.idUsuarioSolicitante)
+      console.log("OPERACION " + this.operacion.idUsuarioReceptor)
+      this._usuarioServices.getUserInfo(this.operacion.idUsuarioSolicitante)
+          .subscribe((data: any) =>{
+         this.userS = data['result']['email']
      });
+     this._usuarioServices.getUserInfo(this.operacion.idUsuarioReceptor)
+      .subscribe((data: any) => {
+        this.userR = data['result']['email'];
+      });
+    });
+    
   }
 
 }
