@@ -2794,7 +2794,7 @@ namespace DAO
             return null;
         }
 
-        public List<ComOperacionMonedero> RetiroRango(string fecha1, string fecha2)
+        public List<ComRangoFechas> RetiroRango(string fecha1, string fecha2)
         {
             try
             {
@@ -2806,11 +2806,11 @@ namespace DAO
                 comandoSQL.Parameters.Add(new NpgsqlParameter("fecha1", fecha1));
                 comandoSQL.Parameters.Add(new NpgsqlParameter("fecha2", fecha2));
                 lectorTablaSQL = comandoSQL.ExecuteReader();
-                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
-                ComOperacionMonedero row;
+                List<ComRangoFechas> listaUsuarios = new List<ComRangoFechas>();
+                ComRangoFechas row;
                 while (lectorTablaSQL.Read())
                 {
-                    row = new ComOperacionMonedero();
+                    row = new ComRangoFechas();
                     row.LlenadoDataNpgsql(lectorTablaSQL);
                     listaUsuarios.Add(row);
                 }
@@ -2983,7 +2983,7 @@ namespace DAO
             return 0;
         }
 
-        public List<ComOperacionMonedero> retiro_dia(string DD)
+        public List<ComRangoFechas> retiro_dia(string DD)
         {
             try
             {
@@ -2994,11 +2994,11 @@ namespace DAO
                 comandoSQL.CommandText = string.Format("SELECT * FROM retiro_dia(@DD);");
                 comandoSQL.Parameters.Add(new NpgsqlParameter("DD", DD));
                 lectorTablaSQL = comandoSQL.ExecuteReader();
-                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
-                ComOperacionMonedero row;
+                List<ComRangoFechas> listaUsuarios = new List<ComRangoFechas>();
+                ComRangoFechas row;
                 while (lectorTablaSQL.Read())
                 {
-                    row = new ComOperacionMonedero();
+                    row = new ComRangoFechas();
                     row.LlenadoDataNpgsql(lectorTablaSQL);
                     listaUsuarios.Add(row);
                 }
@@ -3026,7 +3026,7 @@ namespace DAO
             return null;
         }
 
-        public List<ComOperacionMonedero> retiro_mes(string mes)
+        public List<ComRangoFechas> retiro_mes(string mes)
         {
             try
             {
@@ -3037,11 +3037,11 @@ namespace DAO
                 comandoSQL.CommandText = string.Format("SELECT * FROM retiro_mes(@mes);");
                 comandoSQL.Parameters.Add(new NpgsqlParameter("mes", mes));
                 lectorTablaSQL = comandoSQL.ExecuteReader();
-                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
-                ComOperacionMonedero row;
+                List<ComRangoFechas> listaUsuarios = new List<ComRangoFechas>();
+                ComRangoFechas row;
                 while (lectorTablaSQL.Read())
                 {
-                    row = new ComOperacionMonedero();
+                    row = new ComRangoFechas();
                     row.LlenadoDataNpgsql(lectorTablaSQL);
                     listaUsuarios.Add(row);
                 }
@@ -3069,7 +3069,7 @@ namespace DAO
             return null;
         }
 
-        public List<ComOperacionMonedero> retiro_anual(string ano)
+        public List<ComRangoFechas> retiro_anual(string ano)
         {
             try
             {
@@ -3080,11 +3080,11 @@ namespace DAO
                 comandoSQL.CommandText = string.Format("SELECT * FROM retiro_anual(@ano);");
                 comandoSQL.Parameters.Add(new NpgsqlParameter("ano", ano));
                 lectorTablaSQL = comandoSQL.ExecuteReader();
-                List<ComOperacionMonedero> listaUsuarios = new List<ComOperacionMonedero>();
-                ComOperacionMonedero row;
+                List<ComRangoFechas> listaUsuarios = new List<ComRangoFechas>();
+                ComRangoFechas row;
                 while (lectorTablaSQL.Read())
                 {
-                    row = new ComOperacionMonedero();
+                    row = new ComRangoFechas();
                     row.LlenadoDataNpgsql(lectorTablaSQL);
                     listaUsuarios.Add(row);
                 }
