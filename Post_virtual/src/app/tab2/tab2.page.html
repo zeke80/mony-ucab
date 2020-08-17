@@ -1,0 +1,151 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="logout()" fill="solid" color="tertiary" expand="block">Cerrar sesión</ion-button>
+        </ion-buttons>
+        <ion-title>
+            <ion-item>
+            
+            <h1><strong>Cuenta</strong></h1>
+            <ion-icon name="wallet-outline" color="dark"></ion-icon>
+        </ion-item>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <div class="contaier-monto">
+
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        
+                     <strong><ion-text color="tertiary"> <h1 class="ion-text-center">Saldo disponible:</h1></ion-text></strong>
+                     <ion-text color="dark"> <h2 class="ion-text-center" >$ {{saldo}}</h2></ion-text>
+                    
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+               <strong> <ion-text color="tertiary"><h1 class="ion-text-center">Cobros activos</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cobroActivo of cobrosActivos">
+                        <ion-icon slot="start" name="reader-outline"></ion-icon>
+                        
+                        <ion-label>
+                            
+                            <h1>
+                                $ {{cobroActivo.monto}} 
+                            </h1>
+                            <h2>
+                                Fecha: {{cobroActivo.fecha.day}}-{{cobroActivo.fecha.month}}-{{cobroActivo.fecha.year}} 
+                            </h2>
+
+                        </ion-label>
+                        <ion-button fill="clear" (click)="onClick(cobroActivo.idPago)">
+                            <ion-icon slot="end" color="danger" class="cancelar" name="close-circle-outline" size="large"></ion-icon>
+                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+                        </ion-button>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+              <strong> <ion-text color="tertiary"><h1 class="ion-text-center">Cobros cancelados</h1></ion-text></strong> 
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cobroCancelado of cobrosCancelados">
+                        <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{cobroCancelado.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{cobroCancelado.fecha.day}}-{{cobroCancelado.fecha.month}}-{{cobroCancelado.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <strong><ion-text color="tertiary"><h1 class="ion-text-center">Cobros exitosos</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cobroExitoso of cobrosExitosos">
+                        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{cobroExitoso.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{cobroExitoso.fecha.day}}-{{cobroExitoso.fecha.month}}-{{cobroExitoso.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <strong><ion-text color="tertiary"><h1 class="ion-text-center">Cuentas registradas</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let cuenta of cuentas">
+                        <ion-icon slot="start" name="person-circle-outline"></ion-icon>
+                        <ion-label>
+                            {{cuenta._numero}}
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+               <strong> <ion-text color="tertiary"><h1 class="ion-text-center">Tarjetas registradas</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let tarjeta of tarjetas">
+                        <ion-icon slot="start" name="card-outline"></ion-icon>
+                        <ion-label>
+                            {{tarjeta.numero}}
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+</ion-content>

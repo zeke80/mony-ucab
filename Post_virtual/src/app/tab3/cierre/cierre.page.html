@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+    <ion-toolbar >
+        <ion-buttons slot="start">
+            <ion-back-button defaulHref="/tabs/operaciones"></ion-back-button>
+        </ion-buttons>
+        
+        <ion-title>
+            <ion-item>
+            <h1 class="ion-text-center"><strong> Cierre</strong></h1>
+            <ion-icon name="calendar-outline" color="dark"></ion-icon>
+        </ion-item>
+        </ion-title>
+        
+    
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+    <div class="contaier-monto">
+
+        <ion-card>
+            <ion-card-header>
+             <p class="ion-text-center"><ion-icon name="calendar-outline" color="dark" class="icon"></ion-icon></p>
+            </ion-card-header>
+            <ion-card-contend>
+                
+            
+                    <ion-item >
+                        <ion-label>
+                                <strong>Ganancias:</strong> ${{monto}} 
+                        </ion-label>
+                    </ion-item>
+                    <ion-item >
+                        <ion-label>
+                                <strong>Fecha:</strong> {{day}}-{{month}}-{{year}}
+                        </ion-label>
+                    </ion-item>
+                    <ion-item >
+                        <ion-label>
+                                <strong>Referencia:</strong> {{referencia}}   
+                        </ion-label>
+                    </ion-item>
+                
+            </ion-card-contend>
+        </ion-card>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+</ion-content>

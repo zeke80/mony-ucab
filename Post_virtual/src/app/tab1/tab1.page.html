@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            <ion-item>
+               
+            <h1 class="ion-text-center"><strong>Perfil de la empresa</strong></h1>
+            </ion-item>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+    <div class="contaier-perfil">
+        <ion-card>
+            <ion-card-header>
+                <ion-row>
+                    <ion-col>
+                        <p class="ion-text-center"><ion-icon name="person-circle-outline" color="dark" class="icon"></ion-icon></p>
+                      <strong> <ion-text color="tertiary"><h2 class="ion-text-center">Editar perfil</h2></ion-text></strong>
+                    </ion-col>
+                </ion-row>
+            </ion-card-header>
+            <ion-card-contend>
+                <form (submit)="onSubmit()">
+
+                    <ion-item class="margin-top-5">
+                        <strong><ion-label position="fixed">Nombre</ion-label></strong>
+                        <ion-input  [(ngModel)]="user.persona.nombre" name="nombre"></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <strong><ion-label position="fixed">Apellido</ion-label></strong>
+                        <ion-input  [(ngModel)]="user.persona.apellido" name="apellido"></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <strong><ion-label position="fixed">Teléfono</ion-label></strong>
+                        <ion-input  [(ngModel)]="user.result.telefono" name="telefono" ></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <strong><ion-label position="fixed">Dirección</ion-label></strong>
+                        <ion-input  [(ngModel)]="user.result.direccion" name="direccion"></ion-input>
+                      </ion-item>
+            
+                      <ion-item class="margin-top-5">
+                        <strong><ion-label position="fixed">Razón social</ion-label></strong>
+                        <ion-input  [(ngModel)]="user.comercio.razonSocial" name="razonsocial" ></ion-input>
+                      </ion-item>
+            
+                      <ion-item>
+                        <strong><ion-label>Estado Civil</ion-label></strong>
+                        <ion-select [(ngModel)]="user.estadoCivil.idEstadoCivil" name="idEstadoCivil" ok-text="Aceptar" cancel-text="cancelar">
+                          <ion-select-option   value="1">C</ion-select-option>
+                          <ion-select-option   value="2">S</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+            
+
+
+                    <ion-button type="submit" fill="solid" color="success"  expand="block">
+                       Guardar <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                    </ion-button>
+                </form>
+
+            </ion-card-contend>
+        </ion-card>
+
+    </div>
+
+
+
+
+
+</ion-content>

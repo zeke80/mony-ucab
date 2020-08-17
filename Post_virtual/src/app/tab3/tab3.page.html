@@ -1,0 +1,110 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            <ion-item>
+            
+            <h1 class="ion-text-center"><strong>Operaciones</strong></h1>
+            <ion-icon name="git-compare-outline" color="dark"></ion-icon>
+        </ion-item>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> 
+
+
+    <div class="contaier-monto">
+
+        <ion-button (click)="cierre()" color="tertiary" fill="solid" expand="block">
+            Ejecutar Cierre del dia
+        </ion-button>
+
+        <ion-button (click)="solicitudPago()" color="tertiary" fill="solid" expand="block">
+            solicitar pago
+        </ion-button>
+
+        <ion-card>
+            <ion-card-header>
+                <strong><ion-text color="tertiary"><h1 class="ion-text-center">Reintegros solicitados</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let reintegroActivo of reintegrosActivos">
+                        
+
+                        <ion-button fill="clear" (click)="onDetail(reintegroActivo)">
+                            <ion-icon slot="start" color="success" class="cancelar" name="reader-outline" size="large"></ion-icon>
+                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+                        </ion-button>
+
+                        <ion-label>
+
+                            <h1>
+                                $ {{reintegroActivo.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{reintegroActivo.fecha.day}}-{{reintegroActivo.fecha.month}}-{{reintegroActivo.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                        <ion-button fill="clear" (click)="onClick(reintegroActivo.idReintegro)">
+                            <ion-icon slot="end" color="danger" class="cancelar" name="close-circle-outline" size="large"></ion-icon>
+                            <span class="iconify" data-icon="ion:backspace" data-inline="false"></span>
+                        </ion-button>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <strong><ion-text color="tertiary"><h1 class="ion-text-center">Reintegros Cancelados</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let reintegroCancelado of reintegrosCancelados"> 
+                        <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{reintegroCancelado.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{reintegroCancelado.fecha.day}}-{{reintegroCancelado.fecha.month}}-{{reintegroCancelado.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-header>
+                <strong><ion-text color="tertiary"><h1 class="ion-text-center">Reintegros Exitosos</h1></ion-text></strong>
+            </ion-card-header>
+            <ion-card-contend>
+                <ion-list>
+                    <ion-item *ngFor="let reintegroExitoso of reintegrosExitosos">
+                        <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+                        <ion-label>
+
+                            <h1>
+                                $ {{reintegroExitoso.monto}}
+                            </h1>
+                            <h2>
+                                Fecha: {{reintegroExitoso.fecha.day}}-{{reintegroExitoso.fecha.month}}-{{reintegroExitoso.fecha.year}}
+                            </h2>
+
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ion-card-contend>
+        </ion-card>
+
+
+
+    </div>
+
+
+</ion-content>
