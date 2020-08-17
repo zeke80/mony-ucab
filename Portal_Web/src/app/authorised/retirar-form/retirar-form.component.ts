@@ -53,7 +53,7 @@ export class RetirarFormComponent implements OnInit {
       },
       (err : HttpErrorResponse) => {
         if (err.status >= 400){
-          alert("Error en datos")
+          alert("Error en datos o ha superado su limite")
         }
         else{
           alert("Error inesperado. Intente luego");

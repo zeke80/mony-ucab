@@ -11,10 +11,17 @@ import { AuthorisedSideNavService } from './services/authorised-side-nav.service
 })
 export class SideNavComponent implements OnInit {
 
+  showMenuAdmin = false;
+  showComercio = localStorage.getItem('esComercio');
+
   constructor(public sideNavService: AuthorisedSideNavService) { }
 
   ngOnInit(): void {
-
+    if (parseInt(localStorage.getItem('userIntID')) == 15){
+      this.showMenuAdmin = true;
+    }
+    console.log(this.showComercio);
   }
 
+  
 }

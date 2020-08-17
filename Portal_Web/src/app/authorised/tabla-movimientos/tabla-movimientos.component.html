@@ -1,48 +1,9 @@
 <div *ngIf = "s_movimientos.show" >
-    <h1 class="display-4">Movimientos</h1>
-    <hr>
-
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="form-row">
-                <div class="col-4">
-                    <label for="mes1"><h6>Desde</h6></label>
-                    <input type="date" class="form-control" [(ngModel)]="fecha1">
-
-                </div>
-                <div class="col-4">
-                    <label for="mes2"><h6>Hasta</h6></label>
-                    <input type="date" class="form-control" [(ngModel)]="fecha2">
-                </div>
-                <div class="col-2">
-                    <br>
-                    <button type="button" class="btn btn-primary float-right" type="submit" (click) = "filtrar()">Filtrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Movimientos</h2>
+    </div>
 
-    <div class="form-check form-check-inline">
-        <label class="form-check-label">
-        <input class="form-check-input" type="radio" value="todos" name="opcion" checked="checked" [(ngModel)]="opcion"> Todos
-        </label>
-    </div>
-    <div class="form-check form-check-inline">
-        <label class="form-check-label">
-        <input class="form-check-input" type="radio" value="tarjeta" name="opcion" [(ngModel)]="opcion"> Solo tarjeta
-        </label>
-    </div>
-    <div class="form-check form-check-inline">
-        <label class="form-check-label">
-        <input class="form-check-input" type="radio" value="monedero" name="opcion" [(ngModel)]="opcion"> Solo monedero
-        </label>
-    </div>
-    <div class="form-check form-check-inline">
-        <label class="form-check-label">
-        <input class="form-check-input" type="radio"  value="cuenta" name="opcion" [(ngModel)]="opcion"> Solo cuenta
-        </label>
-    </div>
     <br>
     <br>
 
@@ -55,6 +16,7 @@
                 <th>Tipo operación</th>
                 <th>Estatus</th>
             </tr>
+
             <tr *ngFor = "let movimiento of movimientosCuenta">
                 <td>{{movimiento.referencia}}</td>
                 <td>{{fechaToString(movimiento.fecha)}}</td>
@@ -63,21 +25,50 @@
                 <td>{{movimiento.estatus}}</td>
             </tr>
 
-            <tr *ngFor = "let movimiento of movimientosTarjeta">
-                <td>{{movimiento.referencia}}</td>
-                <td>{{movimiento.fecha.split('T',1)}}</td>
-                <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
-                <td>{{movimiento.monto}}</td>
+            <tr *ngFor = "let cobroExitoso of cobrosExitosos">
+                <td>{{cobroExitoso.referencia}}</td>
+                <td>{{fechaToString(cobroExitoso.fecha)}}</td>
+                <td>{{cobroExitoso.monto}}</td>
+                <td>Cobro Exitoso</td>
+                <td>{{cobroExitoso.estatus}}</td>
+            </tr>
+
+            <tr *ngFor = "let cobroCancelado of cobrosCancelados">
+                <td>{{cobroCancelado.referencia}}</td>
+                <td>{{fechaToString(cobroCancelado.fecha)}}</td>
+                <td>{{cobroCancelado.monto}}</td>
+                <td>Cobro Cancelado</td>
+                <td>{{cobroCancelado.estatus}}</td>
+            </tr>
+
+
+            <tr *ngFor = "let reintegroActivo of reintegrosActivos">
+                <td>{{reintegroActivo.referencia}}</td>
+                <td>{{fechaToString(reintegroActivo.fecha)}}</td>
+                <td>{{reintegroActivo.monto}}</td>
+                <td>Reintegro Activo</td>
+                <td>{{reintegroActivo.estatus}}</td>
 
             </tr>
 
-            <tr *ngFor = "let movimiento of movimientosMonedero">
-                <td>{{movimiento.referencia}}</td>
-                <td>{{movimiento.fecha.split('T',1)}}</td>
-                <td>{{movimiento.hora.hours}}:{{movimiento.hora.minutes}}</td>
-                <td>{{movimiento.monto}}</td>
- 
+            <tr *ngFor = "let reintegroExitoso of reintegrosExitosos">
+                <td>{{reintegroExitoso.referencia}}</td>
+                <td>{{fechaToString(reintegroExitoso.fecha)}}</td>
+                <td>{{reintegroExitoso.monto}}</td>
+                <td>Reintegro Exitoso</td>
+                <td>{{reintegroExitoso.estatus}}</td>
+
             </tr>
+
+            <tr *ngFor = "let reintegroCancelado of reintegrosCancelados">
+                <td>{{reintegroCancelado.referencia}}</td>
+                <td>{{fechaToString(reintegroCancelado.fecha)}}</td>
+                <td>{{reintegroCancelado.monto}}</td>
+                <td>Reintegro Cancelado</td>
+                <td>{{reintegroCancelado.estatus}}</td>
+
+            </tr>
+
         </thead>
     </table>
 

@@ -1,7 +1,9 @@
 <div *ngIf = "s_perfil.show">
     
-    <h1 class="display-4">Información personal</h1>
-    <hr>
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Información personal</h2>
+    </div> 
 
     <div class="container">
         <div class="row">
@@ -28,6 +30,14 @@
                             <div class="col-md-12">
                                 <label ><h4>Razón Social</h4></label>
                                 <input type="text" class="form-control" formControlName="razonSocial">    
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <label ><h4>Comision</h4></label>
+                                <input type="text" class="form-control" formControlName="comision">    
                             </div>
                         </div>
                     </div>

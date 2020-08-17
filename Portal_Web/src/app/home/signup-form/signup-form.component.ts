@@ -37,8 +37,7 @@ export class SignupFormComponent implements OnInit {
   formComercio = new FormGroup({
     razonSocial : new FormControl('', Validators.required),
     nombreRepresentante : new FormControl ('', Validators.required),
-    apellidoRepresentante : new FormControl('', Validators.required),
-    comision : new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*\.?[0-9]*$/)])
+    apellidoRepresentante : new FormControl('', Validators.required)
   });
 
   formUsuario = new FormGroup({
@@ -128,7 +127,7 @@ export class SignupFormComponent implements OnInit {
       this.formComercio.get('razonSocial').value,
       this.formPersona.get('apellido').value,
       this.formPersona.get('nombre').value,
-      parseFloat(this.formComercio.get('comision').value),
+      0,
       parseInt(this.datePipe.transform(Date.now(),'yyyy'),10),
       parseInt(this.datePipe.transform(Date.now(),'MM'),10),
       parseInt(this.datePipe.transform(Date.now(),'dd'),10)

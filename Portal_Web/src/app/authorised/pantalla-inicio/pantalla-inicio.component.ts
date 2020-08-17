@@ -17,7 +17,6 @@ export class PantallaInicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.s_inicio.consultarSaldo(this.userIntID).subscribe(data => {
-      console.log(data);
       this.saldo = data;
     });
   }

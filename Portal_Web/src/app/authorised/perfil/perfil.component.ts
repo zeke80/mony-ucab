@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 
+
 import { Usuario } from './../../models/usuario.model';
 import { Persona } from './../../models/persona.model';
 import { Comercio } from './../../models/comercio.model';
@@ -20,7 +21,8 @@ export class PerfilComponent implements OnInit {
   email = localStorage.getItem('email');
 
   formComercio = new FormGroup({
-    razonSocial : new FormControl({value: '', disabled: true}, Validators.required)
+    razonSocial : new FormControl({value: '', disabled: true}, Validators.required),
+    comision : new FormControl({value: '', disabled: true})
   });
 
   formUsuario = new FormGroup({
@@ -104,6 +106,7 @@ export class PerfilComponent implements OnInit {
     this.formUsuario.get('telefono').patchValue(data.result.telefono);
     this.formUsuario.get('direccion').patchValue(data.result.direccion);
     this.formComercio.get('razonSocial').patchValue(data.comercio.razonSocial);
+    this.formComercio.get('comision').patchValue(data.comercio.comision);
   }
 
   consutarInfo(){
@@ -117,7 +120,7 @@ export class PerfilComponent implements OnInit {
         else{
           this.infoPersona = null;
           this.mostrarComercio(data);
-          
+
         }
       }
     );
@@ -127,6 +130,7 @@ export class PerfilComponent implements OnInit {
     this.isDisabled = false;
     this.formUsuario.enable();
     this.formComercio.enable();
+    this.formComercio.get('comision').disable();
   }
 
   cancelar(){

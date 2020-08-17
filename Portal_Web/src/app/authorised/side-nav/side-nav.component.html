@@ -5,43 +5,43 @@
           <p (click) = "sideNavService.toggleInicio()"><i class="fas fa-home fa-1x " title="Inicio" ></i> Inicio</p>
       </li>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.togglePerfil()"><i class="fas fa-user fa-1x" title="Perfil"></i>  Perfil</p>    
-      </li>
+      <div *ngIf="!showMenuAdmin">
+          
+        <li class="nav-item">
+          <p (click) = "sideNavService.togglePerfil()"><i class="fas fa-user fa-1x" title="Perfil"></i>  Perfil</p>    
+        </li>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleMovimientos()"><i class="fas fa-coins fa-1x" title="Movimientos" ></i> Movimientos</p>
-      </li>
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleMovimientos()"><i class="fas fa-coins fa-1x" title="Movimientos" ></i> Movimientos</p>
+        </li>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.toogleProductos()"><i class="fas fa-credit-card fa-1x" title="Agregar Producto"></i> Productos</p>
-      </li>
+        <li class="nav-item">
+          <p (click) = "sideNavService.toogleProductos()"><i class="fas fa-credit-card fa-1x" title="Agregar Producto"></i> Productos</p>
+        </li>
+      </div>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleBloquear()"><i class="fas fa-ban fa-1x" title="Bloquear"></i> Bloquear</p>
-      </li>
+      <div *ngIf="(showComercio != '1') && (!showMenuAdmin)">
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleGrupoFamiliar()"><i class="fas fa-home fa-1x" title="Grupo Familiar"></i> Grupo Familiar</p>
+        </li>
+      </div>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleReportes()"><i class="fas fa-chart-area fa-1x" title="Grupo Familiar"></i> Reportes</p>
-      </li>
+      <div *ngIf="(showComercio == '1') && (!showMenuAdmin)">
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleReportes()"><i class="fas fa-chart-area fa-1x" title="Reportes"></i> Reportes</p>
+        </li>
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleRetirar()"><i class="fas fa-money-check-alt"title="Retirar"></i> Retirar</p>
+        </li>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleGrupoFamiliar()"><i class="fas fa-home fa-1x" title="Grupo Familiar"></i> Grupo Familiar</p>
-      </li>
+      </div>
 
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleConfiguraciones()"><i class="fas fa-cog fa-1x" title="Configuraciones"></i> Configuraciones</p>
-      </li>
-
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleRetirar()"><i class="fas fa-money-check-alt"title="Retirar"></i> Retirar</p>
-      </li>
-
-      <li class="nav-item">
-        <p (click) = "sideNavService.toggleUsuarios()"><i class="fas fa-users fa-1x" title="Usuarios"></i> Usuarios</p>
-      </li>
-
-      <app-opciones-admin></app-opciones-admin>
+      <div *ngIf="showMenuAdmin">
+        <app-opciones-admin></app-opciones-admin>
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleUsuarios()"><i class="fas fa-users fa-1x" title="Usuarios"></i> Usuarios</p>
+        </li>
+      </div>
 
       <li class="nav-item">
         <p (click) = "sideNavService.logout()" ><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</p>

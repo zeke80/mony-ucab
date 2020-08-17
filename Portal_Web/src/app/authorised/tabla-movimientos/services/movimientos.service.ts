@@ -8,22 +8,60 @@ export class MovimientosService {
 
   show = false;
 
+  solicitante = '1';
+
+  reintegroSolicitante = parseInt(this.solicitante + 1);
+  idSolicitante = this.reintegroSolicitante.toString(this.reintegroSolicitante);
+
   constructor( private http : HttpClient) { }
 
-  consultarCobros(){
-    let url = "http://monyucab.somee.com/api/dashboard/CobrosActivos";
-    let param = new HttpParams().set('IdUsuario', '2');
-
-    let header = new HttpHeaders ({'Authorization' : 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJiYTllYTg2Ni1mMzRlLTQ1Y2QtYmE1Yi00MjI1YjMxZmE5MGMiLCJMb2dnZWRPbiI6IjgvMTMvMjAyMCAzOjE2OjExIEFNIiwibmJmIjoxNTk3MzEzNzcxLCJleHAiOjE1OTczMTY0NzEsImlhdCI6MTU5NzMxMzc3MX0.cAgn6WObfmoJNpMbXR0zC6AGgM4rCbbVFQhJAcutfcM"}); 
-    
-    return this.http.get(url, {params : param, headers : header});
+  cobrosActivos(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('userIntID'))
+    .set('solicitante', '1')
+    return this.http.get('http://monyucab.somee.com/api/dashboard/CobrosActivos', {params: param, headers: header})
   }
 
+  cobrosCancelados(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('userIntID'))
+    .set('solicitante', '1')
+    return this.http.get('http://monyucab.somee.com/api/dashboard/CobrosCancelados', {params: param, headers: header})
+  }
+
+  cobrosExitosos(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('userIntID'))
+    .set('solicitante', '1')
+    return this.http.get('http://monyucab.somee.com/api/dashboard/CobrosExitosos', {params: param, headers: header})
+  }
+
+
+  reintegrosActivos(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('userIntID'))
+    .set('solicitante', this.idSolicitante)
+    return this.http.get('http://monyucab.somee.com/api/dashboard/ReintegrosActivos', {params: param, headers: header})
+  }
+
+  reintegrosCancelados(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('userIntID'))
+    .set('solicitante', this.idSolicitante)
+    return this.http.get('http://monyucab.somee.com/api/dashboard/ReintegrosCancelados', {params: param, headers: header})
+  }
+
+  reintegrosExitosos(){
+    let header = new HttpHeaders({'Authorization': 'Bearer ' + localStorage.getItem('token')});
+    let param = new HttpParams().set('idUsuario', localStorage.getItem('userIntID'))
+    .set('solicitante', this.idSolicitante)
+    return this.http.get('http://monyucab.somee.com/api/dashboard/ReintegrosExitosos', {params: param, headers: header})
+  }
   
   consultarCuentas(){
     let url = "http://monyucab.somee.com/api/Usuario/operacionesCuentas";
 
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
+    let id = parseInt(localStorage.getItem('userIntID'), 10);
     
     return this.http.post(url, {'id' : id});
   }
@@ -31,7 +69,7 @@ export class MovimientosService {
   consultarTarjeta (){
     let url = "http://monyucab.somee.com/api/Usuario/operacionesTarjetas";
     
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
+    let id = parseInt(localStorage.getItem('userIntID'), 10);
 
     return this.http.post(url, {'id' : id});
   }
@@ -39,90 +77,10 @@ export class MovimientosService {
   consutarMonedero (){
     let url = "http://monyucab.somee.com/api/Usuario/operacionesMonedero"
 
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
+    let id = parseInt(localStorage.getItem('userIntID'), 10);
 
     return this.http.post(url, {'id' : id});
   }
 
 
-  consultarSaldo(){
-    let url = "http://monyucab.somee.com/api/Usuario/saldo"
-
-    let id = parseInt(localStorage.getItem('idUsuario'), 10);
-
-    return this.http.post(url, {'id' : id});
-  }
-
-  consutarTodoParam(inicio : string, fin : string){
-    let url = "http://monyucab.somee.com/api/Usuario/Filtrartodasoperaciones";
-
-    let user = localStorage.getItem('usuario').toLocaleUpperCase();
-  
-
-    let data = {
-      headers :  new HttpHeaders ({
-        "fechainicio" : inicio,
-        "fechafinal" : fin,
-        "usuario" : user  
-      }) 
-    };
-
-    return this.http.get<any>(url, data);
-  }
-
-
-  consutarMonederoParam(inicio : string, fin : string){
-    let url = "http://monyucab.somee.com/api/Usuario/FiltraroperacionesMonedero";
-
-    let user = localStorage.getItem('usuario').toLocaleUpperCase();
-  
-
-    let data = {
-      headers :  new HttpHeaders ({
-        "fechainicio" : inicio,
-        "fechafinal" : fin,
-        "usuario" : user 
-      }) 
-    };
-
-    console.log(data);
-
-    return this.http.get<any>(url, data);
-  }
-
-
-  
-  consultarTarjetaParam(inicio : string, fin : string){
-    let url = "http://monyucab.somee.com/api/Usuario/FiltraroperacionesTarjeta";
-
-    let user = localStorage.getItem('usuario').toLocaleUpperCase();
-  
-
-    let data = {
-      headers :  new HttpHeaders ({
-        "fechainicio" : inicio,
-        "fechafinal" : fin,
-        "usuario" : user 
-      }) 
-    };
-
-    return this.http.get<any>(url, data);
-  }
-
-  
-  consultarCuentasParam(inicio : string, fin : string){
-    let url = "http://monyucab.somee.com/api/Usuario/FiltraroperacionesCuenta";
-
-    let user = localStorage.getItem('usuario').toLocaleUpperCase();
-
-    let data = {
-      headers :  new HttpHeaders ({
-        "fechainicio" : inicio,
-        "fechafinal" : fin,
-        "usuario" : user 
-      }) 
-    };
-
-    return this.http.get<any>(url, data);
-  }
 }

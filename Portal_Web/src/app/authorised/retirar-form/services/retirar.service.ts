@@ -43,7 +43,7 @@ export class RetirarService {
       "idMedioPaga" : idCuenta,
       "monto" : montoInt,
       "idOperacion" : 0
-  }
+    }
 
     return this.http.post(url, body, {headers : header }).pipe(
       tap(() => {

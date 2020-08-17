@@ -31,7 +31,6 @@ export class EstablecerLimiteComponent implements OnInit {
   consultarParametros(){
     this.s_limite.getParametro().subscribe(
       (data : any) => {
-        console.log(data);
         this.parametros = data;
 
       },

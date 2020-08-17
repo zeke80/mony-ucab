@@ -123,7 +123,8 @@ import { EditUserService } from './authorised/edit-user/services/edit-user.servi
     EstablecerComisionService,
     EstablecerLimiteService,
     ResetPasswordService,
-    EditUserService
+    EditUserService,
+    InicioService
   ],
   bootstrap: [AppComponent]
 })
