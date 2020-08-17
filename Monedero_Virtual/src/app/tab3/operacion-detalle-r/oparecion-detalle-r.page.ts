@@ -4,6 +4,7 @@ import { OperacionService } from '../../servicios/operacion/operacion.service';
 import { Reintegro } from '../../models/reintegro.model';
 import { AlertController } from '@ionic/angular';
 import { UsuarioService } from '../../servicios/usuario/usuario.service';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-oparecion-detalle-r',
@@ -30,17 +31,16 @@ export class OparecionDetalleRPage implements OnInit {
       const recipeID = paramMap.get('operacionID');
       let id: number = +recipeID;
       this.operacion = this._operacionServices.getreintegro(id);
-
+      console.log(this.operacion)
     });
-    this._usuarioServices.inforUsurio(this.operacion.idusuario_solicitante)
-        .subscribe((data: any) => {
-          this.userS = data.usuario;
-        });
-    this._usuarioServices.inforUsurio(this.operacion.idusuario_receptor)
-    .subscribe((data: any) => {
-      this.userR = data.usuario;
+     this._usuarioServices.getUserInfo(this.operacion.idUsuarioSolicitante)
+         .subscribe((data: any) =>{
+        this.userS = data['result']['email']
     });
-    this.fecha = this.operacion.fecha_solicitud.split('T', 1 );
+    this._usuarioServices.getUserInfo(this.operacion.idUsuarioReceptor)
+     .subscribe((data: any) => {
+       this.userR = data['result']['email'];
+     });
   }
 
 }
