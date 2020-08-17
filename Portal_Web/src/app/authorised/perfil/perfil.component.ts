@@ -16,6 +16,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PerfilComponent implements OnInit {
 
+  
+  email = localStorage.getItem('email');
+
   formComercio = new FormGroup({
     razonSocial : new FormControl({value: '', disabled: true}, Validators.required)
   });
@@ -105,7 +108,7 @@ export class PerfilComponent implements OnInit {
 
   consutarInfo(){
     this.formUsuario.disable();
-    this.s_perfil.consultar().subscribe(
+    this.s_perfil.consultar(this.email).subscribe(
       (data : any) => {
         if (data.comercio.razonSocial == ""){
           this.infoComercio = null;
@@ -114,6 +117,7 @@ export class PerfilComponent implements OnInit {
         else{
           this.infoPersona = null;
           this.mostrarComercio(data);
+          
         }
       }
     );

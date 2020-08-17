@@ -15,6 +15,47 @@
         <input type="text" class = "form-control" placeholder="Limite" [(ngModel)]="limite">
 
         <br>
-        <button type="button" class="btn btn-primary">Establecer Limite</button>
+        <button type="button" class="btn btn-primary" (click) ="onClickEstablecerLimite()">Establecer Limite</button>
+
+        
     </div>
+
+        <h6 class="heading-small text-muted mb-4">Parámetros Globales</h6>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Parámetro</th>
+                <th scope="col">Limite</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of parametros">
+                <td>
+                  {{ p.nombre }}
+                </td>
+                <td class="text-center">
+                    {{  p.limite }}
+                  </td>
+                <td>
+                  <span class="badge badge-dot mr-4" *ngIf="p.estatus == 1">
+                    <i class="bg-success"></i> Activo
+                  </span>
+                  <span class="badge badge-dot mr-4" *ngIf="p.estatus == 4">
+                    <i class="bg-danger"></i> Inactivo
+                  </span>
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
 </div>
