@@ -23,8 +23,8 @@ export class OperacionService {
   ];
   operacionesMonedero: OperacionMonedero[] = [
     {
-      idoperacionesmonedero: 0,
-      idusuario: 0,
+      idOperacionMonedero: 0,
+      idUsuario: 0,
       idTipoOperacion: 0,
       monto: 0,
       fecha: '',
@@ -141,7 +141,7 @@ export class OperacionService {
   getoperacionMonedero(operacionID: number){
     return {
       ...this.operacionesMonedero.find(operacion => {
-        return operacion.idoperacionesmonedero === operacionID;
+        return operacion.idOperacionMonedero === operacionID;
       })
     };
   }
