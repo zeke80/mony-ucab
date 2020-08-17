@@ -1,0 +1,21 @@
+<body>
+  <br>
+  <div class="section-title" data-aos="fade-up">
+    <h2>Iniciar Sesión</h2>
+  </div>
+    <form class="form-signin">
+    <input type="email" #usuario="ngModel" class="form-control" placeholder="Correo electrónico" name="user" [(ngModel)] ="user" required>
+    <span *ngIf="usuario.invalid && usuario.touched" class="error">Campo obligatorio</span>
+
+    <input type="password" #password = "ngModel" class="form-control" placeholder="Contraseña" name="contra" [(ngModel)] ="contra" required>
+    <span *ngIf="password.invalid && password.touched" class="error">Campo obligatorio</span>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="ingresarPersona()" >Iniciar Sesión como persona natural</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="ingresarComercio()">Iniciar Sesión como comercio</button>
+    
+    <p class="text-center"><em>¿No estás registrado? Regístrate <a href="/sign-up">aquí</a></em></p>
+    <p class="text-center"><em><a href="/recuperar-contrasena">¿Olvidó su contraseña?</a></em></p>
+  </form>
+</body>
+
+

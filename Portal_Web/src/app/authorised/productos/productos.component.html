@@ -1,0 +1,78 @@
+<div *ngIf = "s_producto.show">
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Sus productos</h2>
+    </div> 
+    
+    <div class="row float-right">
+        <button type="button" class="btn btn-primary" (click) = "agregarTarjeta()">Agregar tarjeta</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="card w-100">
+        <div class="card-body">
+            <h4> Tarjetas</h4>
+            <hr>
+            <div class="container" *ngFor = "let tarjeta of tarjetas">
+                <div class="row"> 
+                <div class="col-4">
+                    <span><i class="fas fa-credit-card"></i></span>  
+                    <span style="font-weight: bold;"> Tipo: </span>
+                    <span>{{tarjeta.infoAdicional.tipoTarjeta.descripcion}}</span>
+                </div>
+                <div class="col-6">
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Numero de tarjeta: </span>
+                    <span>{{tarjeta.numero}}</span>
+                </div>
+                <div class="col-2">
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> CVC: </span>
+                    <span>{{tarjeta.cvc}}</span>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <span style="font-weight: bold;"><i class="fas fa-university"></i> Banco: </span>
+                        <span>{{tarjeta.infoAdicional.banco.nombre}}</span>
+                    </div>
+                    <div class="col-4">
+                        <span style="font-weight: bold;"><i class="far fa-calendar-alt"></i> Fecha de vencimiento: </span>
+                        <span>{{tarjeta.fechaVencimiento.day}} - {{tarjeta.fechaVencimiento.month}}- {{tarjeta.fechaVencimiento.year}}</span>
+                    </div>
+                </div>
+                <hr>
+            </div>      
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="row float-right">
+        <button type="button" class="btn btn-primary" (click) ="agregarCuenta()">Agregar cuenta</button>
+    </div>
+    <br>
+    <br>
+
+    <div class="card w-100">
+        <div class="card-body">
+            <h4> Cuentas Bancarias</h4>
+            <hr>
+            <div class="container" *ngFor = "let cuenta of cuentas">
+                <div class="row">
+                <div class="col">
+                    <span style="font-weight: bold;"><i class="fas fa-credit-card"></i> Tipo: </span>
+                    <span>{{cuenta.infoAdicional._tipoCuenta.descripcion}}</span>
+                </div>
+                <div class="col">
+                    <span style="font-weight: bold;"><i class="fas fa-hashtag"></i> Cuenta: </span>
+                    <span>{{cuenta._numero}}</span>
+                </div>
+                <div class="col">
+                    <span style="font-weight: bold;"><i class="fas fa-university"></i> Banco: </span>
+                    <span>{{cuenta.infoAdicional._banco.nombre}}</span>
+                </div>
+                </div>   
+                <hr>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div *ngIf = "s_bloquear.show">
+    <br>
+    <h1 class="display-4">Bloquear Pagos</h1>
+    <hr>    
+    
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">REF</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Monto (en Bs.)</th>
+                  <th scope="col">Estatus</th>
+                  <th scope="col">Bloquear</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor = "let pago of pagos">
+                  <td>{{pago.referencia}}</td>
+                  <td>{{pago.fecha_solicitus.split('T',1)}}</td>
+                  <td>{{pago.fecha_solicitus.substr(11,5)}}</td>
+                  <td>{{pago.monto}}</td>
+                  <td>{{pago.estatus}}</td>
+                  <td><button type="button" class="btn btn-danger"><i class="fa fa-ban fa-2x"></i></button></td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+</div>

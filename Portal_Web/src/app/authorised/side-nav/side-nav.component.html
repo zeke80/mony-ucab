@@ -1,0 +1,54 @@
+<nav id="sidebar" class="sidebar" [ngClass]="{'hidden': sideNavService.hideSideNav }">
+    <ul class="navbar-nav fa-ul">
+      <li class="nav-item active">
+          <br>
+          <p (click) = "sideNavService.toggleInicio()"><i class="fas fa-home fa-1x " title="Inicio" ></i> Inicio</p>
+      </li>
+
+      <div *ngIf="!showMenuAdmin">
+          
+        <li class="nav-item">
+          <p (click) = "sideNavService.togglePerfil()"><i class="fas fa-user fa-1x" title="Perfil"></i>  Perfil</p>    
+        </li>
+
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleMovimientos()"><i class="fas fa-coins fa-1x" title="Movimientos" ></i> Movimientos</p>
+        </li>
+
+        <li class="nav-item">
+          <p (click) = "sideNavService.toogleProductos()"><i class="fas fa-credit-card fa-1x" title="Agregar Producto"></i> Productos</p>
+        </li>
+      </div>
+
+      <div *ngIf="(showComercio != '1') && (!showMenuAdmin)">
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleGrupoFamiliar()"><i class="fas fa-home fa-1x" title="Grupo Familiar"></i> Grupo Familiar</p>
+        </li>
+      </div>
+
+      <div *ngIf="(showComercio == '1') && (!showMenuAdmin)">
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleReportes()"><i class="fas fa-chart-area fa-1x" title="Reportes"></i> Reportes</p>
+        </li>
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleRetirar()"><i class="fas fa-money-check-alt"title="Retirar"></i> Retirar</p>
+        </li>
+
+      </div>
+
+      <div *ngIf="showMenuAdmin">
+        <app-opciones-admin></app-opciones-admin>
+        <li class="nav-item">
+          <p (click) = "sideNavService.toggleUsuarios()"><i class="fas fa-users fa-1x" title="Usuarios"></i> Usuarios</p>
+        </li>
+      </div>
+
+      <li class="nav-item">
+        <p (click) = "sideNavService.logout()" ><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</p>
+      </li>
+
+      
+    </ul>
+
+    
+  </nav>

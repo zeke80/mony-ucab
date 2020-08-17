@@ -1,0 +1,101 @@
+hr{
+    border:0;
+    margin:0;
+    width:100%;
+    height:1px;
+    background:#738088;
+}
+
+.center {
+  margin: 0 auto;
+  margin-top: 50px;
+}
+  
+input.ng-valid{
+    border-left: 5px solid green;
+}
+
+  input.ng-invalid{
+    border-left: 5px solid red;
+  }
+
+  .error{
+    color: red;
+    font-size: smaller;
+  }
+select.ng-valid{
+  border-left: 5px solid green;
+}
+
+select.ng-invalid{
+  border-left: 5px solid red;
+}
+
+/*--------------------------------------------------------------
+# Featured
+--------------------------------------------------------------*/
+.featured {
+  position: relative;
+  z-index: 2;
+}
+
+.featured .icon-box {
+  padding: 40px 30px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background: #E0E2F5;
+  transition: all ease-in-out 0.3s;
+  text-align:  center;
+}
+
+.featured .icon-box i {
+  color: #52A6A6;
+  font-size: 42px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.featured .icon-box h3 {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.featured .icon-box h3 a {
+  color: #545454;
+  transition: 0.3s;
+}
+
+.featured .icon-box p {
+  color: #545454;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.featured .icon-box:hover {
+  background: #52A6A6;
+}
+
+.featured .icon-box span{
+  color: #52A6A6;
+}
+
+.featured .icon-box:hover i, .featured .icon-box:hover h3 a, .featured .icon-box:hover p{
+  color: #fff;
+}
+
+.featured .icon-box:hover span {
+  color: #fff;
+  font-weight: bolder;
+}
+
+span:hover, a:hover{
+cursor: pointer;
+text-decoration: underline;
+}
+
+label, p {
+  color: #545454;
+  font-size: 14px;
+}

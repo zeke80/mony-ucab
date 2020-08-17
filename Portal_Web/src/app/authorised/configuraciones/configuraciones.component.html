@@ -1,0 +1,26 @@
+<div *ngIf = "s_configuraciones.show">
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Configuraciones</h2>
+      </div>
+    <div class="form-signin">
+        <form [formGroup]="formConfig">
+            <div class="form-group col-md-12">
+                <label>Cambiar contraseña</label>
+                <hr>
+                <input type="password" class = "form-control" placeholder="Contraseña actual" formControlName="contraVieja">
+                <input type="password" class = "form-control" placeholder="Nueva contraseña" formControlName="contraNueva">
+                <br>
+                <button type="submit" class="btn btn-primary" [disabled] = "formConfig.invalid" (click) = "cambiarContra()">Cambiar</button>
+                <br>
+                <br>
+                <label>Cambiar límites</label>
+                <hr>
+                <input type="text" class = "form-control" placeholder="Limite actual">
+                <input type="text" class = "form-control" placeholder="Nuevo límite">
+                <br>
+                <button type="submit" class="btn btn-primary">Cambiar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div *ngIf = "s_cuenta.show" >
+    <h1 class="display-4">Agregar Cuenta</h1>
+    <div class="container">
+        <div class="form-group col-md-12">
+            <label>Número de Cuenta</label>
+            <input type="text" class = "form-control" placeholder="Número de cuenta" [(ngModel)]="numero">
+            <label>Banco</label>
+            <select class="form-control" [(ngModel)]="bancoId">
+                <option *ngFor="let banco of bancos" [ngValue]="banco.idBanco" >{{banco.nombre}}</option>
+              </select>
+            <label>Tipo de Cuenta</label>
+            <select class="form-control" [(ngModel)]="idTipoCuenta">
+                <option value="1">Corriente</option>
+                <option value="2">Ahorro</option>
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary" (click) = "agregarCuenta()">Agregar</button>
+        </div>
+    </div>
+</div>

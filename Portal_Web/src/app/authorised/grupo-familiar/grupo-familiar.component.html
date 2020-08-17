@@ -1,0 +1,39 @@
+<div *ngIf = "s_grupo_familiar.show">
+
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Administrar Grupo Familiar</h2>
+      </div> 
+
+    <div class="row">
+        <div class="col-xl-9">
+        </div>
+        <div class="col-xl-3">
+            <button type="button" class="btn btn-primary float-right" type="submit" (click)="addFamiliar()">Agregar Familiar</button>
+        </div>
+        <hr>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Email</th>
+                <th>ID Number</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let subUsuario of subUsuarios">
+                <td>{{subUsuario.usuario}}</td>
+                <td>{{subUsuario.email}}</td>
+                <td>{{subUsuario.nroIdentificacion}}</td>
+                <td>
+                    <button type="button" class="btn btn-info" (click)="editFamiliar(subUsuario.email)">
+                        <i class="fa fa-edit fa-2x"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

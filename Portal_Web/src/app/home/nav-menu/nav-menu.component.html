@@ -1,0 +1,23 @@
+<nav *ngIf="router.url != '/dashboard'">
+  <header id="header">
+    <div class="container d-flex">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="#"><span style="color: white;">MonyUcab</span></a></h1>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link active" [routerLink]="['/']">Inicio</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link" [routerLink]="['/login']">Iniciar Sesion</a>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link" [routerLink]="['/sign-up']">Registrarse</a>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header>
+</nav>

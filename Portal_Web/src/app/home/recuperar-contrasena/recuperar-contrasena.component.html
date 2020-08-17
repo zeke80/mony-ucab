@@ -1,0 +1,15 @@
+<body>
+    <br>
+    <div class="section-title" data-aos="fade-up">
+      <h2>Recuperar Contraseña</h2>
+    </div>
+
+    <form class="form-signin" [formGroup]="recuperarContrasenaFormulario">
+      <label>Correo electrónico</label>
+      <input type="text" class="form-control" formControlName="correo" placeholder="Correo electrónico" #email required>
+      <br>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click) = "recuperarContrasena()"  [disabled] ="recuperarContrasenaFormulario.invalid">Recuperar Contraseña</button>
+    </form>
+    <br>
+</body>
+

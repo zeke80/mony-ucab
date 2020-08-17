@@ -1,0 +1,164 @@
+<div *ngIf = "showCards">
+     <br>
+     <section id="featured" class="featured">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Registrate</h2>
+        </div>
+        <div class="center">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="icon-box">
+                <i class="icofont icofont-user-alt-3"></i>
+                <h3 ><a (click) = "togglePersona()">Persona Natural</a></h3>
+                <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                <a href="/login"><span>¿Ya tienes cuenta? Inicia Sesion</span></a>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-6 mt-lg-0 ">
+              <div class="icon-box">
+                <i class="icofont icofont-institution"></i>
+                <h3 ><a (click) = "toggleComercio()">Comercio</a></h3>
+                <p>Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata</p>
+                <a href="/login"><span>¿Ya tienes cuenta? Inicia Sesion</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+
+      </div>
+    </section><!-- End Featured Section -->
+
+</div>
+
+<div *ngIf = "showPersona">  
+  <br> 
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Registro como Persona Natural</h2>
+    </div>
+    <form [formGroup]="formPersona">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Nombre (*)</label>
+          <input type="text" class="form-control" formControlName="nombre">
+        </div>
+  
+        <div class="form-group col-md-6">
+          <label>Apellido (*)</label>
+          <input type="text" class="form-control" formControlName="apellido">
+        </div>
+      </div>
+  
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label>Fecha de Nacimiento (*)</label>
+          <input class="form-control" type="date" formControlName="fechaNac">
+        </div>
+        <div class="form-group col-md-6">
+          <label>Estado Civil (*)</label>
+          <select class="form-control" required formControlName="estadoCivil">
+            <option value="1">Soltero</option>
+            <option value="2">Casado</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="showComercio">
+  <div class="container">
+    <br>
+    <div class="section-title" data-aos="fade-up">
+      <h2>Registro como Comercio</h2>
+    </div>
+    <form [formGroup]="formComercio">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label>Razón Social (*)</label>
+          <input type="text" class="form-control" formControlName="razonSocial">
+        </div>
+  
+        <div class="form-group col-md-6">
+          <label>Nombre Representante (*)</label>
+          <input type="text" class="form-control" formControlName="nombreRepresentante">
+        </div>
+        
+        <div class="form-group col-md-6">
+          <label>Apellido Representante (*)</label>
+          <input type="text" class="form-control" formControlName="apellidoRepresentante">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="showUsuario">
+  <div class="container">
+    <br>
+    <hr>
+    <br>
+  <form [formGroup]="formUsuario">
+    
+    <div class="form-row">
+      <div class="form-group col-md-1">
+        <label>Tipo (*)</label>
+        <select class="form-control" formControlName="tipoId">
+          <option value="1" selected>J</option>
+          <option value="2">E</option>
+          <option value="3">V</option>
+          <option value="4">P</option>
+        </select>
+      </div>
+  
+      <div class="form-group col-md-3">
+        <label>Número Identificación (*)</label>
+        <input type="text" class="form-control" formControlName="numeroId">
+      </div>
+  
+      <div class="form-group col-md-4">
+        <label>Teléfono (*)</label>
+        <input type="text" class="form-control" formControlName="telefono">
+      </div>
+  
+      <div class="form-group col-md-4">
+        <label>Email (*)</label>
+        <input type="text" class="form-control" formControlName="correo" >
+      </div>
+    </div>
+  
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label>Dirección (*)</label>
+        <input type="text" class="form-control" formControlName="direccion">
+      </div>
+    </div>
+  
+    
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label>Usuario (*)</label>
+        <input type="text" class="form-control"  formControlName="usuario">
+      </div>
+    
+      <div class="form-group col-md-4">
+        <label>Contraseña (*)</label>
+        <input type="password" class="form-control" formControlName="contra">
+      </div>
+  
+      <div class="col-md-4">
+        <br>
+        <p>Mínimo 8 caracteres debe incluir una mayúscula, un número e incluir algo de estos #?!@$%^&*-</p>
+      </div>
+    </div>
+  </form>
+
+    <span>* Obligatorios</span>
+    <button class="btn btn-primary float-right" type="submit" 
+    [disabled] = "(formPersona.invalid && formUsuario.invalid) || (formComercio.invalid && formUsuario.invalid)"
+    (click) = "enviar()">Registrarse</button>
+  </div>
+  
+</div>

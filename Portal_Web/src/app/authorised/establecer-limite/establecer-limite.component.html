@@ -1,0 +1,61 @@
+<div *ngIf="s_limite.show">
+    <br>
+    <div class="section-title" data-aos="fade-up">
+        <h2>Establecer Limite</h2>
+    </div>
+
+    <div class="form-signin">   
+
+        <label>Tipo de limite</label>
+        <select class="form-control" [(ngModel)]="idParametro">
+            <option *ngFor="let p of parametros" [ngValue] =" p.idParametro">{{p.nombre}}</option>
+        </select>
+
+        <label>Limite</label>
+        <input type="text" class = "form-control" placeholder="Limite" [(ngModel)]="limite">
+
+        <br>
+        <button type="button" class="btn btn-primary" (click) ="onClickEstablecerLimite()">Establecer Limite</button>
+
+        
+    </div>
+
+        <h6 class="heading-small text-muted mb-4">Parámetros Globales</h6>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Parámetro</th>
+                <th scope="col">Limite</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of parametros">
+                <td>
+                  {{ p.nombre }}
+                </td>
+                <td class="text-center">
+                    {{  p.limite }}
+                  </td>
+                <td>
+                  <span class="badge badge-dot mr-4" *ngIf="p.estatus == 1">
+                    <i class="bg-success"></i> Activo
+                  </span>
+                  <span class="badge badge-dot mr-4" *ngIf="p.estatus == 4">
+                    <i class="bg-danger"></i> Inactivo
+                  </span>
+                </td>
+                <td class="text-right">
+                  <div ngbDropdown placement="bottom-right">
+                    <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+</div>

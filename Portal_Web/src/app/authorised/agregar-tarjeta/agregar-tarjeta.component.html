@@ -1,0 +1,30 @@
+<div *ngIf = "s_tarjeta.show">
+    <h1 class="display-4">Agregar Tarjeta</h1>
+    <br>
+    <div class="container">
+        <div class="form-group col-md-12">
+
+            <label>Número de Tarjeta</label>
+            <input type="text" class = "form-control" placeholder="Número de tarjeta" [(ngModel)]="numero">
+
+            <label>Fecha de vencimiento</label>
+            <input type="date" class = "form-control" [(ngModel)]="fecha_vencimiento">
+
+            <label>CVC</label>
+            <input type="text" class = "form-control" placeholder="CVC" [(ngModel)]="cvc">
+
+            <label>Tipo</label>
+            <select class="form-control" [(ngModel)]="tipo">
+                <option value="1">Débito</option>
+                <option value="2">Crédito</option>
+                <option value="3">Débito-Electrónica</option>
+            </select>
+            
+            <label>Banco</label>
+            <select class="form-control" [(ngModel)]="banco">
+                <option *ngFor="let b of bancos" [ngValue]="b.idBanco" >{{b.nombre}}</option>
+              </select>
+            <br>
+            <button type="submit" class="btn btn-primary" (click) ="agregarTarjeta()">Agregar</button>
+        </div>
+    </div>
